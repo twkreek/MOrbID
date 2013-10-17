@@ -1,0 +1,8 @@
+{PCM Test data
+NA  3
+FL EINT4 UV1 PIPL1 
+AT 1,1:-1,0,0 B  2,1
+AT 2,5:1,0,0 B  1,1
+AT 3,6:0, 1,0 b 1,1
+}
+

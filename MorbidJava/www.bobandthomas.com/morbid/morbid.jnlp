@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp codebase="http://www.bobandthomas.com/morbid" href="http://www.bobandthomas.com/morbid/morbid.jnlp">
+        <information>
+                <title>MorbidJava</title>
+                <vendor>BobAndThomas.com</vendor>
+                <homepage href="http://www.bobandthomas.com"/>
+                <offline-allowed/>
+        </information>
+        <resources>
+                <j2se version="1.3+"/>
+        </resources>
+        <applet-desc height="600" main-class="com.bobandthomas.Morbid"
+                name="Morbid" width="800"/>
+</jnlp>
