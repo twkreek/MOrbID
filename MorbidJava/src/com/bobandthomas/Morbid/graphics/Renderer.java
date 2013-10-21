@@ -98,8 +98,7 @@ public abstract class Renderer extends CLoadableItem {
 					statMat = mat;
 				else
 					statMat = new Material();
-				if (!statMat.getColor().IsColor() || gob.Color.IsColor())
-					statMat.setColor(gob.Color);
+				statMat.setColor(gob.Color);
 				currentMaterial = statMat;
 			}	
 			

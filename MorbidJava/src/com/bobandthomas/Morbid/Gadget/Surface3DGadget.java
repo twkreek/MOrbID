@@ -20,7 +20,7 @@ public class Surface3DGadget extends GadgetSpatialData {
 		super();
 		threshold = 0;
 	}
-	private void makeFaces(GobPoly gobMesh, Face f)
+	private void makeFaces(GobPoly gobMesh, Face f, SpatialData charge)
 	{
 		ColorQuad thisColor = ColorQuad.multiBlend(colors, charge.getClosestValueFraction(new Point3D(f.a)));
 		
@@ -46,7 +46,7 @@ public class Surface3DGadget extends GadgetSpatialData {
 				
 		GobPoly gobMesh = new GobPoly();
 		gobMesh.setMaterial(mat);
-		gobMesh.SetPolyType(GobPolyType.Triangles);
+		gobMesh.SetPolyType(GobPolyType.Lines);
 		if (mesh.getNumFaces() == 0)
 			return;
 		ColorQuad[] colors = new ColorQuad[3];

@@ -4,15 +4,8 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Color4f;
 
 public class ColorQuad extends Color4f {
-	private class innerColor {
-		int id;
-		boolean indexedColor;
-		boolean validColor;
-		boolean hsv;
-	}
-
 	static float COLORQUAD_MAX_VALUE = 255.0f;
-	innerColor v = new innerColor();
+//	innerColor v = new innerColor();
 
 	public boolean OutOfBounds;
 
@@ -40,6 +33,10 @@ public class ColorQuad extends Color4f {
 	public java.awt.Color getJColor()
 	{
 		return new java.awt.Color(x,y,z);
+	}
+	public void setAlpha(double a)
+	{
+		w = (float) a;
 	}
 
 	public ColorQuad BlendHSV(ColorQuad to, double /* Coord */fraction) {
@@ -197,17 +194,9 @@ public class ColorQuad extends Color4f {
 		return c;
 	}
 
-	public boolean IsColor() {
-		return v.validColor;
-	}
 
 	boolean isEqual(ColorQuad cq) {
-		return (getR() == cq.getR()) && (getG() == cq.getG()) && (getB() == cq.getB())
-				&& (v.validColor == cq.v.validColor);
-	}
-
-	boolean IsIndexed() {
-		return v.indexedColor;
+		return (getR() == cq.getR()) && (getG() == cq.getG()) && (getB() == cq.getB());
 	}
 
 	long MatchQuality(ColorQuad color) {
@@ -225,9 +214,6 @@ public class ColorQuad extends Color4f {
 		return new ColorQuad(x * c, y * c, z * c);
 	}
 
-	void NoColor() {
-		v.validColor = false;
-	}
 
 	private int getInt(double r)
 	{
@@ -282,18 +268,10 @@ public class ColorQuad extends Color4f {
 		x = (float) d;
 		y = (float) e;
 		z = (float) f;
-		v.id = 0;
-		v.validColor = true;
-		v.indexedColor = false;
-		v.hsv = false;
 	}
 
 	void Set(int inR, int inG, int inB) {
 		Set(inR / COLORQUAD_MAX_VALUE, inG / COLORQUAD_MAX_VALUE, inB / COLORQUAD_MAX_VALUE);
-		v.id = 0;
-		v.validColor = true;
-		v.indexedColor = false;
-		v.hsv = false;
 	}
 
 	void Set(Point3D p) {

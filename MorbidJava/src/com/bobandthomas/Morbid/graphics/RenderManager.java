@@ -138,8 +138,7 @@ public class RenderManager {
 		ren.zoom = zoom;
 		ren.Translate = offset;
 		ren.Rescale();
-		if (bgColor.IsColor())
-			ren.bgColor = bgColor;
+		ren.bgColor = bgColor;
 
 		if (dirty.offscreenBM || dirty.gobList || dirty.viewCTM
 				|| dirty.lightingModel) {

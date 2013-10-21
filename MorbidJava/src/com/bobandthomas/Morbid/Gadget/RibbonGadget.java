@@ -123,6 +123,7 @@ public class RibbonGadget extends Gadget {
 
 	public void setCircleResolution(int circleResolution) {
 		this.circleResolution = circleResolution;
+		markDirty();
 	}
 
 	public boolean isCylinders() {

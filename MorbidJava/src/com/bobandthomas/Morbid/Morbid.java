@@ -3,6 +3,13 @@ package com.bobandthomas.Morbid;
 import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
 
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
@@ -59,7 +66,39 @@ public class Morbid extends JApplet {
 		renderer = new RendererJava3D();
 		scene.SetRenderer(renderer);
 	}
-	
+
+	void findExamples() {
+		List<String> slikeList = new ArrayList<String>();
+
+		URL urlToApplet = Morbid.class
+				.getResource("/data");
+		String[] parts = urlToApplet.toString().split("!");
+		String jarURLString = parts[0].replace("jar:", "");
+		System.out.println("Loading from " + jarURLString);
+
+		URL jar;
+		try {
+			jar = new URL(jarURLString);
+
+			URLConnection jarConnection = jar.openConnection();
+			JarInputStream jis = new JarInputStream(
+					jarConnection.getInputStream());
+
+			JarEntry je = jis.getNextJarEntry();
+			while (je != null) {
+				System.out.println("Inspecting " + je);
+					System.out.println("Adding " + je.getName());
+					slikeList.add(je.getName());
+				je = jis.getNextJarEntry();
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	private Molecule readFile(String name, BufferedReader br, MoleculeFileReader file)
 	{
 		Molecule m = new Molecule();
@@ -83,6 +122,7 @@ public class Morbid extends JApplet {
 	
 	private Molecule showSampleSelection()
 	{
+		findExamples();
 		Object [] list = {"Glucagon:1GCN.pdb", 
 				"Actin:1ATN.pdb",
 				"Oxygenated Hemoglobin:1GZX.pdb", 

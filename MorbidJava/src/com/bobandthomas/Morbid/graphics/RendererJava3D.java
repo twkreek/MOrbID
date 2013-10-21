@@ -13,6 +13,7 @@ import javax.media.j3d.GeometryArray;
 import javax.media.j3d.Group;
 import javax.media.j3d.Node;
 import javax.media.j3d.PointArray;
+import javax.media.j3d.PolygonAttributes;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -312,7 +313,7 @@ public class RendererJava3D extends Renderer {
 		int size = g.points.size();
 		int flags = GeometryArray.COORDINATES;
 		if (g.hasColors)
-			flags |= GeometryArray.COLOR_4;
+			flags |= GeometryArray.COLOR_3;
 		if (g.hasNormals)
 			flags |= GeometryArray.NORMALS;
 		if (g.GetPolyType() == GobPolyType.Points)
@@ -329,10 +330,12 @@ public class RendererJava3D extends Renderer {
 		array.setCoordinates(0,points);
 		if (g.hasColors)
 		{
-			Color4f colors[] = new Color4f[size];
+			Color3f colors[] = new Color3f[size];
 			for (int i = 0; i< size; i++)
 			{
-				colors[i]=g.colors.get(i);
+//				if (currentMaterial.isUseFilter())
+//					g.colors.get(i).w = (float) (1-currentMaterial.getAlpha());
+				colors[i]=g.colors.get(i).Cf();
 			}
 
 			array.setColors(0,colors);
@@ -349,7 +352,10 @@ public class RendererJava3D extends Renderer {
 			array.setNormals(0,normals);
 				
 		}
-		Shape3D shape = new Shape3D(array, getAppearance(currentMaterial));
+		Appearance ap = getAppearance(currentMaterial);
+		if (g.GetPolyType() == GobPolyType.Lines)
+			ap.setPolygonAttributes(new PolygonAttributes(PolygonAttributes.POLYGON_LINE,PolygonAttributes.CULL_NONE, 0f));
+		Shape3D shape = new Shape3D(array, ap);
 		
 		currentBG.addChild(shape);
 
