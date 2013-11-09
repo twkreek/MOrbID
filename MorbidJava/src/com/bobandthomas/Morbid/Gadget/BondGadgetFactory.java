@@ -4,9 +4,10 @@ import com.bobandthomas.Morbid.Gadget.control.BondGadgetPanel;
 import com.bobandthomas.Morbid.Gadget.control.GadgetPanel;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
-public class BondGadgetFactory implements GadgetFactory {
+public class BondGadgetFactory extends GadgetFactory {
 
 	public BondGadgetFactory() {
+		setName("Bond Gadget");
 	}
 
 	@Override
@@ -22,11 +23,6 @@ public class BondGadgetFactory implements GadgetFactory {
 	@Override
 	public GadgetPanel createPanel(Gadget g) {
 		return new BondGadgetPanel((BondGadget) g);
-	}
-
-	@Override
-	public String toString() {
-		return "Bond Gadget";
 	}
 
 }

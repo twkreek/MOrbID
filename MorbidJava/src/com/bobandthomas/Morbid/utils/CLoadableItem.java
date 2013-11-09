@@ -31,6 +31,11 @@ public class CLoadableItem extends ChangeNotifier implements ILoadable, IChangeN
 	public String getName() {
 		return Name;
 	}
+	@Override 
+	public String toString()
+	{
+		return Name;
+	}
 	public Object getParentSet() {
 		return parentSet;
 	}

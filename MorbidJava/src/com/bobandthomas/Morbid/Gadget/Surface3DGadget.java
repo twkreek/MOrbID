@@ -107,10 +107,10 @@ public class Surface3DGadget extends GadgetSpatialData {
 		//filtering out notification for dirty objects may block appropriate events
 		notifyChange();
 	}
-	boolean isSolid() {
+	public boolean isSolid() {
 		return solid;
 	}
-	void setSolid(boolean solid) {
+	public void setSolid(boolean solid) {
 		if (this.solid != solid)
 		{
 			this.solid = solid;

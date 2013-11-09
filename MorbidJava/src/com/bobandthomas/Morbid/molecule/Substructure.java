@@ -7,6 +7,13 @@ import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 
+/**
+ * @author Thomas Kreek
+ *  Substructure is the base collection of atoms. properties of the sets, including bounds,
+ *  charge ranges, defulat color, and a default fragment representation of this substucture
+ *
+ */
+
 public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
 		private Fragment fragment;
 		protected ColorQuad listColor;
@@ -21,11 +28,12 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
 			chargeRange = new MinMax();
 			listColor = StaticColorQuad.LiteGray.cq();
 			setReParent(false);
-			
 		}
-		public int AddAtom(Atom a)
+ 		@Override
+		public boolean add(Atom a)
 		{
 
+			super.add(a);
 			double r = a.Radius();
 			bounds.CalcBounds(a.Position(), r);
 			chargeRange.addValue(a.getCharge());
@@ -35,9 +43,8 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
 				m_bHasCharges = true;
 			}
 			a.setID(this.size());
-			add(a);
-			return (int) a.getID();
-		}
+			return true;
+		} 
 		public void balanceCharges()
 		{
 			double midCharge = chargeRange.center();

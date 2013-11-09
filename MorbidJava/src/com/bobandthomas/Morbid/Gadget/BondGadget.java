@@ -8,7 +8,6 @@ import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.AtomType;
 import com.bobandthomas.Morbid.molecule.Bond;
 import com.bobandthomas.Morbid.molecule.Molecule;
-import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
 

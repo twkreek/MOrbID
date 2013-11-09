@@ -3,7 +3,6 @@ package com.bobandthomas.Morbid.Gadget;
 import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
 import com.bobandthomas.Morbid.graphics.GobListSet;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
-import com.bobandthomas.Morbid.utils.IChangeNotifier;
 
 public class GadgetList extends CLoadableSet<Gadget>{
 	

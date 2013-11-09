@@ -8,6 +8,7 @@ public class Surface3DGadgetPanel extends GadgetPanel {
 		super(g, "3D Surface");
 		g3d = g;
 		createSlider("Threshold", 0, 100, (int)(g.getThresholdFraction()*100), true);
+		this.createCheckbox("Solid Surface", g.isSolid());
 		child.add(g3d.getSd().getControlPanel());
 		
 	}
@@ -23,6 +24,11 @@ public class Surface3DGadgetPanel extends GadgetPanel {
 			return;
 		}
 
+		if (label.equals("Solid Surface"))
+		{
+			g3d.setSolid(value == 1);
+			return;
+		}
 	}
 
 }

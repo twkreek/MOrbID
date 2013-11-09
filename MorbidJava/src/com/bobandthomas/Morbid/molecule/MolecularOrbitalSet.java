@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 
 public class MolecularOrbitalSet extends CLoadableItem {
+	
+	public int numFilledLevels;
 	public enum PrimaryQuantum
 	{
 		S (0),

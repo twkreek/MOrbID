@@ -3,7 +3,6 @@ package com.bobandthomas.Morbid.Gadget;
 import com.bobandthomas.Morbid.graphics.GobList;
 import com.bobandthomas.Morbid.molecule.data.CubeArray;
 import com.bobandthomas.Morbid.molecule.data.SpatialData;
-import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 
 public abstract class GadgetSpatialData extends Gadget {

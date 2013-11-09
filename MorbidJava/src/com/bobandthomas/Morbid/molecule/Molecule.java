@@ -3,10 +3,7 @@ package com.bobandthomas.Morbid.molecule;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.bobandthomas.Morbid.molecule.data.SpatialDataList;
 import com.bobandthomas.Morbid.utils.BoxType;
@@ -38,48 +35,10 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			private MoleculePropertyList propList;
 			private SubstructureSet hydrogens;
 		  
-		    int numFilledLevels;
 		    private int nElectrons;
 		    public Empirical empirical;
 		    
-		    public class Empirical extends CLoadableItem
-		    {
-
-				HashMap <AtomType, Integer> empirical;
-				public Empirical()
-				{
-					empirical = new HashMap<AtomType, Integer>();
-				}
-				public void add(Atom a)
-				{
-					
-			    	Integer count = empirical.get(a.getAtomType());
-			    	if (count == null)
-			    	{
-			    		count = new Integer(0);
-			    	}
-			    	count += 1;
-			    	empirical.put(a.getAtomType(), count);
-				}
-		    	
-			    public String getFormula()
-			    {
-			    	String text = "";
-			    	
-			    	 Iterator<Entry<AtomType, Integer>> it = empirical.entrySet().iterator();
-			    	    while (it.hasNext()) {
-			    	        Map.Entry<AtomType, Integer> pairs = (Map.Entry<AtomType, Integer>)it.next();
-			    	        
-			    	        text = text +pairs.getKey().getName() + "("+pairs.getValue() + ") ";
-			    	       
-			    	        it.remove(); // avoids a ConcurrentModificationException
-			    	    }
-			    		
-			    	return text;
-			    }
-		    }
-
-			public Molecule()
+		    public Molecule()
 			{
 				substructures = new SubstructureMap();
 				propList = new MoleculePropertyList();
@@ -90,8 +49,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 				substructures.add(new SubstructureSet("All", "All Atoms in the molecule"));
 				hydrogens = new SubstructureSet("Hydrogens", "Hydrogens vs Atoms");
 				substructures.add(hydrogens);
-				empirical = new Empirical();
-				
+				empirical = new Empirical();		
 				
 			}
 
@@ -124,7 +82,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 		    	else
 		    		hydrogens.addByName("Heavy", a);
 		    	
-		    	atoms.AddAtom(a); 
+		    	atoms.add(a); 
 		    	return atoms.size(); 
 		    	}
 		    public int NumAtoms() { return atoms.size(); }

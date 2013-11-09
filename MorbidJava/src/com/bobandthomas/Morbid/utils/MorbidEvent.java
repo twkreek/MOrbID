@@ -1,7 +1,5 @@
 package com.bobandthomas.Morbid.utils;
 
-import com.bobandthomas.Morbid.Gadget.AtomGadget;
-
 public class MorbidEvent {
 	ChangeNotifier source;
 	String field;

@@ -6,9 +6,10 @@ import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.SubstructureMap;
 import com.bobandthomas.Morbid.molecule.SubstructureMap.SubstructureType;
 
-public class RibbonGadgetFactory implements GadgetFactory {
+public class RibbonGadgetFactory extends GadgetFactory {
 
 	public RibbonGadgetFactory() {
+		setName("Ribbons");
 	}
 
 	@Override
@@ -29,10 +30,5 @@ public class RibbonGadgetFactory implements GadgetFactory {
 	public GadgetPanel createPanel(Gadget g) {
 		return new RibbonGadgetPanel((RibbonGadget) g);
 		}
-
-	@Override
-	public String toString() {
-		return "Ribbons";
-	}
 
 }

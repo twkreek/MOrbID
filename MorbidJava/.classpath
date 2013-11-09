@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/bobandthomas/Morbid/Gadget/GadgetContour.java" kind="src" path="src"/>
+	<classpathentry excluding="com/bobandthomas/Morbid/Gadget/GadgetContour.java|com/bobandthomas/Morbid/Gadget/GadgetContour2.java" kind="src" path="src"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/vecmath.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/j3dcore.jar"/>

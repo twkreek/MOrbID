@@ -4,10 +4,10 @@ import com.bobandthomas.Morbid.Gadget.control.GadgetFieldLinesPanel;
 import com.bobandthomas.Morbid.Gadget.control.GadgetPanel;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
-public class GadgetFieldLinesFactory implements GadgetFactory {
+public class GadgetFieldLinesFactory extends GadgetFactory {
 
 	public GadgetFieldLinesFactory() {
-		// TODO Auto-generated constructor stub
+		setName("Gadget Field Lines");
 	}
 
 	@Override
@@ -23,11 +23,6 @@ public class GadgetFieldLinesFactory implements GadgetFactory {
 	@Override
 	public GadgetPanel createPanel(Gadget g) {
 		return new GadgetFieldLinesPanel((GadgetFieldLines) g);
-	}
-
-	@Override
-	public String toString() {
-		return "Gadget FieldLines";
 	}
 
 }

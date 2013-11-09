@@ -4,10 +4,10 @@ import com.bobandthomas.Morbid.Gadget.control.GadgetPanel;
 import com.bobandthomas.Morbid.Gadget.control.Surface3DGadgetPanel;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
-public class Surface3DGadgetFactory implements GadgetFactory {
+public class Surface3DGadgetFactory extends GadgetFactory {
 
 	public Surface3DGadgetFactory() {
-		// TODO Auto-generated constructor stub
+		setName("Surface 3D");
 	}
 
 	@Override
@@ -23,11 +23,6 @@ public class Surface3DGadgetFactory implements GadgetFactory {
 	@Override
 	public GadgetPanel createPanel(Gadget g) {
 		return new Surface3DGadgetPanel((Surface3DGadget) g);
-	}
-
-	@Override
-	public String toString() {
-		return "Surface 3D";
 	}
 
 }

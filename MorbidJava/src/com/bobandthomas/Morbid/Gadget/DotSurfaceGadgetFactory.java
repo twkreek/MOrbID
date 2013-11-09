@@ -4,9 +4,10 @@ import com.bobandthomas.Morbid.Gadget.control.DotSurfaceGadgetPanel;
 import com.bobandthomas.Morbid.Gadget.control.GadgetPanel;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
-public class DotSurfaceGadgetFactory implements GadgetFactory {
+public class DotSurfaceGadgetFactory extends GadgetFactory {
 
 	public DotSurfaceGadgetFactory() {
+		setName("Dot Surface Gadget");
 	}
 
 	@Override
@@ -22,11 +23,6 @@ public class DotSurfaceGadgetFactory implements GadgetFactory {
 	@Override
 	public GadgetPanel createPanel(Gadget g) {
 		return new DotSurfaceGadgetPanel((DotSurfaceGadget) g);
-	}
-
-	@Override
-	public String toString() {
-		return "Dot Surface Gadget";
 	}
 
 }
