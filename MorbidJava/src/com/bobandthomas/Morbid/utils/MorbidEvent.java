@@ -1,5 +1,7 @@
 package com.bobandthomas.Morbid.utils;
 
+import com.bobandthomas.Morbid.Gadget.AtomGadget;
+
 public class MorbidEvent {
 	ChangeNotifier source;
 	String field;
@@ -10,7 +12,7 @@ public class MorbidEvent {
 	}
 	public MorbidEvent(ChangeNotifier source)
 	{
-		
+		this.source = source;
 	}
 	void setChangeField(String field, Object oldValue, Object newValue)
 	{
@@ -41,6 +43,15 @@ public class MorbidEvent {
 	}
 	public void setNewValue(Object newValue) {
 		this.newValue = newValue;
+	}
+	
+	public boolean isType(Class obj)
+	{
+		if (source == null) return false;
+		if (source.getClass() == obj)
+			return true;
+		return false;
+
 	}
 
 }

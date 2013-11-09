@@ -19,11 +19,13 @@ public class Surface3DGadget extends GadgetSpatialData {
 
 	SpatialData colorData;
 	boolean polar;
+	private boolean solid;
 	public Surface3DGadget() {
 		super();
 		threshold = 0;
 		colorData = null;
 		polar = true;
+		solid = true;
 	}
 	private void makeFaces(GobPoly gobMesh, Face f)
 	{
@@ -52,10 +54,11 @@ public class Surface3DGadget extends GadgetSpatialData {
 		Mesh3D mesh = null;
 		ArrayIsoSurface surf = new ArrayIsoSurface(this.getSd().getVolume());
 		mesh = surf.computeSurfaceMesh(mesh, (float) threshold);
+		if (threshold > 0) mesh.flipVertexOrder();
 				
 		GobPoly gobMesh = new GobPoly();
 		gobMesh.setMaterial(mat);
-		gobMesh.SetPolyType(GobPolyType.Lines);
+		gobMesh.SetPolyType(solid? GobPolyType.Triangles: GobPolyType.Lines);
 		if (mesh.getNumFaces() == 0)
 			return;
 
@@ -103,5 +106,15 @@ public class Surface3DGadget extends GadgetSpatialData {
 		markClean(); //TODO shouldn't have to mark it clean to be able to display
 		//filtering out notification for dirty objects may block appropriate events
 		notifyChange();
+	}
+	boolean isSolid() {
+		return solid;
+	}
+	void setSolid(boolean solid) {
+		if (this.solid != solid)
+		{
+			this.solid = solid;
+			markDirty();
+		}
 	}
 }

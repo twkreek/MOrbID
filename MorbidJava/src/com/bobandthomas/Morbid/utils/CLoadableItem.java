@@ -38,7 +38,7 @@ public class CLoadableItem extends ChangeNotifier implements ILoadable, IChangeN
 
 	@Override
 	public MorbidEvent handleNotify(MorbidEvent source) {
-		return null;
+		return source;
 		
 	}
 	@Override
@@ -53,7 +53,7 @@ public class CLoadableItem extends ChangeNotifier implements ILoadable, IChangeN
 		{
 			parentSet.markDirty();
 		}
-		notifyChange(this);
+		notifyChange(new MorbidEvent(this));
 	}
 
 	@Override

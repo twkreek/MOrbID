@@ -47,7 +47,7 @@ public class BondGadget extends Gadget {
 	BondRep rep;
 	boolean labelBO;
 	boolean labelDistance;
-	boolean showHydrogens = true;
+	private boolean showHydrogens = true;
 	boolean showLonePairs = true;
 
 	int iBondScale;
@@ -66,8 +66,11 @@ public class BondGadget extends Gadget {
 	}
 
 	public void setColorBy(BondColor colorBy) {
-		this.colorBy = colorBy;
-		markDirty();
+		if (this.colorBy != colorBy)
+		{
+			this.colorBy = colorBy;
+			markDirty();
+		}
 	}
 
 	public BondRep getRep() {
@@ -75,8 +78,11 @@ public class BondGadget extends Gadget {
 	}
 
 	public void setRep(BondRep rep) {
-		this.rep = rep;
-		markDirty();
+		if (this.rep != rep)
+		{
+			this.rep = rep;
+			markDirty();
+		}
 	}
 
 	public boolean isLabelBO() {
@@ -98,6 +104,18 @@ public class BondGadget extends Gadget {
 	}
 
 
+
+	boolean isShowHydrogens() {
+		return showHydrogens;
+	}
+
+	void setShowHydrogens(boolean showHydrogens) {
+		if (this.showHydrogens != showHydrogens)
+		{
+			this.showHydrogens = showHydrogens;
+			markDirty();
+		}
+	}
 
 	public int getIBondScale() {
 		return (int) bondScale * 100;
@@ -127,7 +145,7 @@ public class BondGadget extends Gadget {
 					AtomGadget pGadget;
 					pGadget = (AtomGadget) g;
 					if (pGadget.ShowHydrogens == false)
-						showHydrogens = false;
+						setShowHydrogens(false);
 					if (pGadget.ShowLonePairs == false)
 						showLonePairs = false;
 				}
@@ -145,7 +163,7 @@ public class BondGadget extends Gadget {
 					AtomGadget pGadget;
 					pGadget = (AtomGadget) g;
 					if (pGadget.ShowHydrogens == false)
-						showHydrogens = false;
+						setShowHydrogens(false);
 					if (pGadget.ShowLonePairs == false)
 						showLonePairs = false;
 				}
@@ -155,12 +173,11 @@ public class BondGadget extends Gadget {
 	}
 	@Override
 	public MorbidEvent handleNotify(MorbidEvent source) {
-		if (source.getSource().getClass() == AtomGadget.class)
+		if (source.isType(AtomGadget.class))
 		{
 			AtomGadget pGadget;
 			pGadget = (AtomGadget) source.getSource();
-			if (pGadget.ShowHydrogens == false)
-				showHydrogens = false;
+			this.setShowHydrogens(pGadget.ShowHydrogens);
 			if (pGadget.ShowLonePairs == false)
 				showLonePairs = false;
 			
@@ -193,7 +210,7 @@ public class BondGadget extends Gadget {
 
 				if (a1.getAtomicNumber() > 254 || a2.getAtomicNumber() > 254)
 					continue;
-				if (!showHydrogens
+				if (!isShowHydrogens()
 						&& (a1.getAtomicNumber() == 1 || a2.getAtomicNumber() == 1))
 					continue;
 				if (!showLonePairs

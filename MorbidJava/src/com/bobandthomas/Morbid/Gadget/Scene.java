@@ -14,6 +14,7 @@ import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.BoxType;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.IChangeNotifier;
+import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
@@ -303,10 +304,10 @@ public class Scene extends CLoadableItem {
 		rm.SetWorldBox(wb);
 	}
 	@Override
-	public boolean handleNotify(IChangeNotifier source) {
-		if(rendering) return false;
-		Render();
-		return false;
+	public MorbidEvent handleNotify(MorbidEvent source) {
+		if(!rendering)
+			Render();
+		return super.handleNotify(source);
 	}
 
 

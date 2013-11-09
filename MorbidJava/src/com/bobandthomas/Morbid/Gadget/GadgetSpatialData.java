@@ -4,6 +4,7 @@ import com.bobandthomas.Morbid.graphics.GobList;
 import com.bobandthomas.Morbid.molecule.data.CubeArray;
 import com.bobandthomas.Morbid.molecule.data.SpatialData;
 import com.bobandthomas.Morbid.utils.IChangeNotifier;
+import com.bobandthomas.Morbid.utils.MorbidEvent;
 
 public abstract class GadgetSpatialData extends Gadget {
 
@@ -38,11 +39,10 @@ public abstract class GadgetSpatialData extends Gadget {
 	}
 
 	@Override
-	public boolean  handleNotify(IChangeNotifier source) {
-		if (!super.handleNotify(source)) return false;
-		if (source == sd)
+	public MorbidEvent  handleNotify(MorbidEvent source) {
+		if (source.getSource() == sd)
 			markDirty();
-		return false;
+		return super.handleNotify(source);
 	}
 
 	public void setSd(SpatialData sd) {

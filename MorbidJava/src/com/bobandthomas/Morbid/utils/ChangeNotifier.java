@@ -29,12 +29,12 @@ public abstract class ChangeNotifier implements IChangeNotifier {
 	@Override
 	public void notifyChange(MorbidEvent source) {
 		MorbidEvent newEvent = handleNotify(source);
-		if (newEvent == null) return;
+//		if (newEvent == null) return;
 		if (listeners == null) return;
 
 		for (IChangeNotifier cn : listeners)
 		{
-			cn.notifyChange(newEvent);
+			cn.notifyChange(source);
 		}
 	}
 
