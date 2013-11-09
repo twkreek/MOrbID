@@ -53,10 +53,6 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 			nameMap.put(arg1.getName(), arg1);
 		}
 	}
-	public void notifyChange()
-	{
-		
-	}
 	@Override
 	public void add(int arg0, T arg1) {
 		set.add(arg0, arg1);

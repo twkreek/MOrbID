@@ -19,21 +19,31 @@ public class CubeArray extends CLoadableItem {
 	
 	toxi.geom.Vec3D scaler = new toxi.geom.Vec3D(1.0f, 1.0f, 1.0f);
 	public int sideX, sideY, sideZ, sideXY;
-    public MinMax minmax = new MinMax();
+	public int size;
+    public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+		markDirty();
+	}
+	public MinMax minmax = new MinMax();
     
 
-	public CubeArray(Point3D scale, int resX, int resY, int resZ) {
-		this.sideX = resX;
-		this.sideY = resY;
-		this.sideZ = resZ;
+	public CubeArray(Point3D scale, int res) {
+		size = res;
+		this.sideX = res;
+		this.sideY = res;
+		this.sideZ = res;
 		bounds = BoxType.UnitBox();
 		scaler = new toxi.geom.Vec3D((float)scale.x, (float)scale.y, (float)scale.z);
-		volume = new VolumetricSpaceArray(scaler , resX, resY, resZ);
+//		volume = new VolumetricSpaceArray(scaler , sideX, sideY, sideZ);
 	}
 	
 	public CubeArray( int sides)
 	{
-		this(new Point3D(1.0,1.0,1.0), sides, sides, sides);
+		this(new Point3D(1.0,1.0,1.0), sides);
 		markDirty();
 	}
 	public CubeArray()
@@ -75,7 +85,7 @@ public class CubeArray extends CLoadableItem {
 		public void SetBounds(BoxType box) { 
 			bounds = box; 
 			scaler = new Vec3D((float) bounds.size().x, (float) bounds.size().y, (float) bounds.size().z);
-			volume.setScale(scaler);
+			markDirty();
 		}
 		public void ScaleBounds(double scale) { bounds = bounds.Scale(scale); }
 		public double X(double i) { return (bounds.size().x * i) /sideX + bounds.getMin().x;} 
@@ -115,6 +125,20 @@ public class CubeArray extends CLoadableItem {
 			minmax.addValue(f);
             volume.setVoxelAt(i, j, k, (float) f);  
         }
+		public void Add(int i, int j, int k, double f) 
+        {
+			minmax.addValue(f);
+            volume.setVoxelAt(i, j, k, (float) (f+volume.getVoxelAt(i,j,k)));  
+        }
+
+		public double Get(int i, int j, int k) 
+        {
+	          return volume.getVoxelAt(i, j, k);  
+        }
+		public Point3D getPoint(int i, int j, int k)
+		{
+			return new Point3D(X(i), Y(j), Z(k));
+		}
 		
 		public double getClosestValue(Point3D p)
 		{
@@ -124,14 +148,17 @@ public class CubeArray extends CLoadableItem {
 			return XYZ(xIndex, yIndex, zIndex);
 		}
 
-        public void Resize(int x, int y, int z)
+        public void Resize()
         {
-            sideX = x;
-            sideY = y;
-            sideZ = z;
-            sideXY = x*y;
-            volume = new VolumetricSpaceArray(scaler, x,y,z);
-            markDirty();
+        	if (size == sideX)
+        		return;
+            sideX = size;
+            sideY = size;
+            sideZ = size;
+            sideXY = size * size;
+            volume = new VolumetricSpaceArray(scaler, sideX, sideY, sideZ);
+			volume.setScale(scaler);
+			markDirty();
         }
 		protected void ResetMinMax()
 		{

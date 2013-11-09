@@ -70,7 +70,7 @@ public class AtomGadget extends Gadget {
 		super();
 		layer = LayerPosition.LayerModel;
 		AtomScale = 0.7;
-		Labels = true;
+		Labels = false;
 		Numbers = false;
 		ShowCharges = false;
 		ShowMetals = true;
@@ -248,7 +248,7 @@ public class AtomGadget extends Gadget {
 			SphereGob sg = new SphereGob(aPosition, sr);
 			sg.setName(a.getName());
 			if (Labels || Numbers || ShowCharges) {
-				sg.Label = label;
+				sg.setName(label);
 			}
 			sg.Color = theColor;
 			sg.setLOD(LOD);
@@ -269,8 +269,9 @@ public class AtomGadget extends Gadget {
 			break;
 		}
 		if ((Labels || Numbers || ShowCharges)
-				&& Rep != AtomRepType.AtomSpheres) {
+				) {
 			StringGob lbg = new StringGob(label, a.Position());
+			lbg.setMaterial(baseMaterial);
 			lbg.Color = theColor.Inverse();
 			gobList.add(lbg);
 		}

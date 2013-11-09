@@ -2,20 +2,21 @@ package com.bobandthomas.Morbid.graphics;
 
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
-import com.bobandthomas.Morbid.utils.Vector3D;
+import com.bobandthomas.Morbid.utils.LineSegment;
 
 
 //Vector Gob - start point and end point and color.
 
 public class GobVector extends Gob {
 
-		Point3D EndPoint;
-		ColorQuad EndColor;
+		public Point3D EndPoint;
+		public ColorQuad EndColor;
 		
 
 		@Override
+		public
 		GobType Type() {return GobType.Vector;}
-		GobVector(Vector3D vec)
+		GobVector(LineSegment vec)
 		{
 			StartPoint = vec.from;
 			EndPoint = vec.to;
@@ -39,7 +40,7 @@ public class GobVector extends Gob {
 			Center.scale(0.5);
 		}
 		
-		Point3D  getCenter()
+		public Point3D  getCenter()
 		{
 			return new Point3D(Center);
 		}

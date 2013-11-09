@@ -12,12 +12,13 @@ public class RibbonGadgetPanel extends GadgetPanel {
 		rg = (RibbonGadget) g;
 		addColorBy();
 		createCheckbox("Cylinders", rg.isCylinders());
-		createSlider("Radius", 0,200, (int) (rg.getRadius()*100));
+		createSlider("Radius", 0,200, (int) (rg.getRadius()*100), true);
 		
 	}
 
 	@Override
 	public void changeValue(String label, Integer value) {
+		super.changeValue(label, value);
 		if (label.equals("Cylinders"))
 		{
 			rg.setCylinders(value == 1);

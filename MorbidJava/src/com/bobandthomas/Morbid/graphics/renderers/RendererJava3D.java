@@ -1,5 +1,6 @@
-package com.bobandthomas.Morbid.graphics;
+package com.bobandthomas.Morbid.graphics.renderers;
 
+import java.awt.Font;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -7,24 +8,44 @@ import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Canvas3D;
 import javax.media.j3d.DirectionalLight;
+import javax.media.j3d.Font3D;
+import javax.media.j3d.FontExtrusion;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.Group;
+import javax.media.j3d.LineArray;
 import javax.media.j3d.Node;
 import javax.media.j3d.PointArray;
 import javax.media.j3d.PolygonAttributes;
 import javax.media.j3d.Shape3D;
+import javax.media.j3d.Text3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.media.j3d.TransparencyAttributes;
 import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
-import javax.vecmath.Color4f;
 import javax.vecmath.Point3d;
+import javax.vecmath.Point3f;
 import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3f;
 
+import com.bobandthomas.Morbid.Gadget.Gadget;
+import com.bobandthomas.Morbid.graphics.ArrowGob;
+import com.bobandthomas.Morbid.graphics.CTM;
+import com.bobandthomas.Morbid.graphics.CircleGob;
+import com.bobandthomas.Morbid.graphics.CylinderGob;
+import com.bobandthomas.Morbid.graphics.GobIndexed;
+import com.bobandthomas.Morbid.graphics.GobList;
+import com.bobandthomas.Morbid.graphics.GobListSet;
+import com.bobandthomas.Morbid.graphics.GobPoly;
+import com.bobandthomas.Morbid.graphics.GobVector;
+import com.bobandthomas.Morbid.graphics.LabelGob;
+import com.bobandthomas.Morbid.graphics.LabeledCircleGob;
+import com.bobandthomas.Morbid.graphics.LightSource;
+import com.bobandthomas.Morbid.graphics.LightSourceList;
+import com.bobandthomas.Morbid.graphics.Material;
+import com.bobandthomas.Morbid.graphics.SphereGob;
+import com.bobandthomas.Morbid.graphics.StringGob;
 import com.bobandthomas.Morbid.graphics.GobPoly.GobPolyType;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
@@ -33,6 +54,7 @@ import com.sun.j3d.utils.behaviors.mouse.MouseZoom;
 import com.sun.j3d.utils.geometry.Cylinder;
 import com.sun.j3d.utils.geometry.Primitive;
 import com.sun.j3d.utils.geometry.Sphere;
+import com.sun.j3d.utils.geometry.Text2D;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class RendererJava3D extends Renderer {
@@ -41,7 +63,7 @@ public class RendererJava3D extends Renderer {
 	private SimpleUniverse universe; //owned by the port.
 	private boolean lightingAdded = false;
 	private BranchGroup currentBG = null;
-	private Hashtable<String, BranchGroup> bgMap = new Hashtable<String, BranchGroup>();
+	private Hashtable<Gadget, BranchGroup> bgMap = new Hashtable<Gadget, BranchGroup>();
 	private Transform3D lookat;
 	
 	private void makeGroupWritable(Group g)
@@ -72,21 +94,21 @@ public class RendererJava3D extends Renderer {
 	}
 
 
-	public BranchGroup getBranchGroup(String name) {
+	public BranchGroup getBranchGroup(Gadget gadget) {
 		BranchGroup branchGroup;
-		branchGroup = bgMap.get(name);
+		branchGroup = bgMap.get(gadget);
 		if (branchGroup == null) {
 			branchGroup = new BranchGroup();
-			branchGroup.setName(name);
+			branchGroup.setName(gadget.getName());
 			makeGroupWritable(branchGroup);
 
 			objTrans.addChild(branchGroup);
-			bgMap.put(name, branchGroup);
+			bgMap.put(gadget, branchGroup);
 		}
 		return branchGroup;
 	}
 	public void setCurrentBranchGroup(GobList gl) {
-		currentBG = getBranchGroup(gl.getName());
+		currentBG = getBranchGroup(gl.getGadget());
 	}
 	private void printNodeLabel(String name, int depth)
 	{
@@ -153,7 +175,7 @@ public class RendererJava3D extends Renderer {
 					0.0), 100.0);
 			for (LightSource ls : LSList) {
 				DirectionalLight light = new DirectionalLight(ls.color.Cf(),
-						ls.location.getVec3f());
+						ls.getLocation().getVec3f());
 
 				light.setInfluencingBounds(bounds);
 
@@ -216,15 +238,16 @@ public class RendererJava3D extends Renderer {
 	private Appearance getAppearance(Material m) {
 		// ColoringAttributes ca = new ColoringAttributes(m.diffuse.Cf(),
 		// ColoringAttributes.NICEST);
+		Appearance app = new Appearance();
+		if (m==null) return app;
 		javax.media.j3d.Material J3DMaterial = new javax.media.j3d.Material();
 		J3DMaterial.setDiffuseColor(m.getColor().Cf());
-		J3DMaterial.setAmbientColor((m.getColor().multiply(m.kAmbient)).Cf());
-		J3DMaterial.setShininess(m.specularity);
-		Appearance app = new Appearance();
-		if (m.useFilter) {
+		J3DMaterial.setAmbientColor((m.getColor().multiply(m.getkAmbient())).Cf());
+		J3DMaterial.setShininess(m.getSpecularity());
+		if (m.isUseFilter()) {
 			TransparencyAttributes ta = new TransparencyAttributes();
 			ta.setTransparencyMode(TransparencyAttributes.BLENDED);
-			ta.setTransparency((float) m.alpha);
+			ta.setTransparency((float) m.getAlpha());
 			app.setTransparencyAttributes(ta);
 		}
 
@@ -294,11 +317,6 @@ public class RendererJava3D extends Renderer {
 
 	}
 
-	@Override
-	void Label(LabelGob g) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	void LabeledCircle(LabeledCircleGob g) {
@@ -310,14 +328,16 @@ public class RendererJava3D extends Renderer {
 	void Poly(GobPoly g) {
 		
 		GeometryArray array;
-		int size = g.points.size();
+		int size = g.getPoints().size();
 		int flags = GeometryArray.COORDINATES;
-		if (g.hasColors)
+		if (g.isHasColors())
 			flags |= GeometryArray.COLOR_3;
-		if (g.hasNormals)
+		if (g.isHasNormals())
 			flags |= GeometryArray.NORMALS;
 		if (g.GetPolyType() == GobPolyType.Points)
 			array = new PointArray(size, flags);
+		if (g.GetPolyType() == GobPolyType.Segments)
+			array = new LineArray(size, flags);
 		else
 			array = new TriangleArray(size, flags);
 		Point3d points[] = new Point3d[size];
@@ -325,27 +345,25 @@ public class RendererJava3D extends Renderer {
 		
 		for (int i = 0; i< size; i++)
 		{
-			points[i]=g.points.get(i);
+			points[i]=g.getPoints().get(i);
 		}
 		array.setCoordinates(0,points);
-		if (g.hasColors)
+		if (g.isHasColors())
 		{
 			Color3f colors[] = new Color3f[size];
 			for (int i = 0; i< size; i++)
 			{
-//				if (currentMaterial.isUseFilter())
-//					g.colors.get(i).w = (float) (1-currentMaterial.getAlpha());
-				colors[i]=g.colors.get(i).Cf();
+				colors[i]=g.getColors().get(i).Cf();
 			}
 
 			array.setColors(0,colors);
 		}
-		if (g.hasNormals)
+		if (g.isHasNormals())
 		{
 			Vector3f normals[] = new Vector3f[size];
 			for (int i = 0; i< size; i++)
 			{
-				Point3D p = g.normals.get(i);
+				Point3D p = g.getNormals().get(i);
 				normals[i]=p.getVec3f();
 			}
 
@@ -367,7 +385,7 @@ public class RendererJava3D extends Renderer {
 		int tessalations;
 		if (g.getLOD() < 0.01) tessalations = 200;
 		else tessalations = (int) (200/g.getLOD());
-		Sphere sphere = new Sphere((float) g.r, Primitive.GENERATE_NORMALS, tessalations);
+		Sphere sphere = new Sphere((float) g.getRadius(), Primitive.GENERATE_NORMALS, tessalations);
 		sphere.setName(g.getName());
 
 		sphere.setAppearance(getAppearance(currentMaterial));
@@ -381,16 +399,51 @@ public class RendererJava3D extends Renderer {
 		currentBG.addChild(tg);
 	}
 
+	//@Override
+	void String2(StringGob g) {
+		Font3D font = new Font3D(new java.awt.Font("Garamond", Font.PLAIN, 11), new FontExtrusion());
+		Text3D text = new Text3D(font , g.getName(), new Point3f(0f,0f,0f));
+		//		new Point3f((float) g.center().x, (float) g.center().y, (float) g.center().z));
+		Shape3D shape = new Shape3D();
+		shape.setGeometry(text);;
+		shape.setAppearance(getAppearance(g.getMaterial()));
+
+		TransformGroup tg = new TransformGroup();
+		Transform3D transform = new Transform3D();
+		Vector3f vector = g.center().getVec3f();
+		transform.setTranslation(vector);
+		transform.setScale(0.08);
+		tg.setTransform(transform);
+		tg.addChild(shape);
+		
+		currentBG.addChild(tg);
+
+	}
+
 	@Override
 	void String(StringGob g) {
+		Text2D text = new Text2D(g.getName(),g.Color.Cf(),
+			        "Serif", 70, Font.ITALIC);		
+
+		TransformGroup tg = new TransformGroup();
+		Transform3D transform = new Transform3D();
+		Vector3f vector = g.center().getVec3f();
+		transform.setTranslation(vector);
+		tg.setTransform(transform);
+		tg.addChild(text);
+		
+		currentBG.addChild(tg);
+	}
+	@Override
+	void Vector(GobVector g) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	void Vector(GobVector g) {
+	void Label(LabelGob g) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

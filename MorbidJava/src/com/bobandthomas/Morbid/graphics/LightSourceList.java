@@ -1,7 +1,7 @@
 package com.bobandthomas.Morbid.graphics;
 
-import java.util.ArrayList;
+import com.bobandthomas.Morbid.utils.CLoadableSet;
 
-public class LightSourceList extends ArrayList<LightSource> {
+public class LightSourceList extends CLoadableSet<LightSource> {
 
 }

@@ -12,6 +12,7 @@ public class CylinderGob extends GobVector {
 	}
 
 	@Override
+	public
 	GobType Type() {
 		return GobType.Cylinder;
 	}

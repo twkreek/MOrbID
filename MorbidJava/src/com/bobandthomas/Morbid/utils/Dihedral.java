@@ -12,9 +12,9 @@ public class Dihedral {
 		this.p2 = p2;
 		this.p3 = p3;
 		this.p4 = p4;
-		v12 = new Vector3D(p1,p2);
-		v34 = new Vector3D (p3,p4);
-		v23 = new Vector3D(p2,p3);
+		v12 = new Vector3D(p1.Sub(p2));
+		v34 = new Vector3D(p3.Sub(p4));
+		v23 = new Vector3D(p2.Sub(p3));
 		
 	}
 	

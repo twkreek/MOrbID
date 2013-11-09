@@ -2,14 +2,15 @@ package com.bobandthomas.Morbid.molecule.data;
 
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.Molecule;
+import com.bobandthomas.Morbid.molecule.data.control.SpatialDataControl;
 import com.bobandthomas.Morbid.utils.Point3D;
 
 public class SpatialDataAccessibleSurface extends SpatialData {
 
-	public String getName() { return "Accessible Volume"; }
 	public SpatialDataAccessibleSurface(Molecule mol) {
 		super(mol);
 		this.setLogicalRange(0.5, 5);
+		setName("Accessible Volume");
 	}
 
 	@Override
@@ -21,6 +22,10 @@ public class SpatialDataAccessibleSurface extends SpatialData {
 			if (dist < dSquared) dSquared= dist;
 		}
 		return Math.sqrt(dSquared);
+	}
+	@Override
+	public SpatialDataControl getControlPanel() {
+		return new SpatialDataControl(this, "AccessibleVolume");
 	}
 
 }

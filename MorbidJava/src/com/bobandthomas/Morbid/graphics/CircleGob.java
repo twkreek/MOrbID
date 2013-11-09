@@ -10,17 +10,17 @@ public class CircleGob extends Gob {
 	public float r;
 
 	@Override
-	Point3D center() {
+	public Point3D center() {
 		return StartPoint;
 	}
 
-	CircleGob(Point3D pt, float /* Coord */radius) {
+	public CircleGob(Point3D pt, float /* Coord */radius) {
 		super(pt);
 		r = radius;
 	}
 
 	@Override
-	GobType Type() {
+	public GobType Type() {
 		return GobType.Circle;
 	}
 };

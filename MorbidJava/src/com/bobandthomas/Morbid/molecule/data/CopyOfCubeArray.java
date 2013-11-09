@@ -1,7 +1,7 @@
 package com.bobandthomas.Morbid.molecule.data;
 
 import com.bobandthomas.Morbid.utils.BoxType;
-import com.bobandthomas.Morbid.utils.Vector3D;
+import com.bobandthomas.Morbid.utils.LineSegment;
 
 
 
@@ -10,7 +10,7 @@ import com.bobandthomas.Morbid.utils.CLoadableItem;
 
 public class CopyOfCubeArray extends CLoadableItem{
 
-	public CopyOfCubeArray(Vector3D scale, int resX, int resY, int resZ) {
+	public CopyOfCubeArray(LineSegment scale, int resX, int resY, int resZ) {
 	}
 
     public enum DRAWPLANE { planexy, planeyz, planexz};

@@ -3,6 +3,7 @@ package com.bobandthomas.Morbid.Gadget;
 import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
 import com.bobandthomas.Morbid.graphics.GobListSet;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
 
 public class GadgetList extends CLoadableSet<Gadget>{
 	
@@ -28,13 +29,6 @@ public class GadgetList extends CLoadableSet<Gadget>{
 					pGadget.DrawGadget(gobListSet.getGadgetGl(pGadget)); //Gadget handles invisibility.
 			}
 		} 
-	}
-	@Override
-	public void notifyChange()
-	{
-		super.notifyChange();
-		scene.Render();  // render after change notification
-		
 	}
 	void InvalidateAll()
 	{

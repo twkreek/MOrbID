@@ -1,8 +1,23 @@
-package com.bobandthomas.Morbid.graphics;
+package com.bobandthomas.Morbid.graphics.renderers;
 
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.graphics.ArrowGob;
+import com.bobandthomas.Morbid.graphics.CTM;
+import com.bobandthomas.Morbid.graphics.CircleGob;
+import com.bobandthomas.Morbid.graphics.CylinderGob;
+import com.bobandthomas.Morbid.graphics.Gob;
+import com.bobandthomas.Morbid.graphics.GobIndexed;
+import com.bobandthomas.Morbid.graphics.GobList;
+import com.bobandthomas.Morbid.graphics.GobListSet;
+import com.bobandthomas.Morbid.graphics.GobPoly;
+import com.bobandthomas.Morbid.graphics.GobVector;
+import com.bobandthomas.Morbid.graphics.LabelGob;
+import com.bobandthomas.Morbid.graphics.LabeledCircleGob;
+import com.bobandthomas.Morbid.graphics.LightSourceList;
+import com.bobandthomas.Morbid.graphics.LightingModel;
+import com.bobandthomas.Morbid.graphics.Material;
+import com.bobandthomas.Morbid.graphics.SphereGob;
+import com.bobandthomas.Morbid.graphics.StringGob;
 import com.bobandthomas.Morbid.utils.*;
-import com.bobandthomas.Morbid.utils.CLoadableItem;
 
 public abstract class Renderer extends CLoadableItem {
 
@@ -43,7 +58,7 @@ public abstract class Renderer extends CLoadableItem {
 		public void setZoom(double zoom) {
 			this.zoom = zoom;
 		}
-		Point3D Translate;// { Point3D get(){ return translate; } void set(Point3D value) {translate = value; Rescale(); }}	
+		private Point3D Translate;// { Point3D get(){ return translate; } void set(Point3D value) {translate = value; Rescale(); }}	
 		LightingModel lm;
 
 	 	void SetRenderQuality(RenderQuality rq) {quality = rq; }
@@ -105,17 +120,17 @@ public abstract class Renderer extends CLoadableItem {
 		}
 
 
-		protected void SetWorldBox(BoxType wb)
+		public void SetWorldBox(BoxType wb)
 		{
 			worldBox = new BoxType( wb);
 		}
 
-		protected void Resize()
+		public void Resize()
 		{
 			if (port!=null)
 				portBox = port.GetScreenBounds();
 		}
-		protected void SetPort(Port p)
+		public void SetPort(Port p)
 		{
 			port = p;
 			if (port == null) return;
@@ -219,6 +234,16 @@ public abstract class Renderer extends CLoadableItem {
 		{
 
 			return StaticColorQuad.LiteGray.cq(); // TODO just for now, return something gray.
+		}
+
+
+		public Point3D getTranslate() {
+			return Translate;
+		}
+
+
+		public void setTranslate(Point3D translate) {
+			Translate = translate;
 		}
 
 }

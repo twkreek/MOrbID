@@ -3,6 +3,7 @@ package com.bobandthomas.Morbid.graphics;
 
 import java.util.Collection;
 
+import com.bobandthomas.Morbid.Gadget.Gadget;
 import com.bobandthomas.Morbid.Gadget.Scene;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
 import com.bobandthomas.Morbid.utils.Point3D;
@@ -20,6 +21,7 @@ public class GobList extends CLoadableSet<Gob> {
 		return super.addAll(arg0);
 	}
 
+		Gadget gadget; //the gadget that generates this goblist.
 		boolean rotate;
 		boolean sort;
 		CTM thectm;
@@ -38,6 +40,12 @@ public class GobList extends CLoadableSet<Gob> {
 
 
 
+		public Gadget getGadget() {
+			return gadget;
+		}
+		public void setGadget(Gadget gadget) {
+			this.gadget = gadget;
+		}
 		public GobList()
 		{   
 			thectm = new CTM();

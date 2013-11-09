@@ -5,18 +5,20 @@ import com.bobandthomas.Morbid.graphics.GobListLayers;
 import com.bobandthomas.Morbid.graphics.GobListSet;
 import com.bobandthomas.Morbid.graphics.LightSource;
 import com.bobandthomas.Morbid.graphics.LightSourceList;
-import com.bobandthomas.Morbid.graphics.Port;
 import com.bobandthomas.Morbid.graphics.RenderManager;
-import com.bobandthomas.Morbid.graphics.Renderer;
 import com.bobandthomas.Morbid.graphics.RenderManager.RenderManagerMode;
 import com.bobandthomas.Morbid.graphics.RenderManager.RenderManagerQuality;
+import com.bobandthomas.Morbid.graphics.renderers.Port;
+import com.bobandthomas.Morbid.graphics.renderers.Renderer;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.BoxType;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
 public class Scene extends CLoadableItem {
+
 	public enum LayerPosition {
 		LayerBack(0), LayerModel(1), LayerFront(2);
 		// LayerMax (3);
@@ -64,6 +66,7 @@ public class Scene extends CLoadableItem {
 		gadgetList, gobList, lightingModel, lights, materials, offscreenBM, onscreenBM, totalCTM, viewCTM, worldBox;
 	}
 
+	private boolean rendering = false;
 	ColorQuad backgroundColor;
 	Renderer currentRenderer;
 	SceneDirtyFlag dirty;
@@ -94,6 +97,7 @@ public class Scene extends CLoadableItem {
 
 	public Scene() {
 		gadgetList = new GadgetList(this);
+		gadgetList.registerListener(this);
 		molecule = null;
 		totalCTM = new CTM();
 		rm = new RenderManager();
@@ -102,6 +106,7 @@ public class Scene extends CLoadableItem {
 		setName("Scene");
 
 		lightSources = new LightSourceList();
+		lightSources.registerListener(this);
 		LightSource ls;
 		ls = new LightSource(new ColorQuad(255, 200, 150));
 		ls.setName("Pinkish Light");
@@ -144,6 +149,12 @@ public class Scene extends CLoadableItem {
 		gadgetList.add(g);
 		glLayerSet.get(l).createGadgetGL(g);
 		g.sceneAdded(this);
+		for (Gadget gadg : gadgetList)
+		{
+			//notify all gadgets that this one is being added,
+			//so they can set up notifications or change their appearance
+			gadg.gadgetListChanged(gadgetList);
+		}
 	}
 
 	void AddRenderer(RenderManagerQuality rq, Renderer ren) {
@@ -206,6 +217,7 @@ public class Scene extends CLoadableItem {
 			return;
 		if (pauseRender)
 			return;
+		rendering = true;
 		rm.GetRenderer().bgColor = this.backgroundColor;
 		rm.SetWorldBox(new BoxType(molecule.GetBounds()));
 		rm.GetRenderer().Rescale();
@@ -246,6 +258,7 @@ public class Scene extends CLoadableItem {
 
 		// PIStatusPane::ClearStatusPane(0);
 		// rm.SetPort(null);
+		rendering = false;
 	}
 
 	void Resize() {
@@ -289,6 +302,13 @@ public class Scene extends CLoadableItem {
 		dirty.worldBox = true;
 		rm.SetWorldBox(wb);
 	}
+	@Override
+	public boolean handleNotify(IChangeNotifier source) {
+		if(rendering) return false;
+		Render();
+		return false;
+	}
+
 
 	void Update() {
 	}

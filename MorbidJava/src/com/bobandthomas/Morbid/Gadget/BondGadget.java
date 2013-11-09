@@ -8,9 +8,12 @@ import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.AtomType;
 import com.bobandthomas.Morbid.molecule.Bond;
 import com.bobandthomas.Morbid.molecule.Molecule;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
+import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
 
 public class BondGadget extends Gadget {
+
 
 	@Override
 	public String getGadgetType() {
@@ -44,6 +47,8 @@ public class BondGadget extends Gadget {
 	BondRep rep;
 	boolean labelBO;
 	boolean labelDistance;
+	boolean showHydrogens = true;
+	boolean showLonePairs = true;
 
 	int iBondScale;
 	
@@ -89,6 +94,7 @@ public class BondGadget extends Gadget {
 
 	public void setLabelDistance(boolean labelDistance) {
 		this.labelDistance = labelDistance;
+		markDirty();
 	}
 
 
@@ -111,6 +117,60 @@ public class BondGadget extends Gadget {
 	}
 
 	@Override
+	public void gadgetListChanged(GadgetList gadgetList) {
+		super.gadgetListChanged(gadgetList);
+
+		for (Gadget g : gadgetList) {
+			if (g.getGadgetType().equals("Atom Gadget")) {
+				g.registerListener(this);
+				if (g.isVisible()) {
+					AtomGadget pGadget;
+					pGadget = (AtomGadget) g;
+					if (pGadget.ShowHydrogens == false)
+						showHydrogens = false;
+					if (pGadget.ShowLonePairs == false)
+						showLonePairs = false;
+				}
+			}
+		}
+	}
+
+	@Override
+	public void sceneAdded(Scene s) {
+		super.sceneAdded(s);
+		for (Gadget g : s.gadgetList) {
+			if (g.getGadgetType().equals("Atom Gadget")) {
+				g.registerListener(this);
+				if (g.isVisible()) {
+					AtomGadget pGadget;
+					pGadget = (AtomGadget) g;
+					if (pGadget.ShowHydrogens == false)
+						showHydrogens = false;
+					if (pGadget.ShowLonePairs == false)
+						showLonePairs = false;
+				}
+			}
+		}
+		
+	}
+	@Override
+	public MorbidEvent handleNotify(MorbidEvent source) {
+		if (source.getSource().getClass() == AtomGadget.class)
+		{
+			AtomGadget pGadget;
+			pGadget = (AtomGadget) source.getSource();
+			if (pGadget.ShowHydrogens == false)
+				showHydrogens = false;
+			if (pGadget.ShowLonePairs == false)
+				showLonePairs = false;
+			
+		}
+		return super.handleNotify(source);
+		
+		
+	}
+
+	@Override
 	void Draw(GobList gobList) {
 		int i;
 
@@ -121,22 +181,6 @@ public class BondGadget extends Gadget {
 		gobList.clear();
 
 			double atomScale = 0.0f;
-			AtomGadget pGadget;
-			GadgetList gadgetlist = (GadgetList) parentSet;
-			boolean showHydrogens = true;
-			boolean showLonePairs = true;
-
-			for (Gadget g : gadgetlist) {
-				if (g.getGadgetType().equals("Atom") && g.isVisible()) {
-					pGadget = (AtomGadget) g;
-					if (pGadget.AtomScale > atomScale)
-						atomScale = pGadget.AtomScale;
-					if (pGadget.ShowHydrogens == false)
-						showHydrogens = false;
-					if (pGadget.ShowLonePairs == false)
-						showLonePairs = false;
-				}
-			}
 
 			atomScale *= 0.5;
 
@@ -214,11 +258,12 @@ public class BondGadget extends Gadget {
 					String s = "";
 					if (labelBO) {
 
-						s = String.valueOf(bond.getBondOrder());
+						s = String.valueOf(bond.getNominalBondOrder());
 						str += s;
 					}
 					if (labelDistance) {
 						s = String.valueOf(bondVector.Length());
+						s= s.substring(0,4);
 						if (str.length() > 0)
 							str += ", ";
 						str += s;

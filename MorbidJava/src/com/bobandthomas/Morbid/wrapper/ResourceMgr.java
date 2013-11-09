@@ -1,6 +1,5 @@
 package com.bobandthomas.Morbid.wrapper;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,11 +8,11 @@ public class ResourceMgr {
 	
 	static ResourceMgr r = new ResourceMgr();
 	ClassLoader cl;
-	public static BufferedReader getResourceFile(String name)
+	public static MorbidBufferedReader getResourceFile(String name)
 	{
 		InputStream stream = r.getClass().getClassLoader().getResourceAsStream(name);
 		
-		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+		MorbidBufferedReader reader = new MorbidBufferedReader(stream);
 		
 		return reader;
 	}

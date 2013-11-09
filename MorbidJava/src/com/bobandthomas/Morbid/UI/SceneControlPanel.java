@@ -8,7 +8,7 @@ public class SceneControlPanel extends ControlPanel {
 	Scene scene;
 	ControlPanelSideBar bar;
 	public SceneControlPanel(Scene sc, String name, ControlPanelSideBar bar) {
-		super(name);
+		super(name, true);
 		scene = sc;
 		this.bar = bar;
 		createButton("Add Gadget");

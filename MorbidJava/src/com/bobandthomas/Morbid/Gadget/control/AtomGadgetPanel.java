@@ -31,10 +31,11 @@ public class AtomGadgetPanel extends GadgetPanel {
 		addColorBy();
 		addFilterBy();
 				
-		createSlider("RadiusScale", 0, 400, (int) (ag.getAtomScale()*100));
+		createSlider("RadiusScale", 0, 400, (int) (ag.getAtomScale()*100), true);
 	}
 	@Override
 	public void changeValue(String label, Integer value) {
+		super.changeValue(label,value);
 		if (label.equals("Labels"))
 		{
 			ag.setLabels(value == 1);

@@ -4,6 +4,7 @@ import com.bobandthomas.Morbid.graphics.GobList;
 import com.bobandthomas.Morbid.graphics.GobPoly;
 import com.bobandthomas.Morbid.graphics.GobPoly.GobPolyType;
 import com.bobandthomas.Morbid.graphics.Material;
+import com.bobandthomas.Morbid.graphics.Vertex;
 import com.bobandthomas.Morbid.molecule.data.SpatialData;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
@@ -16,22 +17,32 @@ import toxi.volume.ArrayIsoSurface;
 public class Surface3DGadget extends GadgetSpatialData {
 	
 
+	SpatialData colorData;
+	boolean polar;
 	public Surface3DGadget() {
 		super();
 		threshold = 0;
+		colorData = null;
+		polar = true;
 	}
-	private void makeFaces(GobPoly gobMesh, Face f, SpatialData charge)
+	private void makeFaces(GobPoly gobMesh, Face f)
 	{
-		ColorQuad thisColor = ColorQuad.multiBlend(colors, charge.getClosestValueFraction(new Point3D(f.a)));
+		Vertex verts[] = new Vertex[3];
+		verts[0] = new Vertex(f.a);
+		verts[1] = new Vertex(f.b);
+		verts[2] = new Vertex(f.c);
 		
-		gobMesh.AddPoint(new Point3D(f.a), thisColor, new Point3D(f.a.normal).Normalize().invert());
+		if (colorData != null)
+		{
+			verts[0].setColor(ColorQuad.multiBlend(colors, colorData.getClosestValueFraction(new Point3D(f.a))));
+			verts[1].setColor(ColorQuad.multiBlend(colors, colorData.getClosestValueFraction(new Point3D(f.b))));
+			verts[2].setColor(ColorQuad.multiBlend(colors, colorData.getClosestValueFraction(new Point3D(f.c))));
+		}
 		
-		thisColor = ColorQuad.multiBlend(colors, charge.getClosestValueFraction(new Point3D(f.b)));
-		
-		gobMesh.AddPoint(new Point3D(f.b), thisColor, new Point3D(f.b.normal).Normalize().invert());
-		thisColor = ColorQuad.multiBlend(colors, charge.getClosestValueFraction(new Point3D(f.c)));
-
-		gobMesh.AddPoint(new Point3D(f.c), thisColor, new Point3D(f.c.normal).Normalize().invert());
+		for (Vertex v : verts)
+		{
+			gobMesh.AddVertex(v);
+		}
 		
 	}
 	
@@ -39,35 +50,19 @@ public class Surface3DGadget extends GadgetSpatialData {
 	{
 
 		Mesh3D mesh = null;
-		ArrayIsoSurface surf = new ArrayIsoSurface(this.sd.getVolume());
+		ArrayIsoSurface surf = new ArrayIsoSurface(this.getSd().getVolume());
 		mesh = surf.computeSurfaceMesh(mesh, (float) threshold);
-		SpatialData charge = GetMolecule().getSpatialData().getByName("Charge");
-		charge.Update();
 				
 		GobPoly gobMesh = new GobPoly();
 		gobMesh.setMaterial(mat);
 		gobMesh.SetPolyType(GobPolyType.Lines);
 		if (mesh.getNumFaces() == 0)
 			return;
-		ColorQuad[] colors = new ColorQuad[3];
-		colors[0] = minusColor;
-		colors[1] = baseColor;
-		colors[2] = plusColor;
 
 		for (Face f : mesh.getFaces())
 		{
-			ColorQuad thisColor = ColorQuad.multiBlend(colors, charge.getClosestValueFraction(new Point3D(f.a)));
-	
-			gobMesh.AddPoint(new Point3D(f.a), thisColor, new Point3D(f.a.normal).Normalize().invert());
-			
-			thisColor = ColorQuad.multiBlend(colors, charge.getClosestValueFraction(new Point3D(f.b)));
-			
-			gobMesh.AddPoint(new Point3D(f.b), thisColor, new Point3D(f.b.normal).Normalize().invert());
-			thisColor = ColorQuad.multiBlend(colors, charge.getClosestValueFraction(new Point3D(f.c)));
-
-			gobMesh.AddPoint(new Point3D(f.c), thisColor, new Point3D(f.c.normal).Normalize().invert());
-			
-		
+			makeFaces(gobMesh, f);
+					
 		}
 		surf.reset();
 		gl.add(gobMesh);
@@ -76,14 +71,37 @@ public class Surface3DGadget extends GadgetSpatialData {
 	@Override
 	void Draw(GobList gl) {
 			gl.clear();
-			sd = GetMolecule().getSpatialData().getByName("Accessible Volume");
-			sd.Update();
+			if (getSd() == null) return;
+			getSd().Update();
+			//colorData = GetMolecule().getSpatialData().getByName("Charge");
+			//colorData.Update();
+
 			mat = new Material (baseMaterial);
-			mat.setColor(new ColorQuad( 0.3,0.3,0.3 ));
+			if (polar)
+				mat.setColor(minusColor);
+			else
+				mat.setColor(new ColorQuad( 0.3,0.3,0.3 ));
 			if (transparent)
 				mat.setAlpha(alpha);
 			makeContours(gl);
-			
+			if (polar)
+			{
+				threshold = - threshold;
+				mat = new Material (baseMaterial);
+				mat.setColor(plusColor);
+				makeContours(gl);
+				threshold = -threshold;
+				
+			}
+			markClean();
 	}
 
+	@Override
+	public void sceneAdded(Scene s) {
+		super.sceneAdded(s);
+		this.setSd(GetMolecule().getSpatialData().getByName("MO"));
+		markClean(); //TODO shouldn't have to mark it clean to be able to display
+		//filtering out notification for dirty objects may block appropriate events
+		notifyChange();
+	}
 }

@@ -3,7 +3,7 @@ package com.bobandthomas.Morbid.molecule;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 
-public class Substructure extends AtomList {
+public class Substructure extends AtomList implements ISubstructure{
 	
 	private Fragment fragment;
 	ColorQuad listColor;  // the generic color used for substructure coloring.

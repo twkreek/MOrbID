@@ -22,6 +22,7 @@ public class GadgetFactoryManager extends ArrayList<GadgetFactory> {
 		add(new DotSurfaceGadgetFactory());
 		add(new Surface3DGadgetFactory());
 		add(new RibbonGadgetFactory());
+		add(new GadgetFieldLinesFactory());
 	}
 	
 	public static GadgetFactoryManager getOne()

@@ -5,7 +5,7 @@ import com.bobandthomas.Morbid.utils.Point3D;
 public class SphereGob extends Gob {
 
 
-		double /*Coord*/ r;
+		private double /*Coord*/ r;
 		@Override
 		public Point3D center()
 		{
@@ -15,9 +15,15 @@ public class SphereGob extends Gob {
 	
 		{
 			super (center);
-			r = sr;
+			setRadius(sr);
 		}
 		@Override
 		public GobType Type() {return GobType.Sphere;}
+		public double /*Coord*/ getRadius() {
+			return r;
+		}
+		public void setRadius(double /*Coord*/ r) {
+			this.r = r;
+		}
 };
 

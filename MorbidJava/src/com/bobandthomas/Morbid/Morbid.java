@@ -1,27 +1,20 @@
 package com.bobandthomas.Morbid;
 
 import java.awt.BorderLayout;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
-
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 
 import com.bobandthomas.Morbid.Gadget.Scene;
-import com.bobandthomas.Morbid.graphics.PortJava3D;
-import com.bobandthomas.Morbid.graphics.RendererJava3D;
+import com.bobandthomas.Morbid.graphics.renderers.PortJava3D;
+import com.bobandthomas.Morbid.graphics.renderers.RendererJava3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
+import com.bobandthomas.Morbid.molecule.reader.FileReaderMopac13;
 import com.bobandthomas.Morbid.molecule.reader.FileReaderPCModel;
 import com.bobandthomas.Morbid.molecule.reader.FileReaderPDB;
 import com.bobandthomas.Morbid.molecule.reader.FileReaderSDF;
 import com.bobandthomas.Morbid.molecule.reader.MoleculeFileReader;
+import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 import com.bobandthomas.Morbid.UI.ControlPanelSideBar;
 import com.bobandthomas.Morbid.UI.HudPanel;
@@ -47,6 +40,8 @@ public class Morbid extends JApplet {
 		// set up default applet presentation
 		setSize(800,600);
 		setLayout(new BorderLayout());
+
+	//	add(new MorbidMenus(), "North");
 		setJMenuBar(new MorbidMenus());
 		
 		// create canvas and gadget panel
@@ -67,7 +62,7 @@ public class Morbid extends JApplet {
 		scene.SetRenderer(renderer);
 	}
 
-	void findExamples() {
+/*	void findExamples() {
 		List<String> slikeList = new ArrayList<String>();
 
 		URL urlToApplet = Morbid.class
@@ -98,8 +93,8 @@ public class Morbid extends JApplet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	private Molecule readFile(String name, BufferedReader br, MoleculeFileReader file)
+	}*/
+	private Molecule readFile(String name, MorbidBufferedReader br, MoleculeFileReader file)
 	{
 		Molecule m = new Molecule();
 		file.init(name, m, br); 
@@ -122,7 +117,7 @@ public class Morbid extends JApplet {
 	
 	private Molecule showSampleSelection()
 	{
-		findExamples();
+//		findExamples();
 		Object [] list = {"Glucagon:1GCN.pdb", 
 				"Actin:1ATN.pdb",
 				"Oxygenated Hemoglobin:1GZX.pdb", 
@@ -133,7 +128,8 @@ public class Morbid extends JApplet {
 				"albuterol:albuterol.sdf",
 				"Diphenhydramine:diphenhydramine.sdf",
 				"tinyMolecule:0.0",
-				"testPCM:test.pcm"
+				"testPCM:test.pcm",
+				"BenzeneF13:benzene.f13"
 			};
 		String s = (String)JOptionPane.showInputDialog(
                 this,
@@ -156,6 +152,9 @@ public class Morbid extends JApplet {
 				m = readFile(spl[0], ResourceMgr.getResourceFile("data/"+ spl[1]), new FileReaderPCModel());
 			if (file[1].toLowerCase().equals("sdf"))
 				m = readFile(spl[0], ResourceMgr.getResourceFile("data/"+ spl[1]), new FileReaderSDF());
+			if (file[1].toLowerCase().equals("f13"))
+				m = readFile(spl[0], ResourceMgr.getResourceFile("data/"+ spl[1]), new FileReaderMopac13());
+
 			if (file[1].equals("0"))
 				m.makeTinyMolecule();
 		}

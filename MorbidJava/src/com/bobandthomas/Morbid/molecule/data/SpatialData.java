@@ -1,6 +1,7 @@
 package com.bobandthomas.Morbid.molecule.data;
 
 import com.bobandthomas.Morbid.molecule.Molecule;
+import com.bobandthomas.Morbid.molecule.data.control.SpatialDataControl;
 import com.bobandthomas.Morbid.utils.BoxType;
 import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
@@ -32,6 +33,10 @@ public abstract class SpatialData extends CubeArray {
 	}
 
 	Molecule molecule;
+	public Molecule getMolecule() {
+		return molecule;
+	}
+
 	String sizeName;
 	String typeName;
 
@@ -42,11 +47,12 @@ public abstract class SpatialData extends CubeArray {
 	String GetUnits() {
 		return "";
 	}
+	public abstract SpatialDataControl getControlPanel();
 
 	public void Update() {
 		if (!isDirty())
 			return;
-		// Resize(sideX, sideY, sideZ);
+		Resize();
 		CalculateAll();
 		markClean();
 	}

@@ -12,7 +12,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.bobandthomas.Morbid.UI.ControlPanelBase;
+import com.bobandthomas.Morbid.UI.MorbidPanel;
 import com.bobandthomas.Morbid.molecule.Substructure;
 import com.bobandthomas.Morbid.molecule.SubstructureSet;
 import com.bobandthomas.Morbid.molecule.SubstructureMap;
@@ -25,7 +25,7 @@ public class SubstructureSetChooser extends JDialog implements TreeSelectionList
 	JTree tree;
 	SubstructureChooserType dialogType;
 	
-	class SubstructureControlPanel extends ControlPanelBase{
+	class SubstructureControlPanel extends MorbidPanel{
 
 		public SubstructureControlPanel(String name) {
 			super(name);

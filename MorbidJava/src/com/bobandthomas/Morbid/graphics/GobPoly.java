@@ -6,16 +6,29 @@ import com.bobandthomas.Morbid.utils.*;
 public class GobPoly extends Gob {
 
 	public enum GobPolyType {
-		Arrows, Bezier, BSpline, Closed, Connected, Lines, Nurbs, Points, Polygon, Quads, TMeshFan, TMeshStrip, Triangles
+		Arrows,
+		Bezier, 
+		BSpline, 
+		Closed, 
+		Connected, 
+		Lines, 
+		Nurbs, 
+		Points, 
+		Polygon, 
+		Quads, 
+		Segments,
+		TMeshFan, 
+		TMeshStrip, 
+		Triangles
 	}
 
 	GobPolyType polyType;
-	Point3DList points;
-	ColorQuadPalette colors;
-	Point3DList normals;
+	private Point3DList points;
+	private ColorQuadPalette colors;
+	private Point3DList normals;
 	Point3D pcenter;
-	boolean hasNormals;
-	boolean hasColors;
+	private boolean hasNormals;
+	private boolean hasColors;
 	boolean smooth;
 
 	public GobPoly() {
@@ -28,7 +41,7 @@ public class GobPoly extends Gob {
 	}
 
 	@Override
-	GobType Type() {
+	public GobType Type() {
 		return GobType.Poly;
 	}
 
@@ -36,7 +49,7 @@ public class GobPoly extends Gob {
 		polyType = gpt;
 	}
 
-	GobPolyType GetPolyType() {
+	public GobPolyType GetPolyType() {
 		return polyType;
 	}
 
@@ -72,10 +85,68 @@ public class GobPoly extends Gob {
 		colors.add(cq);
 		points.add(p);
 	}
+	public void AddVertex(Vertex vertex) {
+		pcenter = pcenter.Add(vertex);
+		if (hasNormals || vertex.hasNormal()) {
+			if (normals == null)
+				normals = new Point3DList();
+			normals.add(vertex.normal);
+			hasNormals = true;
+		}
+		if (hasColors || vertex.hasColor()) {
+			if (colors == null)
+				colors = new ColorQuadPalette();
+			colors.add(vertex.color);
+			hasColors = true;
+		}
+			
+		points.add(vertex);
+	}
+
 
 	@Override
-	Point3D center() {
+	public Point3D center() {
 		return pcenter.Scale(1 / points.size());
+	}
+
+	public Point3DList getPoints() {
+		return points;
+	}
+
+	public void setPoints(Point3DList points) {
+		this.points = points;
+	}
+
+	public boolean isHasColors() {
+		return hasColors;
+	}
+
+	public void setHasColors(boolean hasColors) {
+		this.hasColors = hasColors;
+	}
+
+	public ColorQuadPalette getColors() {
+		return colors;
+	}
+
+	public void setColors(ColorQuadPalette colors) {
+		this.colors = colors;
+	}
+
+	public boolean isHasNormals() {
+		return hasNormals;
+	}
+
+	public void setHasNormals(boolean hasNormals) {
+		this.hasNormals = hasNormals;
+	}
+
+	public Point3DList getNormals() {
+		return normals;
+	}
+
+	public void setNormals(Point3DList normals) {
+		this.normals = normals;
 	}
 
 };

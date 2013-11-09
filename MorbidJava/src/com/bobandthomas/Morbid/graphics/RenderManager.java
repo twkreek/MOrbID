@@ -1,5 +1,7 @@
 package com.bobandthomas.Morbid.graphics;
 
+import com.bobandthomas.Morbid.graphics.renderers.Port;
+import com.bobandthomas.Morbid.graphics.renderers.Renderer;
 import com.bobandthomas.Morbid.utils.BoxType;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.ColorQuad;
@@ -135,8 +137,8 @@ public class RenderManager {
 		Renderer ren = GetRenderer();
 		ren.SetWorldBox(worldBox);
 		ren.Resize();
-		ren.zoom = zoom;
-		ren.Translate = offset;
+		ren.setZoom(zoom);
+		ren.setTranslate(offset);
 		ren.Rescale();
 		ren.bgColor = bgColor;
 

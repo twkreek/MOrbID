@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import com.bobandthomas.Morbid.molecule.data.SpatialDataList;
 import com.bobandthomas.Morbid.utils.BoxType;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
-import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
 
 /**
@@ -26,7 +25,8 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			public AtomList Atoms() { return atoms; }
 			public BondList Bonds() { return bonds; }
 			
-//			MolecularOrbitalSet mo;
+			MolecularOrbitalSet mo;
+			public boolean hasMO() { return mo != null && mo.nOrbitals > 0; }
 //			VibrationSet vibrations;
 //			boolean HasVibrations() { return vibrations != null && vibrations.NumRoots > 0; }
 			private SpatialDataList spatialData;
@@ -38,8 +38,8 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			private MoleculePropertyList propList;
 			private SubstructureSet hydrogens;
 		  
-		    short numFilledLevels;
-		    short nElectrons;
+		    int numFilledLevels;
+		    private int nElectrons;
 		    public Empirical empirical;
 		    
 		    public class Empirical extends CLoadableItem
@@ -279,6 +279,18 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			}
 			public void setSpatialData(SpatialDataList spatialData) {
 				this.spatialData = spatialData;
+			}
+			public MolecularOrbitalSet getMo() {
+				return mo;
+			}
+			public void setMo(MolecularOrbitalSet mo) {
+				this.mo = mo;
+			}
+			public int getnElectrons() {
+				return nElectrons;
+			}
+			public void setnElectrons(int i) {
+				this.nElectrons = i;
 			}
 }
 

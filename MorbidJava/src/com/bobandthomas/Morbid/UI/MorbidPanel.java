@@ -19,18 +19,22 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public abstract class ControlPanelBase extends JPanel implements ChangeListener,
+public abstract class MorbidPanel extends JPanel implements ChangeListener,
 ItemListener, ActionListener  {
 
 	HashMap<JComponent, String> map;
 	protected JPanel child;
+	protected JPanel tempChild;
 
-	public ControlPanelBase(String name) {
+	public MorbidPanel(String name) {
 		map = new HashMap<JComponent, String>();
 
 		setBorder(new CompoundBorder());
@@ -56,6 +60,7 @@ ItemListener, ActionListener  {
 		}	
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		
@@ -77,11 +82,28 @@ ItemListener, ActionListener  {
 			}
 			return;
 		}
+		if (e.getSource().getClass().equals(JSpinner.class)) {
+			JSpinner source = (JSpinner) e.getSource();
+				handlePanelChange(map.get(source), (Integer) source.getValue());
+			return;
+		}
 
 	}
 
 	public void register(JComponent component, String name) {
 		map.put(component, name);
+	}
+	public void sideBySide()
+	{
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(0,2));
+		tempChild = child;
+		child = panel;
+	}
+	public void endSideBySide()
+	{
+		tempChild.add(child);
+		child = tempChild;
 	}
 
 	public void createLabel(String label) {
@@ -99,7 +121,25 @@ ItemListener, ActionListener  {
 		register(button, label);
 		button.addActionListener(this);
 		child.add(button);
-
+	}
+	
+	public void createSpinner(String label, int[] inputRange, int defaultIndex)
+	{
+		ArrayList<Integer> range = new ArrayList<Integer>();
+		for (int i : inputRange )
+		{
+			range.add(new Integer(i));
+		}
+        SpinnerModel snl = new SpinnerListModel(range);
+        JSpinner spnList = new JSpinner(snl);	
+//TODO        spnList.setValue(defaultIndex);
+        sideBySide();
+        child.add(new JLabel(label));
+        child.add(spnList);
+        endSideBySide();
+        
+        spnList.addChangeListener(this);
+        register(spnList, label);
 	}
 
 
@@ -113,10 +153,10 @@ ItemListener, ActionListener  {
 
 	}
 
-	public void createSlider(String label, int min, int max, int value) {
+	public void createSlider(String label, int min, int max, int value, boolean labeled) {
 		JLabel sliderLabel = new JLabel(label);
 		sliderLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		child.add(sliderLabel);
+		if (labeled) child.add(sliderLabel);
 
 		JSlider slider = new JSlider();
 		slider.setMinimum(min);
@@ -154,19 +194,21 @@ ItemListener, ActionListener  {
 	public abstract void changeValue(String label, Integer value);
 	String lastLabel = new String();
 	Integer lastValue = new Integer(-1);
-	public void handlePanelChange(String label, Integer value)
+	public boolean handlePanelChange(String label, Integer value)
+	// return false if we should stop processing;
 	{
 		// don't fire duplicate events.
 		if (lastLabel.equals(label) && lastValue == value)
-			return;
+			return false;
 		if (label == null)
 		{
 			System.out.println("label Null");
-			return;
+			return false;
 		}
 		changeValue(label,value);
 		lastLabel = label;
 		lastValue = value;
+		return true;
 	}
 	
 

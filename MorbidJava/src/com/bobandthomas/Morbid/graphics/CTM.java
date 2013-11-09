@@ -243,7 +243,7 @@ public class CTM {
 			 	return out;
 
 			}
-			CTM Mul(CTM inCTM)
+			public CTM Mul(CTM inCTM)
 			{   
 				int i, j, k;
 				CTM newctm = new CTM();
@@ -278,7 +278,7 @@ public class CTM {
 				return XForm(p);
 			}
 
-			CTM identity()
+			public CTM identity()
 			{   
 				int i, j;
 				for (i=0; i<4; i++) for (j=0; j < 4; j++) ctm[i][j]=0.0f;
@@ -330,7 +330,7 @@ public class CTM {
 			  return this;
 			}
 
-			CTM scale( double zoom) {
+			public CTM scale( double zoom) {
 			  int i;
 
 			   for (i=0; i<4; i++) {
@@ -354,7 +354,7 @@ public class CTM {
 			  return this;
 			}
 
-			CTM scale( Point3D s) {
+			public CTM scale( Point3D s) {
 			  int i;
 
 			   for (i=0; i<4; i++) {
@@ -374,7 +374,7 @@ public class CTM {
 			  return this;
 			}
 
-			CTM transl(Point3D p) {
+			public CTM transl(Point3D p) {
 
 			  ctm[0][3] += p.x;
 			  ctm[1][3] += p.y;

@@ -34,6 +34,7 @@ public class FileReaderSDF extends MoleculeFileReader {
 
 	@Override
 	public void Read() {
+		if (!PreRead()) return;
 		int natoms;
 		int nbonds;
 		String line;
@@ -103,6 +104,12 @@ public class FileReaderSDF extends MoleculeFileReader {
 	public boolean Validate() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String[] getFileExtensions() {
+		String[] extensions = {"SDF"};
+		return extensions;
 	}
 
 }

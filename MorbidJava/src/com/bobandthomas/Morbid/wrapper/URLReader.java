@@ -7,16 +7,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class ReaderManager {
+public class URLReader {
 	
 	String errorStatus;
-	static ReaderManager one = new ReaderManager();
+	static URLReader one = new URLReader();
 	
-	public static ReaderManager get() { return one; }
+	public static URLReader get() { return one; }
 	
 	public String getErrorStatus(){ return errorStatus; }
 
-	private ReaderManager() {
+	private URLReader() {
 		// TODO Auto-generated constructor stub
 	}
 	public BufferedReader getFromURL(String url)

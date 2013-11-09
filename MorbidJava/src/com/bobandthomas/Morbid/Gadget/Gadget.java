@@ -137,7 +137,10 @@ public abstract class Gadget extends CLoadableItem {
 		{
 			scene = s;
 			molecule = scene.GetMolecule();
-			
+		}
+		public void gadgetListChanged(GadgetList gadgetList)
+		{
+			//most Gadgets don't care.
 		}
 
 		public boolean isSubstructureFilter() {
@@ -168,6 +171,7 @@ public abstract class Gadget extends CLoadableItem {
 		public void DrawGadget(GobList gl)
 		{
 			if (!fixGobList(gl)) return;
+			gl.setGadget(this);
 			chargeRange = molecule.Atoms().getChargeRange();
 			if (!isVisible())
 			{	//make a small, scratch sphere at the origin to use as replacement for the gadget's drawing.
@@ -281,6 +285,10 @@ public abstract class Gadget extends CLoadableItem {
 			this.transparent = useTransparency;
 			baseMaterial.setUseFilter(useTransparency);
 			markDirty();
+		}
+		ColorQuad getFractionColor(MinMax range, double value)
+		{
+			return ColorQuad.multiBlend(colors, value);
 		}
 		
 		ColorQuad getAtomColor(Atom a) {

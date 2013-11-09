@@ -1,4 +1,4 @@
-package com.bobandthomas.Morbid.graphics;
+package com.bobandthomas.Morbid.graphics.renderers;
 
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;

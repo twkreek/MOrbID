@@ -215,10 +215,6 @@ public class ColorQuad extends Color4f {
 	}
 
 
-	private int getInt(double r)
-	{
-		return (int) (r/COLORQUAD_MAX_VALUE);
-	}
 	public ColorQuad plus(ColorQuad p) {
 		ColorQuad c = new ColorQuad(x + p.x, y + p.y, z + p.z);
 		return c;
@@ -276,18 +272,6 @@ public class ColorQuad extends Color4f {
 
 	void Set(Point3D p) {
 		Set(p.x, p.y, p.z);
-	}
-
-	private void setB(int value) {
-		z = Math.min(value, 255) / 255.0f;
-	}
-
-	private void setG(int value) {
-		y = Math.min(value, 255) / 255.0f;
-	}
-
-	private void setR(int value) {
-		x = Math.min(value, 255) / 255.0f;
 	}
 
 	String ToString() {

@@ -1,28 +1,50 @@
 package com.bobandthomas.Morbid.utils;
 
+import toxi.geom.Vec3D;
 
 public class Vector3D extends Point3D {
-	public Point3D from;
-	public Point3D to;
+
+	@Override
+	public Vector3D Add(Point3D p) {
+		// TODO Auto-generated method stub
+		return (Vector3D) super.Add(p);
+	}
+
+	@Override
+	public Vector3D Sub(Point3D p) {
+		// TODO Auto-generated method stub
+		return (Vector3D) super.Sub(p);
+	}
+
+	@Override
+	public Vector3D Scale(double v) {
+		// TODO Auto-generated method stub
+		return (Vector3D) super.Scale(v);
+	}
+
+	@Override
+	Vector3D Mult(Point3D p) {
+		// TODO Auto-generated method stub
+		return (Vector3D) super.Mult(p);
+	}
+
+	public Vector3D(double x1, double y1, double z1) {
+		super(x1, y1, z1);
+	}
+
+	public Vector3D(int x1, int y1, int z1) {
+		super(x1, y1, z1);
+		}
+
+	public Vector3D(Point3D n1) {
+		super(n1);
+	}
 
 	public Vector3D() {
-		from = new Point3D();
-		to = new Point3D();
 	}
-	public Vector3D(Point3D p)
-	{
-		from = new Point3D(0,0,0);
-		to = new Point3D(p.Normalize());
-	}
-	public Vector3D (Vector3D v)
-	{
-		from = new Point3D(v.from);
-		to = new Point3D(v.to);
-	}
-	public Vector3D(Point3D p1, Point3D p2)
-	{
-		from = new Point3D(p1);
-		to = new Point3D(p2);
+
+	public Vector3D(Vec3D vec) {
+		super(vec);
 	}
 	static double Dot(Point3D p, Point3D p2)
 	{
@@ -40,33 +62,5 @@ public class Vector3D extends Point3D {
         double a = Math.acos( Dot( v ) / ( length1 * length2 ) );
         return ( a / Math.PI ) * 180.0;
     }
-
-	
-	Point3D IntersectWithSphere(Point3D center, double radius)
-	{
-	 	Point3D point1 = from.Sub(center);
-	 	Point3D point2 = to.Sub(from);
-	 	double  v = Dot(point1,point2);
-	 	double disc = radius * radius - (Dot(point1, point2) - v*v);
-	 	if (disc < 0)
-	 		return center;
-	 	double d = Math.sqrt(disc);
-	 	Point3D thePoint = from.Add(point2.Scale(v - d));
-	 	return thePoint; 		
-	}
-	public double Length() 	{ 
-		return from.distance(to);
-		} // acts like it's a vector
-	public Vector3D Normalize()
-	{
-	 	double len = Length();
-		if (len < 1.0e-10)
-			return this;
-	 	to.x = (to.x-from.x)/len;
-	 	to.y = (to.y-from.y)/len;
-	 	to.z = (to.z-from.z)/len;
-	 	from.Zero();
-	 	return this;
-	}
 
 }

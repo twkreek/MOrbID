@@ -4,7 +4,6 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.event.ChangeListener;
 import javax.swing.JComponent;
@@ -22,21 +21,18 @@ public abstract class GadgetPanel extends ControlPanel implements ChangeListener
 	private static final long serialVersionUID = -430660293743502924L;
 	HashMap<JComponent, String> map;
 	Gadget gadget;
-	JPanel child;
 	JToggleButton banner;
 
 	public GadgetPanel(Gadget g, String name) {
-		super(name);
+		super(name, true);
 		gadget = g;
 		createCheckbox("Visible", gadget.isVisible());
-		createSlider("Transparency", 0, 100, 50);
 		createCheckbox("Transparent", gadget.isTransparent());
+		createSlider("Transparency", 0, 100, 50, false);
 	}
 
-	public abstract void changeValue(String label, Integer value);
-	public void handlePanelChange(String label, Integer value)
+	public void changeValue(String label, Integer value)
 	{
-		super.handlePanelChange(label, value);
 		if (label.equals("Visible"))
 		{
 			gadget.setVisible(value == 1);
@@ -64,7 +60,7 @@ public abstract class GadgetPanel extends ControlPanel implements ChangeListener
 				gadget.setSubstructureFilterList(s.getDefaultRep());
 			}
 		}
-		changeValue(label,value);
+	
 	}
 	public void addColorBy()
 	{

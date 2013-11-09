@@ -15,11 +15,13 @@ public class DotSurfaceGadgetPanel extends GadgetPanel {
 		dsg = g;
 		
 		createEnumCombo(DotSurfaceGadget.DotsColorBy.values(), "Color By", g.getColorBy());
-		createSlider("RadiusScale", 0, 200, (int) (dsg.getRadiusScale()*100));
+		createSlider("RadiusScale", 0, 200, (int) (dsg.getRadiusScale()*100), true);
 	
 	}
 	@Override
 	public void changeValue(String label, Integer value) {
+
+		super.changeValue(label, value);
 		
 		if (label.equals("RadiusScale"))
 		{

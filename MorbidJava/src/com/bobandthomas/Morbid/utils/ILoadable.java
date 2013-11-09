@@ -12,9 +12,5 @@ public interface ILoadable {
 	public long ID();
 	public void setID(long id);
 	
-	public void Use();
-	public void Unuse();
-	public boolean InUse();
-
 
 }

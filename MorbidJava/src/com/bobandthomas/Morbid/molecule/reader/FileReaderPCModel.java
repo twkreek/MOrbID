@@ -2,6 +2,7 @@ package com.bobandthomas.Morbid.molecule.reader;
 
 import java.io.IOException;
 import java.util.HashMap;
+
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.AtomType;
 import com.bobandthomas.Morbid.molecule.AtomTypeList;
@@ -15,7 +16,6 @@ public class FileReaderPCModel extends MoleculeFileReader {
 
 	public FileReaderPCModel() {
 		fileTypeName = "PCModel Files";
-		FileTypeFilter = "*.pcm";
 		mm2Types = new MM2TypeList();
 	}
 
@@ -256,6 +256,12 @@ public class FileReaderPCModel extends MoleculeFileReader {
 	public boolean Validate() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String[] getFileExtensions() {
+		String [] extensions = {"PCM"};
+		return extensions;
 	}
 
 }

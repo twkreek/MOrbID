@@ -21,7 +21,7 @@ public class LightingModel extends CLoadableItem {
 		
 		ColorQuad DepthCue(Point3D p, ColorQuad cq) { if (DoDepthCue) return CalcDepthCue(p, cq); else return cq; }
 
-		LightingModel()
+		public LightingModel()
 		{
 			DoLighting = true;
 			DoScatterAlpha = true;

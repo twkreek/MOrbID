@@ -20,7 +20,6 @@ public class FileReaderPDB extends MoleculeFileReader {
 
 	public FileReaderPDB(){
 		fileTypeName = "Protein Databank Files";
-		FileTypeFilter = "*.pdb";
 	}
 	
 	
@@ -210,5 +209,12 @@ public class FileReaderPDB extends MoleculeFileReader {
 		molecule.getSubstructures().printList(false);
 
 		return;
+	}
+
+
+	@Override
+	public String[] getFileExtensions() {
+		String [] extensions = {"PDB"};
+		return extensions;
 	}
 }

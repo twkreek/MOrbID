@@ -1,4 +1,4 @@
-package com.bobandthomas.Morbid.graphics;
+package com.bobandthomas.Morbid.graphics.renderers;
 
 import com.bobandthomas.Morbid.utils.BoxType;
 import com.bobandthomas.Morbid.utils.ColorQuad;

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.event.ChangeEvent;
 
-public abstract class ControlPanel extends ControlPanelBase  {
+public abstract class ControlPanel extends MorbidPanel  {
 
 	/**
 	 * 
@@ -16,18 +16,21 @@ public abstract class ControlPanel extends ControlPanelBase  {
 	private static final long serialVersionUID = -430660293743502924L;
 	JToggleButton banner;
 
-	public ControlPanel(String name) {
+	public ControlPanel(String name, boolean showName) {
 		super(name);
 		setMaximumSize(new Dimension(200, 500));
 		setMinimumSize(new Dimension(200, 40));
-		banner = new JToggleButton(name);
-		banner.setMaximumSize(new Dimension(200,10));
-		banner.setMinimumSize(new Dimension(200,10));
-		banner.addActionListener(this);
-		add(banner, BorderLayout.NORTH);
+		if (showName)
+		{
+			banner = new JToggleButton(name);
+			banner.setMaximumSize(new Dimension(200,10));
+			banner.setMinimumSize(new Dimension(200,10));
+			banner.addActionListener(this);
+			add(banner, BorderLayout.NORTH);
+		}
 		
 		child = new JPanel(new GridLayout(0,1,0,0));
-		child.setVisible(banner.isSelected());
+		child.setVisible(!showName || banner.isSelected());
 		add(child, BorderLayout.CENTER);
 		createLabel(name);
 	}

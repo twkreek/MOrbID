@@ -9,6 +9,7 @@ public class GobIndexed extends GobPoly {
 	ArrayList<Integer> indexTable;
 
 	@Override
+	public
 	GobType Type() {
 		return GobType.Indexed;
 	}
@@ -21,6 +22,7 @@ public class GobIndexed extends GobPoly {
 	}
 
 	@Override
+	public
 	Point3D center() {
 		return super.center();
 	}

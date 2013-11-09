@@ -140,10 +140,10 @@ ID	sym sy3 Amino-Acid	Charge	Hydro	Mwt
 		ml2.add(new Matcher(Element.N));
 		ml2.add(new Matcher(Element.C));
 		ml2.add(new Matcher(MatchFragment.CARBOXYL));
-		boolean amide = false;
-		boolean carboxyl = false;
+		boolean isAmide = false;
+		boolean isCarboxyl = false;
 	
-		if ((amide = Match(substructure.get(0), ml)) || ( carboxyl = Match(substructure.get(0), ml2)))
+		if ((isAmide = Match(substructure.get(0), ml)) || ( isCarboxyl = Match(substructure.get(0), ml2)))
 		{
 			nAmino = matches.get(0);
 			cAlpha = matches.get(1);
@@ -161,7 +161,7 @@ ID	sym sy3 Amino-Acid	Charge	Hydro	Mwt
 				if (!matches.contains(a) && !a.isA(Element.H))
 				{
 					pC5 = new Point3D(a.Position());
-					next = ((Peptide) substructure.getParentSet()).getSubstructure(a);
+					previous = ((Peptide) substructure.getParentSet()).getSubstructure(a);
 				}
 			if (pC5 == null) 
 			{
@@ -173,9 +173,9 @@ ID	sym sy3 Amino-Acid	Charge	Hydro	Mwt
 				if (!matches.contains(a) && !a.isA(Element.H))
 				{
 					pN3 = new Point3D(a.Position());
-					if (amide)
+					if (isAmide)
 						next = ((Peptide) substructure.getParentSet()).getSubstructure(a);
-					if (carboxyl)
+					if (isCarboxyl)
 						next = null;
 				}
 			if (pN3 == null) 

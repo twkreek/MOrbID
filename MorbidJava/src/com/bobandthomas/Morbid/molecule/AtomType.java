@@ -8,9 +8,9 @@ import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 
 public class AtomType extends CLoadableItem
 {
-		double zS;
-		double zP;
-		double zD;
+		public double zS;
+		public double zP;
+		public double zD;
 		double radius;
 		int ns;
 		int np;

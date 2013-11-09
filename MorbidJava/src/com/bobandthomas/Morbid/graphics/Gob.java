@@ -10,8 +10,6 @@ public class Gob extends CLoadableItem {
 
 	public ColorQuad Color;
 
-	public String Label;
-
 	private Material material;
 
 	public Gob() {
@@ -23,20 +21,16 @@ public class Gob extends CLoadableItem {
 		Center = new Point3D(point);
 	}
 
-	Point3D center() {
-		return new Point3D(0, 0, 0);
-	}
-
-	boolean HasLabel() {
-		return Label != null;
+	public Point3D center() {
+		return new Point3D(Center);
 	}
 
 	/* TODO not implemented */
-	Point3DList Intersects(Vector3D vector) {
+	Point3DList Intersects(LineSegment vector) {
 		return null;
 	}
 
-	GobType Type() {
+	public GobType Type() {
 		return GobType.Gob;
 	}
 	public Material getMaterial() {

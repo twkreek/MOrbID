@@ -19,20 +19,28 @@ public class BondGadgetPanel extends GadgetPanel {
 	public BondGadgetPanel (BondGadget gadget) {
 		super((Gadget) gadget, "BondGadget");
 		bg = gadget;
-		createCheckbox("Label Bonds", bg.isLabelBO());
+		sideBySide();
+		createCheckbox("Order", bg.isLabelBO());
+		createCheckbox("Length", bg.isLabelDistance());
+		endSideBySide();
 				
 		createEnumCombo(BondRep.values(), "Bond Rep", bg.getRep());
 		createEnumCombo(BondColor.values(), "Bond Color", bg.getColorBy());
 				
-		createSlider("Bond Radius", 0, 200, (int) (bg.getBondScale()*1000));
+		createSlider("Bond Radius", 0, 200, (int) (bg.getBondScale()*1000), true);
 	}
 	
 	@Override
 	public void changeValue(String label, Integer value) {
-		if (label.equals("Label Bonds"))
+		super.changeValue(label, value);
+		if (label.equals("Order"))
 		{
-			bg.setLabelBO(value == 1 ? true: false);
+			bg.setLabelBO(value == 1);
 			return;
+		}
+		if (label.equals("Length"))
+		{
+			bg.setLabelDistance(value == 1);
 		}
 		if (label.equals("Bond radius"))
 		{

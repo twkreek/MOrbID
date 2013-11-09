@@ -25,6 +25,7 @@ import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.data.SpatialData;
 import com.bobandthomas.Morbid.molecule.data.SpatialDataAccessibleSurface;
 import com.bobandthomas.Morbid.molecule.data.SpatialDataCharge;
+import com.bobandthomas.Morbid.molecule.data.SpatialDataMO;
 
 @SuppressWarnings("unused")
 public class ControlPanelSideBar extends JPanel {
@@ -44,18 +45,24 @@ public class ControlPanelSideBar extends JPanel {
 	public void makeDefaultGadgets(Molecule mol)
 	{
 	
-		int resolution = 100;
+		int resolution = 30;
 		if (mol.NumAtoms() > 100)
 			resolution = 10;
  		SpatialData data = new SpatialDataCharge(mol);
-		data.Resize(resolution, resolution, resolution);
+		data.setSize(resolution);
  		mol.getSpatialData().add(data);
 
  		data = new SpatialDataAccessibleSurface(mol);
-		data.Resize(resolution, resolution, resolution);
+		data.setSize(resolution);
  		mol.getSpatialData().add(data);
 
-		
+ 		if (mol.hasMO())
+ 		{
+	 		SpatialDataMO dataMO = new SpatialDataMO(mol);
+			dataMO.setSize(resolution);
+			dataMO.setWhichMO(24);
+	 		mol.getSpatialData().add(dataMO);
+ 		}
 	}
 	public void makeDefaultPanels()
 	{

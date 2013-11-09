@@ -1,60 +1,17 @@
 package com.bobandthomas.Morbid.molecule.reader;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import com.bobandthomas.Morbid.molecule.Molecule;
+import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 
 public abstract class MoleculeFileReader {
 
-	MoleculeFileReader() {
-
-	}
-
-	Molecule molecule;
-	String fileName;
-	String fileTypeName;
-	String FileTypeFilter;
-	BufferedReader br;
-
-	public void init(String s, Molecule m, BufferedReader is) {
-		fileName = s;
-		molecule = m;
-		br = is;
-	}
-
-	protected boolean PreRead() {
-		if (fileName == null || fileName.length() == 0)
-			return false;
-		if (molecule == null) {
-			molecule = new Molecule();
-		}
-		return true;
-	}
-
-	public abstract void Save();
-
-	public abstract void Read();
-
-	public abstract boolean Validate();
-	
-	public Tokenizer getNextLine()
-	{
-		Tokenizer t = null;
-		try {
-			t = new Tokenizer(br.readLine());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return t;
-	}
-
 	protected class Tokenizer {
-		String str;
-		String[] ss;
-		int currentPoint;
 		int currentIndex;
+		int currentPoint;
+		String[] ss;
+		String str;
 
 		public Tokenizer(String arg0) {
 			str = arg0;
@@ -81,8 +38,12 @@ public abstract class MoleculeFileReader {
 			return ss.length;
 		}
 
-		boolean hasNextToken() {
-			return currentIndex < ss.length;
+		float GetFloatToken() {
+			return Float.parseFloat(GetStringToken());
+		}
+
+		int GetIntToken() {
+			return Integer.parseInt(GetStringToken());
 		}
 
 		String GetStringToken() {
@@ -94,19 +55,67 @@ public abstract class MoleculeFileReader {
 			return next;
 		}
 
+		boolean hasNextToken() {
+			return currentIndex < ss.length;
+		}
+
 		String peekNextToken() {
 			// does not advace the counter;
 			return ss[currentIndex];
 		}
 
-		int GetIntToken() {
-			return Integer.parseInt(GetStringToken());
-		}
+	}
 
-		float GetFloatToken() {
-			return Float.parseFloat(GetStringToken());
-		}
+	MorbidBufferedReader br;
+	boolean binary;
+	String fileName;
 
+	String fileTypeName;
+	Molecule molecule;
+	MoleculeFileReader() {
+		binary = false; //default files are text based;
+	}
+	public Molecule getMolecule() {
+		return molecule;
+	}
+
+	public Tokenizer getNextLine()
+	{
+		Tokenizer t = null;
+		try {
+			t = new Tokenizer(br.readLine());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return t;
+	}
+
+	public void init(String s, Molecule m, MorbidBufferedReader is) {
+		fileName = s;
+		molecule = m;
+		br = is;
+	}
+
+	public abstract void Read();
+
+	public abstract void Save();
+	public abstract String[] getFileExtensions();
+
+	public void setMolecule(Molecule molecule) {
+		this.molecule = molecule;
+	}
+	
+	public abstract boolean Validate();
+
+	protected boolean PreRead() {
+		if (fileName == null || fileName.length() == 0)
+			return false;
+		if (molecule == null) {
+			molecule = new Molecule();
+		}
+		br.setReaderBinary(binary);
+		return true;
 	}
 
 }
