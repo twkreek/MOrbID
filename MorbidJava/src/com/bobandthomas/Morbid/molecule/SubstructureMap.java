@@ -72,7 +72,7 @@ public class SubstructureMap extends CLoadableSet<SubstructureSet> {
 		for (SubstructureSet als : this)
 		{
 			System.out.println("     "+ als.getName());
-			for (AtomList al: als)
+			for (Substructure al: als)
 			{
 				System.out.println("             "+ al.getName());
 				if (full)

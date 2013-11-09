@@ -1,29 +1,99 @@
 package com.bobandthomas.Morbid.molecule;
 
+import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.CLoadableSet;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.MinMax;
+import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 
-public class Substructure extends AtomList implements ISubstructure{
-	
-	private Fragment fragment;
-	ColorQuad listColor;  // the generic color used for substructure coloring.
-	public Substructure() {
-		// TODO Auto-generated constructor stub
-		listColor = StaticColorQuad.LiteGray.cq();
-		setReParent(false);
-	}
-	public ColorQuad getListColor() {
-		return listColor;
-	}
-	public void setListColor(ColorQuad listColor) {
-		this.listColor = listColor;
-	}
-	Fragment getFragment() {
-		return fragment;
-	}
-	void setFragment(Fragment fragment) {
-		this.fragment = fragment;
-	}
+public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
+		private Fragment fragment;
+		protected ColorQuad listColor;
+		BoxType bounds;
+		MinMax chargeRange;
+		boolean m_bDirtyCharges;
+		boolean m_bHasCharges;
+ 		Substructure()
+		{
+			m_bHasCharges = false;
+			bounds = new BoxType();
+			chargeRange = new MinMax();
+			listColor = StaticColorQuad.LiteGray.cq();
+			setReParent(false);
+			
+		}
+		public int AddAtom(Atom a)
+		{
 
+			double r = a.Radius();
+			bounds.CalcBounds(a.Position(), r);
+			chargeRange.addValue(a.getCharge());
+
+			if (a.getCharge() != 0.0)
+			{
+				m_bHasCharges = true;
+			}
+			a.setID(this.size());
+			add(a);
+			return (int) a.getID();
+		}
+		public void balanceCharges()
+		{
+			double midCharge = chargeRange.center();
+			for (Atom a: this)
+			{
+				a.setCharge(a.getCharge() - midCharge);
+			}
+		}
+		public void CalcBounds()
+		{
+			chargeRange.reset();
+			bounds.resetBounds();
+			for (Atom at : this)
+			{
+				chargeRange.addValue(at.getCharge());
+				double r = at.Radius();
+				bounds.CalcBounds(at.Position(), r);
+			}
+		}
+		public void centerMolecule()
+		{
+			int i;
+			CalcBounds();
+			Point3D center = bounds.center();
+			for (i=0; i < size(); i ++)
+			{
+				get(i).Position().sub(center);
+			}
+			bounds.min.sub(center);
+			bounds.max.sub(center);
+		}
+		public BoxType GetBounds() {return bounds; }
+		public MinMax getChargeRange()
+		{
+			return chargeRange;
+		}
+		
+		
+		public ColorQuad getListColor() {
+			return listColor;
+		}
+
+		public boolean HasCharges() { return m_bHasCharges; }
+
+
+		public double MaxCharge (){ return chargeRange.max; }
+		public double MinCharge() {  return chargeRange.min; }
+		public void setListColor(ColorQuad listColor) {
+			this.listColor = listColor;
+		}
+		protected Fragment getFragment() {
+			return fragment;
+		}
+		protected void setFragment(Fragment fragment) {
+			this.fragment = fragment;
+		}
+		int NumAtoms() { return this.size(); }
 
 }

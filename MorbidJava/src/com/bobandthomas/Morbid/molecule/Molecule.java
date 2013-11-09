@@ -19,10 +19,10 @@ import com.bobandthomas.Morbid.utils.Point3D;
  */
 public class Molecule extends CLoadableItem implements Iterable<Atom> {
 
-			private AtomList	atoms;
+			private Substructure	atoms;
 		    BondList	bonds;
-			AtomList	selectedList;
-			public AtomList Atoms() { return atoms; }
+			Substructure	selectedList;
+			public Substructure Atoms() { return atoms; }
 			public BondList Bonds() { return bonds; }
 			
 			MolecularOrbitalSet mo;
@@ -83,9 +83,9 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			{
 				substructures = new SubstructureMap();
 				propList = new MoleculePropertyList();
-				atoms = new AtomList();
+				atoms = new Substructure();
 				bonds = new BondList();
-				selectedList = new AtomList();
+				selectedList = new Substructure();
 				spatialData = new SpatialDataList();
 				substructures.add(new SubstructureSet("All", "All Atoms in the molecule"));
 				hydrogens = new SubstructureSet("Hydrogens", "Hydrogens vs Atoms");

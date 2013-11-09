@@ -8,7 +8,7 @@ public class MorbidSmilesHelper {
 	Stack<Atom> atomStack;	
 	HashMap<Atom, Boolean> visited;
 	int depth = 0;
-	AtomList list;
+	Substructure list;
 
 	public MorbidSmilesHelper(Substructure a) {
 		list = a;
