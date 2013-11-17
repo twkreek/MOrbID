@@ -25,6 +25,26 @@ public class ColorQuad extends Color4f {
 		// TODO Auto-generated constructor stub
 		Set(color.x, color.y, color.z);
 	}
+	public ColorQuad(String color)
+	{
+		// String can either be decimal or hex
+		//remove leading and trailing array modifiers
+		String temp = color.replace('[', ' ').replace(']', ' ').trim();
+		if (temp.charAt(0) == '#')
+		{
+			//hex
+			int r,g,b;
+			r = Integer.decode( "#" + temp.substring(1,2));
+			g = Integer.decode( '#' + temp.substring(3,4));
+			b = Integer.decode( "#" + temp.substring(5,6));
+			Set(r,g,b);
+			return;
+		}
+		//decimal
+		String[] values = temp.split(",");
+		Set(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]));
+		
+	}
 	
 	public Color3f Cf()
 	{

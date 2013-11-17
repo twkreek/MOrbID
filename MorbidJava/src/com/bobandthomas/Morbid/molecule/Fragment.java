@@ -2,13 +2,11 @@ package com.bobandthomas.Morbid.molecule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.Stack;
 
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 
-public abstract class Fragment extends CLoadableItem implements ISubstructure {
+public abstract class Fragment extends CLoadableItem {
 
 	public enum MatchType {
 		ATOM, FRAGMENT, RING;
@@ -176,48 +174,5 @@ public abstract class Fragment extends CLoadableItem implements ISubstructure {
 		}
 		return false;
 	}
-
-	@Override
-	public Iterator<Atom> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ListIterator<Atom> listIterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean add(Atom arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean contains(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Atom get(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int indexOf(Object arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	
 }

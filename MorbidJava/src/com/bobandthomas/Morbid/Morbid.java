@@ -2,6 +2,7 @@ package com.bobandthomas.Morbid;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
+
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 
@@ -18,6 +19,7 @@ import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 import com.bobandthomas.Morbid.UI.ControlPanelSideBar;
 import com.bobandthomas.Morbid.UI.HudPanel;
+import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.UI.MorbidMenus;
 
 public class Morbid extends JApplet {
@@ -167,7 +169,7 @@ public class Morbid extends JApplet {
 		if (m!= null) return;
 		m=this.showSampleSelection();
 		m.CenterAtoms();
-		System.out.println(m.empirical.getFormula());
+		Logger.addMessage(m,m.empirical.getFormula());
 		scene.setPauseRender(true);
 		scene.SetMolecule(m);
 

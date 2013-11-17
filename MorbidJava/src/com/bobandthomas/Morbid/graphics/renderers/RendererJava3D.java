@@ -30,6 +30,7 @@ import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3f;
 
 import com.bobandthomas.Morbid.Gadget.Gadget;
+import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.graphics.ArrowGob;
 import com.bobandthomas.Morbid.graphics.CTM;
 import com.bobandthomas.Morbid.graphics.CircleGob;
@@ -116,7 +117,7 @@ public class RendererJava3D extends Renderer {
 		for (int i=0; i< depth; i++)
 			label += "      ";
 		label +="|_______" + name;
-		System.out.println(label);
+		Logger.addMessage(this, label);
 	}
 	@SuppressWarnings("unused")
 	private void printGraphTree(Group n, int depth)

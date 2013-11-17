@@ -78,7 +78,6 @@ public class FileReaderPCModel extends MoleculeFileReader {
 			str = arg0;
 			currentPoint = 0;
 			currentIndex = 0;
-			System.out.println();
 			String stemp []  = arg0.split("[ ,:]");
 			int count = 0;
 			for (String s :stemp) if (!s.isEmpty()) count++; 
@@ -87,9 +86,7 @@ public class FileReaderPCModel extends MoleculeFileReader {
 			for (String s: stemp) if (!s.isEmpty())
 			{
 				ss[count++] = s;
-//				System.out.print(s +",  ");
 			}
-			System.out.println();
 		}
 		
 		boolean hasNextToken()

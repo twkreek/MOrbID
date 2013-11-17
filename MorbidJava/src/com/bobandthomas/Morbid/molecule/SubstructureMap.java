@@ -1,5 +1,6 @@
 package com.bobandthomas.Morbid.molecule;
 
+import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
 
 /**
@@ -68,13 +69,13 @@ public class SubstructureMap extends CLoadableSet<SubstructureSet> {
 	 */
 	public void printList(boolean full)
 	{
-		System.out.println("SubstructureMap");
+		String text = "SubstructureMap\n";
 		for (SubstructureSet als : this)
 		{
-			System.out.println("     "+ als.getName());
+			text += "     "+ als.getName()+ "\n";
 			for (Substructure al: als)
 			{
-				System.out.println("             "+ al.getName());
+				text+="             "+ al.getName()+ "\n";
 				if (full)
 				{
 					int atomcount = 0;
@@ -86,12 +87,13 @@ public class SubstructureMap extends CLoadableSet<SubstructureSet> {
 							System.out.println();
 						}
 						atomcount++;
-						System.out.print(a.getName() +":"+ a.getID() +", ");
+						text += a.getName() +":"+ a.getID() +", ";
 					}
-					System.out.println();
+					text += "\n";
 				}
 			}
 		}
+		Logger.addMessage(this, text);
 	}
 
 }

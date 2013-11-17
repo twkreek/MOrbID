@@ -21,7 +21,8 @@ public class FileReaderMopac13 extends MoleculeFileReader {
 
 	}
 	
-	private void sampleBytes(MorbidBufferedReader br, int byteSize, int itemCount) throws IOException
+/*	Debugging for binary fileformat
+ * private void sampleBytes(MorbidBufferedReader br, int byteSize, int itemCount) throws IOException
 	{
 		byte[] next = br.readBytes(itemCount * byteSize);
 		int tempi = 1;
@@ -57,6 +58,7 @@ public class FileReaderMopac13 extends MoleculeFileReader {
 		}
 	
 	}
+	*/
 
 	@Override
 	public void Read() {
@@ -90,10 +92,9 @@ public class FileReaderMopac13 extends MoleculeFileReader {
 
 			byte s[] = br.readBytes(6);
 			for (i=0; i<na; i++) {
-				long l1;
-				long l2;
-				l1= br.readInt();
-				l2 =br.readInt();
+				br.readInt();
+				br.readInt();
+				
 			}
 
 			s = br.readBytes(6);

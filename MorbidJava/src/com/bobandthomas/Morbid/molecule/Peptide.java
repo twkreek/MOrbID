@@ -2,6 +2,8 @@ package com.bobandthomas.Morbid.molecule;
 
 import java.util.ArrayList;
 
+import com.bobandthomas.Morbid.UI.Logger;
+
 /**
  * @author Thomas Kreek
  *	Peptide is an SubstructureSet that is specific for a 
@@ -48,7 +50,7 @@ public class Peptide extends SubstructureSet {
 		for (Substructure subst : this)
 		{
 			AminoAcidFragment frag = (AminoAcidFragment) subst.getFragment();
-			System.out.println(frag.toString());
+			Logger.addMessage(frag, frag.toString());
 		}
 	}
 

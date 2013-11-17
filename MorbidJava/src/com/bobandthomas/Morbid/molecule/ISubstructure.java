@@ -3,7 +3,7 @@ package com.bobandthomas.Morbid.molecule;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public interface ISubstructure{
+public interface ISubstructure {
 
 	public Iterator<Atom> iterator();
 
@@ -18,7 +18,7 @@ public interface ISubstructure{
 	public Atom get(int arg0);
 
 	public int indexOf(Object arg0);
-
+	
 	public int size();
 
 }

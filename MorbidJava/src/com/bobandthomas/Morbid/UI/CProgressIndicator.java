@@ -1,7 +1,9 @@
-package com.bobandthomas.Morbid.wrapper;
+package com.bobandthomas.Morbid.UI;
 
 public class CProgressIndicator {
-
+	public CProgressIndicator() {
+		
+	}
 	public CProgressIndicator(String name) {
 		// TODO Auto-generated constructor stub
 	}

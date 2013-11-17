@@ -1,11 +1,11 @@
 package com.bobandthomas.Morbid.molecule.data;
 
+import com.bobandthomas.Morbid.UI.CProgressIndicator;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.data.control.SpatialDataControl;
 import com.bobandthomas.Morbid.utils.BoxType;
 import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
-import com.bobandthomas.Morbid.wrapper.CProgressIndicator;
 
 public abstract class SpatialData extends CubeArray {
 

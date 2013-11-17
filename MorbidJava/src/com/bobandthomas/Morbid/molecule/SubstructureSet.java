@@ -3,6 +3,8 @@ package com.bobandthomas.Morbid.molecule;
 import java.util.Collection;
 import java.util.HashMap;
 
+import com.bobandthomas.Morbid.UI.Logger;
+import com.bobandthomas.Morbid.UI.Logger.MessageLevel;
 import com.bobandthomas.Morbid.molecule.SubstructureRepList;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
 import com.bobandthomas.Morbid.utils.ColorQuad;
@@ -80,18 +82,18 @@ public class SubstructureSet extends CLoadableSet<Substructure> {
 
 	@Override
 	public void add(int arg0, Substructure arg1) {
-		System.out.println("Wrong Add Called -SubstructureList");
+		Logger.addMessage(this, "Wrong Add Called -SubstructureList", MessageLevel.ERROR);
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends Substructure> arg0) {
-		System.out.println("Wrong AddAll Called SubstructureList");
+		Logger.addMessage(this, "Wrong Add Called -SubstructureList", MessageLevel.ERROR);
 			return false;
 	}
 
 	@Override
 	public boolean addAll(int arg0, Collection<? extends Substructure> arg1) {
-		System.out.println("Wrong AddAll Called SubstructureList");
+		Logger.addMessage(this, "Wrong Add Called -SubstructureList", MessageLevel.ERROR);
 		return false;
 	}
 
