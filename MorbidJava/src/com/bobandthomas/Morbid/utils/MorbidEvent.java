@@ -43,6 +43,7 @@ public class MorbidEvent {
 		this.newValue = newValue;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public boolean isType(Class obj)
 	{
 		if (source == null) return false;

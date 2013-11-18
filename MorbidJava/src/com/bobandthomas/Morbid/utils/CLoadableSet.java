@@ -41,7 +41,7 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 	{
 		return nameMap.get(s);
 	}
-	public Set getByNameSet()
+	public Set<?> getByNameSet()
 	{
 		return nameMap.entrySet();
 	}
@@ -171,6 +171,7 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 	public Object[] toArray() {
 		return set.toArray();
 	}
+	@SuppressWarnings("hiding")
 	@Override
 	public <T> T[] toArray(T[] arg0) {
 		return set.toArray(arg0);

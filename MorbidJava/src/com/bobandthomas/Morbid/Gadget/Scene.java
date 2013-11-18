@@ -153,7 +153,7 @@ public class Scene extends CLoadableItem {
 		{
 			//notify all gadgets that this one is being added,
 			//so they can set up notifications or change their appearance
-			gadg.gadgetListChanged(gadgetList);
+			gadg.sceneChanged(this);
 		}
 	}
 

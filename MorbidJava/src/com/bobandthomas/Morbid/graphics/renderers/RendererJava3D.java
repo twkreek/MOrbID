@@ -119,7 +119,7 @@ public class RendererJava3D extends Renderer {
 		label +="|_______" + name;
 		Logger.addMessage(this, label);
 	}
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "rawtypes" })
 	private void printGraphTree(Group n, int depth)
 	{
 		if (n == null) return;

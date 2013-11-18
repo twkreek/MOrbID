@@ -1,11 +1,6 @@
 package com.bobandthomas.Morbid.molecule;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.ListIterator;
-
 import com.bobandthomas.Morbid.utils.BoxType;
-import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.MinMax;

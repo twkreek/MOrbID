@@ -127,7 +127,7 @@ public abstract class Gadget extends CLoadableItem {
 		
 
 		public abstract String getGadgetType();
-
+		
 
 		public LayerPosition getLayer() {
 			return layer;
@@ -138,7 +138,7 @@ public abstract class Gadget extends CLoadableItem {
 			scene = s;
 			molecule = scene.GetMolecule();
 		}
-		public void gadgetListChanged(GadgetList gadgetList)
+		public void sceneChanged(Scene scene)
 		{
 			//most Gadgets don't care.
 		}
@@ -158,6 +158,14 @@ public abstract class Gadget extends CLoadableItem {
 		public void setSubstructureFilterList(SubstructureRepList substructureFilterList) {
 			this.substructureFilterList = substructureFilterList;
 			markDirty();
+		}
+		
+		public boolean isAtomVisible(Atom a)
+		{
+			if (!isSubstructureFilter()) return true;
+			if (substructureFilterList == null) return true;
+			return substructureFilterList.isVisible(a);
+
 		}
 
 

@@ -19,6 +19,10 @@ public class CLoadableItem extends ChangeNotifier implements ILoadable, IChangeN
 		m_bDirty = true;
 		
 	}
+	public boolean isType(@SuppressWarnings("rawtypes") Class c)
+	{
+		return (this.getClass().equals(c));
+	}
 	public long getID() {
 		return ID;
 	}

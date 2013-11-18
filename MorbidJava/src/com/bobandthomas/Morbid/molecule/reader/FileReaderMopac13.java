@@ -6,7 +6,6 @@ import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.MolecularOrbitalSet;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Point3DList;
-import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 
 public class FileReaderMopac13 extends MoleculeFileReader {
 
