@@ -149,13 +149,13 @@ public class Morbid extends JApplet {
 			String [] file= fileName.split("[.]");
 			
 			if (file[1].toLowerCase().equals("pdb"))
-				m = readFile(spl[0], ResourceMgr.getResourceFile("data/"+ spl[1]), new FileReaderPDB());
+				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderPDB());
 			if (file[1].toLowerCase().equals("pcm"))
-				m = readFile(spl[0], ResourceMgr.getResourceFile("data/"+ spl[1]), new FileReaderPCModel());
+				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderPCModel());
 			if (file[1].toLowerCase().equals("sdf"))
-				m = readFile(spl[0], ResourceMgr.getResourceFile("data/"+ spl[1]), new FileReaderSDF());
+				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderSDF());
 			if (file[1].toLowerCase().equals("f13"))
-				m = readFile(spl[0], ResourceMgr.getResourceFile("data/"+ spl[1]), new FileReaderMopac13());
+				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderMopac13());
 
 			if (file[1].equals("0"))
 				m.makeTinyMolecule();
