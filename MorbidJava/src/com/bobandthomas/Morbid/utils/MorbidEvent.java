@@ -1,14 +1,14 @@
 package com.bobandthomas.Morbid.utils;
 
 public class MorbidEvent {
-	ChangeNotifier source;
+	IChangeNotifier source;
 	String field;
 	Object oldValue;
 	Object newValue;
 
 	public MorbidEvent() {
 	}
-	public MorbidEvent(ChangeNotifier source)
+	public MorbidEvent(IChangeNotifier source)
 	{
 		this.source = source;
 	}
@@ -18,7 +18,7 @@ public class MorbidEvent {
 		this.oldValue = oldValue;
 		this.newValue = newValue;	
 	}
-	public ChangeNotifier getSource() {
+	public IChangeNotifier getSource() {
 		return source;
 	}
 	public void setSource(ChangeNotifier source) {

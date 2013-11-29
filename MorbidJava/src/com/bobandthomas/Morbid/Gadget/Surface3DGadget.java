@@ -27,6 +27,15 @@ public class Surface3DGadget extends GadgetSpatialData {
 		polar = true;
 		solid = true;
 	}
+	public boolean isPolar() {
+		return polar;
+	}
+	public void setPolar(boolean polar) {
+		this.polar = polar;
+		if (polar) threshold = 0;
+		else setThresholdFraction(0.5);
+		markDirty();
+	}
 	private void makeFaces(GobPoly gobMesh, Face f)
 	{
 		Vertex verts[] = new Vertex[3];
@@ -102,7 +111,7 @@ public class Surface3DGadget extends GadgetSpatialData {
 	@Override
 	public void sceneAdded(Scene s) {
 		super.sceneAdded(s);
-		this.setSd(GetMolecule().getSpatialData().getByName("MO"));
+		this.setSd(GetMolecule().getSpatialData().getByName("Charge"));
 		markClean(); //TODO shouldn't have to mark it clean to be able to display
 		//filtering out notification for dirty objects may block appropriate events
 		notifyChange();

@@ -58,25 +58,22 @@ public class FileReaderPCModel extends MoleculeFileReader {
 		}
 
 	}
+/*
 	private enum TokenTypes
 	{
 		PCM("{PCM"), Flag("FL"), Atom("AT"), Bond("B"), Close("}");
 		TokenTypes(String token)
 		{
 			
-		}
-		
+		}		
 	}
+*/
 
 	private class PCMTokenizer {
-		String str;
 		String [] ss;
-		int currentPoint;
 		int currentIndex;
 
 		public PCMTokenizer(String arg0) {
-			str = arg0;
-			currentPoint = 0;
 			currentIndex = 0;
 			String stemp []  = arg0.split("[ ,:]");
 			int count = 0;

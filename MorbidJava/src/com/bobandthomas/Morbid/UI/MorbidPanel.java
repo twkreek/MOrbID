@@ -10,6 +10,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -27,15 +28,22 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.bobandthomas.Morbid.utils.ChangeNotifier;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
+import com.bobandthomas.Morbid.utils.MorbidEvent;
+
 public abstract class MorbidPanel extends JPanel implements ChangeListener,
-ItemListener, ActionListener  {
+ItemListener, ActionListener, IChangeNotifier  {
 
 	HashMap<JComponent, String> map;
+	HashMap<String, JComponent> byName;
 	protected JPanel child;
 	protected JPanel tempChild;
+	protected ChangeNotifier notifier = new ChangeNotifier();
 
 	public MorbidPanel(String name) {
 		map = new HashMap<JComponent, String>();
+		byName = new HashMap<String, JComponent>();
 
 		setBorder(new CompoundBorder());
 		setLayout(new BorderLayout());
@@ -92,6 +100,11 @@ ItemListener, ActionListener  {
 
 	public void register(JComponent component, String name) {
 		map.put(component, name);
+		byName.put(name, component);
+	}
+	public JComponent getByName(String s)
+	{
+		return byName.get(s);
 	}
 	public void sideBySide()
 	{
@@ -106,14 +119,15 @@ ItemListener, ActionListener  {
 		child = tempChild;
 	}
 
-	public void createLabel(String label) {
+	public JLabel createLabel(String label) {
 		JLabel lblShow = new JLabel(label);
 		lblShow.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblShow.setHorizontalAlignment(SwingConstants.LEFT);
 		child.add(lblShow);
+		return lblShow;
 
 	}
-	public void createButton(String label) {
+	public JButton createButton(String label) {
 		JButton button = new JButton(label);
 		button.setAlignmentY(Component.TOP_ALIGNMENT);
 		button.setHorizontalAlignment(SwingConstants.CENTER);
@@ -121,6 +135,7 @@ ItemListener, ActionListener  {
 		register(button, label);
 		button.addActionListener(this);
 		child.add(button);
+		return button;
 	}
 	
 	public void createSpinner(String label, int[] inputRange, int defaultIndex)
@@ -143,13 +158,14 @@ ItemListener, ActionListener  {
 	}
 
 
-	public void createCheckbox(String label, boolean value) {
+	public JCheckBox createCheckbox(String label, boolean value) {
 		JCheckBox checkBox = new JCheckBox(label);
 		checkBox.setHorizontalAlignment(SwingConstants.LEFT);
 		checkBox.setSelected(value);
 		checkBox.addActionListener(this);
 		child.add(checkBox);
 		register(checkBox, label);
+		return checkBox;
 
 	}
 
@@ -157,6 +173,7 @@ ItemListener, ActionListener  {
 		JLabel sliderLabel = new JLabel(label);
 		sliderLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		if (labeled) child.add(sliderLabel);
+		register(sliderLabel, "Label "+label);
 
 		JSlider slider = new JSlider();
 		slider.setMinimum(min);
@@ -182,7 +199,7 @@ ItemListener, ActionListener  {
 		child.add(enumCombo);
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void createCombo(ArrayList values, String label,
+	public void createCombo(List values, String label,
 			int defaultValue) {
 		JComboBox combo = new JComboBox();
 		combo.setModel(new DefaultComboBoxModel(values.toArray()));
@@ -210,6 +227,38 @@ ItemListener, ActionListener  {
 		lastValue = value;
 		return true;
 	}
+	public IChangeNotifier[] getNotifyList() {
+		return notifier.getNotifyList();
+	}
+
+	public MorbidEvent handleNotify(MorbidEvent source) {
+		return notifier.handleNotify(source);
+	}
+
+	public void registerListener(IChangeNotifier listener) {
+		notifier.registerListener(listener);
+	}
+
+	public void notifyChange(MorbidEvent source) {
+		notifier.notifyChange(source);
+	}
+
+	public void notifyChange() {
+		notifier.notifyChange();
+	}
+
+	public void unRegisterListener(IChangeNotifier listener) {
+		notifier.unRegisterListener(listener);
+	}
+
+	public void registerNotifier(IChangeNotifier notifier) {
+		notifier.registerNotifier(notifier);
+	}
+
+	public void unRegisterFromAll() {
+		notifier.unRegisterFromAll();
+	}
+
 	
 
 }

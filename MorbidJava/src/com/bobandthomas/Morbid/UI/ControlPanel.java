@@ -32,7 +32,7 @@ public abstract class ControlPanel extends MorbidPanel  {
 		child = new JPanel(new GridLayout(0,1,0,0));
 		child.setVisible(!showName || banner.isSelected());
 		add(child, BorderLayout.CENTER);
-		createLabel(name);
+		if (!showName) createLabel(name); 
 	}
 
 

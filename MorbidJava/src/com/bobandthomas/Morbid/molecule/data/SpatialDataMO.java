@@ -1,5 +1,7 @@
 package com.bobandthomas.Morbid.molecule.data;
 
+import javax.swing.JPanel;
+
 import com.bobandthomas.Morbid.molecule.AtomType;
 import com.bobandthomas.Morbid.molecule.MolecularOrbitalSet;
 import com.bobandthomas.Morbid.molecule.MolecularOrbitalSet.AtomicOrbital;
@@ -230,7 +232,7 @@ public class SpatialDataMO extends SpatialData {
 	}
 
 	@Override
-	public SpatialDataControl getControlPanel() {
-		return new SpatialDataMOControl(this, "MolecularOrbital");
+	public SpatialDataControl getControlPanel(JPanel parentPanel) {
+		return new SpatialDataMOControl(this, getName(), parentPanel);
 	}
 }

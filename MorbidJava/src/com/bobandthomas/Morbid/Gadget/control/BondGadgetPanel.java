@@ -42,7 +42,7 @@ public class BondGadgetPanel extends GadgetPanel {
 		{
 			bg.setLabelDistance(value == 1);
 		}
-		if (label.equals("Bond radius"))
+		if (label.equals("Bond Radius"))
 		{
 			bg.setBondScale(value/1000.0);
 			return;

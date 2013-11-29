@@ -2,7 +2,7 @@ package com.bobandthomas.Morbid.utils;
 
 import java.util.HashSet;
 
-public abstract class ChangeNotifier implements IChangeNotifier {
+public  class ChangeNotifier implements IChangeNotifier {
 
 	HashSet<IChangeNotifier> listeners; // list of all the objects that want notifications when i change
 	HashSet<IChangeNotifier> notifiers; // the list of all items that i am listening to.
@@ -29,7 +29,7 @@ public abstract class ChangeNotifier implements IChangeNotifier {
 	@Override
 	public void notifyChange(MorbidEvent source) {
 		MorbidEvent newEvent = handleNotify(source);
-//		if (newEvent == null) return;
+		if (newEvent == null) return;
 		if (listeners == null) return;
 
 		for (IChangeNotifier cn : listeners)
@@ -69,6 +69,12 @@ public abstract class ChangeNotifier implements IChangeNotifier {
 			cn.unRegisterListener(this);
 		}
 		
+	}
+
+	@Override
+	public MorbidEvent handleNotify(MorbidEvent source) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

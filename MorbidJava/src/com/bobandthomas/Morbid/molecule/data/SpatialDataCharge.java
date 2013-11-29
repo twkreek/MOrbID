@@ -1,5 +1,7 @@
 package com.bobandthomas.Morbid.molecule.data;
 
+import javax.swing.JPanel;
+
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.data.control.SpatialDataControl;
@@ -9,16 +11,15 @@ public class SpatialDataCharge extends SpatialData {
 
 	static class SpatialDataType
 	{
-		static String name = "Charge";
 		static public  SpatialData create(Molecule m)
 		{
 			return new SpatialDataCharge(m);
 		}
 	}
-	public String getName() { return "Charge"; }
 	public SpatialDataCharge(Molecule m)
 	{
 		super(m);
+		setName("Charge");
 	}
 	@Override
 	public double Calculate(Point3D pos) {
@@ -34,8 +35,8 @@ public class SpatialDataCharge extends SpatialData {
 		return value;	
 	}
 	@Override
-	public SpatialDataControl getControlPanel() {
-		return new SpatialDataControl(this, "Charge");
+	public SpatialDataControl getControlPanel(JPanel parentPanel) {
+		return new SpatialDataControl(this, getName(), parentPanel);
 	}
 
 }
