@@ -1,8 +1,6 @@
 package com.bobandthomas.Morbid.utils;
 
 import javax.vecmath.Point3d;
-import javax.vecmath.Vector3f;
-
 import toxi.geom.Vec3D;
 
 public class Point3D extends Point3d {

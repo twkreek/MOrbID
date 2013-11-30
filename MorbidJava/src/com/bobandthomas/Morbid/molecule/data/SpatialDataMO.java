@@ -119,6 +119,7 @@ public class SpatialDataMO extends SpatialData {
 
 	void calcslice() {
 		int i, j, k, n;
+		@SuppressWarnings("unused")
 		double tempvalue = 0, x, y, z, coeff, zeta, dx, dy, dz, rad;
 		AtomType aType;
 		Point3D pos;

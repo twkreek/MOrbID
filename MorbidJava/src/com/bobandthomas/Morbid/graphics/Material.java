@@ -181,7 +181,7 @@ public class Material extends CLoadableItem
 		}
 		void ReadItem(String line)
 		{
-			/* TODO 
+			/* TODO Allow reading material definitions. 
 			array<Char> ^quotes = {'"'};
 			array<String ^>^quoted = line->Split(quotes,StringSplitOptions::RemoveEmptyEntries);
 

@@ -18,7 +18,7 @@ public class Vertex extends Point3D {
 		z=p.z;
 	}
 	
-	public Point3D getNormal() {
+	public Vector3D getNormal() {
 		return normal;
 	}
 
@@ -63,6 +63,13 @@ public class Vertex extends Point3D {
 	public Vertex(Point3D n1, Vector3D normal) {
 		super(n1);
 		this.normal = normal;
+	}
+	public Vertex(Point3D p, ColorQuad cq, Vector3D n)
+	{
+		super(p);
+		this.normal = n;
+		this.color = cq;
+	
 	}
 	public Vertex(toxi.geom.mesh.Vertex v)
 	{

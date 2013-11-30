@@ -16,7 +16,6 @@ public class FileReaderMopac13 extends MoleculeFileReader {
 
 	@Override
 	public void Save() {
-		// TODO Auto-generated method stub
 
 	}
 	
@@ -89,6 +88,8 @@ public class FileReaderMopac13 extends MoleculeFileReader {
 			for (i=0; i<na; i++)
 				pos.get(i).z = br.readDouble();
 
+			//six byte placeholder - no documentation found
+			@SuppressWarnings("unused")
 			byte s[] = br.readBytes(6);
 			for (i=0; i<na; i++) {
 				br.readInt();

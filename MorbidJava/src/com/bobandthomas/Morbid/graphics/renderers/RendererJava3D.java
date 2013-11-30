@@ -48,7 +48,7 @@ import com.bobandthomas.Morbid.graphics.Material;
 import com.bobandthomas.Morbid.graphics.SphereGob;
 import com.bobandthomas.Morbid.graphics.StringGob;
 import com.bobandthomas.Morbid.graphics.GobPoly.GobPolyType;
-import com.bobandthomas.Morbid.utils.Point3D;
+import com.bobandthomas.Morbid.graphics.VertexList;
 import com.bobandthomas.Morbid.utils.Vector3D;
 import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
 import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
@@ -330,7 +330,7 @@ public class RendererJava3D extends Renderer {
 	void Poly(GobPoly g) {
 		
 		GeometryArray array;
-		int size = g.getPoints().size();
+		int size = g.size();
 		int flags = GeometryArray.COORDINATES;
 		if (g.isHasColors())
 			flags |= GeometryArray.COLOR_3;
@@ -343,11 +343,11 @@ public class RendererJava3D extends Renderer {
 		else
 			array = new TriangleArray(size, flags);
 		Point3d points[] = new Point3d[size];
-		
+		VertexList vertices = g.getVertices();
 		
 		for (int i = 0; i< size; i++)
 		{
-			points[i]=g.getPoints().get(i);
+			points[i]=vertices.get(i);
 		}
 		array.setCoordinates(0,points);
 		if (g.isHasColors())
@@ -355,7 +355,7 @@ public class RendererJava3D extends Renderer {
 			Color3f colors[] = new Color3f[size];
 			for (int i = 0; i< size; i++)
 			{
-				colors[i]=g.getColors().get(i).Cf();
+				colors[i]=vertices.get(i).getColor().Cf();
 			}
 
 			array.setColors(0,colors);
@@ -365,7 +365,7 @@ public class RendererJava3D extends Renderer {
 			Vector3f normals[] = new Vector3f[size];
 			for (int i = 0; i< size; i++)
 			{
-				Vector3D p = g.getNormals().get(i);
+				Vector3D p = vertices.get(i).getNormal();
 				normals[i]=p.getVec3f();
 			}
 

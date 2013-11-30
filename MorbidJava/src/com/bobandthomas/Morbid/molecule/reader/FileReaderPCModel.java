@@ -141,7 +141,6 @@ public class FileReaderPCModel extends MoleculeFileReader {
 
 	@Override
 	public void Read() {
-		int na;
 		String line;
 		try {
 			while ((line = br.readLine()) != null) {
@@ -154,6 +153,8 @@ public class FileReaderPCModel extends MoleculeFileReader {
 				}
 				if (token.equals( "NA"))
 				{
+					@SuppressWarnings("unused")
+					int na;
 					na = scrap.GetIntToken();
 					continue;
 				}
@@ -165,7 +166,6 @@ public class FileReaderPCModel extends MoleculeFileReader {
 				if (token.equals("AT")) {
 					int sequence;
 					int typeNum;
-					int subType = 0;
 					String sym;
 					float x, y, z;
 
