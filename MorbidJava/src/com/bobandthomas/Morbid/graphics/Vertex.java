@@ -4,9 +4,10 @@ import toxi.geom.Vec3D;
 
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class Vertex extends Point3D {
-	Point3D normal;
+	Vector3D normal;
 	ColorQuad color;
 	public double value; 
 	
@@ -21,7 +22,7 @@ public class Vertex extends Point3D {
 		return normal;
 	}
 
-	public void setNormal(Point3D normal) {
+	public void setNormal(Vector3D normal) {
 		this.normal = normal;
 	}
 
@@ -59,14 +60,14 @@ public class Vertex extends Point3D {
 		this.value = value;
 	}
 
-	public Vertex(Point3D n1, Point3D normal) {
+	public Vertex(Point3D n1, Vector3D normal) {
 		super(n1);
 		this.normal = normal;
 	}
 	public Vertex(toxi.geom.mesh.Vertex v)
 	{
 		super(new Point3D(v));
-		normal = new Point3D(v).Normalize().invert();
+		normal = new Vector3D(v).Normalize().invert();
 	}
 
 	public Vertex(Point3D n1, ColorQuad cq, double value) {

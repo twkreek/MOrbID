@@ -106,8 +106,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 		    			Point3D pi, pj;
 		    			pi = new Point3D(ai.Position());
 		                pj = new Point3D(aj.Position());
-		    			pi.sub(pj);
-		    			if (pi.Length() <=
+		    			if (pi.Sub(pj).Length() <=
 		    				 (ai.Radius() + aj.Radius())+0.1)
 		    			{
 		    				Bond bond = new Bond(ai,aj);
@@ -185,8 +184,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 		    			Point3D pj;
 		    			pi = new Point3D(ai.Position());
 		                pj = new Point3D(aj.Position());
-		    			pi.sub(pj);
-		    			if (pi.Length() <=
+		    			if (pi.Sub(pj).Length() <=
 		    				 (ai.Radius() + aj.Radius())+0.1)
 		    			{
 		    				Bond bond = new Bond(ai,aj);

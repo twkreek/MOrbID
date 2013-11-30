@@ -1,6 +1,7 @@
 package com.bobandthomas.Morbid.graphics;
 
-import com.bobandthomas.Morbid.utils.ColorQuad;
+import java.util.ArrayList;
+
 import com.bobandthomas.Morbid.utils.*;
 
 public class GobPoly extends Gob {
@@ -25,7 +26,9 @@ public class GobPoly extends Gob {
 	GobPolyType polyType;
 	private Point3DList points;
 	private ColorQuadPalette colors;
-	private Point3DList normals;
+	private ArrayList<Vector3D> normals;
+	private VertexList vertexList;
+	// Switch to Vertex3List;
 	Point3D pcenter;
 	private boolean hasNormals;
 	private boolean hasColors;
@@ -38,6 +41,7 @@ public class GobPoly extends Gob {
 		points = new Point3DList();
 		colors = new ColorQuadPalette();
 		pcenter = new Point3D();
+		vertexList = new VertexList();
 	}
 
 	@Override
@@ -53,11 +57,11 @@ public class GobPoly extends Gob {
 		return polyType;
 	}
 
-	public void AddPoint(Point3D p, Point3D n1) {
-		pcenter = pcenter.Add(p);
+	public void AddPoint(Point3D p, Vector3D n1) {
+		pcenter = pcenter.Sum(p);
 		if (hasNormals || !n1.IsZero()) {
 			if (normals == null)
-				normals = new Point3DList();
+				normals = new ArrayList<Vector3D>();
 			normals.add(n1);
 			hasNormals = true;
 		}
@@ -66,18 +70,18 @@ public class GobPoly extends Gob {
 	}
 
 	public void AddPoint(Point3D p) {
-		AddPoint(p, new Point3D(0, 0, 0));
+		AddPoint(p, new Vector3D(0, 0, 0));
 	}
 
 	public void AddPoint(Point3D p, ColorQuad cq) {
-		AddPoint(p, cq, new Point3D(0, 0, 0));
+		AddPoint(p, cq, new Vector3D(0, 0, 0));
 	}
 
-	public void AddPoint(Point3D p, ColorQuad cq, Point3D n1) {
-		pcenter = pcenter.Add(p);
+	public void AddPoint(Point3D p, ColorQuad cq, Vector3D n1) {
+		pcenter = pcenter.Sum(p);
 		if (hasNormals || !n1.IsZero()) {
 			if (normals == null)
-				normals = new Point3DList();
+				normals = new ArrayList<Vector3D>();
 			normals.add(n1);
 			hasNormals = true;
 		}
@@ -86,10 +90,10 @@ public class GobPoly extends Gob {
 		points.add(p);
 	}
 	public void AddVertex(Vertex vertex) {
-		pcenter = pcenter.Add(vertex);
+		pcenter = pcenter.Sum(vertex);
 		if (hasNormals || vertex.hasNormal()) {
 			if (normals == null)
-				normals = new Point3DList();
+				normals = new ArrayList<Vector3D>();
 			normals.add(vertex.normal);
 			hasNormals = true;
 		}
@@ -141,11 +145,11 @@ public class GobPoly extends Gob {
 		this.hasNormals = hasNormals;
 	}
 
-	public Point3DList getNormals() {
+	public ArrayList<Vector3D> getNormals() {
 		return normals;
 	}
 
-	public void setNormals(Point3DList normals) {
+	public void setNormals(ArrayList<Vector3D> normals) {
 		this.normals = normals;
 	}
 

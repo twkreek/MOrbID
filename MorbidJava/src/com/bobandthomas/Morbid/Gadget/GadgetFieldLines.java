@@ -6,6 +6,7 @@ import com.bobandthomas.Morbid.graphics.GobPoly.GobPolyType;
 import com.bobandthomas.Morbid.graphics.Vertex;
 import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
+import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class GadgetFieldLines extends GadgetSpatialData {
 	int increment = 5;
@@ -42,7 +43,7 @@ public class GadgetFieldLines extends GadgetSpatialData {
 		Vertex segment[] = new Vertex[2];
 		Vertex center = new Vertex(getSd().getPoint(x,y,z));
 		center.value = getSd().XYZ(x, y, z);
-		Point3D vec = new Point3D();
+		Vector3D vec = new Vector3D();
 		double newValue = 0;
 		
 		vec.Zero();

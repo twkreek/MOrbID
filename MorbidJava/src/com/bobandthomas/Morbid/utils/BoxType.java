@@ -83,9 +83,7 @@ public class BoxType {
 	public Point3D size() { return max.Sub(min); }
 	public Point3D center() 
 	{
-		Point3D p = max.Add(min);
-		p = p.Scale(0.5);
-		return max.Add(min).Scale(0.5); 
+		return max.midPoint(min, 0.5);
 	}
 	public BoxType cube()
 	{

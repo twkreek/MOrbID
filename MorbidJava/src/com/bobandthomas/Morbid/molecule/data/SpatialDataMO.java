@@ -9,6 +9,7 @@ import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.data.control.SpatialDataControl;
 import com.bobandthomas.Morbid.molecule.data.control.SpatialDataMOControl;
 import com.bobandthomas.Morbid.utils.Point3D;
+import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class SpatialDataMO extends SpatialData {
 
@@ -43,7 +44,7 @@ public class SpatialDataMO extends SpatialData {
 				continue;
 			pos = ao.atom.Position();
 
-			Point3D diff = p.Sub(pos).Scale(1/SlaterOrbitals.a0);
+			Vector3D diff = p.Sub(pos).Scale(1/SlaterOrbitals.a0);
 			dx = diff.x;
 			dy = diff.y;
 			dz = diff.z;

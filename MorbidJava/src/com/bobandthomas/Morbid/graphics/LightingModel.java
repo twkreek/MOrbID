@@ -5,6 +5,7 @@ import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
+import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class LightingModel extends CLoadableItem {
 
@@ -52,7 +53,7 @@ public class LightingModel extends CLoadableItem {
 				return DepthCue(pos, m.getColor());
 
 			ColorQuad pColor = StaticColorQuad.Black.cq();
-			Point3D N = new Point3D(N1);
+			Vector3D N = new Vector3D(N1);
 			N.Normalize();
 			int nLights = lightList.size();
 			if (nLights == 0)
@@ -87,8 +88,10 @@ public class LightingModel extends CLoadableItem {
 				// specular contribution
 				if (m.useSpecularity && DoSpecularity)
 				{
-					Point3D V = new Point3D(0.0f, 0.0f, -1.0f);
-					double cosalpha =  ( N.Scale(2*d).Sub(L.pos)).Dot(V);
+					Vector3D V = new Vector3D(0.0f, 0.0f, -1.0f);
+					Vector3D ntemp = N.Scale(2*d).Sub(L.getLocation());
+					double cosalpha =  /*( N.Scale(2*d).Sub(L.pos))*/ntemp.Dot(V);
+					//TODO verify new formula for cosalpha
 					if (cosalpha < 0)
 						cosalpha = 0.0f - cosalpha;
 

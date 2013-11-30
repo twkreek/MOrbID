@@ -15,6 +15,7 @@ import com.bobandthomas.Morbid.utils.BoxType;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
+import com.bobandthomas.Morbid.utils.Vector3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
 public class Scene extends CLoadableItem {
@@ -172,8 +173,10 @@ public class Scene extends CLoadableItem {
 
 	}
 
-	void Drag(Point3D v1, Point3D v2) {
-		Point3D cross;
+	void Drag(Point3D p1, Point3D p2) {
+		Vector3D v1 = p1.getVector();
+		Vector3D v2 = p2.getVector();
+		Vector3D cross;
 		double dot, angle;
 
 		// totalCTM.identity();

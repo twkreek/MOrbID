@@ -10,7 +10,7 @@ public class LightSource extends CLoadableItem {
 
 		public ColorQuad color;
 		public float ambient;// ambient fraction of color that is the ambient light produced from this source
-		Point3D pos; // the normalized position for normals.
+		Vector3D pos; // the normalized position for normals.
 		private Point3D location;// the unnormalized position for distance;
 		boolean useFalloff;// whether to use distance critereon in calculating light intensity.
 		float falloffConstant;// k factor in light intensity falloff.
@@ -34,7 +34,7 @@ public class LightSource extends CLoadableItem {
 		{
 			Init();
 			color = cq;
-			pos = p;
+			pos = new Vector3D(p);
 			location = p;
 			pos.Normalize();
 		}
@@ -45,7 +45,7 @@ public class LightSource extends CLoadableItem {
 		{
 			color = StaticColorQuad.White.cq();
 			ambient = 0.5f;
-			pos = new Point3D( 10, 10, 10);
+			pos = new Vector3D( 10, 10, 10);
 			location = pos;
 		}
 		public Point3D getLocation() {
@@ -53,5 +53,11 @@ public class LightSource extends CLoadableItem {
 		}
 		public void setLocation(Point3D location) {
 			this.location = location;
+			pos = new Vector3D(location);
+			pos.Normalize();
+		}
+		public Vector3D getNormal()
+		{
+			return pos;
 		}
 	};

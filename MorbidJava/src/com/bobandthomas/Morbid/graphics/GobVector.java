@@ -3,6 +3,7 @@ package com.bobandthomas.Morbid.graphics;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.LineSegment;
+import com.bobandthomas.Morbid.utils.Vector3D;
 
 
 //Vector Gob - start point and end point and color.
@@ -20,12 +21,12 @@ public class GobVector extends Gob {
 		{
 			StartPoint = vec.from;
 			EndPoint = vec.to;
-			Center = (StartPoint.Add(EndPoint)).Scale(0.5f);
+			Center = StartPoint.midPoint(EndPoint, 0.5);
 		}
 		
-		public Point3D getUnitVector()
+		public Vector3D getUnitVector()
 		{
-			Point3D p = StartPoint.Sub(EndPoint);
+			Vector3D p = StartPoint.Sub(EndPoint);
 			p.Normalize();
 			return p;
 		}

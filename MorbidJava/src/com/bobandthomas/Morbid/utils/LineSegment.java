@@ -13,7 +13,7 @@ public class LineSegment
 	public LineSegment(Point3D p)
 	{
 		from = new Point3D(0,0,0);
-		to = new Point3D(p.Normalize());
+		to = new Point3D(p.Sub(from).Normalize());
 	}
 	public LineSegment (LineSegment v)
 	{

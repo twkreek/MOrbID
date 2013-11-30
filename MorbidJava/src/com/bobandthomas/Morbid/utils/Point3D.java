@@ -7,9 +7,9 @@ import toxi.geom.Vec3D;
 
 public class Point3D extends Point3d {
 
-	static Point3D Sub(Point3D p1, Point3D p2)
+	static Vector3D Sub(Point3D p1, Point3D p2)
 	{
-		Point3D p = new Point3D(p1.x-p2.x, p1.y-p2.y, p1.z-p2.z);
+		Vector3D p = new Vector3D(p1.x-p2.x, p1.y-p2.y, p1.z-p2.z);
 		return p;
 	}
 	public boolean IsZero() { return x == 0.0 && y == 0.0 && z == 0.0; } 
@@ -30,59 +30,36 @@ public class Point3D extends Point3d {
 		y=vec.y;
 		z=vec.z;
 	}
-	public Vector3f getVec3f()
-	{
-		Vector3f v3f = new Vector3f((float)x, (float)y, (float)z);
-		return v3f;
-	}
 	public void Set(double /*Coord*/ x1, double /*Coord*/ y1, double /*Coord*/ z1) { x = x1; y = y1; z = z1; }
 	public void Zero() { x = y = z = 0.0;}
 
 
-	public Point3D Add(Point3D p) { return new Point3D(x+p.x, y+p.y, z+p.z); }
-	public Point3D Sub(Point3D p) { return new Point3D(x-p.x, y-p.y, z-p.z); }
+	public Point3D Add(Vector3D p) { return new Point3D(x+p.x, y+p.y, z+p.z); }
+	public Point3D Sub(Vector3D p) { return new Point3D(x-p.x, y-p.y, z-p.z); }
+	public Vector3D Sub(Point3D p) { return new Vector3D(x-p.x, y-p.y, z-p.z); }
 	public Point3D Scale (double /*Coord*/ v) { return new Point3D (x * v, y*v, z*v); }
-	public Point3D Cross (Point3D p)
+	public Vector3D getVector() 
+	/*
+	 * Gets the vector from this point to the center.  
+	 * This should be deprecated.
+	 */
+	{ 
+		//TODO deprecate when possible
+		return new Vector3D(x,y,z);}
+	public Point3D midPoint(Point3D endPoint, double fraction)
 	{
-		double /*Coord*/ x1, y1, z1;
-		
-		x1 = y * p.z - z * p.y;
-		y1 = z * p.x - x * p.z;
-		z1 = x * p.y - y * p.x;
-	 	return new Point3D(x1, y1, z1);// Cross Product
+		return new Point3D((endPoint.x+x)*fraction, (endPoint.y+y)*fraction, (endPoint.z+z)*fraction );
 	}
-	public double /*Coord*/ Dot(Point3D p)
-	{                        
-		// This is the dot product operator.
-		double /*Coord*/ result;
-		
-		result = x*p.x + y*p.y + z*p.z;
-	 	return result;
+	public Point3D Sum(Point3D p)
+	/*
+	 * used to accumulate points to calucalte the center of a cluster.
+	 */
+	{
+		return new Point3D(x+p.x, y+p.y, z+p.z); 
 	}
 	Point3D Translate (double /*Coord*/ v) { return new Point3D (x+v, y+v, z+v);}
 	boolean isEqual(Point3D p) { return (x == p.x) && (y == p.y) && (z == p.z); }
 	Point3D Mult( Point3D p) { return new Point3D(p.x * x, p.y * y, p.z * z); }
-	public Point3D invert()
-	{
-		x = -x;
-		y= -y;
-		z= -z;
-		return this;
-	}
-
-	void Clamp(double /*Coord*/ c) { x = Math.min(x,c); y = Math.min(y,c); z = Math.min(z,c);}
-
-	public double /*Coord*/ Length() 	{ return Math.sqrt(x*x +y*y + z*z); } // acts like it's a vector
-	public Point3D Normalize()
-	{
-	 	double len = Math.sqrt(x*x+y*y+z*z);
-		if (len < 1.0e-10)
-			return this;
-	 	x = (x/len);
-	 	y = (y/len);
-	 	z = (z/len);
-	 	return this;
-	}
 
 
 }

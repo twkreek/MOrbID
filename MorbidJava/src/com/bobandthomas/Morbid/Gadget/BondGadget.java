@@ -12,6 +12,7 @@ import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
+import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class BondGadget extends Gadget {
 
@@ -217,8 +218,8 @@ public class BondGadget extends Gadget {
 				bondOrder = bond.getNominalBondOrder();
 				Point3D ai = new Point3D(a1.Position());
 				Point3D aj = new Point3D(a2.Position());
-				Point3D bondVector = ai.Sub(aj);
-				Point3D midPoint = (ai.Add(aj)).Scale(0.5);
+				Vector3D bondVector = ai.Sub(aj);
+				Point3D midPoint = ai.midPoint(aj, 0.5);
 				length = (float) bondVector.Length();
 				ri = a1.Radius();
 				rj = a2.Radius();

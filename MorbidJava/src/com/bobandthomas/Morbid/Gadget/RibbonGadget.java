@@ -18,6 +18,7 @@ import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.ColorQuadPalette;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Point3DList;
+import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class RibbonGadget extends Gadget {
 	
@@ -25,8 +26,8 @@ public class RibbonGadget extends Gadget {
 	{
 		Point3D center;
 		double radius;
-		Point3D v1;
-		Point3D v2;
+		Vector3D v1;
+		Vector3D v2;
 		int nPoints;
 		int offset = 0;
 		/**
@@ -36,10 +37,10 @@ public class RibbonGadget extends Gadget {
 		 * @param r
 		 * @param nPoints
 		 */
-		public Circle(Point3D center, Point3D vector1, Point3D vector2, double r, int nPoints)
+		public Circle(Point3D center, Vector3D vector1, Vector3D vector2, double r, int nPoints)
 		{
-			v1 = new Point3D(vector1);
-			v2 = new Point3D(vector2);
+			v1 = new Vector3D(vector1);
+			v2 = new Vector3D(vector2);
 			this.center = center;
 			radius = r;
 			this.nPoints = nPoints;
@@ -48,8 +49,8 @@ public class RibbonGadget extends Gadget {
 		public Circle(Vec3D center, Vec3D vector1, Vec3D vector2, double r, int nPoints)
 		{
 			this.center = new Point3D(center);
-			v1 = new Point3D(vector1);
-			v2 = new Point3D(vector2);
+			v1 = new Vector3D(vector1);
+			v2 = new Vector3D(vector2);
 			radius = r;
 			this.nPoints = nPoints;
 			calcCircle();
@@ -75,7 +76,7 @@ public class RibbonGadget extends Gadget {
 		{
 			return get((i + offset) % nPoints);
 		}
-		public Point3D getNormal(int i)
+		public Vector3D getNormal(int i)
 		{
 			return get((i + offset) % nPoints).Sub(center).Normalize();
 		}
@@ -257,20 +258,20 @@ public class RibbonGadget extends Gadget {
 		}
 	}
 
-	Point3D[] computeOrthogonals(Point3D center, Point3D line, Point3D startingPoint)
+	Vector3D[] computeOrthogonals(Point3D center, Vector3D line, Point3D startingPoint)
 	{
-		Point3D[] vectors = new Point3D[2];
+		Vector3D[] vectors = new Vector3D[2];
 		if (startingPoint == null)
 		{
 			startingPoint = new Point3D(0,0,0);
-			startingPoint = startingPoint.Sub(center).Normalize();
-			startingPoint = startingPoint.Cross(line);
-			startingPoint = startingPoint.Add(center);
+			Vector3D temp = startingPoint.Sub(center).Normalize();
+			temp = temp.Cross(line);
+			startingPoint = temp.Add(center);
 		}
 		
 		line.Normalize();
-		Point3D vecMid = startingPoint.Sub(center).Normalize();
-		Point3D cross1 = vecMid.Cross(line).Normalize();
+		Vector3D vecMid = startingPoint.Sub(center).Normalize();
+		Vector3D cross1 = vecMid.Cross(line).Normalize();
 		vecMid.Scale(0.5);
 		vectors[0] = vecMid;
 		vectors[1] = cross1;

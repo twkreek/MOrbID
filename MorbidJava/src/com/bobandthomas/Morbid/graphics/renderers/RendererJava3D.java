@@ -49,6 +49,7 @@ import com.bobandthomas.Morbid.graphics.SphereGob;
 import com.bobandthomas.Morbid.graphics.StringGob;
 import com.bobandthomas.Morbid.graphics.GobPoly.GobPolyType;
 import com.bobandthomas.Morbid.utils.Point3D;
+import com.bobandthomas.Morbid.utils.Vector3D;
 import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
 import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.behaviors.mouse.MouseZoom;
@@ -176,7 +177,7 @@ public class RendererJava3D extends Renderer {
 					0.0), 100.0);
 			for (LightSource ls : LSList) {
 				DirectionalLight light = new DirectionalLight(ls.color.Cf(),
-						ls.getLocation().getVec3f());
+						ls.getNormal().getVec3f());
 
 				light.setInfluencingBounds(bounds);
 
@@ -305,7 +306,7 @@ public class RendererJava3D extends Renderer {
 		Transform3D transform = new Transform3D();
 		transform.set(getRotationTransform(g));
 
-		transform.setTranslation(g.getCenter().getVec3f());
+		transform.setTranslation(g.getCenter().getVector().getVec3f());
 
 		tg.setTransform(transform);
 		tg.addChild(cyl);
@@ -364,7 +365,7 @@ public class RendererJava3D extends Renderer {
 			Vector3f normals[] = new Vector3f[size];
 			for (int i = 0; i< size; i++)
 			{
-				Point3D p = g.getNormals().get(i);
+				Vector3D p = g.getNormals().get(i);
 				normals[i]=p.getVec3f();
 			}
 
@@ -393,7 +394,7 @@ public class RendererJava3D extends Renderer {
 
 		TransformGroup tg = new TransformGroup();
 		Transform3D transform = new Transform3D();
-		Vector3f vector = g.center().getVec3f();
+		Vector3f vector = g.center().getVector().getVec3f();
 		transform.setTranslation(vector);
 		tg.setTransform(transform);
 		tg.addChild(sphere);
@@ -411,7 +412,7 @@ public class RendererJava3D extends Renderer {
 
 		TransformGroup tg = new TransformGroup();
 		Transform3D transform = new Transform3D();
-		Vector3f vector = g.center().getVec3f();
+		Vector3f vector = g.center().getVector().getVec3f();
 		transform.setTranslation(vector);
 		transform.setScale(0.08);
 		tg.setTransform(transform);
@@ -428,7 +429,7 @@ public class RendererJava3D extends Renderer {
 
 		TransformGroup tg = new TransformGroup();
 		Transform3D transform = new Transform3D();
-		Vector3f vector = g.center().getVec3f();
+		Vector3f vector = g.center().getVector().getVec3f();
 		transform.setTranslation(vector);
 		tg.setTransform(transform);
 		tg.addChild(text);
