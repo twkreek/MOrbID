@@ -1,16 +1,13 @@
 package com.bobandthomas.Morbid.molecule;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 
-@SuppressWarnings("unused")
 public class BondList extends ArrayList<Bond> {
 	HashMap<String, Bond> map = new HashMap <String, Bond>();
 	int nextID = 0;
 	public BondList() {
-		// TODO Auto-generated constructor stub
 	}
 
 	long AddBond(Bond b)

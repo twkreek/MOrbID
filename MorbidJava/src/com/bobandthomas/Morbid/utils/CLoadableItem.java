@@ -14,7 +14,6 @@ public class CLoadableItem extends ChangeNotifier implements ILoadable, IChangeN
 	private String Name;
 	
 	public CLoadableItem() {
-		// TODO Auto-generated constructor stub
 		ID = 0;
 		m_bDirty = true;
 		

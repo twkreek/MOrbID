@@ -97,7 +97,7 @@ public class MolecularOrbitalSet extends CLoadableItem {
 	}
 
 	public MolecularOrbitalSet(int orbCount) {
-		// TODO Auto-generated constructor stub
+
 		nOrbitals = orbCount; 
 
 		mo = new MolecularOrbital[nOrbitals];

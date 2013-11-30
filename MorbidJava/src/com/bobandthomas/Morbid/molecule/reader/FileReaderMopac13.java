@@ -2,6 +2,7 @@ package com.bobandthomas.Morbid.molecule.reader;
 
 import java.io.IOException;
 
+import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.MolecularOrbitalSet;
 import com.bobandthomas.Morbid.utils.Point3D;
@@ -125,8 +126,7 @@ public class FileReaderMopac13 extends MoleculeFileReader {
 					mo.coefficient(j,i, (float) dbl);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.addMessage(this, e);
 			}
 		    
 			molecule.MakeBondsByDistance();
@@ -136,7 +136,6 @@ public class FileReaderMopac13 extends MoleculeFileReader {
 
 	@Override
 	public boolean Validate() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

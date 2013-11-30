@@ -33,7 +33,7 @@ public class SubstructureSetChooser extends JDialog implements TreeSelectionList
 		}
 
 		public void changeValue(String label, Integer value) {
-			// TODO Auto-generated method stub
+			// handle change value in tree list - currently not used.
 			
 		}
 		

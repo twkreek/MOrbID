@@ -89,11 +89,9 @@ public class Morbid extends JApplet {
 				je = jis.getNextJarEntry();
 			}
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				Logger.addMessage(this, e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				Logger.addMessage(this, e);
 		}
 	}*/
 	private Molecule readFile(String name, MorbidBufferedReader br, MoleculeFileReader file)
@@ -104,8 +102,7 @@ public class Morbid extends JApplet {
 		try {
 			br.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.addMessage(this, e);
 		}
 		return m;
 		

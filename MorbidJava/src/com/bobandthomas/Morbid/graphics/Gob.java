@@ -25,7 +25,7 @@ public class Gob extends CLoadableItem {
 		return new Point3D(Center);
 	}
 
-	/* TODO not implemented */
+	/* TODO (intersects not implemented */
 	Point3DList Intersects(LineSegment vector) {
 		return null;
 	}

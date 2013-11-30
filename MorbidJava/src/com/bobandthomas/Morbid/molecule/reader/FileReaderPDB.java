@@ -2,6 +2,7 @@ package com.bobandthomas.Morbid.molecule.reader;
 
 import java.io.IOException;
 
+import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.Peptide;
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.SubstructureSet;
@@ -25,13 +26,12 @@ public class FileReaderPDB extends MoleculeFileReader {
 	
 	@Override
 	public void Save() {
-		// TODO Auto-generated method stub
+		// TODO file same - not implemented
 
 	}
 
 	@Override
 	public boolean Validate() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -200,8 +200,7 @@ public class FileReaderPDB extends MoleculeFileReader {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.addMessage(this, e);
 		}
 		molecule.MakeBondsByDistanceClustered();
 		resNums.matchAll();

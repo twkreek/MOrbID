@@ -76,6 +76,16 @@ public class Logger {
 	{
 		get().createMessage(o, o.toString(), MessageLevel.INFORMATION);
 	}
+	public static void addMessage(Object o, Exception e)
+	{
+		get().createMessage(null, e.toString(), MessageLevel.ERROR);
+		e.printStackTrace();
+	}
+	public static void addMessage(CLoadableItem o, Exception e)
+	{
+		get().createMessage(o, e.toString(), MessageLevel.ERROR);
+		e.printStackTrace();
+	}
 	public void createMessage(CLoadableItem o, String message, MessageLevel ml)
 	{
 		Message m = new Logger.Message(o,message,ml);

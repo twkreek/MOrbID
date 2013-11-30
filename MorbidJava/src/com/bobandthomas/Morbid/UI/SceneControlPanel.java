@@ -20,8 +20,6 @@ public class SceneControlPanel extends ControlPanel {
 
 	@Override
 	public void changeValue(String label, Integer value) {
-		// TODO Auto-generated method stub
-		
 		if (label.equals("Zoom"))
 			scene.setZoom(value/100.0);
 		if (label.equals("Add Gadget"))

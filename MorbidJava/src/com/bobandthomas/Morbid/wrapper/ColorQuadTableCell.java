@@ -23,14 +23,14 @@ public class ColorQuadTableCell extends MorbidTableCell {
 
 	@Override
 	public Object getCellEditorValue() {
-		// TODO Auto-generated method stub
+		// TODO Color Table getCellEditor
 		return null;
 	}
 
 	@Override
 	public Component getTableCellEditorComponent(JTable arg0, Object arg1,
 			boolean arg2, int arg3, int arg4) {
-		// TODO Auto-generated method stub
+		// TODO ColorTable getTableCellEditor
 		return null;
 	}
 

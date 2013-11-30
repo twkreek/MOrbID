@@ -5,7 +5,6 @@ public class CProgressIndicator {
 		
 	}
 	public CProgressIndicator(String name) {
-		// TODO Auto-generated constructor stub
 	}
 	public void SetMax(int i)
 	{

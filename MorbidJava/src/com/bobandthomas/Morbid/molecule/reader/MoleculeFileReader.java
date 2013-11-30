@@ -2,6 +2,7 @@ package com.bobandthomas.Morbid.molecule.reader;
 
 import java.io.IOException;
 
+import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 
@@ -85,8 +86,7 @@ public abstract class MoleculeFileReader {
 		try {
 			t = new Tokenizer(br.readLine());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.addMessage(this, e);
 		}
 		return t;
 	}

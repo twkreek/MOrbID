@@ -3,6 +3,7 @@ package com.bobandthomas.Morbid.molecule.reader;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.AtomType;
 import com.bobandthomas.Morbid.molecule.AtomTypeList;
@@ -118,7 +119,7 @@ public class FileReaderPCModel extends MoleculeFileReader {
 
 	@Override
 	public void Save() {
-		// TODO Auto-generated method stub
+		// TODO FileSave not implemented
 
 	}
 
@@ -237,18 +238,15 @@ public class FileReaderPCModel extends MoleculeFileReader {
 				}
 			}
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.addMessage(this, e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.addMessage(this, e);
 		}
 		molecule.CalcBounds();
 	}
 
 	@Override
 	public boolean Validate() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

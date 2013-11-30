@@ -27,7 +27,6 @@ public class ResourceMgr {
 	}
 
 	public ResourceMgr() {
-		// TODO Auto-generated constructor stub
 	}
 
 }

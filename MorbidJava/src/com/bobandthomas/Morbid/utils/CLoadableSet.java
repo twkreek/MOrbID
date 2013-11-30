@@ -186,8 +186,7 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		return set.remove(o);
 	}
 
 }

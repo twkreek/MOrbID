@@ -139,7 +139,7 @@ public class SubstructureRepList extends CLoadableSet<SubstructureRep> implement
 	}
 	@Override
 	public void removeTableModelListener(TableModelListener l) {
-		// TODO Auto-generated method stub
+		// TODO handle removeTableModelListener. - unused.
 		
 	}
 	@Override
@@ -157,7 +157,7 @@ public class SubstructureRepList extends CLoadableSet<SubstructureRep> implement
 	}
 	@Override
 	public void tableChanged(TableModelEvent e) {
-		// TODO Auto-generated method stub
+		// TODO handle table changed
 		
 	}
 

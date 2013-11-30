@@ -9,7 +9,6 @@ public class Vector3D extends Point3D {
 
 	@Override
 	public Vector3D Sub(Point3D p) {
-		// TODO Auto-generated method stub
 		return (Vector3D) super.Sub(p);
 	}
 

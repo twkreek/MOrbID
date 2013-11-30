@@ -5,7 +5,6 @@ import javax.vecmath.Color4f;
 
 public class ColorQuad extends Color4f {
 	static float COLORQUAD_MAX_VALUE = 255.0f;
-//	innerColor v = new innerColor();
 
 	public boolean OutOfBounds;
 
@@ -22,7 +21,6 @@ public class ColorQuad extends Color4f {
 	}
 
 	public ColorQuad(ColorQuad color) {
-		// TODO Auto-generated constructor stub
 		Set(color.x, color.y, color.z);
 	}
 	public ColorQuad(String color)

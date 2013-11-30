@@ -2,6 +2,7 @@ package com.bobandthomas.Morbid.molecule.reader;
 
 import java.io.IOException;
 
+import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.Bond;
 import com.bobandthomas.Morbid.utils.Point3D;
@@ -9,12 +10,10 @@ import com.bobandthomas.Morbid.utils.Point3D;
 public class FileReaderSDF extends MoleculeFileReader {
 
 	public FileReaderSDF() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void Save() {
-		// TODO Auto-generated method stub
 
 	}
 	
@@ -90,11 +89,9 @@ public class FileReaderSDF extends MoleculeFileReader {
 			} while (line != null);
 			
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.addMessage(this, e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.addMessage(this, e);
 		}
 		molecule.CalcBounds();
 
@@ -102,7 +99,6 @@ public class FileReaderSDF extends MoleculeFileReader {
 
 	@Override
 	public boolean Validate() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -17,7 +17,6 @@ public class URLReader {
 	public String getErrorStatus(){ return errorStatus; }
 
 	private URLReader() {
-		// TODO Auto-generated constructor stub
 	}
 	public BufferedReader getFromURL(String url)
 	{

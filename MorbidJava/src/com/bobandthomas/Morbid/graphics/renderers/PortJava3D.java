@@ -26,109 +26,109 @@ public class PortJava3D extends Port implements ComponentListener{
 
 	@Override
 	void SetParent(Port p) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void Release() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void Initialize() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void Clear() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void SwapBuffers() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void BackgroundColor(ColorQuad cq) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void FillColor(ColorQuad cq) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void FrameColor(ColorQuad cq) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void TextColor(ColorQuad cq) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void MoveTo(Point3D p) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void LineTo(Point3D p) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void Vector(Point3D p1, Point3D p2) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void Circle(Point3D c, Point3D r) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void DrawPoint(Point3D p) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void DrawPoint(Point3D p, ColorQuad cq) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	ColorQuad GetPoint(Point3D p) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	void Text(Point3D p, String string) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	void Polygon(Point3DList plist) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -141,7 +141,7 @@ public class PortJava3D extends Port implements ComponentListener{
 
 	@Override
 	public void componentMoved(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -157,7 +157,7 @@ public class PortJava3D extends Port implements ComponentListener{
 
 	@Override
 	public void componentShown(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

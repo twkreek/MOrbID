@@ -277,17 +277,16 @@ public class RendererJava3D extends Renderer {
 
 	@Override
 	void Arrow(ArrowGob g) {
-		// TODO Auto-generated method stub
+		// TODO complete rednering cylinders
 		CylinderGob cyl = new CylinderGob(g.center(), g.EndPoint, 0.01f);
 		cyl.setMaterial(g.getMaterial());
 		Cylinder(cyl);
 		
-//		Cone = new Cone
 	}
 
 	@Override
 	void Circle(CircleGob g) {
-		// TODO Auto-generated method stub
+		// TODO eliminate 2d circles
 
 	}
 
@@ -315,14 +314,14 @@ public class RendererJava3D extends Renderer {
 
 	@Override
 	void Indexed(GobIndexed g) {
-		// TODO Auto-generated method stub
+		// TODO eliminate IndexedGobs
 
 	}
 
 
 	@Override
 	void LabeledCircle(LabeledCircleGob g) {
-		// TODO Auto-generated method stub
+		// TODO render or eliminate labeled circle
 
 	}
 
@@ -438,13 +437,13 @@ public class RendererJava3D extends Renderer {
 	}
 	@Override
 	void Vector(GobVector g) {
-		// TODO Auto-generated method stub
+		// TODO render GobVector 
 
 	}
 
 	@Override
 	void Label(LabelGob g) {
-		// TODO Auto-generated method stub
+		// TODO render LabelGob
 		
 	}
 
