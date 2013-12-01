@@ -143,7 +143,7 @@ public class RenderManager {
 		ren.bgColor = bgColor;
 
 		if (dirty.offscreenBM || dirty.gobList || dirty.viewCTM
-				|| dirty.lightingModel) {
+				|| dirty.lightingModel || gl.isDirty()) {
 			GetRenderer().DoRender(gl, lightSources, viewCTM);
 			dirty.viewCTM = dirty.lightingModel = dirty.gobList = false;
 			dirty.onscreenBM = true;

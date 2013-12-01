@@ -36,7 +36,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			private SubstructureSet hydrogens;
 		  
 		    private int nElectrons;
-		    public Empirical empirical;
+		    private Empirical empirical;
 		    
 		    public Molecule()
 			{
@@ -49,7 +49,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 				substructures.add(new SubstructureSet("All", "All Atoms in the molecule"));
 				hydrogens = new SubstructureSet("Hydrogens", "Hydrogens vs Atoms");
 				substructures.add(hydrogens);
-				empirical = new Empirical();		
+				empirical = new Empirical(this);		
 				
 			}
 
@@ -76,7 +76,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			public void CalcBounds() { atoms.CalcBounds(); }
 		    public Atom GetAtom(int i) { return atoms.get(i); }
 		    public int AddAtom(Atom a) { 
-		    	empirical.add(a);
+		    	getEmpirical().add(a);
 		    	if (a.isA(Element.H))
 		    		hydrogens.addByName("Hydogen", a);
 		    	else
@@ -247,6 +247,9 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			}
 			public void setnElectrons(int i) {
 				this.nElectrons = i;
+			}
+			public Empirical getEmpirical() {
+				return empirical;
 			}
 }
 

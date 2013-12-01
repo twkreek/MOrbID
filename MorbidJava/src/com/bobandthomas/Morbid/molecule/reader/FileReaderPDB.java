@@ -144,11 +144,12 @@ public class FileReaderPDB extends MoleculeFileReader {
 	void ReadHeaderRecord(Molecule mol, String line)
 	{
 		line.trim();
-		molecule.setName(line.substring(7,40).trim());
+		molecule.getPropList().Add("HeaderType", line.substring(7,40).trim(), null);
 		molecule.getPropList().Add(line.substring(0,7), line.substring(7,7+40).trim(), null);
 		molecule.getPropList().Add("Date", line.substring(47,47+10).trim(), null);
 		molecule.getPropList().Add("PDB Code", line.substring(57,57+10).trim(), null);
 	}
+
 	void ReadPDBFile(Molecule molecule)
 	{
 		
@@ -189,6 +190,17 @@ public class FileReaderPDB extends MoleculeFileReader {
 				else if (token.equals("HEADER"))
 				{
 					ReadHeaderRecord(molecule, line);
+				}
+				else if (token.equals("TITLE"))
+				{
+					String seq = line.substring(7, 7+3);
+					line = line.trim();
+					token.toLowerCase();
+					if (molecule.getName() != null)
+						line = molecule.getName() + line.substring(10).trim();
+					else
+						line = line.substring(10).trim();
+					molecule.setName(line);
 				}
 				else if (token.equals("ATOM"))
 				{

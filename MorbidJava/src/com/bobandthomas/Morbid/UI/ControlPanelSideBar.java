@@ -69,6 +69,7 @@ public class ControlPanelSideBar extends JPanel {
 		add(new SceneControlPanel(scene, "Scene", this));
 		GadgetFactoryManager.getOne().createNewGadget("Atom Gadget", scene, this);
 		GadgetFactoryManager.getOne().createNewGadget("Bond Gadget", scene, this);
+		GadgetFactoryManager.getOne().createNewGadget("HUD", scene, this);
 		
 		add(glue);
 

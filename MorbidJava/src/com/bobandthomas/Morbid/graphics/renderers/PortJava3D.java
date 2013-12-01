@@ -14,15 +14,29 @@ import javax.media.j3d.Canvas3D;
 public class PortJava3D extends Port implements ComponentListener{
 	public Canvas3D canvas;
 	SimpleUniverse universe;
+	RendererJava3D renderer;
+	
 	
 	public PortJava3D()
 	{
 		super();
-		canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
+		canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration())  {
+	        private static final long serialVersionUID = 7144426579917281131L;
+
+	        public void postRender()
+	        {
+	        	if (renderer!= null)
+	        		renderer.postRender(getGraphics2D());
+	        }
+	    };
 		universe = new SimpleUniverse(canvas);
 		canvas.addComponentListener(this);
 	}
 
+	public void setRenderer(RendererJava3D rend)
+	{
+		this.renderer = rend;
+	}
 
 	@Override
 	void SetParent(Port p) {

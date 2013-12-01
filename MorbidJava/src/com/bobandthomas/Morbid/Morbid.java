@@ -54,9 +54,6 @@ public class Morbid extends JApplet {
 		gadgetPanel = new ControlPanelSideBar(scene);
 		add("West", gadgetPanel);
 		
-		setGlassPane(new HudPanel());
-		
-		
 		// Make the renderer
 		
 		RendererJava3D renderer;
@@ -166,7 +163,7 @@ public class Morbid extends JApplet {
 		if (m!= null) return;
 		m=this.showSampleSelection();
 		m.CenterAtoms();
-		Logger.addMessage(m,m.empirical.getFormula());
+		Logger.addMessage(m,m.getEmpirical().getFormula());
 		scene.setPauseRender(true);
 		scene.SetMolecule(m);
 

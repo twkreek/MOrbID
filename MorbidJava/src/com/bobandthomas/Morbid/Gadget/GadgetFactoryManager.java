@@ -23,6 +23,7 @@ public class GadgetFactoryManager extends ArrayList<GadgetFactory> {
 		add(new Surface3DGadgetFactory());
 		add(new RibbonGadgetFactory());
 		add(new GadgetFieldLinesFactory());
+		add(new GadgetHUDFactory());
 	}
 	
 	public static GadgetFactoryManager getOne()
@@ -55,7 +56,7 @@ public class GadgetFactoryManager extends ArrayList<GadgetFactory> {
 		if (! f.canCreate(s.GetMolecule()))return false;
 		Gadget g = f.createGadget();
 		activeList.add(g);
-		s.AddGadget(g, LayerPosition.LayerModel);
+		s.AddGadget(g, g.layer);
 		g.markDirty();
 		s.markDirty();
 		GadgetPanel panel = f.createPanel(g);

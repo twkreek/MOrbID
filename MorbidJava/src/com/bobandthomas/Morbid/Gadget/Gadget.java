@@ -209,7 +209,7 @@ public abstract class Gadget extends CLoadableItem {
 		Gadget()
 		{
 			setName(getGadgetType());
-			markDirty();
+//			markDirty();
 			visible = true;
 			rotate = true;
 			layer = LayerPosition.LayerModel;

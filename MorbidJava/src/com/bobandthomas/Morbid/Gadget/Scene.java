@@ -244,7 +244,10 @@ public class Scene extends CLoadableItem {
 					|| dirty.lightingModel;
 
 			for (LayerPosition l : LayerPosition.values())
-				rm.DoRender(glLayerSet.get(l), lightSources, totalCTM);
+			{
+				GobListSet gLayerSet = glLayerSet.get(l);
+				rm.DoRender(gLayerSet, lightSources, totalCTM);
+			}
 
 			dirty.gobList = false;
 			dirty.viewCTM = false;
