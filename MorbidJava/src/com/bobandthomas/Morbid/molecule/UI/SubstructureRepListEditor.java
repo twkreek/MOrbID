@@ -1,13 +1,14 @@
-package com.bobandthomas.Morbid.Gadget.control;
+package com.bobandthomas.Morbid.molecule.UI;
 
 import java.awt.BorderLayout;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
+
+import com.bobandthomas.Morbid.UI.ColorQuadTableCell;
 import com.bobandthomas.Morbid.molecule.SubstructureMap;
 import com.bobandthomas.Morbid.molecule.SubstructureRepList;
-import com.bobandthomas.Morbid.wrapper.ColorQuadTableCell;
 
 public class SubstructureRepListEditor extends SubstructureSetChooser {
 	

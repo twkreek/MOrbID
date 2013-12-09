@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import com.bobandthomas.Morbid.UI.CProgressIndicator;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.data.control.SpatialDataControl;
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
 
@@ -67,7 +67,7 @@ public abstract class SpatialData extends CubeArray {
 		typeName = "None";
 		sizeName = "10x10x10";
 		markDirty();
-		BoxType bounds = molecule.GetBounds().cube();
+		BoundingBox bounds = molecule.GetBounds().cube();
 		bounds.min = bounds.min.Scale(1.5);
 		bounds.max = bounds.max.Scale(1.5);
 		SetBounds(bounds);

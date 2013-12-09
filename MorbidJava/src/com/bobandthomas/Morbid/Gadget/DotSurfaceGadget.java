@@ -120,7 +120,7 @@ public class DotSurfaceGadget extends Gadget {
 		sliceRadius = new double[mol.NumAtoms()];
 		sphRadius = new double[mol.NumAtoms()];
 		
-		colorList = new ColorQuadPalette(mol.NumAtoms());
+		colorList = new ColorQuadPalette();
 		MinMax zminmax = new MinMax();
 		MinMax yminmax = new MinMax();
 		MinMax charge = new MinMax();

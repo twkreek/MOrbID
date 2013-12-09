@@ -2,7 +2,7 @@ package com.bobandthomas.Morbid.graphics;
 
 import com.bobandthomas.Morbid.graphics.renderers.Port;
 import com.bobandthomas.Morbid.graphics.renderers.Renderer;
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 
@@ -33,7 +33,7 @@ public class RenderManager {
 	};
 
 	RenderManagerMode renderMode;
-	BoxType worldBox;
+	BoundingBox worldBox;
 	CTM viewCTM;
 	CTM totalCTM;
 	Point3D offset;
@@ -165,8 +165,8 @@ public class RenderManager {
 			dirty.onscreenBM = true;
 	}
 
-	public void SetWorldBox(BoxType wb) {
-		worldBox = new BoxType(wb);
+	public void SetWorldBox(BoundingBox wb) {
+		worldBox = new BoundingBox(wb);
 		GetRenderer().SetWorldBox(worldBox);
 		dirty.worldBox = true;
 

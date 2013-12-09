@@ -1,15 +1,18 @@
 package com.bobandthomas.Morbid.molecule;
 
-import java.util.ArrayList;
+import com.bobandthomas.Morbid.utils.CLoadableTable;
 
-public class MoleculePropertyList extends ArrayList<MoleculeProperty> {
+public class MoleculePropertyList extends CLoadableTable<MoleculeProperty> {
 
+	
 	public MoleculePropertyList() {
+		this.setUseByName(true);
 	}
-	public void Add(String a, String b, String c)
+	
+	public void Add(String name, String value, String units)
 	{
-			MoleculeProperty m = new MoleculeProperty(a,b,c);
-			add( m);
+		add(new MoleculeProperty(name, value, units));
 	}
+
 
 }

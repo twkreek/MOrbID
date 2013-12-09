@@ -1,10 +1,14 @@
 package com.bobandthomas.Morbid.molecule;
 
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.IPropertyAccessor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
 import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
+import com.bobandthomas.Morbid.utils.PropertyAccessor;
+import com.bobandthomas.Morbid.utils.PropertyDescriptoList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 
 /**
@@ -14,17 +18,17 @@ import com.bobandthomas.Morbid.utils.StaticColorQuad;
  *
  */
 
-public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
+public class Substructure extends CLoadableSet<Atom> implements ISubstructure, IPropertyAccessor {
 		private Fragment fragment;
 		protected ColorQuad listColor;
-		BoxType bounds;
+		BoundingBox bounds;
 		MinMax chargeRange;
 		boolean m_bDirtyCharges;
 		boolean m_bHasCharges;
  		Substructure()
 		{
 			m_bHasCharges = false;
-			bounds = new BoxType();
+			bounds = new BoundingBox();
 			chargeRange = new MinMax();
 			listColor = StaticColorQuad.LiteGray.cq();
 			setReParent(false);
@@ -35,7 +39,7 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
 
 			super.add(a);
 			double r = a.Radius();
-			bounds.CalcBounds(a.Position(), r);
+			bounds.addSphere(a.Position(), r);
 			chargeRange.addValue(a.getCharge());
 
 			if (a.getCharge() != 0.0)
@@ -56,12 +60,12 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
 		public void CalcBounds()
 		{
 			chargeRange.reset();
-			bounds.resetBounds();
+			bounds.reset();
 			for (Atom at : this)
 			{
 				chargeRange.addValue(at.getCharge());
 				double r = at.Radius();
-				bounds.CalcBounds(at.Position(), r);
+				bounds.addSphere(at.Position(), r);
 			}
 		}
 		public void centerMolecule()
@@ -76,7 +80,7 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
 			bounds.min.sub(center);
 			bounds.max.sub(center);
 		}
-		public BoxType GetBounds() {return bounds; }
+		public BoundingBox GetBounds() {return bounds; }
 		public MinMax getChargeRange()
 		{
 			return chargeRange;
@@ -89,7 +93,6 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
 
 		public boolean HasCharges() { return m_bHasCharges; }
 
-
 		public double MaxCharge (){ return chargeRange.max; }
 		public double MinCharge() {  return chargeRange.min; }
 		public void setListColor(ColorQuad listColor) {
@@ -101,7 +104,74 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure {
 		protected void setFragment(Fragment fragment) {
 			this.fragment = fragment;
 		}
-		int NumAtoms() { return this.size(); }
+		
+		/*
+		 * Support Properties
+		 */
+		
+		static IPropertyDescriptor propertyDescriptor = new PropertyDescriptoList<MoleculeProperty>(){
 
+			@Override
+			public void initialize() {
+				add(0, "Name", String.class, false);
+				add(1, "Number of Atoms", Integer.class, false);
+				
+			}
+
+		};
+		IPropertyAccessor access = new PropertyAccessor(propertyDescriptor){
+			@Override
+			public Object getProperty(int index) {
+				switch (index){
+				case 0: return  Substructure.this.getName();
+				case 1: return Substructure.this.size();
+				}
+				return null;
+			}
+		
+			@Override
+			public void setProperty(int index, Object value) {
+				switch (index){
+				case 0:  Substructure.this.setName((String) value); return;
+				}
+				
+			}
+		};
+
+		public Object getProperty(int index) {
+			return access.getProperty(index);
+		}
+
+		public int getPropertyCount() {
+			return access.getPropertyCount();
+		}
+
+		public void setProperty(int index, Object value) {
+			access.setProperty(index, value);
+		}
+
+		public int getIndex(String name) {
+			return access.getIndex(name);
+		}
+
+		public Class<?> getPropertyClass(int index) {
+			return access.getPropertyClass(index);
+		}
+
+		public String getPropertyName(int index) {
+			return access.getPropertyName(index);
+		}
+
+		public boolean isPropertyEditable(int index) {
+			return access.isPropertyEditable(index);
+		}
+
+		public Object getProperty(String name) {
+			return access.getProperty(name);
+		}
+
+		public void setProperty(String name, Object value) {
+			access.setProperty(name, value);
+		}
 
 }

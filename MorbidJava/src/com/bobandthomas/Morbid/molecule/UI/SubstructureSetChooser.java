@@ -1,4 +1,4 @@
-package com.bobandthomas.Morbid.Gadget.control;
+package com.bobandthomas.Morbid.molecule.UI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,12 +13,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import com.bobandthomas.Morbid.UI.MorbidPanel;
+import com.bobandthomas.Morbid.UI.MorbidTreeNode;
 import com.bobandthomas.Morbid.molecule.Substructure;
 import com.bobandthomas.Morbid.molecule.SubstructureSet;
 import com.bobandthomas.Morbid.molecule.SubstructureMap;
 import com.bobandthomas.Morbid.molecule.SubstructureRep;
 import com.bobandthomas.Morbid.molecule.SubstructureRepList;
-import com.bobandthomas.Morbid.wrapper.MorbidTreeNode;
 
 public class SubstructureSetChooser extends JDialog implements TreeSelectionListener {
 	SubstructureMap map = null;

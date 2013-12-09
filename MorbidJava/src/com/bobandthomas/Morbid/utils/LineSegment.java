@@ -50,7 +50,7 @@ public class LineSegment
 	 	to.x = (to.x-from.x)/len;
 	 	to.y = (to.y-from.y)/len;
 	 	to.z = (to.z-from.z)/len;
-	 	from.Zero();
+	 	from.zero();
 	 	return this;
 	}
 

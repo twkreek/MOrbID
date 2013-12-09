@@ -46,7 +46,7 @@ public class GadgetFieldLines extends GadgetSpatialData {
 		Vector3D vec = new Vector3D();
 		double newValue = 0;
 		
-		vec.Zero();
+		vec.zero();
 		for (int i = x-1; i< x+1; i++)
 			for (int j =y-1; j<y+1; j++)
 				for (int k = z-1; k< z+1; k++)

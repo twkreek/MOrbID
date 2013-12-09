@@ -1,6 +1,6 @@
 package com.bobandthomas.Morbid.molecule.data;
 
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
 
@@ -36,7 +36,7 @@ public class CubeArray extends CLoadableItem {
 		this.sideX = res;
 		this.sideY = res;
 		this.sideZ = res;
-		bounds = BoxType.UnitBox();
+		bounds = BoundingBox.UnitBox();
 		scaler = new toxi.geom.Vec3D((float)scale.x, (float)scale.y, (float)scale.z);
 //		volume = new VolumetricSpaceArray(scaler , sideX, sideY, sideZ);
 	}
@@ -81,8 +81,8 @@ public class CubeArray extends CLoadableItem {
  
   	public DRAWPLANE currentPlane;
 
-		private	BoxType bounds = new BoxType();
-		public void SetBounds(BoxType box) { 
+		private	BoundingBox bounds = new BoundingBox();
+		public void SetBounds(BoundingBox box) { 
 			bounds = box; 
 			scaler = new Vec3D((float) bounds.size().x, (float) bounds.size().y, (float) bounds.size().z);
 			markDirty();

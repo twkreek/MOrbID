@@ -3,7 +3,7 @@ package com.bobandthomas.Morbid.utils;
 import java.util.ArrayList;
 
 public class Point3DList extends ArrayList<Point3D> {
-	BoxType bounds;
+	BoundingBox bounds;
 	public Point3D getMin() {
 		return bounds.getMin();
 	}
@@ -15,11 +15,11 @@ public class Point3DList extends ArrayList<Point3D> {
 	}
 	public Point3DList()
 	{
-		bounds = new BoxType();
+		bounds = new BoundingBox();
 	}
 	@Override
 	public boolean add(Point3D p) {
-		bounds.AddBounds(p);
+		bounds.addPoint(p);
 		return super.add(p);
 	}
 

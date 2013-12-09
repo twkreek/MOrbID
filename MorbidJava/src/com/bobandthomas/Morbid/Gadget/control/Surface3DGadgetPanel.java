@@ -3,9 +3,9 @@ package com.bobandthomas.Morbid.Gadget.control;
 import javax.swing.JLabel;
 
 import com.bobandthomas.Morbid.Gadget.Surface3DGadget;
-import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.data.control.SpatialDataSelector;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
+import com.bobandthomas.Morbid.wrapper.Logger;
 
 public class Surface3DGadgetPanel extends GadgetPanel {
 	@Override

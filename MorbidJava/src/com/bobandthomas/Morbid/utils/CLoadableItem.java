@@ -8,7 +8,6 @@ package com.bobandthomas.Morbid.utils;
 public class CLoadableItem extends ChangeNotifier implements ILoadable, IChangeNotifier {
 	
 	public CLoadableSet<?> parentSet;
-
 	private long ID;
 	private boolean m_bDirty;
 	private String Name;

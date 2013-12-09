@@ -15,11 +15,11 @@ import com.bobandthomas.Morbid.molecule.reader.FileReaderPCModel;
 import com.bobandthomas.Morbid.molecule.reader.FileReaderPDB;
 import com.bobandthomas.Morbid.molecule.reader.FileReaderSDF;
 import com.bobandthomas.Morbid.molecule.reader.MoleculeFileReader;
+import com.bobandthomas.Morbid.wrapper.Logger;
 import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 import com.bobandthomas.Morbid.UI.ControlPanelSideBar;
 import com.bobandthomas.Morbid.UI.HudPanel;
-import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.UI.MorbidMenus;
 
 public class Morbid extends JApplet {

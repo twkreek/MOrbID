@@ -3,12 +3,12 @@ package com.bobandthomas.Morbid.molecule;
 import java.util.Collection;
 import java.util.HashMap;
 
-import com.bobandthomas.Morbid.UI.Logger;
-import com.bobandthomas.Morbid.UI.Logger.MessageLevel;
 import com.bobandthomas.Morbid.molecule.SubstructureRepList;
-import com.bobandthomas.Morbid.utils.CLoadableSet;
+import com.bobandthomas.Morbid.utils.CLoadableTable;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.ColorQuadPalette;
+import com.bobandthomas.Morbid.wrapper.Logger;
+import com.bobandthomas.Morbid.wrapper.Logger.MessageLevel;
 
 /**
  * @author Thomas Kreek
@@ -16,10 +16,9 @@ import com.bobandthomas.Morbid.utils.ColorQuadPalette;
  * A collection of atom lists, representing one type of substructure grouping, such as grouping by
  * chain or amino acid type.  
  * Each atom should appear once and only once in each set.
- * 
  *
  */
-public class SubstructureSet extends CLoadableSet<Substructure> {
+public class SubstructureSet extends CLoadableTable<Substructure> {
 
 	ColorQuadPalette colorMap;
 	int currentUsedColor = 0;

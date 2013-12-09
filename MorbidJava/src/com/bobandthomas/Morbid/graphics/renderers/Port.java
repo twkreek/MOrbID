@@ -1,23 +1,23 @@
 package com.bobandthomas.Morbid.graphics.renderers;
 
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Point3DList;
 
 public abstract class Port {
 
-		BoxType screenBounds;
+		BoundingBox screenBounds;
 		public Port()
 		{
-			screenBounds = new BoxType();
+			screenBounds = new BoundingBox();
 			
 		}
-		protected void SetScreenBounds(BoxType bt)
+		protected void SetScreenBounds(BoundingBox bt)
 		{
 			screenBounds = bt;
 		}
-		BoxType GetScreenBounds()
+		BoundingBox GetScreenBounds()
 		{
 			return screenBounds;
 		}

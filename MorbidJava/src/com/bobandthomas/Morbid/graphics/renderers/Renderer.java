@@ -32,9 +32,9 @@ public abstract class Renderer extends CLoadableItem {
 		Material statMat;
 		RenderQuality quality;
 		Port port;
-		BoxType worldBox;
-		BoxType portBox;
-		BoxType squaredWorldBox;
+		BoundingBox worldBox;
+		BoundingBox portBox;
+		BoundingBox squaredWorldBox;
 		Point3D Scale;
 		Point3D Offset;
 		Point3D translate;
@@ -95,8 +95,8 @@ public abstract class Renderer extends CLoadableItem {
 			ctm = new CTM();
 			
 			m_lm = new LightingModel();
-			worldBox = new BoxType();
-			squaredWorldBox = new BoxType();
+			worldBox = new BoundingBox();
+			squaredWorldBox = new BoundingBox();
 			Scale = new Point3D();
 			Offset = new Point3D();
 			translate = new Point3D();
@@ -120,9 +120,9 @@ public abstract class Renderer extends CLoadableItem {
 		}
 
 
-		public void SetWorldBox(BoxType wb)
+		public void SetWorldBox(BoundingBox wb)
 		{
-			worldBox = new BoxType( wb);
+			worldBox = new BoundingBox( wb);
 		}
 
 		public void Resize()

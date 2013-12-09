@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Point3DList;
@@ -164,7 +164,7 @@ public class PortJava3D extends Port implements ComponentListener{
 	public void componentResized(ComponentEvent arg0) {
 		
 		Dimension size = canvas.getSize();
-		BoxType box = new BoxType(0, 0, size.width, size.height);
+		BoundingBox box = new BoundingBox(0, 0, size.width, size.height);
 		this.SetScreenBounds(box);
 	}
 

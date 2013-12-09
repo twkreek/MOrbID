@@ -1,9 +1,10 @@
-package com.bobandthomas.Morbid.UI;
+package com.bobandthomas.Morbid.wrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.bobandthomas.Morbid.utils.CLoadableItem;
+import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 
 public class Logger {
 	public enum MessageLevel
@@ -18,7 +19,7 @@ public class Logger {
 			
 		}
 	}
-	protected class Message
+	protected class Message 
 	{
 		CLoadableItem obj;
 		String message;

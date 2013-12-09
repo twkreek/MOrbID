@@ -5,31 +5,31 @@ import toxi.geom.Vec3D;
 
 public class Point3D extends Point3d {
 
-	static Vector3D Sub(Point3D p1, Point3D p2)
+	static Vector3D Sub(Point3D point1, Point3D point2)
 	{
-		Vector3D p = new Vector3D(p1.x-p2.x, p1.y-p2.y, p1.z-p2.z);
+		Vector3D p = new Vector3D(point1.x-point2.x, point1.y-point2.y, point1.z-point2.z);
 		return p;
 	}
-	public boolean IsZero() { return x == 0.0 && y == 0.0 && z == 0.0; } 
+	public boolean isZero() { return x == 0.0 && y == 0.0 && z == 0.0; } 
 	
-	public Point3D( double /*Coord*/ x1, double /*Coord*/ y1, double /*Coord*/ z1) { x = x1; y = y1; z = z1; }
+	public Point3D( double x1, double y1, double z1) 
+	{ x = x1; y = y1; z = z1; }
 	public Point3D(int x1, int y1, int z1) { x = x1; y = y1; z = z1; }
 
-	public Point3D(Point3D n1) {
-		x=n1.x;
-		y=n1.y;
-		z=n1.z;
+	public Point3D(Point3D point) {
+		x=point.x;
+		y=point.y;
+		z=point.z;
 	}
 	public Point3D() {
-		Zero();
+		zero();
 	}
 	public Point3D(Vec3D vec) {
 		x=vec.x;
 		y=vec.y;
 		z=vec.z;
 	}
-	public void Set(double /*Coord*/ x1, double /*Coord*/ y1, double /*Coord*/ z1) { x = x1; y = y1; z = z1; }
-	public void Zero() { x = y = z = 0.0;}
+	public void zero() { x = y = z = 0.0;}
 
 
 	public Point3D Add(Vector3D p) { return new Point3D(x+p.x, y+p.y, z+p.z); }
@@ -57,7 +57,6 @@ public class Point3D extends Point3d {
 	}
 	Point3D Translate (double /*Coord*/ v) { return new Point3D (x+v, y+v, z+v);}
 	boolean isEqual(Point3D p) { return (x == p.x) && (y == p.y) && (z == p.z); }
-	Point3D Mult( Point3D p) { return new Point3D(p.x * x, p.y * y, p.z * z); }
 
 
 }

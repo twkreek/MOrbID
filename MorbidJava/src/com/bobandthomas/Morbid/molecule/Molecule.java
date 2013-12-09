@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 import com.bobandthomas.Morbid.molecule.data.SpatialDataList;
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.Point3D;
 
@@ -33,6 +33,20 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 
 			private SubstructureMap substructures;
 			private MoleculePropertyList propList;
+
+			public MoleculePropertyList getPropList() {
+				return propList;
+			}
+			public void addProperty(String name, String value, String units) {
+				propList.Add(name, value, units);
+			}
+			public MoleculeProperty getProperty(String name) {
+				return propList.getByName(name);
+			}
+			public boolean addProperty(MoleculeProperty arg0) {
+				return propList.add(arg0);
+			}
+
 			private SubstructureSet hydrogens;
 		  
 		    private int nElectrons;
@@ -57,6 +71,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 		    
 			public boolean HasCharges() { return Atoms().HasCharges(); }
 			public void useDefaultCharges() { }
+
 			public SubstructureMap getSubstructures() {
 				return substructures;
 			}
@@ -66,12 +81,6 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 			}
 			public void setSubstructures(SubstructureMap substructures) {
 				this.substructures = substructures;
-			}
-			public MoleculePropertyList getPropList() {
-				return propList;
-			}
-			public void setPropList(MoleculePropertyList propList) {
-				this.propList = propList;
 			}
 			public void CalcBounds() { atoms.CalcBounds(); }
 		    public Atom GetAtom(int i) { return atoms.get(i); }
@@ -87,7 +96,7 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 		    	}
 		    public int NumAtoms() { return atoms.size(); }
 		    public void CenterAtoms() { atoms.centerMolecule(); }
-		    public BoxType GetBounds() { return atoms.GetBounds();}
+		    public BoundingBox GetBounds() { return atoms.GetBounds();}
 		 
 			Bond GetBond(int at1, int at2) { return bonds.getBond(at1, at2); }
 			Bond AddBond(int at1, int at2) { Bond b = new Bond(atoms.get(at1), atoms.get(at2)); AddBond(b); return b; }

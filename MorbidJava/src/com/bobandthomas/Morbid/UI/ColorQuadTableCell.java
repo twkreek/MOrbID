@@ -1,4 +1,4 @@
-package com.bobandthomas.Morbid.wrapper;
+package com.bobandthomas.Morbid.UI;
 
 import java.awt.Component;
 

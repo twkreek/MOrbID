@@ -3,12 +3,12 @@ package com.bobandthomas.Morbid.molecule.reader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.AtomType;
 import com.bobandthomas.Morbid.molecule.AtomTypeList;
 import com.bobandthomas.Morbid.molecule.Bond;
 import com.bobandthomas.Morbid.wrapper.CSVFileReader;
+import com.bobandthomas.Morbid.wrapper.Logger;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 
 public class FileReaderPCModel extends MoleculeFileReader {

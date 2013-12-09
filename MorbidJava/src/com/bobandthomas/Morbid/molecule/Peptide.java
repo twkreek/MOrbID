@@ -2,7 +2,7 @@ package com.bobandthomas.Morbid.molecule;
 
 import java.util.ArrayList;
 
-import com.bobandthomas.Morbid.UI.Logger;
+import com.bobandthomas.Morbid.wrapper.Logger;
 
 /**
  * @author Thomas Kreek

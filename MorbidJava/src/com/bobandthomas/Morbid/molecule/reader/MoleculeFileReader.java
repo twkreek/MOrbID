@@ -2,8 +2,8 @@ package com.bobandthomas.Morbid.molecule.reader;
 
 import java.io.IOException;
 
-import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.Molecule;
+import com.bobandthomas.Morbid.wrapper.Logger;
 import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 
 public abstract class MoleculeFileReader {

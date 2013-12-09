@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 public class ColorQuadPalette extends ArrayList<ColorQuad> {
 
-	public ColorQuadPalette(int numColors) {
-		super(numColors);
+	@Override
+	public boolean add(ColorQuad e) {
+		// TODO Auto-generated method stub
+		return super.add(e);
 	}
 
 	public ColorQuadPalette() {

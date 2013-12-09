@@ -2,11 +2,11 @@ package com.bobandthomas.Morbid.molecule.reader;
 
 import java.io.IOException;
 
-import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.MolecularOrbitalSet;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Point3DList;
+import com.bobandthomas.Morbid.wrapper.Logger;
 
 public class FileReaderMopac13 extends MoleculeFileReader {
 

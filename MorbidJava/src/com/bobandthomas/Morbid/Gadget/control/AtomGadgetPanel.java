@@ -3,9 +3,12 @@ package com.bobandthomas.Morbid.Gadget.control;
 import com.bobandthomas.Morbid.Gadget.AtomGadget;
 
 import javax.swing.JCheckBox;
+
 import com.bobandthomas.Morbid.Gadget.AtomGadget.AtomRepType;
 import com.bobandthomas.Morbid.Gadget.Gadget;
 import com.bobandthomas.Morbid.molecule.SubstructureMap;
+import com.bobandthomas.Morbid.molecule.UI.SubstructureRepListEditor;
+import com.bobandthomas.Morbid.molecule.UI.SubstructureSetChooser;
 
 public class AtomGadgetPanel extends GadgetPanel {
 

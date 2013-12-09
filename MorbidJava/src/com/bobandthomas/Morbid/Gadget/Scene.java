@@ -11,7 +11,7 @@ import com.bobandthomas.Morbid.graphics.RenderManager.RenderManagerQuality;
 import com.bobandthomas.Morbid.graphics.renderers.Port;
 import com.bobandthomas.Morbid.graphics.renderers.Renderer;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
@@ -222,7 +222,7 @@ public class Scene extends CLoadableItem {
 			return;
 		rendering = true;
 		rm.GetRenderer().bgColor = this.backgroundColor;
-		rm.SetWorldBox(new BoxType(molecule.GetBounds()));
+		rm.SetWorldBox(new BoundingBox(molecule.GetBounds()));
 		rm.GetRenderer().Rescale();
 		// PIStatusPane::SetStatusPane(0, "Drawing...", false);
 		if (dirty.gadgetList || gadgetList.isDirty()) {
@@ -304,7 +304,7 @@ public class Scene extends CLoadableItem {
 		}
 	}
 
-	void SetWorldBox(BoxType wb) {
+	void SetWorldBox(BoundingBox wb) {
 		dirty.worldBox = true;
 		rm.SetWorldBox(wb);
 	}

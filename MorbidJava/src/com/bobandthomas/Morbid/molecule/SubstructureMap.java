@@ -1,7 +1,7 @@
 package com.bobandthomas.Morbid.molecule;
 
-import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
+import com.bobandthomas.Morbid.wrapper.Logger;
 
 /**
  * @author Thomas Kreek

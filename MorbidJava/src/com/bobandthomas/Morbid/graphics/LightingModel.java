@@ -1,6 +1,6 @@
 package com.bobandthomas.Morbid.graphics;
 
-import com.bobandthomas.Morbid.utils.BoxType;
+import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
@@ -18,7 +18,7 @@ public class LightingModel extends CLoadableItem {
 		ColorQuad   Background;
 		float  DepthCueMin;
 		float  DepthCueRate;
-		BoxType   BoundingBox;
+		BoundingBox   BoundingBox;
 		
 		ColorQuad DepthCue(Point3D p, ColorQuad cq) { if (DoDepthCue) return CalcDepthCue(p, cq); else return cq; }
 

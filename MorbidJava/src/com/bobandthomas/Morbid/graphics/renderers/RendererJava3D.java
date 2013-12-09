@@ -35,7 +35,6 @@ import javax.vecmath.Vector3f;
 
 import com.bobandthomas.Morbid.Gadget.Gadget;
 import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
-import com.bobandthomas.Morbid.UI.Logger;
 import com.bobandthomas.Morbid.graphics.ArrowGob;
 import com.bobandthomas.Morbid.graphics.CTM;
 import com.bobandthomas.Morbid.graphics.CircleGob;
@@ -59,6 +58,7 @@ import com.bobandthomas.Morbid.graphics.VertexList;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Vector3D;
+import com.bobandthomas.Morbid.wrapper.Logger;
 import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
 import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.behaviors.mouse.MouseZoom;
@@ -533,6 +533,7 @@ public class RendererJava3D extends Renderer {
 
 	@Override
 	void Label(LabelGob g) {
+		//TODO render or eliminate Labels
 	}
 
 }
