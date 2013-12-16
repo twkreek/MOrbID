@@ -9,5 +9,8 @@ public interface IPropertyDescriptor {
 	
 	int getPropertyCount();
 	
-	int getIndex(String name);
+	int getPropertyIndex(String name);
+	
+	void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c,
+			boolean e);
 }

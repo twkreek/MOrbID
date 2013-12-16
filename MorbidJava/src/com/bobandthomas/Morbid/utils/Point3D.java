@@ -57,6 +57,13 @@ public class Point3D extends Point3d {
 	}
 	Point3D Translate (double /*Coord*/ v) { return new Point3D (x+v, y+v, z+v);}
 	boolean isEqual(Point3D p) { return (x == p.x) && (y == p.y) && (z == p.z); }
+	@Override
+	public String toString()
+	{
+		String s = "";
+		s = String.format("{%5.2f, %5.2f, %5.2f}", x, y, z);
+		return s;
+	}
 
 
 }

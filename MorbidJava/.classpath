@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/bobandthomas/Morbid/Gadget/GadgetContour.java|com/bobandthomas/Morbid/Gadget/GadgetContour2.java" kind="src" path="src"/>
+	<classpathentry excluding="com/bobandthomas/Morbid/Gadget/GadgetContour.java|com/bobandthomas/Morbid/Gadget/GadgetContour2.java|com/bobandthomas/Morbid/graphics/renderers/RendererSimple.java|com/bobandthomas/Morbid/graphics/renderers/ZRender.java" kind="src" path="src"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/vecmath.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/j3dcore.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/j3dutils.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/toxiclibs/toxiclibscore/library/toxiclibscore.jar">
+	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/toxiclibscore.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/C:/Users/Thomas/Documents/My%20Projects/lib/toxiclibs/toxiclibscore/docs/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/toxiclibs/volumeutils/library/volumeutils.jar">
+	<classpathentry kind="lib" path="C:/Users/Thomas/Documents/My Projects/lib/volumeutils.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/C:/Users/Thomas/Documents/My%20Projects/lib/toxiclibs/volumeutils/docs/"/>
 		</attributes>

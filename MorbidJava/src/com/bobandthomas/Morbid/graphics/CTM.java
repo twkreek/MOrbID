@@ -63,7 +63,7 @@ public class CTM {
 				identFlag = in.identFlag;
 			} 
 
-			CTM( CTM in)
+			public CTM( CTM in)
 			{
 				ctm = new double[4][4];
 

@@ -13,10 +13,6 @@ import com.bobandthomas.Morbid.wrapper.Logger;
 public class Peptide extends SubstructureSet {
 
 
-	/**
-	 * @param string 
-	 * 
-	 */
 	ArrayList<AminoAcidFragment> n3list;
 	public Peptide(String name, String description) {
 		super(name, description);

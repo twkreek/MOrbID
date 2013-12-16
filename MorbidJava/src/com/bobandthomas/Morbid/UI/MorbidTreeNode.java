@@ -1,12 +1,11 @@
 package com.bobandthomas.Morbid.UI;
 
-import com.bobandthomas.Morbid.utils.ILoadable;
-
+import com.bobandthomas.Morbid.utils.CLoadableItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 public class MorbidTreeNode extends DefaultMutableTreeNode
 {
-	ILoadable item;
-	public MorbidTreeNode(ILoadable ls)
+	CLoadableItem item;
+	public MorbidTreeNode(CLoadableItem ls)
 	{
 		item = ls;
 	}

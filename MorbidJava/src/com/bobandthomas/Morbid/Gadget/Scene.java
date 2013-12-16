@@ -83,7 +83,6 @@ public class Scene extends CLoadableItem {
 
 	boolean pauseRender;
 
-	// Port port;
 
 	public boolean isPauseRender() {
 		return pauseRender;

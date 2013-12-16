@@ -24,7 +24,7 @@ public class MorbidTableCell extends DefaultTableCellRenderer implements TableCe
 	}
 	MCellEditor editor;
 	
-
+	// {{ Renderer
 	public Object getCellEditorValue() {
 		return editor.getCellEditorValue();
 	}
@@ -56,6 +56,9 @@ public class MorbidTableCell extends DefaultTableCellRenderer implements TableCe
 	public boolean shouldSelectCell(EventObject anEvent) {
 		return editor.shouldSelectCell(anEvent);
 	}
+	// }}
+	
+	// {{ Editor
 
 	@Override
 	public boolean stopCellEditing() {
@@ -67,6 +70,15 @@ public class MorbidTableCell extends DefaultTableCellRenderer implements TableCe
 			boolean isSelected, int row, int column)
 	{
 		return null;
+	}
+	// }}
+	public class Point3DTableCell extends MorbidTableCell
+	{
+		Point3DTableCell()
+		{
+			super();
+		}
+		
 	}
 
 }

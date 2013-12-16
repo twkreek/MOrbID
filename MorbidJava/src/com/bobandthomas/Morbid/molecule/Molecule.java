@@ -57,7 +57,10 @@ public class Molecule extends CLoadableItem implements Iterable<Atom> {
 				substructures = new SubstructureMap();
 				propList = new MoleculePropertyList();
 				atoms = new Substructure();
+				atoms.registerListener(this);
+				atoms.setReParent(true);
 				bonds = new BondList();
+				bonds.registerListener(this);
 				selectedList = new Substructure();
 				spatialData = new SpatialDataList();
 				substructures.add(new SubstructureSet("All", "All Atoms in the molecule"));

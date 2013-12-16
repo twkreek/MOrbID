@@ -107,8 +107,7 @@ public class LightingModel extends CLoadableItem {
 			}
 			pColor = pColor.multiply(1/ (nLights *1.0f));
 			pColor = pColor.plus(m.getColor().multiply(m.kEmission));
-			if (pColor.OutOfBounds)
-				pColor.Clamp(0.999f );
+			pColor.Clamp(0.999f );
 
 			return DepthCue(pos, pColor);	
 		}

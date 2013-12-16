@@ -3,11 +3,14 @@ package com.bobandthomas.Morbid.molecule;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.bobandthomas.Morbid.utils.CLoadableSet;
 
-public class BondList extends ArrayList<Bond> {
+
+public class BondList extends CLoadableSet<Bond> {
 	HashMap<String, Bond> map = new HashMap <String, Bond>();
 	int nextID = 0;
 	public BondList() {
+		this.setReParent(true);
 	}
 
 	long AddBond(Bond b)

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.bobandthomas.Morbid.utils.CLoadableItem;
-import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 
 public class Logger {
 	public enum MessageLevel

@@ -1,16 +1,11 @@
 package com.bobandthomas.Morbid.molecule;
 
 import java.util.HashMap;
-import java.util.Iterator;
-
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
-
 import com.bobandthomas.Morbid.utils.CLoadableTable;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 
-public class SubstructureRepList extends CLoadableTable<SubstructureRep> implements TableModel, TableModelListener{
+public class SubstructureRepList extends CLoadableTable<SubstructureRep> 
+{
 	
 	SubstructureSet substructureSet;
 	
@@ -65,15 +60,6 @@ public class SubstructureRepList extends CLoadableTable<SubstructureRep> impleme
 			repMap.put(s, rep);
 			
 		}
-		
-	}
-	@Override
-	public Iterator<SubstructureRep> iterator() {
-		return repMap.values().iterator();
-	}
-	@Override
-	public void tableChanged(TableModelEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 

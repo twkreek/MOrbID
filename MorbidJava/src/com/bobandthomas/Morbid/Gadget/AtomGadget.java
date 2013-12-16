@@ -10,7 +10,6 @@ import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.SubstructureRep;
 import com.bobandthomas.Morbid.utils.ColorQuad;
-import com.bobandthomas.Morbid.utils.ILoadableSet;
 import com.bobandthomas.Morbid.utils.Point3D;
 
 public class AtomGadget extends Gadget {
@@ -275,7 +274,14 @@ public class AtomGadget extends Gadget {
 			lbg.Color = theColor.Inverse();
 			gobList.add(lbg);
 		}
-		
+		if (a.isSelected())
+		{
+			SphereGob sg = new SphereGob(aPosition, sr+0.2);
+			sg.Color = theColor.Inverse();
+			sg.Color.setAlpha(0.8);
+			gobList.add(sg);
+			
+		}
 	}
 
 
@@ -315,10 +321,6 @@ public class AtomGadget extends Gadget {
 		return (int) (AtomScale * 100);
 	}
 
-
-	void OnItemAddedToSet(ILoadableSet set) {
-
-	}
 
 	void setIAtomScale(int v) {
 		AtomScale = v / 100.0f;

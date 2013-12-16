@@ -5,13 +5,18 @@ public abstract class PropertyAccessor implements IPropertyAccessor {
 
 	IPropertyDescriptor descriptor;
 
+	public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
+		descriptor.addPropertyDescriptor(i, n, c, e);
+	}
+
+
 	public int getPropertyCount() {
 		return descriptor.getPropertyCount();
 	}
 
 
-	public int getIndex(String name) {
-		return descriptor.getIndex(name);
+	public int getPropertyIndex(String name) {
+		return descriptor.getPropertyIndex(name);
 	}
 
 
@@ -41,13 +46,20 @@ public abstract class PropertyAccessor implements IPropertyAccessor {
 	@Override
 	public Object getProperty(String name)
 	{
-		return getProperty(descriptor.getIndex(name));
+		return getProperty(descriptor.getPropertyIndex(name));
 	};
 
 	@Override
 	public void setProperty(String name, Object value) {
-		setProperty(descriptor.getIndex(name), value);
+		setProperty(descriptor.getPropertyIndex(name), value);
 
+	}
+	
+	@Override
+	public void addProperty(String name, Object value) {
+		descriptor.addPropertyDescriptor(descriptor.getPropertyCount(), name, value.getClass(), true);
+		setProperty(name, value);
+	
 	}
 
 

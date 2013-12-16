@@ -3,7 +3,6 @@ package com.bobandthomas.Morbid.Gadget;
 import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
 import com.bobandthomas.Morbid.graphics.GobList;
 import com.bobandthomas.Morbid.graphics.LabelGob;
-import com.bobandthomas.Morbid.graphics.StringGob;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
 

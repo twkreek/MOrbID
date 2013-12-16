@@ -2,10 +2,10 @@ package com.bobandthomas.Morbid.utils;
 
 import java.util.HashMap;
 
-public abstract class PropertyDescriptoList<T extends IPropertyAccessor> extends CLoadableSet<PropertyDescriptor> implements IPropertyDescriptor
+public abstract class PropertyDescriptorList<T extends IPropertyAccessor> extends CLoadableSet<PropertyDescriptor> implements IPropertyDescriptor
 {
 	HashMap<String, Integer> nameIndex = new HashMap<String,Integer>();
-	public PropertyDescriptoList()
+	public PropertyDescriptorList()
 	{
 		this.setUseByName(true);
 		initialize();
@@ -40,14 +40,12 @@ public abstract class PropertyDescriptoList<T extends IPropertyAccessor> extends
 		return get(index).isEditable();
 	}
 	@Override
-	public int getIndex(String name)
+	public int getPropertyIndex(String name)
 	{
 		return nameIndex.get(name);
 	}
-	/* (non-Javadoc)
-	 * @see com.bobandthomas.Morbid.UI.IPropertyAccess#getValue(int)
-	 */
-	public void add(int i, String n, @SuppressWarnings("rawtypes") Class c,
+	@Override
+	public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c,
 			boolean e)
 	{
 		PropertyDescriptor mtc = new PropertyDescriptor(i, n,c,e);

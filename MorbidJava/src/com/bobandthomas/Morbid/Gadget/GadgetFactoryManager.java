@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
-import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
 import com.bobandthomas.Morbid.Gadget.control.GadgetPanel;
 import com.bobandthomas.Morbid.UI.ControlPanelSideBar;
 import com.bobandthomas.Morbid.molecule.Molecule;

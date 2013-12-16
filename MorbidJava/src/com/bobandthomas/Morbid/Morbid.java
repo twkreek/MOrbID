@@ -19,7 +19,6 @@ import com.bobandthomas.Morbid.wrapper.Logger;
 import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 import com.bobandthomas.Morbid.UI.ControlPanelSideBar;
-import com.bobandthomas.Morbid.UI.HudPanel;
 import com.bobandthomas.Morbid.UI.MorbidMenus;
 
 public class Morbid extends JApplet {

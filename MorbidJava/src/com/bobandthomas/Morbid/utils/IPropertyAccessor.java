@@ -1,7 +1,7 @@
 package com.bobandthomas.Morbid.utils;
 
 
-public interface IPropertyAccessor extends IPropertyDescriptor{
+public interface IPropertyAccessor extends IPropertyDescriptor {
 	
 	Object getProperty(String name);
 
@@ -10,5 +10,7 @@ public interface IPropertyAccessor extends IPropertyDescriptor{
 	Object getProperty(int index);
 
 	void setProperty(int index, Object value);
+	
+	void addProperty(String name, Object value);
 
 }

@@ -43,16 +43,16 @@ public class SubstructureMap extends CLoadableSet<SubstructureSet> {
 	{
 		this.setUseByName(true);
 	}
+	public SubstructureSet get(SubstructureType type)
+	{
+		return getByName(type.name);
+	}
 	
 	/**
 	 * @param setName the class of substructure grouping 
 	 * @param subsName The specific substructure name
 	 * @param at	Atom to be added.
 	 */
-	public SubstructureSet get(SubstructureType type)
-	{
-		return getByName(type.name);
-	}
 	public void addAtomToSubstructure(String setName, String subsName, Atom at)
 	{
 		SubstructureSet al = this.getByName(setName);

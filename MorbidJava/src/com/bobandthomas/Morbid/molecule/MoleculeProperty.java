@@ -4,7 +4,7 @@ import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
-import com.bobandthomas.Morbid.utils.PropertyDescriptoList;
+import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
 
 public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor{
 	
@@ -74,14 +74,14 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 	return numValue.intValue();
 	}
 
-	static IPropertyDescriptor propertyDescriptor = new PropertyDescriptoList<MoleculeProperty>(){
+	static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
 
 		@Override
 		public void initialize() {
-			add(0, "Name", String.class, false);
-			add(1, "Value", String.class, true);
-			add(2, "Units", String.class, true);
-			add(3, "Number", Number.class, false);
+			addPropertyDescriptor(0, "Name", String.class, false);
+			addPropertyDescriptor(1, "Value", String.class, true);
+			addPropertyDescriptor(2, "Units", String.class, true);
+			addPropertyDescriptor(3, "Number", Number.class, false);
 			
 		}
 
@@ -108,7 +108,13 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 			}
 			
 		}
+
 	};
+	
+	// {{ IAccessorDelegates
+	public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
+		access.addPropertyDescriptor(i, n, c, e);
+	}
 
 	public Object getProperty(int index) {
 		return access.getProperty(index);
@@ -122,8 +128,8 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 		access.setProperty(index, value);
 	}
 
-	public int getIndex(String name) {
-		return access.getIndex(name);
+	public int getPropertyIndex(String name) {
+		return access.getPropertyIndex(name);
 	}
 
 	public Class<?> getPropertyClass(int index) {
@@ -145,5 +151,12 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 	public void setProperty(String name, Object value) {
 		access.setProperty(name, value);
 	}
-	
+
+	@Override
+	public void addProperty(String name, Object value) {
+		access.addProperty(name,  value);
+		
+	}
+	// }}
+
 }

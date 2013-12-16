@@ -1,14 +1,14 @@
 package com.bobandthomas.Morbid.molecule;
 
 import com.bobandthomas.Morbid.utils.BoundingBox;
-import com.bobandthomas.Morbid.utils.CLoadableSet;
+import com.bobandthomas.Morbid.utils.CLoadableTable;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
 import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
-import com.bobandthomas.Morbid.utils.PropertyDescriptoList;
+import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 
 /**
@@ -18,7 +18,7 @@ import com.bobandthomas.Morbid.utils.StaticColorQuad;
  *
  */
 
-public class Substructure extends CLoadableSet<Atom> implements ISubstructure, IPropertyAccessor {
+public class Substructure extends CLoadableTable<Atom> implements ISubstructure, IPropertyAccessor {
 		private Fragment fragment;
 		protected ColorQuad listColor;
 		BoundingBox bounds;
@@ -38,9 +38,12 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure, I
 		{
 
 			super.add(a);
+			a.registerListener(this);
 			double r = a.Radius();
 			bounds.addSphere(a.Position(), r);
 			chargeRange.addValue(a.getCharge());
+			if (size() % 5 == 0)
+				setSelected(true);
 
 			if (a.getCharge() != 0.0)
 			{
@@ -109,12 +112,13 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure, I
 		 * Support Properties
 		 */
 		
-		static IPropertyDescriptor propertyDescriptor = new PropertyDescriptoList<MoleculeProperty>(){
+		static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
 
 			@Override
 			public void initialize() {
-				add(0, "Name", String.class, false);
-				add(1, "Number of Atoms", Integer.class, false);
+				addPropertyDescriptor(0, "Name", String.class, false);
+				addPropertyDescriptor(1, "Number of Atoms", Integer.class, false);
+				addPropertyDescriptor(2, "Color", ColorQuad.class, false);
 				
 			}
 
@@ -125,6 +129,7 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure, I
 				switch (index){
 				case 0: return  Substructure.this.getName();
 				case 1: return Substructure.this.size();
+				case 2: return Substructure.this.getListColor();
 				}
 				return null;
 			}
@@ -138,6 +143,14 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure, I
 			}
 		};
 
+		// {{ IAccessorDelegates
+		
+		public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
+			access.addPropertyDescriptor(i, n, c, e);
+		}
+		public void addProperty(String name, Object value) {
+			access.addProperty(name, value);
+		}
 		public Object getProperty(int index) {
 			return access.getProperty(index);
 		}
@@ -150,8 +163,8 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure, I
 			access.setProperty(index, value);
 		}
 
-		public int getIndex(String name) {
-			return access.getIndex(name);
+		public int getPropertyIndex(String name) {
+			return access.getPropertyIndex(name);
 		}
 
 		public Class<?> getPropertyClass(int index) {
@@ -173,5 +186,5 @@ public class Substructure extends CLoadableSet<Atom> implements ISubstructure, I
 		public void setProperty(String name, Object value) {
 			access.setProperty(name, value);
 		}
-
+		// }}
 }

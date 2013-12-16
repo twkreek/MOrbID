@@ -4,6 +4,10 @@ import com.bobandthomas.Morbid.graphics.Material;
 import com.bobandthomas.Morbid.graphics.MaterialSet;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.IPropertyAccessor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.PropertyAccessor;
+import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
 import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 
 public class AtomType extends CLoadableItem
@@ -77,8 +81,88 @@ public class AtomType extends CLoadableItem
 			color = mat.getColor();
 
 		}
-		//ErrorCode WriteItem(String data);
-	};
+
+		static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
+
+			@Override
+			public void initialize() {
+				addPropertyDescriptor(0, "Atomic Number", Integer.class, false);
+				addPropertyDescriptor(1, "Name", String.class, false);
+				addPropertyDescriptor(2, "NS", Integer.class, false);
+				addPropertyDescriptor(3, "NP", Integer.class, false);
+				addPropertyDescriptor(4, "ND", Integer.class, false);
+				
+			}
+
+		};
+		IPropertyAccessor access = new PropertyAccessor(propertyDescriptor){
+			@Override
+			public Object getProperty(int index) {
+				switch (index){
+				case 0: return getID();
+				case 1: return getName();
+				case 2: return ns;
+				case 3: return np;
+				case 4: return nd;
+				}
+				return null;
+			}
+		
+			@Override
+			public void setProperty(int index, Object value) {
+				switch (index){
+					case 0:	 return;
+				}
+				
+			}
+
+		};
+		
+		// {{ IAccessorDelegates
+		public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
+			access.addPropertyDescriptor(i, n, c, e);
+		}
+
+		public Object getProperty(int index) {
+			return access.getProperty(index);
+		}
+
+		public int getPropertyCount() {
+			return access.getPropertyCount();
+		}
+
+		public void setProperty(int index, Object value) {
+			access.setProperty(index, value);
+		}
+
+		public int getPropertyIndex(String name) {
+			return access.getPropertyIndex(name);
+		}
+
+		public Class<?> getPropertyClass(int index) {
+			return access.getPropertyClass(index);
+		}
+
+		public String getPropertyName(int index) {
+			return access.getPropertyName(index);
+		}
+
+		public boolean isPropertyEditable(int index) {
+			return access.isPropertyEditable(index);
+		}
+
+		public Object getProperty(String name) {
+			return access.getProperty(name);
+		}
+
+		public void setProperty(String name, Object value) {
+			access.setProperty(name, value);
+		}
+
+		// }}
+		
+
+}
 
 
 

@@ -193,7 +193,7 @@ public class FileReaderPDB extends MoleculeFileReader {
 				}
 				else if (token.equals("TITLE"))
 				{
-					String seq = line.substring(7, 7+3);
+					//String seq = line.substring(7, 7+3);
 					line = line.trim();
 					token.toLowerCase();
 					if (molecule.getName() != null)

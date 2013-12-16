@@ -1,7 +1,6 @@
 package com.bobandthomas.Morbid.utils;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Thomas Kreek
  * The Class BoxType.
