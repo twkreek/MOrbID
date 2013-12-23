@@ -75,8 +75,7 @@ public abstract class GadgetPanel extends ControlPanel implements ChangeListener
 		{
 			subs.add(s);
 		}
-		createCombo(subs, "SubstructureFilter", 0);
-		
+		createCombo(subs, "SubstructureFilter", 0);	
 	}
-
+	
 }

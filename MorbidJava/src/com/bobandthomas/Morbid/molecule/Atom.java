@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.ISelectable;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
 import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.Selectable;
 
-public class Atom extends CLoadableItem implements IPropertyAccessor
+public class Atom extends CLoadableItem implements IPropertyAccessor, ISelectable, IChangeNotifier
 {
 	public Point3D pos;
 	private ArrayList<Atom> bonded = new ArrayList<Atom>();
@@ -118,7 +121,22 @@ public class Atom extends CLoadableItem implements IPropertyAccessor
 	double y() {return pos.y;}
 	double z() {return pos.z;}
 	
+	// {{ ISelectable Delegates
 	
+	ISelectable selectable = new Selectable(this);
+	
+	
+	public void setSelected(boolean selected) {
+		selectable.setSelected(selected);
+	}
+	public void setSelected(IChangeNotifier source, boolean selected) {
+		selectable.setSelected(source, selected);
+	}
+	public boolean isSelected() {
+		return selectable.isSelected();
+	}
+	//}}
+
 	static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
 
 		@Override

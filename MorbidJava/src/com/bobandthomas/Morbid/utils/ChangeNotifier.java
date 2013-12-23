@@ -1,5 +1,6 @@
 package com.bobandthomas.Morbid.utils;
 
+import java.util.EventListener;
 import java.util.HashSet;
 
 import com.bobandthomas.Morbid.wrapper.Logger;
@@ -10,7 +11,8 @@ import com.bobandthomas.Morbid.wrapper.Logger;
  * 
  * @author Thomas Kreek 
  */
-public  class ChangeNotifier implements IChangeNotifier {
+public  class ChangeNotifier implements IChangeNotifier, EventListener {
+	IChangeNotifier parent;
 
 	/** The listeners. list of all the objects that want notifications when i change */
 	HashSet<IChangeNotifier> listeners; 
@@ -21,10 +23,16 @@ public  class ChangeNotifier implements IChangeNotifier {
 	/**
 	 * Instantiates a new change notifier.
 	 */
-	public ChangeNotifier() {
+	public ChangeNotifier(IChangeNotifier parent) {
+		this.parent = parent;
 		listeners = null;
 	}
 
+	boolean logThis = true;
+	public void logThis(boolean logMe)
+	{
+		logThis = logMe;
+	}
 	/* (non-Javadoc)
 	 * @see com.bobandthomas.Morbid.utils.IChangeNotifier#getNotifyList()
 	 */
@@ -50,15 +58,24 @@ public  class ChangeNotifier implements IChangeNotifier {
 	 * @see com.bobandthomas.Morbid.utils.IChangeNotifier#notifyChange(com.bobandthomas.Morbid.utils.MorbidEvent)
 	 */
 	@Override
-	public void notifyChange(MorbidEvent source) {
-		MorbidEvent newEvent = handleNotify(source);
-		Logger.addMessage((CLoadableItem)this, String.format("Notify: %s from %s", this.getClass().getSimpleName(), source.toString()));
-		if (newEvent == null) return;
-		if (listeners == null) return;
+	public void notifyChange(MorbidEvent event) {
+		// do not respond to an event i sent myself.
+		if (! event.getSource().equals(parent))
+		{
+			MorbidEvent newEvent = parent.handleNotify(event);
+			if (newEvent == null) return;
+			newEvent.handledBy(parent);
+
+		}
+		if (listeners == null) 
+		{
+			Logger.addMessage(event);
+			return;
+		}
 
 		for (IChangeNotifier cn : listeners)
 		{
-			cn.notifyChange(source);
+			cn.notifyChange(event);
 		}
 	}
 
@@ -112,7 +129,7 @@ public  class ChangeNotifier implements IChangeNotifier {
 	 */
 	@Override
 	public MorbidEvent handleNotify(MorbidEvent source) {
-		return null;
+		return source;
 	}
 
 }

@@ -8,13 +8,14 @@ import java.util.Iterator;
 import com.bobandthomas.Morbid.molecule.data.SpatialDataList;
 import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.Point3D;
 
 /**
  * @author Thomas Kreek
  *
  */
-public class Molecule extends CLoadableItem implements Iterable<Atom> {
+public class Molecule extends CLoadableItem implements Iterable<Atom>, IChangeNotifier {
 
 			private Substructure	atoms;
 		    BondList	bonds;

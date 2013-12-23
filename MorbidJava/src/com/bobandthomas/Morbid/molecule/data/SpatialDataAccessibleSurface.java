@@ -13,6 +13,7 @@ public class SpatialDataAccessibleSurface extends SpatialData {
 		super(mol);
 		this.setLogicalRange(0.5, 5);
 		setName("Accessible Volume");
+		isSigned = false;
 	}
 
 	@Override

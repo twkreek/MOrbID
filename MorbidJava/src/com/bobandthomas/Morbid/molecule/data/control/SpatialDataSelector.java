@@ -23,7 +23,7 @@ public class SpatialDataSelector extends ControlPanel {
 		}
 		this.gsd = gsd;
 		this.sdl = sdl;
-		sd = gsd.getSd();
+		sd = gsd.getSpatialData();
 //		this.sideBySide();
 		createCombo(sdl, "SpatialData", 0);
 		setupSpatialData(sd);
@@ -41,7 +41,7 @@ public class SpatialDataSelector extends ControlPanel {
 		sdc.registerListener(this);
 		sd = spatial;
 		child.add(sdc);
-		gsd.setSd(spatial);
+		gsd.setSpatialData(spatial);
 		
 	}
 

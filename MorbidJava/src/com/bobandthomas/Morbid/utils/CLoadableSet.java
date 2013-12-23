@@ -19,7 +19,7 @@ import java.util.ListIterator;
  *            the generic type, must be derived from CLoadableItem
  * @author Thomas Kreek 
  */
-public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implements List <T> 
+public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implements List <T>, IChangeNotifier
 {
 	
 	/** The set. */
@@ -379,4 +379,5 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 		return set.remove(o);
 	}
 	// }}
+
 }

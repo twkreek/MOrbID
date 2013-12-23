@@ -21,7 +21,7 @@ import com.bobandthomas.Morbid.utils.*;
  * 
  * @author Thomas Kreek The Class Gadget.
  */
-public abstract class Gadget extends CLoadableItem {
+public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 
 	/**
 	 * The Enum ColorBy, a list of the patterns for coloring, available to gadget subclasses
@@ -166,7 +166,7 @@ public abstract class Gadget extends CLoadableItem {
 	 */
 	public void setCurrentColorOption(int index) {
 		currentColorOption = colorOptionList.get(index);
-		markDirty();
+		markDirty(new MorbidEvent(this, "currentColorOption"));
 	}
 
 	/** The current color option. */
@@ -246,7 +246,7 @@ public abstract class Gadget extends CLoadableItem {
 	 * @param s
 	 *            the s
 	 */
-	public void sceneAdded(Scene s) {
+	public void setScene(Scene s) {
 		scene = s;
 		molecule = scene.GetMolecule();
 		molecule.registerListener(this);
@@ -254,7 +254,9 @@ public abstract class Gadget extends CLoadableItem {
 
 	/**
 	 * Scene changed notification.  Called if another gadget
-	 * is added to the scene.
+	 * is added to the scene.  This is overridden for gadgets that
+	 * depend on the display characteristics of other gadgets
+	 * i.e. bonds will hide hydrogens if the atom gadget hides hydrogens
 	 * 
 	 * @param scene
 	 *            the scene
@@ -280,7 +282,7 @@ public abstract class Gadget extends CLoadableItem {
 	 */
 	public void setSubstructureFilter(boolean substructureFilter) {
 		this.substructureFilter = substructureFilter;
-		markDirty();
+		markDirty(new MorbidEvent(this, "substructureFilter"));
 	}
 
 	/**
@@ -363,7 +365,7 @@ public abstract class Gadget extends CLoadableItem {
 			return;
 		} else
 			Draw(gl);
-		gl.markDirty();
+		gl.markDirty(new MorbidEvent(this));
 		markClean();
 
 	}
@@ -385,7 +387,7 @@ public abstract class Gadget extends CLoadableItem {
 	 */
 	public void setVisible(boolean show) {
 		visible = show;
-		markDirty();
+		markDirty(new MorbidEvent(this, "visible"));
 	}
 
 	// int GetLayer() { return position; }
@@ -498,7 +500,7 @@ public abstract class Gadget extends CLoadableItem {
 	public void setTransparency(double transparency) {
 		this.alpha = transparency;
 		baseMaterial.setAlpha(alpha);
-		markDirty();
+		markDirty(new MorbidEvent(this, "transparency"));
 	}
 
 	/**
@@ -604,6 +606,8 @@ public abstract class Gadget extends CLoadableItem {
 	 */
 	public void setCurrentColorOption(ColorOption currentColorOption) {
 		this.currentColorOption = currentColorOption;
-		markDirty();
+		markDirty(new MorbidEvent(this, "currentColorOption"));
 	}
+	
+
 };

@@ -3,6 +3,7 @@ package com.bobandthomas.Morbid.molecule;
 import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.CLoadableTable;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
 import com.bobandthomas.Morbid.utils.MinMax;
@@ -18,7 +19,7 @@ import com.bobandthomas.Morbid.utils.StaticColorQuad;
  *
  */
 
-public class Substructure extends CLoadableTable<Atom> implements ISubstructure, IPropertyAccessor {
+public class Substructure extends CLoadableTable<Atom> implements ISubstructure, IPropertyAccessor, IChangeNotifier {
 		private Fragment fragment;
 		protected ColorQuad listColor;
 		BoundingBox bounds;
@@ -42,8 +43,6 @@ public class Substructure extends CLoadableTable<Atom> implements ISubstructure,
 			double r = a.Radius();
 			bounds.addSphere(a.Position(), r);
 			chargeRange.addValue(a.getCharge());
-			if (size() % 5 == 0)
-				setSelected(true);
 
 			if (a.getCharge() != 0.0)
 			{
@@ -187,4 +186,5 @@ public class Substructure extends CLoadableTable<Atom> implements ISubstructure,
 			access.setProperty(name, value);
 		}
 		// }}
+
 }

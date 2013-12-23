@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.bobandthomas.Morbid.utils.CLoadableItem;
+import com.bobandthomas.Morbid.utils.MorbidEvent;
 
 public class Logger {
 	public enum MessageLevel
@@ -18,12 +19,26 @@ public class Logger {
 			
 		}
 	}
-	protected class Message 
+	private static class LoggerWrapper extends CLoadableItem
 	{
-		CLoadableItem obj;
+		public Object o;
+		LoggerWrapper(Object object)
+		{
+			o = object;
+			setName(o.getClass().getSimpleName());
+		}
+	}
+	protected static class Message 
+	{
+		Object obj;
 		String message;
 		MessageLevel level;
-		public Message(CLoadableItem obj, String message, MessageLevel level) {
+		public Message()
+		{
+			obj = null;
+			message = null;
+		}
+		public Message(Object obj, String message, MessageLevel level) {
 			super();
 			this.obj = obj;
 			this.message = message;
@@ -35,8 +50,26 @@ public class Logger {
 		}
 		public String report()
 		{
-			String s = obj.getName()+" says:\n" + message + " as " + level.toString();
+			String s = obj.getClass().getSimpleName() +" says:\n" + message /* + " as " + level.toString() */;
 			return s;
+		}
+	}
+	protected class EventMessage extends Message
+	{
+		MorbidEvent event;
+		@Override
+		public String shortReport() {
+			return event.toString();
+		}
+
+		@Override
+		public String report() {
+			return event.toString();
+		}
+
+		public EventMessage(MorbidEvent ev)
+		{
+			event = ev;
 		}
 	}
 	int lastReported;
@@ -60,6 +93,7 @@ public class Logger {
 		messageMap = new HashMap<Object,MessageList>();
 		
 	}
+
 	public static void addMessage(String message)
 	{
 		get().createMessage(null, message, MessageLevel.INFORMATION);
@@ -78,7 +112,7 @@ public class Logger {
 	}
 	public static void addMessage(Object o, Exception e)
 	{
-		get().createMessage(null, e.toString(), MessageLevel.ERROR);
+		get().createMessage(new LoggerWrapper(o), e.toString(), MessageLevel.ERROR);
 		e.printStackTrace();
 	}
 	public static void addMessage(CLoadableItem o, Exception e)
@@ -86,18 +120,33 @@ public class Logger {
 		get().createMessage(o, e.toString(), MessageLevel.ERROR);
 		e.printStackTrace();
 	}
-	public void createMessage(CLoadableItem o, String message, MessageLevel ml)
+	public static void addMessage(MorbidEvent event)
 	{
-		Message m = new Logger.Message(o,message,ml);
+		get().createMessage(event);
+	}
+	private void addMessage(Message m)
+	{
 		messages.add(m);	
 		MessageList mlist;
-		if ((mlist = messageMap.get(o)) == null)
+		if ((mlist = messageMap.get(m.obj)) == null)
 		{
 			mlist = new MessageList();
-			messageMap.put(o, mlist);
+			messageMap.put(m.obj, mlist);
 		}
 		mlist.add(m);
-		reportNext();
+		reportNext();		
+	}
+	public void createMessage(Object o, String message, MessageLevel ml)
+	{
+		Message m = new Logger.Message(o,message,ml);
+		addMessage(m); 
+
+	}
+	public void createMessage(MorbidEvent e)
+	{
+		Message m = new Logger.EventMessage(e);
+		addMessage(m);
+
 	}
 	public void reportAll()
 	{
@@ -112,7 +161,7 @@ public class Logger {
 	{
 		for (; lastReported < messages.size(); lastReported++)
 		{
-			System.out.println(messages.get(lastReported).report());
+			System.out.println("|" + messages.get(lastReported).report() + "|");
 		}
 	}
 }

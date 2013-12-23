@@ -39,7 +39,6 @@ ItemListener, ActionListener, IChangeNotifier  {
 	HashMap<String, JComponent> byName;
 	protected JPanel child;
 	protected JPanel tempChild;
-	protected ChangeNotifier notifier = new ChangeNotifier();
 
 	public MorbidPanel(String name) {
 		map = new HashMap<JComponent, String>();
@@ -62,6 +61,10 @@ ItemListener, ActionListener, IChangeNotifier  {
 			return;
 		}	
 		if (e.getSource().getClass().equals(JButton.class)) {
+			/* buttongs must always fire, so null lastValue will always be different.
+			 *  this bypasses the code that prevents duplicate firing
+			*/
+			lastValue = null; 
 			JButton source = (JButton) e.getSource();
 			handlePanelChange(map.get(source), source.isSelected() ? 1 : 0);
 			return;
@@ -227,38 +230,41 @@ ItemListener, ActionListener, IChangeNotifier  {
 		lastValue = value;
 		return true;
 	}
+
+	// {{ Delegate IChangeNotifier
+	IChangeNotifier notifier = new ChangeNotifier(this);
+
 	public IChangeNotifier[] getNotifyList() {
 		return notifier.getNotifyList();
-	}
-
-	public MorbidEvent handleNotify(MorbidEvent source) {
-		return notifier.handleNotify(source);
 	}
 
 	public void registerListener(IChangeNotifier listener) {
 		notifier.registerListener(listener);
 	}
 
-	public void notifyChange(MorbidEvent source) {
-		notifier.notifyChange(source);
-	}
-
-	public void notifyChange() {
-		notifier.notifyChange();
-	}
-
 	public void unRegisterListener(IChangeNotifier listener) {
 		notifier.unRegisterListener(listener);
-	}
-
-	public void registerNotifier(IChangeNotifier notifier) {
-		notifier.registerNotifier(notifier);
 	}
 
 	public void unRegisterFromAll() {
 		notifier.unRegisterFromAll();
 	}
 
-	
+	public void registerNotifier(IChangeNotifier notifier) {
+		notifier.registerNotifier(notifier);
+	}
 
+	public void notifyChange() {
+		notifier.notifyChange();
+	}
+
+	public void notifyChange(MorbidEvent source) {
+		notifier.notifyChange(source);
+	}
+
+	public MorbidEvent handleNotify(MorbidEvent source) {
+		return notifier.handleNotify(source);
+	}
+	// }}
+	
 }

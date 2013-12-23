@@ -10,9 +10,19 @@ import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.SubstructureRep;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
 
 public class AtomGadget extends Gadget {
+
+	@Override
+	public MorbidEvent handleNotify(MorbidEvent source) {
+		if (source.getSource().getClass().equals(Atom.class))
+		{
+			markDirty();
+		}
+		return super.handleNotify(source);
+	}
 
 	@Override
 	public String getGadgetType() {
@@ -84,7 +94,7 @@ public class AtomGadget extends Gadget {
 
 	public void setAtomScale(double atomScale) {
 		AtomScale = atomScale;
-		markDirty();
+		markDirty(new MorbidEvent(this, "AtomScale"));
 	}
 
 	public AtomColorBy getColorBy() {
@@ -93,7 +103,7 @@ public class AtomGadget extends Gadget {
 
 	public void setColorBy(AtomColorBy colorBy) {
 		ColorBy = colorBy;
-		markDirty();
+		markDirty(new MorbidEvent(this, "ColorBy"));
 	}
 
 	public boolean isLabels() {
@@ -102,7 +112,7 @@ public class AtomGadget extends Gadget {
 
 	public void setLabels(boolean labels) {
 		Labels = labels;
-		markDirty();
+		markDirty(new MorbidEvent(this,"ShowLabels"));
 	}
 
 	public AtomRepType getRep() {
@@ -111,7 +121,7 @@ public class AtomGadget extends Gadget {
 
 	public void setRep(AtomRepType rep) {
 		Rep = rep;
-		markDirty();
+		markDirty(new MorbidEvent(this,"Rep"));
 	}
 
 	public boolean isShowMetals() {

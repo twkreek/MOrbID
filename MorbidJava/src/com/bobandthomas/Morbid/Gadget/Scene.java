@@ -13,12 +13,13 @@ import com.bobandthomas.Morbid.graphics.renderers.Renderer;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Vector3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
-public class Scene extends CLoadableItem {
+public class Scene extends CLoadableItem implements IChangeNotifier {
 
 	public enum LayerPosition {
 		LayerBack(0), LayerModel(1), LayerFront(2);
@@ -148,13 +149,17 @@ public class Scene extends CLoadableItem {
 		dirty.gobList = true;
 		gadgetList.add(g);
 		glLayerSet.get(l).createGadgetGL(g);
-		g.sceneAdded(this);
+		g.setScene(this);
+		g.registerListener(this);
 		for (Gadget gadg : gadgetList)
 		{
 			//notify all gadgets that this one is being added,
 			//so they can set up notifications or change their appearance
-			gadg.sceneChanged(this);
+			if (g != gadg)
+				gadg.sceneChanged(this);
 		}
+		MorbidEvent event = new MorbidEvent(this, "Added", null , g);
+		notifyChange(event);
 	}
 
 	void AddRenderer(RenderManagerQuality rq, Renderer ren) {
@@ -317,4 +322,5 @@ public class Scene extends CLoadableItem {
 
 	void Update() {
 	}
+	
 }

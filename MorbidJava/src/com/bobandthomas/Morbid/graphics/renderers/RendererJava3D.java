@@ -276,6 +276,8 @@ public class RendererJava3D extends Renderer {
 		for (GobList gl : goblists) {
 			if (!gl.isDirty())
 				continue;
+			Gadget g = gl.getGadget();
+			if (g == null) break;
 			gobListMap.put(gl.getGadget(), gl);
 			setCurrentBranchGroup(gl); //always returns the parent.
 			// detach brach group from the objTrans

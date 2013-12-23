@@ -8,7 +8,8 @@ package com.bobandthomas.Morbid.utils;
  *         DB. and all change notifiable items; Implements name, ID, and
  *         selectable
  */
-public class CLoadableItem  extends ChangeNotifier implements IChangeNotifier {
+public class CLoadableItem implements IChangeNotifier
+ {
 	
 	/** The parent set. Used when item is added to a reparenting CLoadableSet */
 	public CLoadableSet<?> parentSet;
@@ -19,8 +20,6 @@ public class CLoadableItem  extends ChangeNotifier implements IChangeNotifier {
 	/** dirty flag for change notification. */
 	private boolean m_bDirty;
 	
-	/** specified whether item is selected */
-	private boolean selected;
 	
 	/** The Name. */
 	private String Name;
@@ -31,7 +30,7 @@ public class CLoadableItem  extends ChangeNotifier implements IChangeNotifier {
 	public CLoadableItem() {
 		ID = 0;
 		m_bDirty = true;
-		selected = false;
+
 		
 	}
 	
@@ -92,7 +91,7 @@ public class CLoadableItem  extends ChangeNotifier implements IChangeNotifier {
 	/* (non-Javadoc)
 	 * @see com.bobandthomas.Morbid.utils.ChangeNotifier#handleNotify(com.bobandthomas.Morbid.utils.MorbidEvent)
 	 */
-	@Override
+//	@Override
 	public MorbidEvent handleNotify(MorbidEvent source) {
 		return source;
 		
@@ -118,11 +117,19 @@ public class CLoadableItem  extends ChangeNotifier implements IChangeNotifier {
 	
 	public void markDirty() {
 		m_bDirty = true;
+		notifyChange(new MorbidEvent(this, "dirty"));
 		if (parentSet != null)
 		{
 			parentSet.markDirty();
 		}
-		notifyChange(new MorbidEvent(this));
+	}
+	public void markDirty(MorbidEvent event) {
+		m_bDirty = true;
+		if (event != null) notifyChange(event);
+		if (parentSet != null)
+		{
+			parentSet.markDirty(event);
+		}
 	}
 
 	/* 
@@ -155,26 +162,35 @@ public class CLoadableItem  extends ChangeNotifier implements IChangeNotifier {
 		this.registerListener(parentSet);
 	}
 	
-	/**
-	 * Checks if is selected.
-	 * 
-	 * @return true, if is selected
-	 */
-	public boolean isSelected() {
-		return selected;
-	}
-	
-	/**
-	 * Sets the selected.
-	 * 
-	 * @param selected
-	 *           
-	 */
-	public void setSelected(boolean selected) {
-		MorbidEvent event = new MorbidEvent(this);
-		event.setChangeField("selected", this.selected, selected);
-		this.selected = selected;
-		this.notifyChange(event);
+	// {{ Delegate IChangeNotifier
+	protected ChangeNotifier notifier = new ChangeNotifier(this);
+
+	public IChangeNotifier[] getNotifyList() {
+		return notifier.getNotifyList();
 	}
 
+	public void registerListener(IChangeNotifier listener) {
+		notifier.registerListener(listener);
+	}
+
+	public void unRegisterListener(IChangeNotifier listener) {
+		notifier.unRegisterListener(listener);
+	}
+
+	public void unRegisterFromAll() {
+		notifier.unRegisterFromAll();
+	}
+
+	public void registerNotifier(IChangeNotifier notifier) {
+		notifier.registerNotifier(notifier);
+	}
+
+	public void notifyChange() {
+		notifier.notifyChange();
+	}
+
+	public void notifyChange(MorbidEvent source) {
+		notifier.notifyChange(source);
+	}
+	// }}
 }

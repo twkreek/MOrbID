@@ -349,8 +349,8 @@ public class RibbonGadget extends Gadget {
 		
 	}
 	@Override
-	public void sceneAdded(Scene s) {
-		super.sceneAdded(s);
+	public void setScene(Scene s) {
+		super.setScene(s);
 		if (set == null)
 		{
 			SubstructureMap ssm = molecule.getSubstructures();

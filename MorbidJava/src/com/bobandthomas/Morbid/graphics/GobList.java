@@ -51,6 +51,7 @@ public class GobList extends CLoadableSet<Gob> {
 			thectm = new CTM();
 
 			rotate = true;
+			notifier.logThis(false);
 		}
 
 		void AddVector(Point3D from, Point3D to)

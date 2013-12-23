@@ -41,8 +41,8 @@ public class GadgetFieldLines extends GadgetSpatialData {
 	public Vertex[] getVector(int x, int y, int z)
 	{
 		Vertex segment[] = new Vertex[2];
-		Vertex center = new Vertex(getSd().getPoint(x,y,z));
-		center.value = getSd().XYZ(x, y, z);
+		Vertex center = new Vertex(getSpatialData().getPoint(x,y,z));
+		center.value = getSpatialData().XYZ(x, y, z);
 		Vector3D vec = new Vector3D();
 		double newValue = 0;
 		
@@ -53,8 +53,8 @@ public class GadgetFieldLines extends GadgetSpatialData {
 				{
 					if ( i< 0 || j<0 || k< 0)
 						continue;
-					Point3D neighbor = getSd().getPoint(i, j, k);
-					double dValue = getSd().XYZ(i, j, k) - center.value;;
+					Point3D neighbor = getSpatialData().getPoint(i, j, k);
+					double dValue = getSpatialData().XYZ(i, j, k) - center.value;;
 					newValue += dValue;
 					vec  = vec.Add(neighbor.Sub(center).Scale(dValue));
 					
@@ -62,20 +62,20 @@ public class GadgetFieldLines extends GadgetSpatialData {
 		if (vec.Length() < threshold) return null;
 		segment[0] = center;
 		vec = vec.Scale(scale);
-		segment[1] = new Vertex(vec.Add(getSd().getPoint(x, y, z)), newValue);
+		segment[1] = new Vertex(vec.Add(getSpatialData().getPoint(x, y, z)), newValue);
 		return segment;
 	}
 	@Override
 	void Draw(GobList gl) {
 		gl.clear();
-		getSd().Update();
-		MinMax range = getSd().getMinMax();
+		getSpatialData().Update();
+		MinMax range = getSpatialData().getMinMax();
 		GobPoly poly = new GobPoly();
 		poly.setMaterial(baseMaterial);
 		poly.SetPolyType(GobPolyType.Segments);
-		for (int i = 0; i < getSd().Side0(); i+=increment)
-			for (int j = 0; j < getSd().Side1(); j+=increment)
-				for (int k = 0; k < getSd().Side2(); k +=increment)
+		for (int i = 0; i < getSpatialData().Side0(); i+=increment)
+			for (int j = 0; j < getSpatialData().Side1(); j+=increment)
+				for (int k = 0; k < getSpatialData().Side2(); k +=increment)
 				{
 					Vertex[] vec= getVector(i,j,k);
 					if (vec == null)
@@ -91,9 +91,9 @@ public class GadgetFieldLines extends GadgetSpatialData {
 
 
 	@Override
-	public void sceneAdded(Scene s) {
-		super.sceneAdded(s);
-		setSd(GetMolecule().getSpatialData().getByName("Charge"));
+	public void setScene(Scene s) {
+		super.setScene(s);
+		setSpatialData(GetMolecule().getSpatialData().getByName("Charge"));
 		this.setThreshold(0.2);
 	}
 

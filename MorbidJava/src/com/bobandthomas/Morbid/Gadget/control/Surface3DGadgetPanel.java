@@ -31,7 +31,7 @@ public class Surface3DGadgetPanel extends GadgetPanel {
 	}
 	private void setThresholdLabel()
 	{
-		thrLabel.setText(String.format("Threshold\n%4.2f %4.2f %4.2f", g3d.getSd().getMin(), g3d.getThreshold(), g3d.getSd().getMax()));
+		thrLabel.setText(String.format("Threshold\n%4.2f %4.2f %4.2f", g3d.getSpatialData().getMin(), g3d.getThreshold(), g3d.getSpatialData().getMax()));
 	}
 
 	@Override

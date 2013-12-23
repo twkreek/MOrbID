@@ -44,12 +44,10 @@ public class CubeArray extends CLoadableItem {
 	public CubeArray( int sides)
 	{
 		this(new Point3D(1.0,1.0,1.0), sides);
-		markDirty();
-	}
+		}
 	public CubeArray()
 	{
 		this(10);
-		markDirty();
 	}
 	VolumetricSpaceArray volume;
 	public VolumetricSpaceArray getVolume()
@@ -150,7 +148,7 @@ public class CubeArray extends CLoadableItem {
 
         public void Resize()
         {
-        	if (size == sideX)
+        	if (volume != null && size == sideX)
         		return;
             sideX = size;
             sideY = size;

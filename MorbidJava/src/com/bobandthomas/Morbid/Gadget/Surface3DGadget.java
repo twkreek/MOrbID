@@ -61,9 +61,10 @@ public class Surface3DGadget extends GadgetSpatialData {
 	{
 
 		Mesh3D mesh = null;
-		ArrayIsoSurface surf = new ArrayIsoSurface(this.getSd().getVolume());
+		ArrayIsoSurface surf = new ArrayIsoSurface(this.getSpatialData().getVolume());
 		mesh = surf.computeSurfaceMesh(mesh, (float) threshold);
-		if (threshold > 0) mesh.flipVertexOrder();
+		if (polar && threshold > 0) mesh.flipVertexOrder();
+		mesh.computeVertexNormals();
 				
 		GobPoly gobMesh = new GobPoly();
 		gobMesh.setMaterial(mat);
@@ -82,21 +83,22 @@ public class Surface3DGadget extends GadgetSpatialData {
 	}
 	@Override
 	void Draw(GobList gl) {
+			SpatialData sd = getSpatialData();
+			if (sd == null) return;
+			sd.Update();
 			gl.clear();
-			if (getSd() == null) return;
-			getSd().Update();
 			//colorData = GetMolecule().getSpatialData().getByName("Charge");
 			//colorData.Update();
 
 			mat = new Material (baseMaterial);
-			if (polar)
+			if (polar && sd.isSigned())
 				mat.setColor(minusColor);
 			else
 				mat.setColor(new ColorQuad( 0.3,0.3,0.3 ));
 			if (transparent)
 				mat.setAlpha(alpha);
 			makeContours(gl);
-			if (polar)
+			if (polar && sd.isSigned())
 			{
 				threshold = - threshold;
 				mat = new Material (baseMaterial);
@@ -109,12 +111,11 @@ public class Surface3DGadget extends GadgetSpatialData {
 	}
 
 	@Override
-	public void sceneAdded(Scene s) {
-		super.sceneAdded(s);
-		this.setSd(GetMolecule().getSpatialData().getByName("Charge"));
-		markClean(); //TODO shouldn't have to mark it clean to be able to display
-		//filtering out notification for dirty objects may block appropriate events
-		notifyChange();
+	public void setScene(Scene s) {
+		super.setScene(s);
+		setSpatialData(GetMolecule().getSpatialData().getByName("Charge"));
+		getSpatialData().Update();
+
 	}
 	public boolean isSolid() {
 		return solid;
