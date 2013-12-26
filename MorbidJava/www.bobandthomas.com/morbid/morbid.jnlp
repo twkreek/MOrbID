@@ -17,6 +17,6 @@
                 <jar href="lib/toxiclibscore.jar"/>
                 <jar href="lib/volumeutils.jar"/>
         </resources>
-         <applet-desc height="600" main-class="com.bobandthomas.Morbid"
-                name="Morbid" width="800"/>
+         <applet-desc height="800" main-class="com.bobandthomas.Morbid.Morbid.class"
+                name="Morbid" width="1024"/>
 </jnlp>

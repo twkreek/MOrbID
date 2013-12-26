@@ -7,6 +7,7 @@ import com.bobandthomas.Morbid.graphics.Material;
 import com.bobandthomas.Morbid.graphics.Vertex;
 import com.bobandthomas.Morbid.molecule.data.SpatialData;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
 
 import toxi.geom.mesh.Face;
@@ -32,9 +33,9 @@ public class Surface3DGadget extends GadgetSpatialData {
 	}
 	public void setPolar(boolean polar) {
 		this.polar = polar;
-		if (polar) threshold = 0;
+		if (polar) setThresholdFraction(0);
 		else setThresholdFraction(0.5);
-		markDirty();
+		markDirty(new MorbidEvent(this, "polar"));
 	}
 	private void makeFaces(GobPoly gobMesh, Face f)
 	{
@@ -113,7 +114,7 @@ public class Surface3DGadget extends GadgetSpatialData {
 	@Override
 	public void setScene(Scene s) {
 		super.setScene(s);
-		setSpatialData(GetMolecule().getSpatialData().getByName("Charge"));
+		setSpatialData(GetMolecule().getSpatialData().getByName("Accessible Surface"));
 		getSpatialData().Update();
 
 	}
