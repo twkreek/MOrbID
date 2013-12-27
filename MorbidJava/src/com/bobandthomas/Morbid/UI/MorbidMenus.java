@@ -37,6 +37,7 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 	
 	public MorbidMenus()
 	{
+		super();
 		setVisible(true);
 		HashMap<String, JMenu> menuMap = new HashMap<String, JMenu>();
 		for (MenuItemList ml: MenuItemList.values() )

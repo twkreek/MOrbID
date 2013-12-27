@@ -114,7 +114,7 @@ public class Surface3DGadget extends GadgetSpatialData {
 	@Override
 	public void setScene(Scene s) {
 		super.setScene(s);
-		setSpatialData(GetMolecule().getSpatialData().getByName("Accessible Surface"));
+		setSpatialData(GetMolecule().getSpatialData().getByName("Accessible Volume"));
 		getSpatialData().Update();
 
 	}

@@ -10,11 +10,8 @@ import com.bobandthomas.Morbid.Gadget.Scene;
 import com.bobandthomas.Morbid.graphics.renderers.PortJava3D;
 import com.bobandthomas.Morbid.graphics.renderers.RendererJava3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
-import com.bobandthomas.Morbid.molecule.reader.FileReaderMopac13;
-import com.bobandthomas.Morbid.molecule.reader.FileReaderPCModel;
-import com.bobandthomas.Morbid.molecule.reader.FileReaderPDB;
-import com.bobandthomas.Morbid.molecule.reader.FileReaderSDF;
 import com.bobandthomas.Morbid.molecule.reader.MoleculeFileReader;
+import com.bobandthomas.Morbid.molecule.reader.MoleculeFileReaderManager;
 import com.bobandthomas.Morbid.wrapper.Logger;
 import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
@@ -90,11 +87,11 @@ public class Morbid extends JApplet {
 				Logger.addMessage(this, e);
 		}
 	}*/
-	private Molecule readFile(String name, MorbidBufferedReader br, MoleculeFileReader file)
+	public Molecule readFile(String name, MorbidBufferedReader br, MoleculeFileReader reader)
 	{
 		Molecule m = new Molecule();
-		file.init(name, m, br); 
-		file.Read();
+		reader.init(name, m, br); 
+		reader.Read();
 		try {
 			br.close();
 		} catch (IOException e) {
@@ -128,19 +125,20 @@ public class Morbid extends JApplet {
 			};
 		String s = (String)JOptionPane.showInputDialog(
                 this,
-                "select a sample",
-                "Customized Dialog",
+                "select a sample Molecule to display",
+                "MOrbID - Open Sample",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 list,
                 "");
-		Molecule m = new Molecule();
+		Molecule m = null;
 		if (s != null && s.length() > 0)
 		{
 			String [] spl = s.split(":");
 			String fileName = spl[1];
 			String [] file= fileName.split("[.]");
-			
+			m = MoleculeFileReaderManager.readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), file[1].toLowerCase());
+/*			
 			if (file[1].toLowerCase().equals("pdb"))
 				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderPDB());
 			if (file[1].toLowerCase().equals("pcm"))
@@ -149,6 +147,7 @@ public class Morbid extends JApplet {
 				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderSDF());
 			if (file[1].toLowerCase().equals("f13"))
 				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderMopac13());
+*/
 
 			if (file[1].equals("0"))
 				m.makeTinyMolecule();

@@ -153,7 +153,7 @@ public class RendererJava3D extends Renderer {
 					Color c = g.Color.getJColor();
 					j2D.setColor(c);
 					String s = ((LabelGob) g).getName();
-					j2D.drawString(s, x, y);
+					if (s != null && s.length() > 0) j2D.drawString(s, x, y);
 				}
 				j2D.flush(false);
 			}
