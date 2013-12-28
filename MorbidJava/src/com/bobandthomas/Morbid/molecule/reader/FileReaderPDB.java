@@ -26,7 +26,7 @@ public class FileReaderPDB extends MoleculeFileReader {
 	
 	@Override
 	public void Save() {
-		// TODO file same - not implemented
+		// TODO file save - not implemented
 
 	}
 

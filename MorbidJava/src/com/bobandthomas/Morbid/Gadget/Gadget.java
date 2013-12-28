@@ -13,20 +13,21 @@ import com.bobandthomas.Morbid.molecule.SubstructureRepList;
 import com.bobandthomas.Morbid.molecule.SubstructureSet;
 import com.bobandthomas.Morbid.utils.*;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Gadget.
  * A gadget is a visual representation of a physical or mathematical object. 
  * Gadget transforms some data from the Molecule or the Scene into a GobList.
  * 
- * @author Thomas Kreek The Class Gadget.
+ * @author Thomas Kreek 
  */
 public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 
 	/**
 	 * The Enum ColorBy, a list of the patterns for coloring, available to gadget subclasses
 	 * 
-	 * @author Thomas Kreek The Enum ColorBy.
+	 * @author Thomas Kreek 
+	 * The Enum ColorBy.
 	 */
 	public enum ColorBy {
 		

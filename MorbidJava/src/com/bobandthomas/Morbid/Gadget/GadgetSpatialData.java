@@ -5,16 +5,15 @@ import com.bobandthomas.Morbid.molecule.data.CubeArray;
 import com.bobandthomas.Morbid.molecule.data.SpatialData;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class GadgetSpatialData.
- * 
- * @author Thomas Kreek
- * 
  *         The Class GadgetSpatialData is an abstract class that supports all
  *         gadgets that use spatial data - 3D sampling of field data, such as charge,
  *         molecular orbitals, and volume.  This provides management for the SpatialData object
- *         as well as the polarity and fractions to display.
+ *         as well as the polarity and fractions to display. * 
+ * @author Thomas Kreek
+ * 
+
  */
 public abstract class GadgetSpatialData extends Gadget {
 

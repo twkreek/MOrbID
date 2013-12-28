@@ -2,8 +2,6 @@ package com.bobandthomas.Morbid.molecule.UI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
@@ -12,7 +10,6 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.bobandthomas.Morbid.UI.MorbidPanel;
 import com.bobandthomas.Morbid.UI.MorbidTreeNode;
 import com.bobandthomas.Morbid.molecule.Substructure;
 import com.bobandthomas.Morbid.molecule.SubstructureSet;
@@ -25,19 +22,6 @@ public class SubstructureSetChooser extends JDialog implements TreeSelectionList
 	JTree tree;
 	SubstructureChooserType dialogType;
 	
-	class SubstructureControlPanel extends MorbidPanel{
-
-		public SubstructureControlPanel(String name) {
-			super(name);
-			child.setLayout(new GridLayout(1,0,0,0));
-		}
-
-		public void changeValue(String label, Integer value) {
-			// handle change value in tree list - currently not used.
-			
-		}
-		
-	}
 	public enum SubstructureChooserType
 	{
 		SUBSTRUCTURE_SET,

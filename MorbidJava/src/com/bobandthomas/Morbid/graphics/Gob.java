@@ -3,7 +3,7 @@ package com.bobandthomas.Morbid.graphics;
 import com.bobandthomas.Morbid.utils.*;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  *  Graphical OBject 
  *  The base class for all graphics primitives.

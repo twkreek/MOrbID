@@ -3,7 +3,6 @@ package com.bobandthomas.Morbid.utils;
 import java.util.ArrayList;
 import java.util.EventObject;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MorbidEvent.
  * Morbid Event is and event managed by IChangeNotifier's Listener/Notifier pattern
