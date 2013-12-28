@@ -42,8 +42,9 @@ public class ControlPanelSideBar extends JPanel {
 		setMinimumSize(new Dimension(200, 20));
 		
 	}
-	public void makeDefaultGadgets(Molecule mol)
+	public void makeDefaultGadgets()
 	{
+		Molecule mol = scene.GetMolecule();
 	
 		int resolution = 30;
 		if (mol.NumAtoms() > 100)

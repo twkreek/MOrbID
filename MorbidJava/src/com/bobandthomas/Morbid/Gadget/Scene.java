@@ -208,7 +208,7 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 		return lightSources;
 	}
 
-	Molecule GetMolecule() {
+	public Molecule GetMolecule() {
 		return molecule;
 	}
 
@@ -277,7 +277,6 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 
 	public void SetMolecule(Molecule theMol) {
 		molecule = theMol;
-
 		SetWorldBox(molecule.GetBounds());
 		dirty.gadgetList = true;
 		dirty.gobList = true;
@@ -309,6 +308,8 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 	}
 
 	void SetWorldBox(BoundingBox wb) {
+		if (rm == null)
+			return;
 		dirty.worldBox = true;
 		rm.SetWorldBox(wb);
 	}

@@ -22,7 +22,8 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 		String name;
 		MenuItemList(String parent, String name)
 		{
-			
+			this.parent = parent;
+			this.name = name;
 		}
 	};
 
@@ -32,13 +33,13 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 		JMenuItem a = new JMenuItem(name);
 		if (accel != null) a.setAccelerator(accel);
 		a.setActionCommand(parent + "|" +name);
+		a.addActionListener(this);
 		return a;
 	}
 	
 	public MorbidMenus()
 	{
 		super();
-		setVisible(true);
 		HashMap<String, JMenu> menuMap = new HashMap<String, JMenu>();
 		for (MenuItemList ml: MenuItemList.values() )
 		{
@@ -54,7 +55,7 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Handle Morbid Menu Actions
+		System.out.println(e.toString());
 		
 	}
 }

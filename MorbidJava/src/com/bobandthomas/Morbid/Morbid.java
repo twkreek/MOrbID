@@ -1,8 +1,6 @@
 package com.bobandthomas.Morbid;
 
 import java.awt.BorderLayout;
-import java.io.IOException;
-
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 
@@ -10,10 +8,8 @@ import com.bobandthomas.Morbid.Gadget.Scene;
 import com.bobandthomas.Morbid.graphics.renderers.PortJava3D;
 import com.bobandthomas.Morbid.graphics.renderers.RendererJava3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
-import com.bobandthomas.Morbid.molecule.reader.MoleculeFileReader;
 import com.bobandthomas.Morbid.molecule.reader.MoleculeFileReaderManager;
 import com.bobandthomas.Morbid.wrapper.Logger;
-import com.bobandthomas.Morbid.wrapper.MorbidBufferedReader;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 import com.bobandthomas.Morbid.UI.ControlPanelSideBar;
 import com.bobandthomas.Morbid.UI.MorbidMenus;
@@ -26,21 +22,20 @@ public class Morbid extends JApplet {
 	private static final long serialVersionUID = 8227285965421826153L;
 	PortJava3D port;
 	Scene scene;
-	Molecule m;
 	ControlPanelSideBar gadgetPanel;
 	public Morbid()
 	{
 		super();
+		gadgetPanel = null;
 	}
 	@Override
 	public void init()
 	{
 		// set up default applet presentation
 		setSize(800,600);
+		setJMenuBar(new MorbidMenus());
 		setLayout(new BorderLayout());
 
-	//	add(new MorbidMenus(), "North");
-		setJMenuBar(new MorbidMenus());
 		
 		// create canvas and gadget panel
 		port = new PortJava3D(); //3D Canvas is in the port.
@@ -50,11 +45,43 @@ public class Morbid extends JApplet {
 		gadgetPanel = new ControlPanelSideBar(scene);
 		add("West", gadgetPanel);
 		
+	}
+	public void openFile()
+	{
+		//create some molecule
+		Molecule m;
+		m=this.showSampleSelection();
+		m.CenterAtoms();
+		Logger.addMessage(m,m.getEmpirical().getFormula());
+		createScene(m);
+
+	}
+	
+	public void createScene(Molecule m)
+	{
+		scene = new Scene();
 		// Make the renderer
 		
 		RendererJava3D renderer;
 		renderer = new RendererJava3D();
 		scene.SetRenderer(renderer);
+		
+		scene.SetMolecule(m);
+		
+		if (gadgetPanel != null)
+			remove(gadgetPanel);
+	
+		gadgetPanel = new ControlPanelSideBar(scene);
+		add("West", gadgetPanel);
+
+		scene.setPauseRender(true);
+
+		gadgetPanel.makeDefaultGadgets();
+		gadgetPanel.makeDefaultPanels();
+		scene.setPauseRender(false);
+		scene.SetPort(port);
+		scene.Render();
+
 	}
 
 /*	void findExamples() {
@@ -87,35 +114,18 @@ public class Morbid extends JApplet {
 				Logger.addMessage(this, e);
 		}
 	}*/
-	public Molecule readFile(String name, MorbidBufferedReader br, MoleculeFileReader reader)
-	{
-		Molecule m = new Molecule();
-		reader.init(name, m, br); 
-		reader.Read();
-		try {
-			br.close();
-		} catch (IOException e) {
-			Logger.addMessage(this, e);
-		}
-		return m;
-		
-	}
-/*	private BufferedReader getReaderFromURL(String url)
-	{
-		BufferedReader br = ReaderManager.get().getFromURL(url);
-		return br;
-	}
-*/
-	
+
+
 	private Molecule showSampleSelection()
 	{
 //		findExamples();
-		Object [] list = {"Glucagon:1GCN.pdb", 
+		Object [] list = {
+				"Ibuprofen:ibuprofen.sdf",
+				"Glucagon:1GCN.pdb", 
 				"Actin:1ATN.pdb",
 				"Oxygenated Hemoglobin:1GZX.pdb", 
 				"HCA Fragment:HCA5.pcm", 
 				"Horse Hemoglobin:2DHB.pdb", 
-				"Ibuprofen:ibuprofen.sdf",
 				"cetirizine:cetirizine.sdf",
 				"albuterol:albuterol.sdf",
 				"Diphenhydramine:diphenhydramine.sdf",
@@ -138,38 +148,20 @@ public class Morbid extends JApplet {
 			String fileName = spl[1];
 			String [] file= fileName.split("[.]");
 			m = MoleculeFileReaderManager.readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), file[1].toLowerCase());
-/*			
-			if (file[1].toLowerCase().equals("pdb"))
-				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderPDB());
-			if (file[1].toLowerCase().equals("pcm"))
-				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderPCModel());
-			if (file[1].toLowerCase().equals("sdf"))
-				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderSDF());
-			if (file[1].toLowerCase().equals("f13"))
-				m = readFile(spl[0], ResourceMgr.getResourceFile("samples/"+ spl[1]), new FileReaderMopac13());
-*/
 
 			if (file[1].equals("0"))
 				m.makeTinyMolecule();
 		}
+		
 		return m;
 	}
+	boolean started = false;
 	@Override
 	public void start()
 	{
-		//create some molecule
-		if (m!= null) return;
-		m=this.showSampleSelection();
-		m.CenterAtoms();
-		Logger.addMessage(m,m.getEmpirical().getFormula());
-		scene.setPauseRender(true);
-		scene.SetMolecule(m);
-
-		gadgetPanel.makeDefaultGadgets(m);
-		gadgetPanel.makeDefaultPanels();
-		scene.setPauseRender(false);
-		scene.SetPort(port);
-		scene.Render();
+		if (started) return;
+		started = true;
+		openFile();
 			
 	}
 	
