@@ -33,7 +33,7 @@ public class Surface3DGadget extends GadgetSpatialData {
 	}
 	public void setPolar(boolean polar) {
 		this.polar = polar;
-		if (polar) setThresholdFraction(0);
+		if (polar) setThreshold(0);
 		else setThresholdFraction(0.5);
 		markDirty(new MorbidEvent(this, "polar"));
 	}
@@ -64,8 +64,6 @@ public class Surface3DGadget extends GadgetSpatialData {
 		Mesh3D mesh = null;
 		ArrayIsoSurface surf = new ArrayIsoSurface(this.getSpatialData().getVolume());
 		mesh = surf.computeSurfaceMesh(mesh, (float) threshold);
-		if (polar && threshold > 0) mesh.flipVertexOrder();
-		mesh.computeVertexNormals();
 				
 		GobPoly gobMesh = new GobPoly();
 		gobMesh.setMaterial(mat);
@@ -88,8 +86,8 @@ public class Surface3DGadget extends GadgetSpatialData {
 			if (sd == null) return;
 			sd.Update();
 			gl.clear();
-			//colorData = GetMolecule().getSpatialData().getByName("Charge");
-			//colorData.Update();
+			colorData = GetMolecule().getSpatialData().getByName("Charge");
+			colorData.Update();
 
 			mat = new Material (baseMaterial);
 			if (polar && sd.isSigned())
