@@ -11,7 +11,7 @@ import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 
-public class MaterialSet extends CLoadableTable<Material> {
+public class MaterialList extends CLoadableTable<Material> {
 
 	public enum StaticMaterial {
 		White("White", 1, 255, 255, 255, 0.4, 0.5, 0.7, 1, 0, 10, 1), 
@@ -79,16 +79,18 @@ public class MaterialSet extends CLoadableTable<Material> {
 
 	}
 
-	static MaterialSet staticSet;
+	static MaterialList staticSet;
 
-	public MaterialSet() {
+	private MaterialList() {
 		setUseByName(true);
-		for (StaticMaterial p : StaticMaterial.values()) {
+		init();
+/*		for (StaticMaterial p : StaticMaterial.values()) {
 			add(p.getMaterial());
 		}
+*/
 	}
 
-	boolean initialized = false;
+	private boolean initialized = false;
 	private void init()
 	{
 		if (initialized) return;
@@ -119,10 +121,10 @@ public class MaterialSet extends CLoadableTable<Material> {
 		}
 		initialized = true;
 	}
-	public static MaterialSet getOne() {
+	public static MaterialList getOne() {
 		if (staticSet == null)
 		{
-			staticSet = new MaterialSet();
+			staticSet = new MaterialList();
 			staticSet.init();
 		}
 		return staticSet;
