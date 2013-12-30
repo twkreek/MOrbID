@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/AminoAcid" xmlns:tns="http://www.example.org/AminoAcid" elementFormDefault="qualified">
+
+    <element name="Name" type="string"></element>
+
+    <element name="Sym3" type="string"></element>
+
+    <element name="Sym1" type="string"></element>
+
+    <element name="Polarity" type="string"></element>
+
+    <element name="Charge" type="string"></element>
+
+    <element name="Hydrophobicity" type="double"></element>
+
+
+    <complexType name="Color">
+    	<sequence>
+    		<element name="r" type="double"></element>
+    		<element name="g" type="double"></element>
+    		<element name="b" type="double"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="Color" type="tns:Color"></element>
+
+    <element name="AminoAcid" type="string"></element>
+</schema>
