@@ -1,7 +1,5 @@
 package com.bobandthomas.Morbid.molecule.data;
 
-import javax.swing.JPanel;
-
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.data.control.SpatialDataControl;
@@ -27,8 +25,8 @@ public class SpatialDataAccessibleSurface extends SpatialData {
 		return Math.sqrt(dSquared);
 	}
 	@Override
-	public SpatialDataControl getControlPanel(JPanel parentPanel) {
-		return new SpatialDataControl(this, getName(), parentPanel);
+	public SpatialDataControl getControlPanel() {
+		return new SpatialDataControl(this, getName());
 	}
 
 }

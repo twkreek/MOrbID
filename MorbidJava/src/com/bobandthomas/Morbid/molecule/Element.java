@@ -1,6 +1,6 @@
 package com.bobandthomas.Morbid.molecule;
 
-import com.bobandthomas.Morbid.graphics.MaterialSet;
+import com.bobandthomas.Morbid.graphics.MaterialList;
 
 public enum Element
 {
@@ -80,7 +80,7 @@ public enum Element
 			at.np = np;
 			at.nd = nd;
 			at.radius = radius;
-			at.mat = MaterialSet.getOne().getByName(materialName);
+			at.mat = MaterialList.getOne().getByName(materialName);
 			at.color = at.mat.getColor();
 			return at;
 		}

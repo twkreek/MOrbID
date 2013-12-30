@@ -1,6 +1,5 @@
 package com.bobandthomas.Morbid.UI;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -11,7 +10,9 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -34,14 +35,14 @@ import com.bobandthomas.Morbid.utils.MorbidEvent;
 
 /**
  * The Class MorbidPanel.
- * 
- * @author Thomas Kreek
- * 
  *        base level panel for control panels.  Contains convenience functions to create
  *        basic controls consisten with overall Morbid L&F.  This panel is used in dialogs
  *        as well as the side panel.  
  *        All controls use this class as a listener. 
  *        Derived classes override ChangeValue to handle events from controls they created
+ *          
+ * @author Thomas Kreek
+ * 
  */
 public abstract class MorbidPanel extends JPanel implements ChangeListener,
 ItemListener, ActionListener, IChangeNotifier  {
@@ -52,11 +53,28 @@ ItemListener, ActionListener, IChangeNotifier  {
 	/** by name lookup for controls. */
 	HashMap<String, JComponent> byName;
 	
-	/** The child panel that contains the controls. */
-	protected JPanel child;
+	/** The current active panel that contains the controls. */
+	protected JPanel activePanel;
 	
-	/** The temp child - used when making sub panels. */
-	protected JPanel tempChild;
+	/** The panelStack - used when making sub panels. */
+	protected Stack<JPanel> panelStack = new Stack<JPanel>()
+			{
+				@Override
+				/** pushes the current panel onto the stack, and sets the actve panel to "newPanel" */
+				public JPanel push(JPanel newPanel)
+				{
+					super.push(activePanel);
+					activePanel = newPanel;
+					return newPanel;
+					
+				}
+				@Override
+				/** sets the active panel to the pop of the stack, and returns the active panel */
+				public JPanel pop()
+				{
+					return (activePanel =  super.pop());					
+				}
+			};
 
 	/**
 	 * Instantiates a new morbid panel.
@@ -69,9 +87,8 @@ ItemListener, ActionListener, IChangeNotifier  {
 		byName = new HashMap<String, JComponent>();
 
 		setBorder(new CompoundBorder());
-		setLayout(new BorderLayout());
-		child = new JPanel(new GridLayout(0,1,0,0)); // by default child is a vertical panel;
-		add(child);
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		activePanel = this;
 		//This layout can be replaced in the constructor of the subclass
 
 	}
@@ -148,9 +165,13 @@ ItemListener, ActionListener, IChangeNotifier  {
 	 * @param name
 	 *            the name
 	 */
-	public void register(JComponent component, String name) {
+	public void registerAdd(JComponent component, String name) {
 		map.put(component, name);
 		byName.put(name, component);
+		component.setAlignmentY(Component.TOP_ALIGNMENT);
+		component.setAlignmentX(Component.LEFT_ALIGNMENT);
+		activePanel.add(component);
+		
 	}
 	
 	/**
@@ -173,8 +194,8 @@ ItemListener, ActionListener, IChangeNotifier  {
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,2));
-		tempChild = child;
-		child = panel;
+		panelStack.push(activePanel);
+		activePanel = panel;
 	}
 	
 	/**
@@ -183,8 +204,8 @@ ItemListener, ActionListener, IChangeNotifier  {
 	public void endSideBySide()
 	{
 		
-		tempChild.add(child);
-		child = tempChild;
+		panelStack.peek().add(activePanel);
+		activePanel = panelStack.pop();
 	}
 
 	/**
@@ -197,8 +218,8 @@ ItemListener, ActionListener, IChangeNotifier  {
 	public JLabel createLabel(String label) {
 		JLabel lblShow = new JLabel(label);
 		lblShow.setAlignmentY(Component.TOP_ALIGNMENT);
-		lblShow.setHorizontalAlignment(SwingConstants.LEFT);
-		child.add(lblShow);
+		lblShow.setAlignmentX(Component.LEFT_ALIGNMENT);
+		activePanel.add(lblShow);
 		return lblShow;
 
 	}
@@ -212,12 +233,9 @@ ItemListener, ActionListener, IChangeNotifier  {
 	 */
 	public JButton createButton(String label) {
 		JButton button = new JButton(label);
-		button.setAlignmentY(Component.TOP_ALIGNMENT);
-		button.setHorizontalAlignment(SwingConstants.CENTER);
 		button.setMaximumSize(new Dimension(100,20));
-		register(button, label);
 		button.addActionListener(this);
-		child.add(button);
+		registerAdd(button, label);
 		return button;
 	}
 	
@@ -240,14 +258,14 @@ ItemListener, ActionListener, IChangeNotifier  {
 		}
         SpinnerModel snl = new SpinnerListModel(range);
         JSpinner spnList = new JSpinner(snl);	
-//TODO        spnList.setValue(defaultIndex);
+        spnList.setValue(defaultIndex);
         sideBySide();
-        child.add(new JLabel(label));
-        child.add(spnList);
+        activePanel.add(new JLabel(label));
+        activePanel.add(spnList);
         endSideBySide();
         
         spnList.addChangeListener(this);
-        register(spnList, label);
+        registerAdd(spnList, label);
 	}
 
 
@@ -262,11 +280,9 @@ ItemListener, ActionListener, IChangeNotifier  {
 	 */
 	public JCheckBox createCheckbox(String label, boolean value) {
 		JCheckBox checkBox = new JCheckBox(label);
-		checkBox.setHorizontalAlignment(SwingConstants.LEFT);
 		checkBox.setSelected(value);
 		checkBox.addActionListener(this);
-		child.add(checkBox);
-		register(checkBox, label);
+		registerAdd(checkBox, label);
 		return checkBox;
 
 	}
@@ -288,8 +304,8 @@ ItemListener, ActionListener, IChangeNotifier  {
 	public void createSlider(String label, int min, int max, int value, boolean labeled) {
 		JLabel sliderLabel = new JLabel(label);
 		sliderLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		if (labeled) child.add(sliderLabel);
-		register(sliderLabel, "Label "+label);
+		if (labeled) activePanel.add(sliderLabel);
+		registerAdd(sliderLabel, "Label "+label);
 
 		JSlider slider = new JSlider();
 		slider.setMinimum(min);
@@ -299,10 +315,9 @@ ItemListener, ActionListener, IChangeNotifier  {
 		slider.setPaintTicks(true);
 		slider.setValue(value);
 		slider.setPaintLabels(true);
-		child.add(slider);
-
+	
 		slider.addChangeListener(this);
-		register(slider, label);
+		registerAdd(slider, label);
 	}
 
 	/**
@@ -323,8 +338,7 @@ ItemListener, ActionListener, IChangeNotifier  {
 		enumCombo.setModel(new DefaultComboBoxModel<T>(values));
 		enumCombo.setSelectedItem(defaultValue);
 		enumCombo.addItemListener(this);
-		register(enumCombo, label);
-		child.add(enumCombo);
+		registerAdd(enumCombo, label);
 	}
 	
 	/**
@@ -342,10 +356,9 @@ ItemListener, ActionListener, IChangeNotifier  {
 			int defaultValue) {
 		JComboBox combo = new JComboBox();
 		combo.setModel(new DefaultComboBoxModel(values.toArray()));
-		combo.setSelectedItem(defaultValue);
+		combo.setSelectedIndex(defaultValue);
 		combo.addItemListener(this);
-		register(combo, label);
-		child.add(combo);
+		registerAdd(combo, label);
 	}
 	
 	/**

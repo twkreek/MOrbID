@@ -1,7 +1,5 @@
 package com.bobandthomas.Morbid.molecule.data;
 
-import javax.swing.JPanel;
-
 import com.bobandthomas.Morbid.UI.CProgressIndicator;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.data.control.SpatialDataControl;
@@ -54,7 +52,7 @@ public abstract class SpatialData extends CubeArray implements IChangeNotifier {
 	String GetUnits() {
 		return "";
 	}
-	public abstract SpatialDataControl getControlPanel(JPanel child);
+	public abstract SpatialDataControl getControlPanel();
 
 	public void Update() {
 		if (!isDirty())

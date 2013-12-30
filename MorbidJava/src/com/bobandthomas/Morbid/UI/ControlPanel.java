@@ -2,10 +2,12 @@ package com.bobandthomas.Morbid.UI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 
 
@@ -25,6 +27,7 @@ public abstract class ControlPanel extends MorbidPanel  {
 	
 	/** The banner. */
 	JToggleButton banner;
+	public JPanel parent = null;
 
 	/**
 	 * Instantiates a new control panel.
@@ -36,20 +39,28 @@ public abstract class ControlPanel extends MorbidPanel  {
 	 */
 	public ControlPanel(String name, boolean showName) {
 		super(name);
+		setLayout(new BorderLayout());
 		setMaximumSize(new Dimension(200, 500));
-		setMinimumSize(new Dimension(200, 40));
+		setMinimumSize(new Dimension(200, 25));
 		if (showName)
 		{
 			banner = new JToggleButton(name);
-			banner.setMaximumSize(new Dimension(200,10));
-			banner.setMinimumSize(new Dimension(200,10));
+			banner.setMaximumSize(new Dimension(200,20));
+			banner.setMinimumSize(new Dimension(200,20));
 			banner.addActionListener(this);
 			add(banner, BorderLayout.NORTH);
 		}
 		
-		child = new JPanel(new GridLayout(0,1,0,0));
-		child.setVisible(!showName || banner.isSelected());
-		add(child, BorderLayout.CENTER);
+		activePanel = new MorbidPanel(name + "child"){
+			public void changeValue(String label, Integer value)
+			{
+				
+			}
+
+		};
+		activePanel.setVisible(!showName || banner.isSelected());
+		activePanel.setBorder( BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		add(activePanel, BorderLayout.CENTER);
 		if (!showName) createLabel(name); 
 	}
 
@@ -61,7 +72,12 @@ public abstract class ControlPanel extends MorbidPanel  {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == banner)
 		{
-			child.setVisible(banner.isSelected());
+			activePanel.setVisible(banner.isSelected());
+			if (parent != null)
+			{
+				parent.invalidate();
+				parent.repaint();
+			}
 			return;
 		}
 		super.actionPerformed(e);

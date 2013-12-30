@@ -13,7 +13,7 @@ public class GadgetFieldLinesPanel extends GadgetPanel {
 		
 		createSlider("Threshold", 0, 100, (int)(g.getThreshold()*100), true);
 		createSlider("Scale", 0, 100, (int)(g3d.getScale()*100), true);
-		createSpinner("Increment" , increments, 0);
+		createSpinner("Increment" , increments, 1);
 	}
 
 	@Override

@@ -8,10 +8,6 @@ import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.wrapper.Logger;
 
 public class Surface3DGadgetPanel extends GadgetPanel {
-	@Override
-	public MorbidEvent handleNotify(MorbidEvent source) {
-		return super.handleNotify(source);
-	}
 
 	Surface3DGadget g3d;
 	JLabel thrLabel;
@@ -24,9 +20,9 @@ public class Surface3DGadgetPanel extends GadgetPanel {
 		setThresholdLabel();
 		createCheckbox("Solid Surface", g.isSolid());
 		createCheckbox("Polar", g.isPolar());
-		sds = new SpatialDataSelector(g3d, g3d.GetMolecule().getSpatialData(), "Choose Spatial Data", child);
+		sds = new SpatialDataSelector(g3d, g3d.GetMolecule().getSpatialData(), "Display");
 		sds.registerListener(this);
-		child.add(sds);
+		activePanel.add(sds);
 		
 	}
 	private void setThresholdLabel()
@@ -59,5 +55,10 @@ public class Surface3DGadgetPanel extends GadgetPanel {
 			return;
 		}
 	}
+	@Override
+	public MorbidEvent handleNotify(MorbidEvent source) {
+		return super.handleNotify(source);
+	}
+
 
 }

@@ -38,6 +38,8 @@ public class Morbid extends JApplet {
 
 				
 	}
+	public Scene getScene() {return scene;}
+	public ControlPanelSideBar getGadgetPanel() { return gadgetPanel; }
 	public void openFile()
 	{
 		//create some molecule
@@ -49,7 +51,7 @@ public class Morbid extends JApplet {
 
 	}
 	
-	public void createScene(Molecule m)
+	public Scene createScene(Molecule m)
 	{
 		scene = new Scene();
 		// Make the renderer
@@ -82,7 +84,7 @@ public class Morbid extends JApplet {
 		scene.setPauseRender(false);
 		scene.SetPort(port);
 		scene.Render();
-
+		return scene;
 	}
 
 /*	void findExamples() {

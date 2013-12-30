@@ -1,62 +1,94 @@
 package com.bobandthomas.Morbid.molecule.data.control;
 
-import javax.swing.JPanel;
-
 import com.bobandthomas.Morbid.Gadget.GadgetSpatialData;
 import com.bobandthomas.Morbid.UI.ControlPanel;
 import com.bobandthomas.Morbid.molecule.data.SpatialData;
 import com.bobandthomas.Morbid.molecule.data.SpatialDataList;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 
+/**
+ * The Class SpatialDataSelector is an embedded control panel that allows selection of the spatial data (SD)
+ * to use for this gadget. It contains a dynamic embedded control panel that allows configuration specific
+ * to the currently selected SD.
+ * 
+ * @author Thomas Kreek
+ */
 public class SpatialDataSelector extends ControlPanel {
 
-	SpatialDataList sdl;
-	GadgetSpatialData gsd;
+	/** The spatial data list. */
+	SpatialDataList spatialDataList;
+	
+	/** The gadget. */
+	GadgetSpatialData gadget;
+	
+	/** The sd. */
 	SpatialData sd;
-	SpatialDataControl sdc;
-	public SpatialDataSelector(GadgetSpatialData gsd, SpatialDataList sdl, String name, JPanel parentPanel) {
+	
+	/** The current sdc. */
+	SpatialDataControl currentSDC;
+	
+	
+	/**
+	 * Instantiates a new spatial data selector.
+	 * 
+	 * @param gadget
+	 *            the gadget that represents the spatial data
+	 * @param spatialDataList
+	 *            the spatial data list
+	 * @param name
+	 *            the name
+	 * @param parentPanel
+	 *            the parent panel
+	 */
+	public SpatialDataSelector(GadgetSpatialData gadget, SpatialDataList spatialDataList, String name) {
 		super(name, false);
-		if (parentPanel != null)
-		{
-			this.tempChild = child;
-			child = parentPanel;
-		}
-		this.gsd = gsd;
-		this.sdl = sdl;
-		sd = gsd.getSpatialData();
-//		this.sideBySide();
-		createCombo(sdl, "SpatialData", 0);
+		this.gadget = gadget;
+		this.spatialDataList = spatialDataList;
+		
+		sd = gadget.getSpatialData();
+		createCombo(spatialDataList, "SpatialData", spatialDataList.indexOf(sd));
 		setupSpatialData(sd);
-//		this.endSideBySide();
 	}
 	
+	/**
+	 * Sets the up the sub panel for the newly selected spatial data object.
+	 * 
+	 * @param spatial
+	 *            the spatial data to represent
+	 */
 	private void setupSpatialData(SpatialData spatial)
 	{
-		if (sdc != null)
+		if (currentSDC != null)
 		{
-			child.remove(sdc);
-			sdc.unRegisterFromAll();
+			activePanel.remove(currentSDC);
+			currentSDC.unRegisterFromAll();
 		}
-		sdc = spatial.getControlPanel(child);
-		sdc.registerListener(this);
+		currentSDC = spatial.getControlPanel();
+		currentSDC.registerListener(this);
 		sd = spatial;
-		child.add(sdc);
-		gsd.setSpatialData(spatial);
+		gadget.setSpatialData(spatial);
+		activePanel.add(currentSDC);
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.UI.MorbidPanel#changeValue(java.lang.String, java.lang.Integer)
+	 */
 	@Override
 	public void changeValue(String label, Integer value) {
 		if (label.equals("SpatialData"))
 		{
-			setupSpatialData(sdl.get(value));	
-			gsd.markDirty();
+			setupSpatialData(spatialDataList.get(value));	
+			gadget.markDirty();
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.UI.MorbidPanel#handleNotify(com.bobandthomas.Morbid.utils.MorbidEvent)
+	 */
 	@Override
 	public MorbidEvent handleNotify(MorbidEvent source) {
-		gsd.markDirty();
+		gadget.markDirty();
 		return super.handleNotify(source);
 	}
 	

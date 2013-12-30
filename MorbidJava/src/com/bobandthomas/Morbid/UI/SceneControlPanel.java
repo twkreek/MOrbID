@@ -14,7 +14,7 @@ public class SceneControlPanel extends ControlPanel {
 		createButton("Add Gadget");
 		createLabel("________________");
 		banner.setSelected(true);
-		child.setVisible(banner.isSelected());
+		activePanel.setVisible(banner.isSelected());
 
 	}
 

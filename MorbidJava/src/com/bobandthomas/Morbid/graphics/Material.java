@@ -236,16 +236,44 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 					
 				});
 
-				addPropertyDescriptor(4, "Diffuse", Double.class, false, new IPropertySetter(){
+				addPropertyDescriptor(4, "Specular", Double.class, false, new IPropertySetter(){
 					
 					@Override
 					public Object get(Object obj) {
-						return ((Material) obj).getkDiffuse();
+						return ((Material) obj).getKSpecular();
 					}
 					
 					@Override
 					public boolean set(Object obj, Object value) {
-						((Material)obj).setkDiffuse((Double) value);
+						((Material)obj).setKSpecular((Double) value);
+						return true;
+					}
+					
+				});
+				addPropertyDescriptor(5, "Emission", Double.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((Material) obj).getkEmission();
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						((Material)obj).setkEmission((Double) value);
+						return true;
+					}
+					
+				});
+				addPropertyDescriptor(6, "Shininess", Integer.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((Material) obj).getSpecularity();
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						((Material)obj).setSpecularity((Integer) value);
 						return true;
 					}
 					

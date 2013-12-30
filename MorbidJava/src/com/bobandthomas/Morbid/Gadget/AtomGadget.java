@@ -1,6 +1,8 @@
 package com.bobandthomas.Morbid.Gadget;
 
 import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
+import com.bobandthomas.Morbid.Gadget.control.AtomGadgetPanel;
+import com.bobandthomas.Morbid.Gadget.control.GadgetPanel;
 import com.bobandthomas.Morbid.graphics.GobList;
 import com.bobandthomas.Morbid.graphics.GobPoly;
 import com.bobandthomas.Morbid.graphics.GobPoly.GobPolyType;
@@ -15,6 +17,26 @@ import com.bobandthomas.Morbid.utils.Point3D;
 
 public class AtomGadget extends Gadget {
 
+	public class AtomGadgetFactory extends GadgetFactory {
+
+		public AtomGadgetFactory() {
+			setName("Atom Gadget");
+		}
+
+		public boolean canCreate(Molecule m) {
+			return (m.Atoms().size() > 0);
+		}
+
+		public Gadget createGadget() {
+			return new AtomGadget();
+		}
+
+		public GadgetPanel createPanel(Gadget g) {
+			return new AtomGadgetPanel((AtomGadget) g);
+		}
+
+	}
+	
 	@Override
 	public MorbidEvent handleNotify(MorbidEvent source) {
 		if (source.getSource().getClass().equals(Atom.class))

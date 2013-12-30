@@ -3,10 +3,11 @@ package com.bobandthomas.Morbid.molecule;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.bobandthomas.Morbid.utils.CLoadableTable;
 import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 
-public class AtomTypeList {
+public class AtomTypeList extends CLoadableTable<AtomType>{
 	static HashMap<Integer, AtomType> byAtNo = new HashMap<Integer, AtomType>();
 	static HashMap<String, AtomType> byName = new HashMap<String, AtomType>();
 	static boolean initialized = false;
@@ -15,7 +16,7 @@ public class AtomTypeList {
 	}
 		
 
-	public void init()
+	private void init()
 	{
 	
 			if (initialized) return;
@@ -43,10 +44,12 @@ public class AtomTypeList {
 			initialized = true;
 	}
 	
-	public static void add(AtomType at)
+	public boolean add(AtomType at)
 	{
+		super.add(at);
 		byAtNo.put(at.GetAtomicNumber(), at);
 		byName.put(at.getName(), at);
+		return true;
 	}
 	public static AtomType CreateType(String atName)
 	{
@@ -68,7 +71,7 @@ public class AtomTypeList {
 	}
 	static private AtomTypeList singleton;
 
-	static AtomTypeList getOne(){
+	public static AtomTypeList getOne(){
 		if (singleton == null)
 		{
 			singleton = new AtomTypeList();
@@ -84,7 +87,7 @@ public class AtomTypeList {
 		if (at == null)
 		{
 			at = CreateType(s);
-			add(at);
+			getOne().add(at);
 		}
 		return at;
 		// get atom type by symbol;

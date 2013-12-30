@@ -20,42 +20,49 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import com.bobandthomas.Morbid.Morbid;
+import com.bobandthomas.Morbid.Gadget.GadgetFactoryManager;
 
 public class MorbidMenus extends JMenuBar implements ActionListener {
 	
 	Morbid applet;
 	enum MenuItemList
 	{
-		FileOpen ("File","Open"),
-		FileExit ("File","Exit"),
-		EditAddGadget("Edit","AddGadget"),
-		ViewScreenShot("View", "ScreenShot")
+		FileOpen ("File","Open", 101),
+		FileExit ("File","Exit",102),
+		SceneAddGadget("Scene","Add Gadget", 201),
+		ViewScreenShot("View", "ScreenShot", 401)
 		;
 		
 		String parent;
 		String name;
-		MenuItemList(String parent, String name)
+		int ID;
+		MenuItemList(String parent, String name, int id)
 		{
 			this.parent = parent;
 			this.name = name;
+			ID = id;
+		}
+		public String getActionString()
+		{
+			return parent+"|"+name;
 		}
 	};
 
-	JMenuItem CreateMenuItem(String parent, String name, KeyStroke accel)
+	JMenuItem CreateMenuItem(MenuItemList ml, KeyStroke accel)
 	{
 		
-		JMenuItem a = new JMenuItem(name);
+		JMenuItem a = new JMenuItem(ml.name);
 		if (accel != null) a.setAccelerator(accel);
-		a.setActionCommand(parent + "|" +name);
+		a.setActionCommand(ml.getActionString());
 		a.addActionListener(this);
 		return a;
 	}
 	
+	HashMap<String, JMenu> menuMap = new HashMap<String, JMenu>();
 	public MorbidMenus(Morbid applet)
 	{
 		super();
 		this.applet = applet;
-		HashMap<String, JMenu> menuMap = new HashMap<String, JMenu>();
 		for (MenuItemList ml: MenuItemList.values() )
 		{
 			JMenu m = menuMap.get(ml.parent);
@@ -65,7 +72,7 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 				menuMap.put(ml.parent, m);
 				add(m);
 			}
-			m.add(CreateMenuItem(ml.parent, ml.name, null));
+			m.add(CreateMenuItem(ml, null));
 		}
 	}
 	@Override
@@ -73,6 +80,7 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 		if (e.getActionCommand().equals("File|Open"))
 		{
 			applet.openFile();
+			return;
 		}
 		if (e.getActionCommand().equals("View|ScreenShot"))
 		{
@@ -91,6 +99,11 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 				e1.printStackTrace();
 	        } catch (IOException e2) {
 			}
+			return;
+		}
+		if (e.getActionCommand().equals("Scene|Add Gadget"))
+		{
+			GadgetFactoryManager.getOne().selectNewGadget(applet.getScene(), applet.getGadgetPanel());
 			return;
 		}
 		

@@ -2,11 +2,14 @@ package com.bobandthomas.Morbid.UI;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.bobandthomas.Morbid.Gadget.AtomGadget;
 import com.bobandthomas.Morbid.Gadget.BondGadget;
@@ -39,6 +42,7 @@ public class ControlPanelSideBar extends JPanel {
 		scene = s;
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
 		setMinimumSize(new Dimension(200, 20));
 		
 	}
@@ -67,7 +71,7 @@ public class ControlPanelSideBar extends JPanel {
 	}
 	public void makeDefaultPanels()
 	{
-		add(new SceneControlPanel(scene, "Scene", this));
+//		add(new SceneControlPanel(scene, "Scene", this));
 		GadgetFactoryManager.getOne().createNewGadget("Atom Gadget", scene, this);
 		GadgetFactoryManager.getOne().createNewGadget("Bond Gadget", scene, this);
 		GadgetFactoryManager.getOne().createNewGadget("HUD", scene, this);
@@ -80,6 +84,7 @@ public class ControlPanelSideBar extends JPanel {
 	{
 		remove(glue);
 		add(p);
+		p.parent = this;
 		add(glue);
 		revalidate();
 		repaint();

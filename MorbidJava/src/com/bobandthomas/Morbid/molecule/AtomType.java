@@ -1,7 +1,7 @@
 package com.bobandthomas.Morbid.molecule;
 
 import com.bobandthomas.Morbid.graphics.Material;
-import com.bobandthomas.Morbid.graphics.MaterialSet;
+import com.bobandthomas.Morbid.graphics.MaterialList;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
@@ -12,7 +12,7 @@ import com.bobandthomas.Morbid.utils.PropertyAccessor;
 import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 
-public class AtomType extends CLoadableItem
+public class AtomType extends CLoadableItem implements IPropertyAccessor
 {
 		public double zS;
 		public double zP;
@@ -59,7 +59,7 @@ public class AtomType extends CLoadableItem
 			radius = reader.getFloat("radius");
 			fullName = reader.getString("FullName");
 			String materialName = reader.getString("material");
-			mat = MaterialSet.getOne().getByName(materialName);
+			mat = MaterialList.getOne().getByName(materialName);
 			electronegativity = reader.getFloat("neg");
 			color = mat.getColor();
 
@@ -77,7 +77,7 @@ public class AtomType extends CLoadableItem
 			np = Integer.parseInt(tokens[6]);
 			nd = Integer.parseInt(tokens[7]);
 			radius = Float.parseFloat(tokens[8]);
-			mat = MaterialSet.getOne().getByName(tokens[9]);
+			mat = MaterialList.getOne().getByName(tokens[9]);
 			color = mat.getColor();
 
 		}
