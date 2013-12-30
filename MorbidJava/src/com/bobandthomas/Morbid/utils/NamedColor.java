@@ -4,8 +4,6 @@ import java.awt.Color;
 
 import javax.vecmath.Color3f;
 
-import com.bobandthomas.Morbid.molecule.MoleculeProperty;
-
 public class NamedColor extends CLoadableItem implements IPropertyAccessor {
 	
 	ColorQuad color;
@@ -46,7 +44,7 @@ public class NamedColor extends CLoadableItem implements IPropertyAccessor {
 	{
 		return color;
 	}
-	static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
+	static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
 
 		@Override
 		public void initialize() {
@@ -58,10 +56,10 @@ public class NamedColor extends CLoadableItem implements IPropertyAccessor {
 		}
 
 	};
-	IPropertyAccessor access = new PropertyAccessor(propertyDescriptor){
+	IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor){
 		@Override
-		public Object getProperty(int index) {
-			switch (index){
+		public Object getProperty(IPropertyDescriptor ipd) {
+			switch (ipd.getIndex()){
 			case 0: return  NamedColor.this.getName();
 			case 1: return  NamedColor.this.getID();
 			case 2: return  NamedColor.this.getColor();
@@ -70,8 +68,8 @@ public class NamedColor extends CLoadableItem implements IPropertyAccessor {
 		}
 	
 		@Override
-		public void setProperty(int index, Object value) {
-			switch (index){
+		public void setProperty(IPropertyDescriptor ipd, Object value) {
+			switch (ipd.getIndex()){
 			case 0:  NamedColor.this.setName((String) value); return;
 			case 1:  NamedColor.this.setID((Long) value); return;
 			case 2:  NamedColor.this.Set((ColorQuad) value); return;
@@ -81,39 +79,8 @@ public class NamedColor extends CLoadableItem implements IPropertyAccessor {
 		}
 
 	};
-	
+
 	// {{ IAccessorDelegates
-	public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
-		access.addPropertyDescriptor(i, n, c, e);
-	}
-
-	public Object getProperty(int index) {
-		return access.getProperty(index);
-	}
-
-	public int getPropertyCount() {
-		return access.getPropertyCount();
-	}
-
-	public void setProperty(int index, Object value) {
-		access.setProperty(index, value);
-	}
-
-	public int getPropertyIndex(String name) {
-		return access.getPropertyIndex(name);
-	}
-
-	public Class<?> getPropertyClass(int index) {
-		return access.getPropertyClass(index);
-	}
-
-	public String getPropertyName(int index) {
-		return access.getPropertyName(index);
-	}
-
-	public boolean isPropertyEditable(int index) {
-		return access.isPropertyEditable(index);
-	}
 
 	public Object getProperty(String name) {
 		return access.getProperty(name);
@@ -123,11 +90,27 @@ public class NamedColor extends CLoadableItem implements IPropertyAccessor {
 		access.setProperty(name, value);
 	}
 
-	@Override
-	public void addProperty(String name, Object value) {
-		access.addProperty(name,  value);
-		
+	public Object getProperty(int index) {
+		return access.getProperty(index);
 	}
+
+	public void setProperty(int index, Object value) {
+		access.setProperty(index, value);
+	}
+
+	public Object getProperty(IPropertyDescriptor desc) {
+		return access.getProperty(desc);
+	}
+
+	public void setProperty(IPropertyDescriptor desc, Object value) {
+		access.setProperty(desc, value);
+	}
+
+	public IPropertyDescriptorList getDescriptors() {
+		return access.getDescriptors();
+	}
+	
+
 	// }}
 
 }

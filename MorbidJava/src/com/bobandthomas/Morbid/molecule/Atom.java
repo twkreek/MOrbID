@@ -7,10 +7,12 @@ import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.IPropertySetter;
 import com.bobandthomas.Morbid.utils.ISelectable;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
-import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.Selectable;
 
 public class Atom extends CLoadableItem implements IPropertyAccessor, ISelectable, IChangeNotifier
@@ -137,13 +139,45 @@ public class Atom extends CLoadableItem implements IPropertyAccessor, ISelectabl
 	}
 	//}}
 
-	static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
+	static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
 
 		@Override
 		public void initialize() {
-			addPropertyDescriptor(0, "Index", Integer.class, false);
-			addPropertyDescriptor(1, "Name", String.class, false);
-			addPropertyDescriptor(2, "Element", String.class, true);
+			addPropertyDescriptor(0, "Index", Integer.class, false, new IPropertySetter()
+			{
+				@Override
+				public Object get(Object obj) { return (int) ((Atom) obj).getID(); }
+
+				@Override
+				public boolean set(Object obj, Object value) {
+					((Atom) obj).setID((long) value); return true;
+				}
+			});
+			addPropertyDescriptor(1, "Name", String.class, false, new IPropertySetter()
+			{
+				@Override
+				public Object get(Object obj) { return ((Atom) obj).getName(); }
+
+				@Override
+				public boolean set(Object obj, Object value) {
+					((Atom) obj).setName((String) value); return true;
+				}
+			});
+			addPropertyDescriptor(2, "Element", String.class, true, new IPropertySetter()
+			{
+
+				@Override
+				public Object get(Object obj) {
+					return ((Atom) obj).atomType.getName(); 
+				}
+
+				@Override
+				public boolean set(Object obj, Object value) {
+					//this can not be edited.
+					return true;
+				}
+
+			});
 			addPropertyDescriptor(3, "Charge", Float.class, false);
 			addPropertyDescriptor(4, "Position", Point3D.class, false);
 			addPropertyDescriptor(5, "Color", ColorQuad.class, false);
@@ -153,13 +187,11 @@ public class Atom extends CLoadableItem implements IPropertyAccessor, ISelectabl
 		}
 
 	};
-	IPropertyAccessor access = new PropertyAccessor(propertyDescriptor){
+	IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor){
+	
 		@Override
-		public Object getProperty(int index) {
-			switch (index){
-			case 0: return getID();
-			case 1: return getName();
-			case 2: return atomType.getName();
+		public Object getProperty(IPropertyDescriptor desc) {
+			switch (desc.getIndex()){
 			case 3: return getCharge();
 			case 4: return pos;
 			case 5: return atomType.color;
@@ -168,64 +200,42 @@ public class Atom extends CLoadableItem implements IPropertyAccessor, ISelectabl
 			}
 			return null;
 		}
-	
+
 		@Override
-		public void setProperty(int index, Object value) {
-			switch (index){
-				case 0:	 return;
-				case 7: setSelected((Boolean) value);
-			}
+		public void setProperty(IPropertyDescriptor desc, Object value) {
+			switch (desc.getIndex()){
+			case 0:	 return;
+			case 7: setSelected((Boolean) value);
+		}
 			
 		}
 
 	};
-	
 	// {{ IAccessorDelegates
-	public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
-		access.addPropertyDescriptor(i, n, c, e);
-	}
-
-	public Object getProperty(int index) {
-		return access.getProperty(index);
-	}
-
-	public int getPropertyCount() {
-		return access.getPropertyCount();
-	}
-
-	public void setProperty(int index, Object value) {
-		access.setProperty(index, value);
-	}
-
-	public int getPropertyIndex(String name) {
-		return access.getPropertyIndex(name);
-	}
-
-	public Class<?> getPropertyClass(int index) {
-		return access.getPropertyClass(index);
-	}
-
-	public String getPropertyName(int index) {
-		return access.getPropertyName(index);
-	}
-
-	public boolean isPropertyEditable(int index) {
-		return access.isPropertyEditable(index);
-	}
 
 	public Object getProperty(String name) {
 		return access.getProperty(name);
 	}
-
 	public void setProperty(String name, Object value) {
 		access.setProperty(name, value);
 	}
-
-	@Override
-	public void addProperty(String name, Object value) {
-		access.addProperty(name,  value);
-		
+	public Object getProperty(int index) {
+		return access.getProperty(index);
 	}
+	public void setProperty(int index, Object value) {
+		access.setProperty(index, value);
+	}
+	public Object getProperty(IPropertyDescriptor desc) {
+		return access.getProperty(desc);
+	}
+	public void setProperty(IPropertyDescriptor desc, Object value) {
+		access.setProperty(desc, value);
+	}
+	public IPropertyDescriptorList getDescriptors() {
+		return access.getDescriptors();
+	}
+	
+	
 	// }}
 	
 }

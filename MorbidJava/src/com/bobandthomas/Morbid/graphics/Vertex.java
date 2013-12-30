@@ -25,6 +25,12 @@ public class Vertex extends Point3D {
 	public void setNormal(Vector3D normal) {
 		this.normal = normal;
 	}
+	
+	public Vertex invertNormal()
+	{
+		normal = normal.invert();
+		return this;
+	}
 
 	public ColorQuad getColor() {
 		return color;

@@ -1,5 +1,7 @@
 package com.bobandthomas.Morbid.utils;
 
+import java.io.Serializable;
+
 /**
  * The Class CLoadableItem.
  * 
@@ -8,7 +10,7 @@ package com.bobandthomas.Morbid.utils;
  *         DB. and all change notifiable items; Implements name, ID, and
  *         selectable
  */
-public class CLoadableItem implements IChangeNotifier
+public class CLoadableItem implements IChangeNotifier, Serializable
  {
 	
 	/** The parent set. Used when item is added to a reparenting CLoadableSet */

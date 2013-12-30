@@ -4,8 +4,9 @@ import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
-import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 
 /**
  * @author Thomas Kreek A single visual representation of a substructure. there
@@ -50,7 +51,7 @@ public class SubstructureRep extends CLoadableItem implements IPropertyAccessor 
 	}
 
 
-	static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<SubstructureRep>() {
+	static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList() {
 
 		@Override
 		public void initialize() {
@@ -60,10 +61,10 @@ public class SubstructureRep extends CLoadableItem implements IPropertyAccessor 
 		}
 	};
 
-	PropertyAccessor accessor = new PropertyAccessor(propertyDescriptor) {
+	IPropertyAccessor accessor = new PropertyAccessor(this, propertyDescriptor) {
 		@Override
-		public Object getProperty(int index) {
-			switch (index) {
+		public Object getProperty(IPropertyDescriptor ipd) {
+			switch (ipd.getIndex()) {
 			case 0:
 				return getName();
 			case 1:
@@ -75,8 +76,8 @@ public class SubstructureRep extends CLoadableItem implements IPropertyAccessor 
 		}
 
 		@Override
-		public void setProperty(int index, Object value) {
-			switch (index) {
+		public void setProperty(IPropertyDescriptor ipd, Object value) {
+			switch (ipd.getIndex()) {
 			case 1:
 				setVisible((boolean) value);
 				return;
@@ -87,43 +88,8 @@ public class SubstructureRep extends CLoadableItem implements IPropertyAccessor 
 
 		}
 	};
+
     // {{ IAccessorDelegates
-	public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c,
-			boolean e) {
-		accessor.addPropertyDescriptor(i, n, c, e);
-	}
-
-	public void addProperty(String name, Object value) {
-		accessor.addProperty(name, value);
-	}
-
-	public Object getProperty(int index) {
-		return accessor.getProperty(index);
-	}
-
-	public int getPropertyCount() {
-		return accessor.getPropertyCount();
-	}
-
-	public void setProperty(int index, Object value) {
-		accessor.setProperty(index, value);
-	}
-
-	public int getPropertyIndex(String name) {
-		return accessor.getPropertyIndex(name);
-	}
-
-	public Class<?> getPropertyClass(int index) {
-		return accessor.getPropertyClass(index);
-	}
-
-	public String getPropertyName(int index) {
-		return accessor.getPropertyName(index);
-	}
-
-	public boolean isPropertyEditable(int index) {
-		return accessor.isPropertyEditable(index);
-	}
 
 	public Object getProperty(String name) {
 		return accessor.getProperty(name);
@@ -132,6 +98,27 @@ public class SubstructureRep extends CLoadableItem implements IPropertyAccessor 
 	public void setProperty(String name, Object value) {
 		accessor.setProperty(name, value);
 	}
+
+	public Object getProperty(int index) {
+		return accessor.getProperty(index);
+	}
+
+	public void setProperty(int index, Object value) {
+		accessor.setProperty(index, value);
+	}
+
+	public Object getProperty(IPropertyDescriptor desc) {
+		return accessor.getProperty(desc);
+	}
+
+	public void setProperty(IPropertyDescriptor desc, Object value) {
+		accessor.setProperty(desc, value);
+	}
+
+	public IPropertyDescriptorList getDescriptors() {
+		return accessor.getDescriptors();
+	}
+	
 	// }} IAccessorDelegates
 
 }

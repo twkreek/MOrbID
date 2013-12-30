@@ -21,7 +21,8 @@ public class CSVFileReader extends BufferedReader {
 			int index = 0;
 			for (String s : fields)
 			{
-				nameMap.put(s, index);
+				
+				nameMap.put(s.trim(), index);
 				index++;
 			}
 			nextLine();
@@ -60,11 +61,11 @@ public class CSVFileReader extends BufferedReader {
 	}
 	public int getInteger(String name)
 	{
-		return Integer.parseInt(getString(name));
+		return Integer.parseInt(getString(name).trim());
 	}
 	public float getFloat(String name)
 	{
-		return Float.parseFloat(getString(name));
+		return Float.parseFloat(getString(name).trim());
 	}
 
 

@@ -10,12 +10,12 @@ public class AtomTypeList {
 	static HashMap<Integer, AtomType> byAtNo = new HashMap<Integer, AtomType>();
 	static HashMap<String, AtomType> byName = new HashMap<String, AtomType>();
 	static boolean initialized = false;
-	public AtomTypeList()
+	private AtomTypeList()
 	{
 	}
 		
 
-public static void init()
+	public void init()
 	{
 	
 			if (initialized) return;
@@ -66,17 +66,20 @@ public static void init()
 		return at;
 
 	}
-	static private AtomTypeList atomtype_GlobalAtomTypeList;
+	static private AtomTypeList singleton;
 
-	static AtomTypeList GetGlobalAtomTypeList(){
-		if (atomtype_GlobalAtomTypeList == null)
-			atomtype_GlobalAtomTypeList = new AtomTypeList();
-		return atomtype_GlobalAtomTypeList;
+	static AtomTypeList getOne(){
+		if (singleton == null)
+		{
+			singleton = new AtomTypeList();
+			singleton.init();
+		}
+		return singleton;
 		}
 		
 	public static AtomType Get(String s)
 	{
-		init();
+		getOne();
 		AtomType at = byName.get(s);
 		if (at == null)
 		{
@@ -88,7 +91,7 @@ public static void init()
 	}
 	public static AtomType Get(Integer s)
 	{
-		init();
+		getOne();
 		return byAtNo.get(s);// get atom type by atomic number
 	}
 }

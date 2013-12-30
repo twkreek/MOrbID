@@ -1,21 +1,35 @@
 package com.bobandthomas.Morbid.UI;
 
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import com.bobandthomas.Morbid.Morbid;
+
 public class MorbidMenus extends JMenuBar implements ActionListener {
 	
+	Morbid applet;
 	enum MenuItemList
 	{
 		FileOpen ("File","Open"),
 		FileExit ("File","Exit"),
-		EditAddGadget("Edit","AddGadget")
+		EditAddGadget("Edit","AddGadget"),
+		ViewScreenShot("View", "ScreenShot")
 		;
 		
 		String parent;
@@ -37,9 +51,10 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 		return a;
 	}
 	
-	public MorbidMenus()
+	public MorbidMenus(Morbid applet)
 	{
 		super();
+		this.applet = applet;
 		HashMap<String, JMenu> menuMap = new HashMap<String, JMenu>();
 		for (MenuItemList ml: MenuItemList.values() )
 		{
@@ -55,7 +70,29 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.toString());
+		if (e.getActionCommand().equals("File|Open"))
+		{
+			applet.openFile();
+		}
+		if (e.getActionCommand().equals("View|ScreenShot"))
+		{
+			try {
+				Robot robot = new Robot();
+		        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd hh mm ss a");
+		        Calendar now = Calendar.getInstance();
+		        BufferedImage screenShot = robot.createScreenCapture(new Rectangle(
+		                Toolkit.getDefaultToolkit().getScreenSize()));
+		            ImageIO.write(screenShot, "JPG",
+		                    new File("C:\\..." + formatter.format(now.getTime())
+		                            + ".jpg"));
+
+			} catch (AWTException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+	        } catch (IOException e2) {
+			}
+			return;
+		}
 		
 	}
 }

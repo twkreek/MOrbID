@@ -6,10 +6,11 @@ import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
-import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 
 /**
@@ -111,7 +112,7 @@ public class Substructure extends CLoadableTable<Atom> implements ISubstructure,
 		 * Support Properties
 		 */
 		
-		static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
+		static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
 
 			@Override
 			public void initialize() {
@@ -122,10 +123,10 @@ public class Substructure extends CLoadableTable<Atom> implements ISubstructure,
 			}
 
 		};
-		IPropertyAccessor access = new PropertyAccessor(propertyDescriptor){
+		IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor){
 			@Override
-			public Object getProperty(int index) {
-				switch (index){
+			public Object getProperty(IPropertyDescriptor ipd) {
+				switch (ipd.getIndex()){
 				case 0: return  Substructure.this.getName();
 				case 1: return Substructure.this.size();
 				case 2: return Substructure.this.getListColor();
@@ -134,57 +135,38 @@ public class Substructure extends CLoadableTable<Atom> implements ISubstructure,
 			}
 		
 			@Override
-			public void setProperty(int index, Object value) {
-				switch (index){
+			public void setProperty(IPropertyDescriptor ipd, Object value) {
+				switch (ipd.getIndex()){
 				case 0:  Substructure.this.setName((String) value); return;
 				}
 				
 			}
 		};
-
 		// {{ IAccessorDelegates
-		
-		public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
-			access.addPropertyDescriptor(i, n, c, e);
-		}
-		public void addProperty(String name, Object value) {
-			access.addProperty(name, value);
-		}
-		public Object getProperty(int index) {
-			return access.getProperty(index);
-		}
-
-		public int getPropertyCount() {
-			return access.getPropertyCount();
-		}
-
-		public void setProperty(int index, Object value) {
-			access.setProperty(index, value);
-		}
-
-		public int getPropertyIndex(String name) {
-			return access.getPropertyIndex(name);
-		}
-
-		public Class<?> getPropertyClass(int index) {
-			return access.getPropertyClass(index);
-		}
-
-		public String getPropertyName(int index) {
-			return access.getPropertyName(index);
-		}
-
-		public boolean isPropertyEditable(int index) {
-			return access.isPropertyEditable(index);
-		}
 
 		public Object getProperty(String name) {
 			return access.getProperty(name);
 		}
-
 		public void setProperty(String name, Object value) {
 			access.setProperty(name, value);
 		}
+		public Object getProperty(int index) {
+			return access.getProperty(index);
+		}
+		public void setProperty(int index, Object value) {
+			access.setProperty(index, value);
+		}
+		public Object getProperty(IPropertyDescriptor desc) {
+			return access.getProperty(desc);
+		}
+		public void setProperty(IPropertyDescriptor desc, Object value) {
+			access.setProperty(desc, value);
+		}
+		public IPropertyDescriptorList getDescriptors() {
+			return access.getDescriptors();
+		}
+
+
 		// }}
 
 }

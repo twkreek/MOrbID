@@ -1,16 +1,15 @@
 package com.bobandthomas.Morbid.utils;
 
 public interface IPropertyDescriptor {
-	Class<?> getPropertyClass(int index);
 
-	String getPropertyName(int index);
+	public Class<?> getClassType();
 
-	boolean isPropertyEditable(int index);
+	public boolean isEditable();
+
+	public IPropertySetter getSetter();
 	
-	int getPropertyCount();
+	public String getName();
 	
-	int getPropertyIndex(String name);
-	
-	void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c,
-			boolean e);
+	public int getIndex();
+
 }

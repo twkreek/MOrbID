@@ -80,7 +80,7 @@ public enum Element
 			at.np = np;
 			at.nd = nd;
 			at.radius = radius;
-			at.mat = MaterialSet.get().getByName(materialName);
+			at.mat = MaterialSet.getOne().getByName(materialName);
 			at.color = at.mat.getColor();
 			return at;
 		}

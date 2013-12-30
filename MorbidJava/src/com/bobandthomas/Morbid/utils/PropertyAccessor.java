@@ -1,66 +1,99 @@
 package com.bobandthomas.Morbid.utils;
 
-
 public abstract class PropertyAccessor implements IPropertyAccessor {
 
-	IPropertyDescriptor descriptor;
+	IPropertyDescriptorList descriptorList;
+	Object parent;
 
-	public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
-		descriptor.addPropertyDescriptor(i, n, c, e);
+	public IPropertyDescriptorList getDescriptors()
+	{
+		return descriptorList;
+	}
+	public IPropertyDescriptor getDescriptor(int index) {
+		return descriptorList.getDescriptor(index);
 	}
 
+	public void addPropertyDescriptor(int i, String n, Class<?> c, boolean e,
+			IPropertySetter ips) {
+		descriptorList.addPropertyDescriptor(i, n, c, e, ips);
+	}
+
+	public void addPropertyDescriptor(int i, String n,
+			@SuppressWarnings("rawtypes") Class c, boolean e) {
+		descriptorList.addPropertyDescriptor(i, n, c, e);
+	}
 
 	public int getPropertyCount() {
-		return descriptor.getPropertyCount();
+		return descriptorList.getPropertyCount();
 	}
-
 
 	public int getPropertyIndex(String name) {
-		return descriptor.getPropertyIndex(name);
+		return descriptorList.getPropertyIndex(name);
 	}
 
-
-	public PropertyAccessor(IPropertyDescriptor desc) {
-		descriptor = desc;
+	public PropertyAccessor(Object parent, IPropertyDescriptorList desc) {
+		descriptorList = desc;
+		this.parent = parent;
 	}
 
+	public Object get(Object parent, int index) {
+		IPropertySetter setter;
+		if ((setter = descriptorList.getDescriptor(index).getSetter()) == null)
+			return null;
+		return setter.get(parent);
+	}
+
+	public boolean set(Object parent, int index, Object value) {
+		IPropertySetter setter;
+		if ((setter = descriptorList.getDescriptor(index).getSetter()) == null)
+			return false;
+		setter.set(parent, value);
+		return true;
+	}
 
 	@Override
-	public Class<?> getPropertyClass(int index) {
-		return descriptor.getPropertyClass(index);
-	}
-
-
-	@Override
-	public String getPropertyName(int index) {
-		return descriptor.getPropertyName(index);
-	}
-
-
-	@Override
-	public boolean isPropertyEditable(int index) {
-		return descriptor.isPropertyEditable(index);
-	}
-
-
-	@Override
-	public Object getProperty(String name)
-	{
-		return getProperty(descriptor.getPropertyIndex(name));
+	public Object getProperty(String name) {
+		IPropertyDescriptor descriptor = descriptorList.getDescriptor(name);
+		if (descriptor.getSetter() != null) {
+			Object obj = descriptor.getSetter().get(parent);
+			if (obj != null)
+				return obj;
+		}
+		return getProperty(descriptorList.getDescriptor(name));
 	};
 
 	@Override
 	public void setProperty(String name, Object value) {
-		setProperty(descriptor.getPropertyIndex(name), value);
+		IPropertyDescriptor descriptor = descriptorList.getDescriptor(name);
+		if (descriptor.getSetter() != null) {
+			if (descriptor.getSetter().set(parent, value))
+				return;
+
+		}
+		setProperty(descriptorList.getDescriptor(name), value);
 
 	}
-	
+
 	@Override
-	public void addProperty(String name, Object value) {
-		descriptor.addPropertyDescriptor(descriptor.getPropertyCount(), name, value.getClass(), true);
-		setProperty(name, value);
-	
+	public Object getProperty(int index) {
+		IPropertyDescriptor descriptor = descriptorList.getDescriptor(index);
+		if (descriptor.getSetter() != null) {
+			Object obj = descriptor.getSetter().get(parent);
+			if (obj != null)
+				return obj;
+		}
+		return getProperty(descriptorList.getDescriptor(index));
 	}
 
+	@Override
+	public void setProperty(int index, Object value) {
+		IPropertyDescriptor descriptor = descriptorList.getDescriptor(index);
+		if (descriptor.getSetter() != null) {
+			if (descriptor.getSetter().set(parent, value))
+				return;
+
+		}
+		setProperty(descriptorList.getDescriptor(index), value);
+	}
 
 }

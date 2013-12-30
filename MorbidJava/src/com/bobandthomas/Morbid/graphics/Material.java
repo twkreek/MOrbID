@@ -1,82 +1,54 @@
 package com.bobandthomas.Morbid.graphics;
+import java.beans.BeanDescriptor;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.beans.SimpleBeanInfo;
+import java.util.ArrayList;
+
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.IPropertyAccessor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.IPropertySetter;
+import com.bobandthomas.Morbid.utils.PropertyAccessor;
+import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
+import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 
-public class Material extends CLoadableItem
+public class Material extends CLoadableItem implements IPropertyAccessor
 { 		
-		public enum StaticMaterial 
+		public static SimpleBeanInfo beanInfo = new SimpleBeanInfo()
 		{
-			White ("White",1,255,255,255,0.4,0.5,0.7,1,0,10,1),
-			Blue ("Blue",1,0,51,255,0.4,0.13,0.7,1,0,4,1),
-			Green ("Green",1,0,255,0,0.4,0.5,0.5,1,0,10,1),
-			Cyan ("Cyan",1,0,255,255,0.4,0.5,0.5,1,0,10,1),
-			Red ("Red",1,255,0,0,0.4,0.13,0.5,1,0,10,1),
-			Yellow ("Yellow",1,255,255,0,0.4,0.5,0.5,1,0,10,1),
-			Magenta ("Magenta",1,255,0,255,0.4,0.5,0.5,1,0,10,1),
-			LiteGray ("LiteGray",1,192,192,192,0.4,0.5,0.5,1,0,10,1),
-			LiteBlue ("LiteBlue",1,100,100,255,0.4,0.5,0.5,1,0,10,1),
-			LiteRed ("LiteRed",1,255,151,151,0.4,0.1,0.7,1,0,10,1),
-			Black ("Black",1,0,0,0,0.8,0.14,0.5,1,0,10,1),
-			YellowGreen ("YellowGreen",1,192,255,0,0.4,0.5,0.5,1,0,10,1),
-			LiteGreen ("LiteGreen",1,100,255,100,0.4,0.5,0.5,1,0,10,1),
-			LiteYellow ("LiteYellow",1,255,255,100,0.4,0.5,0.5,1,0,10,1),
-			DarkGray ("DarkGray",1,128,128,128,0.4,0.5,0.5,1,0,10,1),
-			Carbon ("Carbon",1,48,48,48,0.8,0.1,1,1,0,50,1),
-			Hydrogen ("Hydrogen",1,204,201,207,0.4,0.5,0.7,0.7,1,10,0),
-			Chrome ("Chrome",1,197,207,190,0.4,0.45,0.49,1,0,86,1),
-			Transparent ("Transparent",1,0,0,0,0.8,0.7,0.7,0.49,1,10,1);
-			String Name;
-			double kd; 
-			ColorQuad diffuse; 
-			double ka;
-			double ks;
-			double ke;
-			double filter;
-			int specularity;
-			boolean useSpecularity;
-			boolean useFilter;
-			
-			StaticMaterial(String name, int kd, int r, int g, int b, double ka, double ks, double ke, double filter, int useFilter, int specularity, int useSpecularity)
-			{
-				Name = name;
-				this.kd = kd;
-				diffuse = new ColorQuad(r,g,b);
-				this.ka = ka;
-				this.ks = ks;
-				this.ke = ke;
-				this.filter = filter;
-				this.useFilter = useFilter == 1;
-				this.specularity = specularity;
-				this.useSpecularity = useSpecularity == 1;
-				
+			@Override
+			public BeanDescriptor getBeanDescriptor() {
+				return new BeanDescriptor(Material.class);
 			}
-			Material getMaterial()
+			@Override
+			public PropertyDescriptor[] getPropertyDescriptors()
 			{
-				Material mat = new Material();
-				mat.setName(Name);
-				mat.kDiffuse = kd;
-				mat.setColor(new ColorQuad(diffuse));
-				mat.kAmbient = ka;
-				mat.kSpecularity = ks;
-				mat.kEmission = ke;
-				mat.alpha = filter;
-				mat.useFilter = useFilter;
-				mat.specularity = specularity;
-				mat.useSpecularity = useSpecularity;
-				return mat;
+				ArrayList<PropertyDescriptor> list = new ArrayList<PropertyDescriptor>();
+				try {
+					list.add(new PropertyDescriptor("Name", String.class, "getName", "setName"));
+					list.add(new PropertyDescriptor("ID", Long.class, "getID", "setID"));
+					list.add(new PropertyDescriptor("Color", ColorQuad.class, "getColor", "setColor"));
+				} catch (IntrospectionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
+				return list.toArray(new PropertyDescriptor[list.size()]);
 			}
-		}
-
+		};
+		
 		private ColorQuad color; // the base color of the material
 	 
-		double kDiffuse; //diffuse
-		double kAmbient; //ambient
-		double kSpecularity; //specularity
+		double kDiffuse; //diffuse light coefficient
+		double kAmbient; //ambient light coefficient
+		double kSpecular; //specular reflection coefficient (specular light color defaults to white)
 		double kEmission;	//emission
 		double alpha; //percent transmission for trnasparent objects. (alpha)
-		int specularity; // specularity coeffiecient.
+		int shininess; // specularity coeffiecient.
 		boolean useSpecularity; 
 		boolean useFilter;	
 
@@ -93,11 +65,11 @@ public class Material extends CLoadableItem
 		public void setkAmbient(double kAmbient) {
 			this.kAmbient = kAmbient;
 		}
-		public double getkSpecularity() {
-			return kSpecularity;
+		public double getKSpecular() {
+			return kSpecular;
 		}
-		public void setkSpecularity(double kSpecularity) {
-			this.kSpecularity = kSpecularity;
+		public void setKSpecular(double kSpecularity) {
+			this.kSpecular = kSpecularity;
 		}
 		public double getkEmission() {
 			return kEmission;
@@ -113,10 +85,10 @@ public class Material extends CLoadableItem
 			setUseFilter(true);
 		}
 		public int getSpecularity() {
-			return specularity;
+			return shininess;
 		}
 		public void setSpecularity(int specularity) {
-			this.specularity = specularity;
+			this.shininess = specularity;
 		}
 		public boolean isUseSpecularity() {
 			return useSpecularity;
@@ -130,15 +102,16 @@ public class Material extends CLoadableItem
 		public void setUseFilter(boolean useFilter) {
 			this.useFilter = useFilter;
 		}
+		
 	
 
 		void Init()
 		{
 			kDiffuse = 0.5f;
 			kAmbient = 0.5f;
-			kSpecularity = 0.4f;
+			kSpecular = 0.4f;
 			kEmission = 0.5f;
-			specularity = 10;
+			shininess = 10;
 			useSpecularity = true;
 			alpha = 1.0f;
 			useFilter = false;
@@ -161,8 +134,8 @@ public class Material extends CLoadableItem
 			kDiffuse = mat.kDiffuse;
 			kEmission = mat.kEmission;
 			setColor(mat.getColor());
-			kSpecularity = mat.kSpecularity;
-			specularity = mat.specularity;
+			kSpecular = mat.kSpecular;
+			shininess = mat.shininess;
 			useSpecularity = mat.useSpecularity;
 			alpha = mat.alpha;
 			useFilter = mat.useFilter;
@@ -179,59 +152,20 @@ public class Material extends CLoadableItem
  * 
  */
 		}
-		void ReadItem(String line)
+		void readItem(CSVFileReader reader)
 		{
-			/* TODO Allow reading material definitions. 
-			array<Char> ^quotes = {'"'};
-			array<String ^>^quoted = line->Split(quotes,StringSplitOptions::RemoveEmptyEntries);
-
-			array<Char> ^seps = {' '};
-			array<String ^> ^tokens = quoted[1]->Split(seps, StringSplitOptions::RemoveEmptyEntries);
-
-			Name = quoted[0];
-			bool isColor = Convert::ToInt32(tokens[0]) == 1;
-			short r,g,b;
-			r = Convert::ToInt16(tokens[1]);
-			g = Convert::ToInt16(tokens[2]);
-			b = Convert::ToInt16(tokens[3]);
-			diffuse = ColorQuad(r,g,b);
-			ks = Convert::ToSingle(tokens[4]);
-			ka = Convert::ToSingle(tokens[5]);
-			kd = Convert::ToSingle(tokens[6]);
-			filter = Convert::ToSingle(tokens[7]);
-			useFilter = Convert::ToInt32(tokens[8]) == 1;
-			specularity = Convert::ToInt32(tokens[9]);
-			useSpecularity = Convert::ToInt32(tokens[10]) == 1;
-			return OKCODE;
-		char s[500];
-			char name[50];
-			short r,g,b;
-			short isColor;
-			short temp;
-			int length;
-
-			// (MaterialList *)m_pSet)->GetStream()
-			using (System::IO::StreamReader sr = File.OpenText())
-		    {
-		        m_sName = sr.ReadLine();
-				
-		        while ((input=sr.ReadLine())!=null) 
-		        {
-		            Console.WriteLine(input);
-		        }
-				
-		        sr.Close();
-		    }
+			//Name,   kd,   r,g,b,      ka,     ks,    ke,    filter,useFilter,specularity,useSpec
+			setName(reader.getString("Name"));
+			kDiffuse = reader.getFloat("kd");
+			setColor(new ColorQuad(reader.getFloat("r"), reader.getFloat("g"), reader.getFloat("b")));
+			kAmbient = reader.getFloat("ka");
+			kEmission = reader.getFloat("ke");
+			kSpecular = reader.getFloat("ks");
+			alpha = reader.getFloat("filter");
+			useFilter = reader.getInteger("useFilter") == 1;
+			shininess = reader.getInteger("specularity");
+			useSpecularity = reader.getInteger("useSpec") == 1;
 			
-
-			*stream >> isColor >> r >> g >> b;
-			*stream >> ks >> ka >> kd;
-			*stream >> filter >> temp;  useFilter = temp;
-			*stream >> specularity >> temp; useSpecularity = temp;
-			if (isColor)
-				diffuse = ColorQuad (r,g,b);
-			stream->getline(s, sizeof(s));
-			*/
 		}
 		public ColorQuad getColor() {
 			return color;
@@ -240,6 +174,143 @@ public class Material extends CLoadableItem
 			this.color = diffuse;
 		}
 
+       static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
+				
+				@Override
+				public void initialize() {
+					addPropertyDescriptor(0, "Name", String.class, false, new IPropertySetter(){
+						
+						@Override
+						public Object get(Object obj) {
+							return ((Material) obj).getName();
+						}
+						
+						@Override
+						public boolean set(Object obj, Object value) {
+							((Material)obj).setName((String) value);
+							return true;
+						}
+						
+					});
+					addPropertyDescriptor(1, "Color", ColorQuad.class, false, new IPropertySetter(){
+						
+						@Override
+						public Object get(Object obj) {
+							return ((Material) obj).getColor();
+						}
+						
+						@Override
+						public boolean set(Object obj, Object value) {
+							((Material)obj).setColor((ColorQuad) value);
+							return true;
+						}
+						
+					});
+					addPropertyDescriptor(2, "Ambient", Double.class, false, new IPropertySetter(){
+						
+						@Override
+						public Object get(Object obj) {
+							return ((Material) obj).getkAmbient();
+						}
+						
+						@Override
+						public boolean set(Object obj, Object value) {
+							((Material)obj).setkAmbient((Double) value);
+							return true;
+						}
+						
+					});
 
+				addPropertyDescriptor(3, "Diffuse", Double.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((Material) obj).getkDiffuse();
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						((Material)obj).setkDiffuse((Double) value);
+						return true;
+					}
+					
+				});
+
+				addPropertyDescriptor(4, "Diffuse", Double.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((Material) obj).getkDiffuse();
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						((Material)obj).setkDiffuse((Double) value);
+						return true;
+					}
+					
+				});
+			}
+				
+			};
+			
+			IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor){
+				@Override
+				public Object getProperty(IPropertyDescriptor ipd) {
+					switch (ipd.getIndex()){
+					case 0: return  Material.this.getName();
+					}
+					return null;
+				}
+				
+				@Override
+				public void setProperty(IPropertyDescriptor ipd, Object value) {
+					switch (ipd.getIndex()){
+					case 0:  Material.this.setName((String) value); return;
+					}
+					
+				}
+			};
+			
+			// {{ IAccessorDelegates
+			
+			public Object getProperty(String name) {
+				return access.getProperty(name);
+			}
+			
+			
+			public void setProperty(String name, Object value) {
+				access.setProperty(name, value);
+			}
+			
+			
+			public Object getProperty(int index) {
+				return access.getProperty(index);
+			}
+			
+			
+			public void setProperty(int index, Object value) {
+				access.setProperty(index, value);
+			}
+			
+			
+			public Object getProperty(IPropertyDescriptor desc) {
+				return access.getProperty(desc);
+			}
+			
+			
+			public void setProperty(IPropertyDescriptor desc, Object value) {
+				access.setProperty(desc, value);
+			}
+			
+			
+			public IPropertyDescriptorList getDescriptors() {
+				return access.getDescriptors();
+			}
+			
+			
+			// }}
+			
+			
 
 };

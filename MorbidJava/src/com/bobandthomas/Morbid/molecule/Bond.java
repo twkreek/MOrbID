@@ -3,8 +3,9 @@ package com.bobandthomas.Morbid.molecule;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
-import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 
 public class Bond extends CLoadableItem implements IPropertyAccessor {
 	
@@ -99,7 +100,7 @@ public class Bond extends CLoadableItem implements IPropertyAccessor {
 			return atom1;
 		}
 
-		static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
+		static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
 
 			@Override
 			public void initialize() {
@@ -112,10 +113,10 @@ public class Bond extends CLoadableItem implements IPropertyAccessor {
 			}
 
 		};
-		IPropertyAccessor access = new PropertyAccessor(propertyDescriptor){
+		IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor){
 			@Override
-			public Object getProperty(int index) {
-				switch (index){
+			public Object getProperty(IPropertyDescriptor ipd) {
+				switch (ipd.getIndex()){
 				case 0: return getID();
 				case 1: return atom1.getName() + a1;
 				case 2: return atom2.getName() + a2;
@@ -126,61 +127,53 @@ public class Bond extends CLoadableItem implements IPropertyAccessor {
 			}
 		
 			@Override
-			public void setProperty(int index, Object value) {
-				switch (index){
+			public void setProperty(IPropertyDescriptor ipd, Object value) {
+				switch (ipd.getIndex()){
 					case 0:	 return;
 				}
 				
 			}
 
 		};
-		
+
+
 		// {{ IAccessorDelegates
-		public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
-			access.addPropertyDescriptor(i, n, c, e);
-		}
-
-		public Object getProperty(int index) {
-			return access.getProperty(index);
-		}
-
-		public int getPropertyCount() {
-			return access.getPropertyCount();
-		}
-
-		public void setProperty(int index, Object value) {
-			access.setProperty(index, value);
-		}
-
-		public int getPropertyIndex(String name) {
-			return access.getPropertyIndex(name);
-		}
-
-		public Class<?> getPropertyClass(int index) {
-			return access.getPropertyClass(index);
-		}
-
-		public String getPropertyName(int index) {
-			return access.getPropertyName(index);
-		}
-
-		public boolean isPropertyEditable(int index) {
-			return access.isPropertyEditable(index);
-		}
-
+		
 		public Object getProperty(String name) {
 			return access.getProperty(name);
 		}
+
 
 		public void setProperty(String name, Object value) {
 			access.setProperty(name, value);
 		}
 
-		@Override
-		public void addProperty(String name, Object value) {
-			access.addProperty(name,  value);
-			
+
+		public Object getProperty(int index) {
+			return access.getProperty(index);
 		}
+
+
+		public void setProperty(int index, Object value) {
+			access.setProperty(index, value);
+		}
+
+
+		public Object getProperty(IPropertyDescriptor desc) {
+			return access.getProperty(desc);
+		}
+
+
+		public void setProperty(IPropertyDescriptor desc, Object value) {
+			access.setProperty(desc, value);
+		}
+
+
+		public IPropertyDescriptorList getDescriptors() {
+			return access.getDescriptors();
+		}
+		
+
 		// }}
 		
 

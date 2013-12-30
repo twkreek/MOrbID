@@ -33,18 +33,10 @@ public class Morbid extends JApplet {
 	{
 		// set up default applet presentation
 		setSize(800,600);
-		setJMenuBar(new MorbidMenus());
+		setJMenuBar(new MorbidMenus(this));
 		setLayout(new BorderLayout());
 
-		
-		// create canvas and gadget panel
-		port = new PortJava3D(); //3D Canvas is in the port.
-		add ("Center", port.canvas);
-		scene = new Scene();
-
-		gadgetPanel = new ControlPanelSideBar(scene);
-		add("West", gadgetPanel);
-		
+				
 	}
 	public void openFile()
 	{
@@ -62,6 +54,15 @@ public class Morbid extends JApplet {
 		scene = new Scene();
 		// Make the renderer
 		
+		if (port != null)
+		{
+			this.remove(port.canvas);
+		}
+		// create canvas and gadget panel
+		port = new PortJava3D(); //3D Canvas is in the port.
+		
+		add ("Center", port.canvas);
+
 		RendererJava3D renderer;
 		renderer = new RendererJava3D();
 		scene.SetRenderer(renderer);

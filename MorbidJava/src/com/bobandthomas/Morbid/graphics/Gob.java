@@ -10,7 +10,7 @@ import com.bobandthomas.Morbid.utils.*;
  *  supplies CLoadableItem functions of name and ID and parenting
  *  The base GOB has a center point and a start point.
  * 
- * @author Thomas Kreek The Class Gob.
+ * @author Thomas Kreek
  */
 public abstract class Gob extends CLoadableItem {
 

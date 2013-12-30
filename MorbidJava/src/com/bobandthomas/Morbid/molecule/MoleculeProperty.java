@@ -3,8 +3,9 @@ package com.bobandthomas.Morbid.molecule;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
-import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 
 public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor{
 	
@@ -74,7 +75,7 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 	return numValue.intValue();
 	}
 
-	static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
+	static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
 
 		@Override
 		public void initialize() {
@@ -86,10 +87,10 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 		}
 
 	};
-	IPropertyAccessor access = new PropertyAccessor(propertyDescriptor){
+	IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor){
 		@Override
-		public Object getProperty(int index) {
-			switch (index){
+		public Object getProperty(IPropertyDescriptor ipd) {
+			switch (ipd.getIndex()){
 			case 0: return  MoleculeProperty.this.getName();
 			case 1: return  MoleculeProperty.this.getValue();
 			case 2: return  MoleculeProperty.this.getUnits();
@@ -99,8 +100,8 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 		}
 	
 		@Override
-		public void setProperty(int index, Object value) {
-			switch (index){
+		public void setProperty(IPropertyDescriptor ipd, Object value) {
+			switch (ipd.getIndex()){
 			case 0:  MoleculeProperty.this.setName((String) value); return;
 			case 1:   MoleculeProperty.this.setValue((String) value); return;
 			case 2:   MoleculeProperty.this.setUnits((String) value); return;
@@ -112,37 +113,6 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 	};
 	
 	// {{ IAccessorDelegates
-	public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
-		access.addPropertyDescriptor(i, n, c, e);
-	}
-
-	public Object getProperty(int index) {
-		return access.getProperty(index);
-	}
-
-	public int getPropertyCount() {
-		return access.getPropertyCount();
-	}
-
-	public void setProperty(int index, Object value) {
-		access.setProperty(index, value);
-	}
-
-	public int getPropertyIndex(String name) {
-		return access.getPropertyIndex(name);
-	}
-
-	public Class<?> getPropertyClass(int index) {
-		return access.getPropertyClass(index);
-	}
-
-	public String getPropertyName(int index) {
-		return access.getPropertyName(index);
-	}
-
-	public boolean isPropertyEditable(int index) {
-		return access.isPropertyEditable(index);
-	}
 
 	public Object getProperty(String name) {
 		return access.getProperty(name);
@@ -152,11 +122,27 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 		access.setProperty(name, value);
 	}
 
-	@Override
-	public void addProperty(String name, Object value) {
-		access.addProperty(name,  value);
-		
+	public Object getProperty(int index) {
+		return access.getProperty(index);
 	}
+
+	public void setProperty(int index, Object value) {
+		access.setProperty(index, value);
+	}
+
+	public Object getProperty(IPropertyDescriptor desc) {
+		return access.getProperty(desc);
+	}
+
+	public void setProperty(IPropertyDescriptor desc, Object value) {
+		access.setProperty(desc, value);
+	}
+
+	public IPropertyDescriptorList getDescriptors() {
+		return access.getDescriptors();
+	}
+	
+
 	// }}
 
 }

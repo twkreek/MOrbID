@@ -6,8 +6,10 @@ import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
+import com.bobandthomas.Morbid.utils.IPropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.IPropertySetter;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
-import com.bobandthomas.Morbid.utils.PropertyDescriptorList;
+import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 
 public class AtomType extends CLoadableItem
@@ -43,10 +45,8 @@ public class AtomType extends CLoadableItem
 			
 		}
 		void readItem(CSVFileReader reader)
-		{
-			//Name,AtNo,zS,zP,zD,nS,nP,nD,radius,material,FullName,
+		{			
 			//Name	AtNo	zS	zP	zD	nS	nP	nD	radius	material	FullName	neg
-
 
 			setName(reader.getString("Name"));
 			SetAtomicNumber(reader.getInteger("AtNo"));
@@ -59,7 +59,7 @@ public class AtomType extends CLoadableItem
 			radius = reader.getFloat("radius");
 			fullName = reader.getString("FullName");
 			String materialName = reader.getString("material");
-			mat = MaterialSet.get().getByName(materialName);
+			mat = MaterialSet.getOne().getByName(materialName);
 			electronegativity = reader.getFloat("neg");
 			color = mat.getColor();
 
@@ -77,87 +77,163 @@ public class AtomType extends CLoadableItem
 			np = Integer.parseInt(tokens[6]);
 			nd = Integer.parseInt(tokens[7]);
 			radius = Float.parseFloat(tokens[8]);
-			mat = MaterialSet.get().getByName(tokens[9]);
+			mat = MaterialSet.getOne().getByName(tokens[9]);
 			color = mat.getColor();
 
 		}
 
-		static IPropertyDescriptor propertyDescriptor = new PropertyDescriptorList<MoleculeProperty>(){
+		static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
 
 			@Override
 			public void initialize() {
-				addPropertyDescriptor(0, "Atomic Number", Integer.class, false);
-				addPropertyDescriptor(1, "Name", String.class, false);
-				addPropertyDescriptor(2, "NS", Integer.class, false);
-				addPropertyDescriptor(3, "NP", Integer.class, false);
-				addPropertyDescriptor(4, "ND", Integer.class, false);
+				addPropertyDescriptor(0, "Atomic Number", Integer.class, false, new IPropertySetter(){
+
+					@Override
+					public Object get(Object obj) {
+						return ((AtomType) obj).getID();
+					}
+
+					@Override
+					public boolean set(Object obj, Object value) {
+						return true;
+					}
+					
+				});
+				addPropertyDescriptor(1, "Name", String.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((AtomType) obj).getName();
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						((AtomType) obj).setName((String) value);
+						return true;
+					}
+					
+				});
+				addPropertyDescriptor(2, "NS", Integer.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((AtomType) obj).ns;
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						return true;
+					}
+					
+				});
+				addPropertyDescriptor(3, "NP", Integer.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((AtomType) obj).np;
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						return true;
+					}
+					
+				});
+				addPropertyDescriptor(4, "ND", Integer.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((AtomType) obj).nd;
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						return true;
+					}
+					
+				});
 				
+				addPropertyDescriptor(5, "Color", ColorQuad.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((AtomType) obj).color;
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						return true;
+					}
+					
+				});
+				addPropertyDescriptor(6, "Material", Material.class, false, new IPropertySetter(){
+					
+					@Override
+					public Object get(Object obj) {
+						return ((AtomType) obj).color;
+					}
+					
+					@Override
+					public boolean set(Object obj, Object value) {
+						return true;
+					}
+					
+				});
 			}
 
 		};
-		IPropertyAccessor access = new PropertyAccessor(propertyDescriptor){
+		IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor){
 			@Override
-			public Object getProperty(int index) {
-				switch (index){
-				case 0: return getID();
-				case 1: return getName();
-				case 2: return ns;
-				case 3: return np;
-				case 4: return nd;
-				}
+			public Object getProperty(IPropertyDescriptor ipd) {
 				return null;
 			}
 		
 			@Override
-			public void setProperty(int index, Object value) {
-				switch (index){
+			public void setProperty(IPropertyDescriptor ipd, Object value) {
+				switch (ipd.getIndex()){
 					case 0:	 return;
 				}
 				
 			}
 
 		};
-		
 		// {{ IAccessorDelegates
-		public void addPropertyDescriptor(int i, String n, @SuppressWarnings("rawtypes") Class c, boolean e) {
-			access.addPropertyDescriptor(i, n, c, e);
-		}
-
-		public Object getProperty(int index) {
-			return access.getProperty(index);
-		}
-
-		public int getPropertyCount() {
-			return access.getPropertyCount();
-		}
-
-		public void setProperty(int index, Object value) {
-			access.setProperty(index, value);
-		}
-
-		public int getPropertyIndex(String name) {
-			return access.getPropertyIndex(name);
-		}
-
-		public Class<?> getPropertyClass(int index) {
-			return access.getPropertyClass(index);
-		}
-
-		public String getPropertyName(int index) {
-			return access.getPropertyName(index);
-		}
-
-		public boolean isPropertyEditable(int index) {
-			return access.isPropertyEditable(index);
-		}
 
 		public Object getProperty(String name) {
 			return access.getProperty(name);
 		}
 
+
 		public void setProperty(String name, Object value) {
 			access.setProperty(name, value);
 		}
+
+
+		public Object getProperty(int index) {
+			return access.getProperty(index);
+		}
+
+
+		public void setProperty(int index, Object value) {
+			access.setProperty(index, value);
+		}
+
+
+		public Object getProperty(IPropertyDescriptor desc) {
+			return access.getProperty(desc);
+		}
+
+
+		public void setProperty(IPropertyDescriptor desc, Object value) {
+			access.setProperty(desc, value);
+		}
+
+
+		public IPropertyDescriptorList getDescriptors() {
+			return access.getDescriptors();
+		}
+		
+
 
 		// }}
 		

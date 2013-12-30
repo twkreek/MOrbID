@@ -23,27 +23,27 @@ public abstract class CLoadableTable<T extends CLoadableItem & IPropertyAccessor
 	@Override
 	public int getColumnCount() {
 		if (size() == 0) return 0;
-			return get(0).getPropertyCount();
+			return get(0).getDescriptors().getPropertyCount();
 	}
 
 	@Override
 	public String getColumnName(int columnIndex) {
 		if (size() == 0)
 			return null;
-		return get(0).getPropertyName(columnIndex);
+		return get(0).getDescriptors().getPropertyName(columnIndex);
 	}
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		if (size() == 0)
 			return null;
-		return get(0).getPropertyClass(columnIndex);
+		return get(0).getDescriptors().getPropertyClass(columnIndex);
 	}
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		if (size() == 0)
 			return false;
-			return get(0).isPropertyEditable(columnIndex);
+			return get(0).getDescriptors().isPropertyEditable(columnIndex);
 	}
 
 @Override

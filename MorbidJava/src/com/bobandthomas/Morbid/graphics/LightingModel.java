@@ -98,9 +98,9 @@ public class LightingModel extends CLoadableItem {
 					if (cosalpha > 1.0)
 						cosalpha = 1.0;
 					else
-						cosalpha = (float) Math.pow(cosalpha, m.specularity);
+						cosalpha = (float) Math.pow(cosalpha, m.shininess);
 						/* I = Iaka + IpKd L dot N */
-					cosalpha = cosalpha * m.kSpecularity;
+					cosalpha = cosalpha * m.kSpecular;
 					ColorQuad specular = L.color.multiply(cosalpha);
 					pColor = pColor.plus(specular);
 				}
