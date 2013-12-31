@@ -12,6 +12,7 @@ public class GobVector extends Gob {
 
 		public Point3D EndPoint;
 		public ColorQuad EndColor;
+		private Vertex endPoint;
 		
 
 		@Override
@@ -19,34 +20,29 @@ public class GobVector extends Gob {
 		GobType Type() {return GobType.Vector;}
 		GobVector(LineSegment vec)
 		{
-			StartPoint = vec.from;
-			EndPoint = vec.to;
-			Center = StartPoint.midPoint(EndPoint, 0.5);
+			setPoint(new Vertex(vec.from));
+			endPoint = new Vertex(vec.to);
 		}
 		
 		public Vector3D getUnitVector()
 		{
-			Vector3D p = StartPoint.Sub(EndPoint);
+			Vector3D p = getPoint().Sub(EndPoint);
 			p.Normalize();
 			return p;
 		}
 		
 		public GobVector(Point3D  start, Point3D  end)
 		{
-
-			StartPoint = start;
+			super(start);
 			EndPoint = end;
-			Center = new Point3D();
-			Center.add(StartPoint, EndPoint);
-			Center.scale(0.5);
 		}
 		
 		public Point3D  getCenter()
 		{
-			return new Point3D(Center);
+			return new Vertex(getPoint().midPoint(EndPoint, 0.5));
 		}
 		public float getLength() {
-			return (float) StartPoint.distance(EndPoint);
+			return (float) getPoint().distance(EndPoint);
 		}
 
 

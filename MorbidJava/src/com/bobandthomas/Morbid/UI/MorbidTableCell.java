@@ -1,84 +1,66 @@
 package com.bobandthomas.Morbid.UI;
 
 import java.awt.Component;
-import java.util.EventObject;
-
 import javax.swing.AbstractCellEditor;
 import javax.swing.JTable;
-import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 
-public class MorbidTableCell extends DefaultTableCellRenderer implements TableCellRenderer, TableCellEditor {
-	class MCellEditor extends AbstractCellEditor 
+public abstract class MorbidTableCell {
+	Object value;
+	class MCellEditor extends  AbstractCellEditor implements TableCellEditor
 	{
+		public MCellEditor() 
+		{
+		}
 
 		@Override
 		public Object getCellEditorValue() {
-			// TODO return CellValue
+			return value;
+		}
+
+		@Override
+		public Component getTableCellEditorComponent(JTable table,
+                Object value,
+                boolean isSelected,
+                int row,
+                int column){
+
 			return null;
 		}
+
 		
 	}
-	MCellEditor editor;
+	TableCellEditor editor = new MCellEditor();
+	class MCellRenderer extends DefaultTableCellRenderer
+	{
+		public Component getTableCellRendererComponent(JTable table,
+                Object value,
+                boolean isSelected,
+                boolean hasFocus,
+                int row,
+                int column)
+		{
+			MorbidTableCell.this.value = value;
+			return null;
+		}
+	};
+	TableCellRenderer renderer = new MCellRenderer();
 	
-	// {{ Renderer
-	public Object getCellEditorValue() {
-		return editor.getCellEditorValue();
+	public TableCellRenderer getRenderer()
+	{
+		return renderer;
 	}
-
+	public TableCellEditor getEditor()
+	{
+		return editor;
+	}
 	public MorbidTableCell() {
-		setOpaque(true);
+		renderer = new MCellRenderer();
 		editor = new MCellEditor();
 	}
 
-	public void addCellEditorListener(CellEditorListener l) {
-		editor.addCellEditorListener(l);
-	}
-
-	public void cancelCellEditing() {
-		editor.cancelCellEditing();
-		
-	}
-
-	public boolean isCellEditable(EventObject anEvent) {
-		return editor.isCellEditable(anEvent);
-	}
-
-	@Override
-	public void removeCellEditorListener(CellEditorListener l) {
-		editor.removeCellEditorListener(l);	
-	}
-
-	@Override
-	public boolean shouldSelectCell(EventObject anEvent) {
-		return editor.shouldSelectCell(anEvent);
-	}
-	// }}
-	
-	// {{ Editor
-
-	@Override
-	public boolean stopCellEditing() {
-		return editor.stopCellEditing();
-	}
-
-	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value,
-			boolean isSelected, int row, int column)
-	{
-		return null;
-	}
-	// }}
-	public class Point3DTableCell extends MorbidTableCell
-	{
-		Point3DTableCell()
-		{
-			super();
-		}
-		
-	}
 
 }

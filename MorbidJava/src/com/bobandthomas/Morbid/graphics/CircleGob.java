@@ -11,7 +11,7 @@ public class CircleGob extends Gob {
 
 	@Override
 	public Point3D center() {
-		return StartPoint;
+		return getPoint();
 	}
 
 	public CircleGob(Point3D pt, float /* Coord */radius) {

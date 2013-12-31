@@ -281,7 +281,7 @@ public class AtomGadget extends Gadget {
 			if (Labels || Numbers || ShowCharges) {
 				sg.setName(label);
 			}
-			sg.Color = theColor;
+			sg.setColor(theColor);
 			sg.setLOD(LOD);
 			sg.setMaterial(mat);
 			gobList.add(sg);
@@ -292,7 +292,7 @@ public class AtomGadget extends Gadget {
 			GobPoly pvg = new GobPoly();
 			pvg.SetPolyType(GobPolyType.Closed);
 			drawBox(pvg, aPosition, sr);
-			pvg.Color = theColor;
+			pvg.setColor(theColor);
 			gobList.add(pvg);
 
 			break;
@@ -303,14 +303,14 @@ public class AtomGadget extends Gadget {
 				) {
 			StringGob lbg = new StringGob(label, a.Position());
 			lbg.setMaterial(baseMaterial);
-			lbg.Color = theColor.Inverse();
+			lbg.setColor(theColor.Inverse());
 			gobList.add(lbg);
 		}
 		if (a.isSelected())
 		{
 			SphereGob sg = new SphereGob(aPosition, sr+0.2);
-			sg.Color = theColor.Inverse();
-			sg.Color.setAlpha(0.8);
+			sg.setColor(theColor.Inverse());
+			sg.getColor().setAlpha(0.8);
 			gobList.add(sg);
 			
 		}

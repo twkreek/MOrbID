@@ -10,26 +10,26 @@ import com.bobandthomas.Morbid.utils.Vector3D;
 public class LightingModel extends CLoadableItem {
 
 		boolean DoLighting;
-		boolean DoScatterAlpha;;
+		private boolean DoScatterAlpha;;
 		boolean DoSpecularity;
 		boolean  DoDiffuse;
 		boolean  LightFrontBack;
-		boolean  DoDepthCue;
+		private boolean  DoDepthCue;
 		ColorQuad   Background;
 		float  DepthCueMin;
 		float  DepthCueRate;
-		BoundingBox   BoundingBox;
+		private BoundingBox   BoundingBox;
 		
-		ColorQuad DepthCue(Point3D p, ColorQuad cq) { if (DoDepthCue) return CalcDepthCue(p, cq); else return cq; }
+		ColorQuad DepthCue(Point3D p, ColorQuad cq) { if (isDoDepthCue()) return CalcDepthCue(p, cq); else return cq; }
 
 		public LightingModel()
 		{
 			DoLighting = true;
-			DoScatterAlpha = true;
+			setDoScatterAlpha(true);
 			DoSpecularity = true;
 			DoDiffuse = true;
 			LightFrontBack = false;
-			DoDepthCue = false;
+			setDoDepthCue(false);
 			DepthCueMin = 0.1f;
 			DepthCueRate  = 1.00f;
 		}
@@ -37,7 +37,7 @@ public class LightingModel extends CLoadableItem {
 		{
 			ColorQuad color;
 			double z = pos.z;
-			double fraction = (z - BoundingBox.min.z) * DepthCueRate / (BoundingBox.max.z - BoundingBox.min.z + DepthCueMin);
+			double fraction = (z - getBoundingBox().min.z) * DepthCueRate / (getBoundingBox().max.z - getBoundingBox().min.z + DepthCueMin);
 			if (fraction < 0.0)
 				fraction = 0.0;
 			if (fraction > 1.0)
@@ -110,6 +110,30 @@ public class LightingModel extends CLoadableItem {
 			pColor.Clamp(0.999f );
 
 			return DepthCue(pos, pColor);	
+		}
+
+		public BoundingBox getBoundingBox() {
+			return BoundingBox;
+		}
+
+		public void setBoundingBox(BoundingBox boundingBox) {
+			BoundingBox = boundingBox;
+		}
+
+		public boolean isDoDepthCue() {
+			return DoDepthCue;
+		}
+
+		public void setDoDepthCue(boolean doDepthCue) {
+			DoDepthCue = doDepthCue;
+		}
+
+		public boolean isDoScatterAlpha() {
+			return DoScatterAlpha;
+		}
+
+		public void setDoScatterAlpha(boolean doScatterAlpha) {
+			DoScatterAlpha = doScatterAlpha;
 		}
 
 

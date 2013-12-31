@@ -14,19 +14,14 @@ import com.bobandthomas.Morbid.utils.*;
  */
 public abstract class Gob extends CLoadableItem {
 
-	/** The Center. */
-	Point3D Center;
 	
 	/** The Start point. */
-	Point3D StartPoint;
+	private Vertex point = new Vertex();
 	/** LOD - level of detail
 	 * helps guide optimizations.  log of number of atoms.  scale spheres accordingly.;
 	 * 
 	 */
 	double LOD = 1;	
-
-	/** The Color. */
-	public ColorQuad Color;
 
 	/** The material. */
 	private Material material;
@@ -35,7 +30,6 @@ public abstract class Gob extends CLoadableItem {
 	 * Instantiates a new gob.
 	 */
 	public Gob() {
-		Color = new ColorQuad();
 	}
 	
 	/**
@@ -45,9 +39,11 @@ public abstract class Gob extends CLoadableItem {
 	 *            the center point
 	 */
 	public Gob(Point3D point) {
-		Color = new ColorQuad();
-		StartPoint = new Point3D(point);
-		Center = new Point3D(point);
+		setPoint(new Vertex(point));
+	}
+	public Gob(Vertex vertex)
+	{
+		setPoint(new Vertex(vertex));
 	}
 
 	/**
@@ -56,7 +52,7 @@ public abstract class Gob extends CLoadableItem {
 	 * @return the point3 d
 	 */
 	public Point3D center() {
-		return new Point3D(Center);
+		return new Point3D(getPoint());
 	}
 
 
@@ -96,7 +92,7 @@ public abstract class Gob extends CLoadableItem {
 	 */
 	public void setMaterial(Material material) {
 		this.material = material;
-		Color = new ColorQuad(material.getColor());
+		setColor(new ColorQuad(material.getColor()));
 	}
 	
 	/**
@@ -116,6 +112,26 @@ public abstract class Gob extends CLoadableItem {
 	 */
 	public void setLOD(double lOD) {
 		LOD = lOD;
+	}
+
+	public ColorQuad getColor() {
+		return getPoint().getColor();
+	}
+
+	public void setColor(ColorQuad color) {
+		getPoint().setColor(color);
+	}
+
+	Vertex getPoint() {
+		return point;
+	}
+
+	void setPoint(Vertex startPoint) {
+		this.point = startPoint;
+	}
+	void setPoint(Point3D startPoint)
+	{
+		this.point = new Vertex(startPoint);
 	}
 
 };

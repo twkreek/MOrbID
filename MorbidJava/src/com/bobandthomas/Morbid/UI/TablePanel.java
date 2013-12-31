@@ -28,7 +28,8 @@ public class TablePanel<T extends CLoadableTable<?>> extends JPanel {
 
 	private void setupRenderers()
 	{
-		table.setDefaultRenderer(ColorQuad.class, new ColorQuadTableCell());
+		table.setDefaultRenderer(ColorQuad.class, new ColorQuadTableCell().getRenderer());
+		table.setDefaultEditor(ColorQuad.class, new ColorQuadTableCell().getEditor());
 	}
 
 	public JDialog doDialog()

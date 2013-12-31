@@ -14,18 +14,20 @@ tr {
 </head>
 <body bgcolor="#EFFFDF" text="#000000">
 	<p align="center">
-		<font face="Arial, Helvetica, sans-serif" size="4">Welcome to MOrbID - molecular visualization in Java</font>
+		<font face="Arial, Helvetica, sans-serif" size="7">Welcome to MOrbID - molecular visualization in Java</font>
 	</p>
-	<p align="center">
-		<img src="http://www.bobandthomas.com/morbid/analine.jpg" width=600>
-	</p>
-	<p align="center">
-		<a href=http://www.bobandthomas.com/morbid/morbid.jnlp>Launch Morbid</a> <br/>
-				please note - Morbid is currently not a signed executable, since it is still in very early development.
-				<br/>
-				
-		<a href=http://www.bobandthomas.com/morbid/doc/index.html>Open class documentation</a><br/>	
-	</p>
+	<table>
+	<tr>
+	<td><img src="http://www.bobandthomas.com/morbid/analine.jpg" width=200>
+	</td>
+	<td align="top">MOrbID is a Molecular visualization tool, that reads several common chemical file formats, 
+	and creates graphical displays of structural, sptaial and mathematical properties of the molecule.
+	This is a product in development, and is not guaranteed to be accurate, but it can be fun.
+	If you would like to read more, you can find the <a href=http://www.bobandthomas.com/morbid/doc/index.html>class documentation</a><br/>	
+	</td>
+	
+	</tr>
+	</table>
 		<script src="https://www.java.com/js/deployJava.js"></script>
 		<script>
 		    var attributes = {width: 1280, height: 800} ;
@@ -35,5 +37,12 @@ tr {
 		    deployJava.runApplet(attributes, parameters, '1.6');
 		</script>
 						
+		</br>
+		please note - Morbid is currently not a signed executable, since it is still in very early development.
+				<br/>
+		Morbid depends on the Java3D library, which is available from the 
+		<a href=http://www.oracle.com/technetwork/java/javase/tech/index-jsp-138252.html> Java (Sun/Oracle) website</a>.</br>
+		If you do not see the application load, below, please install Java3D.
+	
 </body>
 </html>

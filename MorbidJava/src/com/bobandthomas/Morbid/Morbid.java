@@ -1,6 +1,7 @@
 package com.bobandthomas.Morbid;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 
@@ -20,6 +21,8 @@ public class Morbid extends JApplet {
 	 * 
 	 */
 	private static final long serialVersionUID = 8227285965421826153L;
+	@SuppressWarnings("unused")
+	private static final String s ="2$2K@)8JgJ#?h~<";
 	PortJava3D port;
 	Scene scene;
 	ControlPanelSideBar gadgetPanel;

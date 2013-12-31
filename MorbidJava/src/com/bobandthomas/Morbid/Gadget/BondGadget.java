@@ -236,14 +236,14 @@ public class BondGadget extends Gadget {
 				if (rep == BondRep.Cylinder) {
 					CylinderGob cg = new CylinderGob(ai, midPoint,
 							(float) bondScale);
-					cg.Color = ati.color;
+					cg.setColor(ati.color);
 					cg.setMaterial(ati.mat);
 					if (bondOrder == 2)
 						cg.SetRadius(cg.getRadius() * 2);
 					gobList.add(cg);
 
 					cg = new CylinderGob(aj, midPoint, (float)bondScale);
-					cg.Color = atj.color;
+					cg.setColor(atj.color);
 					cg.setMaterial(atj.mat);
 					if (bondOrder == 2)
 						cg.SetRadius(cg.getRadius() * 2);
@@ -251,11 +251,11 @@ public class BondGadget extends Gadget {
 
 				} else {
 					GobVector vg = new GobVector(ai, midPoint);
-					vg.Color = ati.color;
+					vg.setColor(ati.color);
 					gobList.add(vg);
 
 					vg = new GobVector(aj, midPoint);
-					vg.Color = atj.color;
+					vg.setColor(atj.color);
 					gobList.add(vg);
 				}
 				if (labelBO || labelDistance) {
@@ -274,7 +274,7 @@ public class BondGadget extends Gadget {
 						str += s;
 					}
 					StringGob sg = new StringGob(str, midPoint);
-					sg.Color = baseColor;
+					sg.setColor(baseColor);
 					gobList.add(sg);
 				}
 			}

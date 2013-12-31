@@ -61,6 +61,9 @@ public class ColorQuad extends Color4f {
 		Set(color.x, color.y, color.z);
 	}
 	
+	public ColorQuad(java.awt.Color color) {
+		Set(color.getRed(), color.getGreen(), color.getBlue());
+	}
 	/**
 	 * Instantiates a new color quad from a string descriptor
 	 * 

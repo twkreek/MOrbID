@@ -28,14 +28,14 @@ public class GadgetHUDPanel extends GadgetPanel {
 		super.changeValue(label, value);
 		if (label.equals("Property List"))
 		{
-			TablePanel ple = new TablePanel<MoleculePropertyList>(gadget.GetMolecule().getPropList());
+			TablePanel<MoleculePropertyList> ple = new TablePanel<MoleculePropertyList>(gadget.GetMolecule().getPropList());
 			JDialog dlg = ple.doDialog();
 			dlg.setVisible(true);
 			return;
 		}
 		if (label.equals("Atom List"))
 		{
-			TablePanel ple = new TablePanel<Substructure>(gadget.GetMolecule().Atoms());
+			TablePanel<Substructure> ple = new TablePanel<Substructure>(gadget.GetMolecule().Atoms());
 			JDialog dlg = ple.doDialog();
 			dlg.setVisible(true);
 			return;
@@ -43,7 +43,7 @@ public class GadgetHUDPanel extends GadgetPanel {
 		}
 		if (label.equals("Materials"))
 		{
-			TablePanel ple = new TablePanel<MaterialList>(MaterialList.getOne());
+			TablePanel<MaterialList> ple = new TablePanel<MaterialList>(MaterialList.getOne());
 			JDialog dlg = ple.doDialog();
 			dlg.setVisible(true);
 			return;
@@ -51,7 +51,7 @@ public class GadgetHUDPanel extends GadgetPanel {
 		}
 		if (label.equals("Atom Types"))
 		{
-			TablePanel ple = new TablePanel<AtomTypeList>(AtomTypeList.getOne());
+			TablePanel<AtomTypeList> ple = new TablePanel<AtomTypeList>(AtomTypeList.getOne());
 			JDialog dlg = ple.doDialog();
 			dlg.setVisible(true);
 			return;

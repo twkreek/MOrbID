@@ -192,7 +192,7 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 						}
 						
 					});
-					addPropertyDescriptor(1, "Color", ColorQuad.class, false, new IPropertySetter(){
+					addPropertyDescriptor(1, "Color", ColorQuad.class, true, new IPropertySetter(){
 						
 						@Override
 						public Object get(Object obj) {

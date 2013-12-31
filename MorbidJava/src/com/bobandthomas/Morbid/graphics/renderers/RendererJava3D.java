@@ -150,7 +150,7 @@ public class RendererJava3D extends Renderer {
 					y = rect.height - 10;
 
 				if (g.Type() == GobType.Label) {
-					Color c = g.Color.getJColor();
+					Color c = g.getColor().getJColor();
 					j2D.setColor(c);
 					String s = ((LabelGob) g).getName();
 					if (s != null && s.length() > 0) j2D.drawString(s, x, y);
@@ -375,7 +375,7 @@ public class RendererJava3D extends Renderer {
 
 		Cylinder cyl = new Cylinder(g.getRadius(), length);
 
-		cyl.setAppearance(getAppearance(currentMaterial, g.Color));
+		cyl.setAppearance(getAppearance(currentMaterial, g.getColor()));
 
 		TransformGroup tg = new TransformGroup();
 		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
@@ -449,7 +449,7 @@ public class RendererJava3D extends Renderer {
 			array.setNormals(0,normals);
 				
 		}
-		Appearance ap = getAppearance(currentMaterial, g.Color);
+		Appearance ap = getAppearance(currentMaterial, g.getColor());
 		if (g.GetPolyType() == GobPolyType.Lines)
 			ap.setPolygonAttributes(new PolygonAttributes(PolygonAttributes.POLYGON_LINE,PolygonAttributes.CULL_NONE, 0f));
 		Shape3D shape = new Shape3D(array, ap);
@@ -467,7 +467,7 @@ public class RendererJava3D extends Renderer {
 		Sphere sphere = new Sphere((float) g.getRadius(), Primitive.GENERATE_NORMALS, tessalations);
 		sphere.setName(g.getName());
 
-		sphere.setAppearance(getAppearance(currentMaterial,g.Color));
+		sphere.setAppearance(getAppearance(currentMaterial,g.getColor()));
 
 		TransformGroup tg = new TransformGroup();
 		Transform3D transform = new Transform3D();
@@ -485,7 +485,7 @@ public class RendererJava3D extends Renderer {
 		
 		Shape3D shape = new Shape3D();
 		shape.setGeometry(text);
-		shape.setAppearance(getAppearance(g.getMaterial(), g.Color));
+		shape.setAppearance(getAppearance(g.getMaterial(), g.getColor()));
 
 		Vector3f vector = g.center().getVector().getVec3f();
 
@@ -514,7 +514,7 @@ public class RendererJava3D extends Renderer {
 	void String2(StringGob g) {
 		if(g.getName() == null || g.getName().length() <1 )
 			return;
-		Text2D text = new Text2D(g.getName(),g.Color.Cf(),
+		Text2D text = new Text2D(g.getName(),g.getColor().Cf(),
 			        "Serif", 70, Font.ITALIC);	
 		text.setRectangleScaleFactor((float) g.getScale()/256);
 

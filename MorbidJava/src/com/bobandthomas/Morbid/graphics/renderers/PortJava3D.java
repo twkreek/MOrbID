@@ -57,7 +57,7 @@ public class PortJava3D extends Port implements ComponentListener{
 	}
 
 	@Override
-	void Clear() {
+	public void Clear() {
 		
 
 	}
@@ -69,79 +69,79 @@ public class PortJava3D extends Port implements ComponentListener{
 	}
 
 	@Override
-	void BackgroundColor(ColorQuad cq) {
+	public void BackgroundColor(ColorQuad cq) {
 		
 
 	}
 
 	@Override
-	void FillColor(ColorQuad cq) {
+	public void FillColor(ColorQuad cq) {
 		
 
 	}
 
 	@Override
-	void FrameColor(ColorQuad cq) {
+	public void FrameColor(ColorQuad cq) {
 		
 
 	}
 
 	@Override
-	void TextColor(ColorQuad cq) {
+	public void TextColor(ColorQuad cq) {
 		
 
 	}
 
 	@Override
-	void MoveTo(Point3D p) {
+	public void MoveTo(Point3D p) {
 		
 
 	}
 
 	@Override
-	void LineTo(Point3D p) {
+	public void LineTo(Point3D p) {
 		
 
 	}
 
 	@Override
-	void Vector(Point3D p1, Point3D p2) {
+	public void Vector(Point3D p1, Point3D p2) {
 		
 
 	}
 
 	@Override
-	void Circle(Point3D c, Point3D r) {
+	public void Circle(Point3D c, Point3D r) {
 		
 
 	}
 
 	@Override
-	void DrawPoint(Point3D p) {
+	public void DrawPoint(Point3D p) {
 		
 
 	}
 
 	@Override
-	void DrawPoint(Point3D p, ColorQuad cq) {
+	public void DrawPoint(Point3D p, ColorQuad cq) {
 		
 
 	}
 
 	@Override
-	ColorQuad GetPoint(Point3D p) {
+	public ColorQuad GetPoint(Point3D p) {
 		
 		return null;
 	}
 
 	@Override
-	void Text(Point3D p, String string) {
+	public void Text(Point3D p, String string) {
 		
 
 	}
 
 	@Override
-	void Polygon(Point3DList plist) {
+	public void Polygon(Point3DList plist) {
 		
 
 	}

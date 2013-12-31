@@ -9,7 +9,7 @@ public class SphereGob extends Gob {
 		@Override
 		public Point3D center()
 		{
-			return StartPoint;
+			return getPoint();
 		}
 		public SphereGob(Point3D  center, double sr)
 	

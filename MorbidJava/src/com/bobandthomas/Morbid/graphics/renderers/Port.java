@@ -17,7 +17,7 @@ public abstract class Port {
 		{
 			screenBounds = bt;
 		}
-		BoundingBox GetScreenBounds()
+		public BoundingBox GetScreenBounds()
 		{
 			return screenBounds;
 		}
@@ -30,25 +30,25 @@ public abstract class Port {
 
 //		abstract void Copy(MCCIBitmap bm);
 		abstract void Initialize();
-		abstract void Clear();
+		public abstract void Clear();
 // doublebuffer routines
 		public boolean DoubleBuffer;
 //		PortBuffer Buffer;
 		public abstract void SwapBuffers();
 // color setting routines
-		abstract void BackgroundColor(ColorQuad cq);
-		abstract void FillColor(ColorQuad cq);
-		abstract void FrameColor(ColorQuad cq);
-		abstract void TextColor(ColorQuad cq);
+		public abstract void BackgroundColor(ColorQuad cq);
+		public abstract void FillColor(ColorQuad cq);
+		public abstract void FrameColor(ColorQuad cq);
+		public abstract void TextColor(ColorQuad cq);
 // primitives
-		abstract void MoveTo( Point3D p);
-		abstract void LineTo( Point3D p);
-		abstract void Vector( Point3D p1, Point3D p2);
-		abstract void Circle( Point3D c, Point3D r);
-		abstract void DrawPoint(Point3D p);
-		abstract void DrawPoint(Point3D p, ColorQuad cq);
-		abstract ColorQuad GetPoint(Point3D p);
-		abstract void Text(Point3D p, String string);
-		abstract void Polygon(Point3DList plist);
+		public abstract void MoveTo( Point3D p);
+		public abstract void LineTo( Point3D p);
+		public abstract void Vector( Point3D p1, Point3D p2);
+		public abstract void Circle( Point3D c, Point3D r);
+		public abstract void DrawPoint(Point3D p);
+		public abstract void DrawPoint(Point3D p, ColorQuad cq);
+		public abstract ColorQuad GetPoint(Point3D p);
+		public abstract void Text(Point3D p, String string);
+		public abstract void Polygon(Point3DList plist);
 
 };

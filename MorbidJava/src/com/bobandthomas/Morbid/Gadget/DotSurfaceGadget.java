@@ -113,7 +113,7 @@ public class DotSurfaceGadget extends Gadget {
 		Molecule mol = GetMolecule();
 		GobPoly ppg = new GobPoly();
 		ppg.SetPolyType(GobPolyType.Points);
-		ppg.Color = baseColor;
+		ppg.setColor(baseColor);
 		// sp =
 		// SpatialDataTypeList::GetGlobalSpatialDataTypeList().GetByID(ID("Chrg")).Create(mol);
 

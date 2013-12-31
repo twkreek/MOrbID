@@ -24,11 +24,11 @@ public class GadgetHUD extends Gadget {
 		molecule.getEmpirical().reset();
 		LabelGob lg = new LabelGob(molecule.getEmpirical().getFormula(), new Point3D(-0.5, -0.5, 1.0));
 		lg.setScale(0.1);
-		lg.Color = new ColorQuad(0.5,1.0,0.5);
+		lg.setColor(new ColorQuad(0.5,1.0,0.5));
 		gl.add(lg);
 		lg = new LabelGob(molecule.getName(), new Point3D(-0.5, 0.5, 1.0));
 		lg.setScale(0.05);
-		lg.Color = new ColorQuad(0.5,1.0,0.5);
+		lg.setColor(new ColorQuad(0.5,1.0,0.5));
 		gl.add(lg);
 
 	}

@@ -18,7 +18,7 @@ public class SubstructureRepListEditor extends SubstructureSetChooser {
 			SubstructureRepList rep) {
 		super(ssm, rep);
 		repTable = new JTable(rep);
-		repTable.getColumnModel().getColumn(2).setCellRenderer(new ColorQuadTableCell());
+		repTable.getColumnModel().getColumn(2).setCellRenderer(new ColorQuadTableCell().getRenderer());
 		repTable.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(new JCheckBox()));
 		add(repTable, BorderLayout.CENTER);
 		

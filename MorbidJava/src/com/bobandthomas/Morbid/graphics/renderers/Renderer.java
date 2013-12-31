@@ -31,7 +31,7 @@ public abstract class Renderer extends CLoadableItem {
 
 		Material statMat;
 		RenderQuality quality;
-		Port port;
+		protected Port port;
 		BoundingBox worldBox;
 		BoundingBox portBox;
 		BoundingBox squaredWorldBox;
@@ -40,13 +40,13 @@ public abstract class Renderer extends CLoadableItem {
 		Point3D translate;
 		// Point3D WorldToPort(Point3D);
 		// Point3D PortToWorld(Point3D);
-		CTM mapCTM;
-		CTM viewCTM;
-		CTM ctm;
-		Material currentMaterial;
-		LightSourceList currentLights;
+		protected CTM mapCTM;
+		protected CTM viewCTM;
+		protected CTM ctm;
+		protected Material currentMaterial;
+		protected LightSourceList currentLights;
 		public ColorQuad bgColor;
-		LightingModel m_lm;
+		protected LightingModel m_lm;
 
 
 		double zoom;// { float get() { return zoom; } void set(float value) { zoom = value; Rescale(); } }
@@ -113,7 +113,7 @@ public abstract class Renderer extends CLoadableItem {
 					statMat = mat;
 				else
 					statMat = new Material();
-				statMat.setColor(gob.Color);
+				statMat.setColor(gob.getColor());
 				currentMaterial = statMat;
 			}	
 			
