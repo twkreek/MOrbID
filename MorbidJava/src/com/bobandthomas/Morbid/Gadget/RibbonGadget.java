@@ -84,7 +84,7 @@ public class RibbonGadget extends Gadget {
 
 	Peptide set;
 	ArrayList<AminoAcidFragment> frags;
-	int resolution = 2;
+	int resolution = 8;
 	int circleResolution = 8;
 	double radius = 0.5;
 
