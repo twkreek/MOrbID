@@ -1,19 +1,22 @@
 package com.bobandthomas.Morbid.Gadget.control;
 
 import com.bobandthomas.Morbid.Gadget.GadgetFieldLines;
+import com.bobandthomas.Morbid.molecule.data.control.SpatialDataSelector;
 
 public class GadgetFieldLinesPanel extends GadgetPanel {
 	GadgetFieldLines g3d;
+	SpatialDataSelector sds;
 	int increments[]={1,2,5,10};
 	public GadgetFieldLinesPanel(GadgetFieldLines g) {
 		super(g, "Field Lines");
 		g3d = g;
-
-		int increments[]={1,2,5,10};
 		
 		createSlider("Threshold", 0, 100, (int)(g.getThreshold()*100), true);
 		createSlider("Scale", 0, 100, (int)(g3d.getScale()*100), true);
-		createSpinner("Increment" , increments, 1);
+		createSpinner("Increment" , increments, g3d.getIncrement());
+		sds = new SpatialDataSelector(g3d, g3d.GetMolecule().getSpatialData(), "Display");
+		sds.registerListener(this);
+		activePanel.add(sds);
 	}
 
 	@Override

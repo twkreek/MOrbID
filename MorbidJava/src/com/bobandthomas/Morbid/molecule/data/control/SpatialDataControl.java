@@ -14,7 +14,7 @@ public class SpatialDataControl extends MorbidPanel {
 		this.sd = sd;
 		molecule = sd.getMolecule();
 		int[] resolutions = {5,10,30,50,100,200,500};				
-		this.createSpinner("Resolution", resolutions, sd.sideX);
+		createSpinner("Resolution", resolutions, sd.sideX);
 	}
 
 	@Override

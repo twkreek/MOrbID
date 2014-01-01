@@ -259,10 +259,9 @@ ItemListener, ActionListener, IChangeNotifier  {
         SpinnerModel snl = new SpinnerListModel(range);
         JSpinner spnList = new JSpinner(snl);	
         spnList.setValue(defaultIndex);
-        sideBySide();
+ //       sideBySide();
         activePanel.add(new JLabel(label));
-        activePanel.add(spnList);
-        endSideBySide();
+ //       endSideBySide();
         
         spnList.addChangeListener(this);
         registerAdd(spnList, label);

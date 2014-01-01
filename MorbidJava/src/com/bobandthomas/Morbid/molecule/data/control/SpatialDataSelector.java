@@ -62,12 +62,16 @@ public class SpatialDataSelector extends ControlPanel {
 		{
 			activePanel.remove(currentSDC);
 			currentSDC.unRegisterFromAll();
+			activePanel.revalidate();
+			activePanel.repaint();
 		}
 		currentSDC = spatial.getControlPanel();
 		currentSDC.registerListener(this);
 		sd = spatial;
 		gadget.setSpatialData(spatial);
 		activePanel.add(currentSDC);
+		activePanel.revalidate();
+		activePanel.repaint();
 		
 	}
 
