@@ -20,7 +20,7 @@ public class LightingModel extends CLoadableItem {
 		float  DepthCueRate;
 		private BoundingBox   BoundingBox;
 		
-		ColorQuad DepthCue(Point3D p, ColorQuad cq) { if (isDoDepthCue()) return CalcDepthCue(p, cq); else return cq; }
+		public ColorQuad DepthCue(Point3D p, ColorQuad cq) { if (isDoDepthCue()) return CalcDepthCue(p, cq); else return cq; }
 
 		public LightingModel()
 		{
@@ -45,7 +45,7 @@ public class LightingModel extends CLoadableItem {
 			color = cq.BlendRGB(StaticColorQuad.Black.cq(), fraction);
 			return color;
 		}
-		ColorQuad LightPoint(Material m, LightSourceList lightList, Point3D pos, Point3D N1)
+		public ColorQuad LightPoint(Material m, LightSourceList lightList, Point3D pos, Point3D N1)
 		{
 			int i;
 

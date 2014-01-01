@@ -260,7 +260,7 @@ public class CTM {
 				return newctm;   
 			}
 
-			Point3D XForm(Point3D p) 
+			public Point3D XForm(Point3D p) 
 			{
 				if (isIdent()) return p;
 				Point3D newPoint = new Point3D();

@@ -10,7 +10,6 @@ import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class GobVector extends Gob {
 
-		public Point3D EndPoint;
 		public ColorQuad EndColor;
 		private Vertex endPoint;
 		
@@ -23,10 +22,24 @@ public class GobVector extends Gob {
 			setPoint(new Vertex(vec.from));
 			endPoint = new Vertex(vec.to);
 		}
+		GobVector(Vertex v1, Vertex v2)
+		{
+			setPoint(v1);
+			endPoint = v2;
+		}
+		
+		public Vertex getEndPoint()
+		{
+			return endPoint;
+		}
+		public void setEndPoint(Vertex v)
+		{
+			endPoint = new Vertex(v);
+		}
 		
 		public Vector3D getUnitVector()
 		{
-			Vector3D p = getPoint().Sub(EndPoint);
+			Vector3D p = getPoint().Sub(endPoint);
 			p.Normalize();
 			return p;
 		}
@@ -34,15 +47,15 @@ public class GobVector extends Gob {
 		public GobVector(Point3D  start, Point3D  end)
 		{
 			super(start);
-			EndPoint = end;
+			endPoint= new Vertex(end);
 		}
 		
 		public Point3D  getCenter()
 		{
-			return new Vertex(getPoint().midPoint(EndPoint, 0.5));
+			return new Vertex(getPoint().midPoint(endPoint, 0.5));
 		}
 		public float getLength() {
-			return (float) getPoint().distance(EndPoint);
+			return (float) getPoint().distance(endPoint);
 		}
 
 

@@ -122,7 +122,7 @@ public abstract class Gob extends CLoadableItem {
 		getPoint().setColor(color);
 	}
 
-	Vertex getPoint() {
+	public Vertex getPoint() {
 		return point;
 	}
 

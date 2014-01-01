@@ -46,7 +46,7 @@ public abstract class Renderer extends CLoadableItem {
 		protected Material currentMaterial;
 		protected LightSourceList currentLights;
 		public ColorQuad bgColor;
-		protected LightingModel m_lm;
+		protected LightingModel lm;
 
 
 		double zoom;// { float get() { return zoom; } void set(float value) { zoom = value; Rescale(); } }
@@ -59,7 +59,6 @@ public abstract class Renderer extends CLoadableItem {
 			this.zoom = zoom;
 		}
 		private Point3D Translate;// { Point3D get(){ return translate; } void set(Point3D value) {translate = value; Rescale(); }}	
-		LightingModel lm;
 
 	 	void SetRenderQuality(RenderQuality rq) {quality = rq; }
 
@@ -94,7 +93,7 @@ public abstract class Renderer extends CLoadableItem {
 			viewCTM = new CTM();
 			ctm = new CTM();
 			
-			m_lm = new LightingModel();
+			lm = new LightingModel();
 			worldBox = new BoundingBox();
 			squaredWorldBox = new BoundingBox();
 			Scale = new Point3D();

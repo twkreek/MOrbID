@@ -20,8 +20,6 @@ public class ArrowGob extends GobVector {
 		{   
 			super(start, end);
 			style = tstyle;
-			setPoint(new Vertex(start));
-			EndPoint = end;
 		}
 };
 

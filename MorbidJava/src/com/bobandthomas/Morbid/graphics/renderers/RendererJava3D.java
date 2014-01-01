@@ -356,7 +356,7 @@ public class RendererJava3D extends Renderer {
 	@Override
 	void Arrow(ArrowGob g) {
 		// TODO complete rednering Arrows
-		CylinderGob cyl = new CylinderGob(g.center(), g.EndPoint, 0.01f);
+		CylinderGob cyl = new CylinderGob(g.getPoint(), g.getEndPoint(), 0.01f);
 		cyl.setMaterial(g.getMaterial());
 		Cylinder(cyl);
 		

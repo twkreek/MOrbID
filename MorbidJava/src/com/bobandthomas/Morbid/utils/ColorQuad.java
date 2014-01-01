@@ -440,7 +440,7 @@ public class ColorQuad extends Color4f {
 		ColorQuad c = new ColorQuad(x - p.x, y - p.y, z - p.z);
 		return c;
 	}
-	
+		
 	/**
 	 * RG bto hsv.
 	 * 

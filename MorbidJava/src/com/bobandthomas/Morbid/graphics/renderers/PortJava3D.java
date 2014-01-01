@@ -175,4 +175,11 @@ public class PortJava3D extends Port implements ComponentListener{
 		
 	}
 
+	@Override
+	public boolean isCapableOf(PortCapabilities cap) {
+		if (cap == PortCapabilities.THREE_D)
+			return true;
+		return false;
+	}
+
 }

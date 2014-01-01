@@ -6,6 +6,10 @@ import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Point3DList;
 
 public abstract class Port {
+	public enum PortCapabilities
+	{
+		VECTOR, BITMAP, THREE_D, SERIALIZED
+	};
 
 		BoundingBox screenBounds;
 		public Port()
@@ -13,6 +17,7 @@ public abstract class Port {
 			screenBounds = new BoundingBox();
 			
 		}
+		public abstract boolean isCapableOf(PortCapabilities cap);
 		protected void SetScreenBounds(BoundingBox bt)
 		{
 			screenBounds = bt;
@@ -28,7 +33,6 @@ public abstract class Port {
 
 		boolean Monochrome;
 
-//		abstract void Copy(MCCIBitmap bm);
 		abstract void Initialize();
 		public abstract void Clear();
 // doublebuffer routines
@@ -40,15 +44,17 @@ public abstract class Port {
 		public abstract void FillColor(ColorQuad cq);
 		public abstract void FrameColor(ColorQuad cq);
 		public abstract void TextColor(ColorQuad cq);
-// primitives
+// Vector primitives - valid for PortCapabilities.VECTOR
 		public abstract void MoveTo( Point3D p);
 		public abstract void LineTo( Point3D p);
 		public abstract void Vector( Point3D p1, Point3D p2);
 		public abstract void Circle( Point3D c, Point3D r);
+		public abstract void Text(Point3D p, String string);
+		public abstract void Polygon(Point3DList plist);
+
+// Bitmap primitives - valid for PortCapabilities.BITMAP	
 		public abstract void DrawPoint(Point3D p);
 		public abstract void DrawPoint(Point3D p, ColorQuad cq);
 		public abstract ColorQuad GetPoint(Point3D p);
-		public abstract void Text(Point3D p, String string);
-		public abstract void Polygon(Point3DList plist);
 
 };
