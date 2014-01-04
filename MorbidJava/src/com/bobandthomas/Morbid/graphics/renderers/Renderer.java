@@ -17,9 +17,13 @@ import com.bobandthomas.Morbid.graphics.LightingModel;
 import com.bobandthomas.Morbid.graphics.Material;
 import com.bobandthomas.Morbid.graphics.SphereGob;
 import com.bobandthomas.Morbid.graphics.StringGob;
+import com.bobandthomas.Morbid.graphics.renderers.Port.PortChangeEvent;
+import com.bobandthomas.Morbid.graphics.renderers.Port.PortChangeListener;
 import com.bobandthomas.Morbid.utils.*;
 
-public abstract class Renderer extends CLoadableItem {
+public abstract class Renderer extends CLoadableItem implements PortChangeListener {
+
+
 
 	public enum RenderQuality
 	{
@@ -132,7 +136,10 @@ public abstract class Renderer extends CLoadableItem {
 		public void SetPort(Port p)
 		{
 			port = p;
+			if (p == null && port != null)
+				port.unRegisterListener(this);
 			if (port == null) return;
+			port.registerListener(this);
 			Resize();
 		}
 
@@ -229,6 +236,12 @@ public abstract class Renderer extends CLoadableItem {
 			}
 
 		}
+		@Override
+		public void PortChanged(PortChangeEvent change) {
+			portBox = port.GetScreenBounds();
+			Rescale();
+		}
+
 		protected ColorQuad LightPoint(Point3D p, Point3D normal)
 		{
 
