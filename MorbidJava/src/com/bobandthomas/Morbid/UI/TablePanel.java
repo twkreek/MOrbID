@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
+import com.bobandthomas.Morbid.graphics.Material;
 import com.bobandthomas.Morbid.utils.CLoadableTable;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 
@@ -30,6 +31,9 @@ public class TablePanel<T extends CLoadableTable<?>> extends JPanel {
 	{
 		table.setDefaultRenderer(ColorQuad.class, new ColorQuadTableCell().getRenderer());
 		table.setDefaultEditor(ColorQuad.class, new ColorQuadTableCell().getEditor());
+		table.setDefaultRenderer(Material.class, new MaterialTableCell().getRenderer());
+		table.setDefaultEditor(Material.class, new MaterialTableCell().getEditor());
+
 	}
 
 	public JDialog doDialog()

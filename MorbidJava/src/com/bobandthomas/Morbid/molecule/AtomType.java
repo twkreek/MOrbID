@@ -166,11 +166,11 @@ public class AtomType extends CLoadableItem implements IPropertyAccessor
 					}
 					
 				});
-				addPropertyDescriptor(6, "Material", Material.class, false, new IPropertySetter(){
+				addPropertyDescriptor(6, "Material", Material.class, true, new IPropertySetter(){
 					
 					@Override
 					public Object get(Object obj) {
-						return ((AtomType) obj).color;
+						return ((AtomType) obj).mat;
 					}
 					
 					@Override
