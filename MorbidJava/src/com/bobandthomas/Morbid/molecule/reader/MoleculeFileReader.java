@@ -18,7 +18,6 @@ public abstract class MoleculeFileReader {
 			str = arg0;
 			currentPoint = 0;
 			currentIndex = 0;
-			System.out.println();
 			String stemp[] = arg0.split("[ ,:]");
 			int count = 0;
 			for (String s : stemp)
@@ -31,7 +30,6 @@ public abstract class MoleculeFileReader {
 					ss[count++] = s;
 					// System.out.print(s +",  ");
 				}
-			System.out.println();
 		}
 		
 		public int size()

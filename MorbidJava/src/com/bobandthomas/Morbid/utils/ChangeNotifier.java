@@ -69,7 +69,7 @@ public  class ChangeNotifier implements IChangeNotifier, EventListener {
 		}
 		if (listeners == null) 
 		{
-			Logger.addMessage(event);
+//			Logger.addMessage(event);
 			return;
 		}
 

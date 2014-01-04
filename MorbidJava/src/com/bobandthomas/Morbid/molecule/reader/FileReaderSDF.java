@@ -83,6 +83,7 @@ public class FileReaderSDF extends MoleculeFileReader {
 					else
 					{
 						property.replace('_', ' ');
+						molecule.addProperty(property, "", "");
 					}
 				}
 				line = br.readLine();

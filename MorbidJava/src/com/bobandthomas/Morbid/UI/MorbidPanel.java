@@ -32,6 +32,7 @@ import javax.swing.event.ChangeListener;
 import com.bobandthomas.Morbid.utils.ChangeNotifier;
 import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
+import com.bobandthomas.Morbid.wrapper.Logger;
 
 /**
  * The Class MorbidPanel.
@@ -396,7 +397,7 @@ ItemListener, ActionListener, IChangeNotifier  {
 			return false;
 		if (label == null)
 		{
-			System.out.println("label Null");
+			Logger.addMessage("label Null in MorbidPanel" + this.toString());
 			return false;
 		}
 		changeValue(label,value);
