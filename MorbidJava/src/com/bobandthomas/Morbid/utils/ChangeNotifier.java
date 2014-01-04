@@ -3,8 +3,6 @@ package com.bobandthomas.Morbid.utils;
 import java.util.EventListener;
 import java.util.HashSet;
 
-import com.bobandthomas.Morbid.wrapper.Logger;
-
 /**
  * The Class ChangeNotifier.
  * Default implementation of the IChangeNotifier interface.

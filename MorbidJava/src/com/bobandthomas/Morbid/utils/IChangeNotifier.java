@@ -1,5 +1,7 @@
 package com.bobandthomas.Morbid.utils;
 
+import java.util.EventListener;
+
 /**
  * The Interface IChangeNotifier.
  * The Notifier/Listener pattern for Morbid.  Allows all implementing objects to keep a list of 
@@ -7,7 +9,7 @@ package com.bobandthomas.Morbid.utils;
  * 
  * @author Thomas Kreek The Interface IChangeNotifier.
  */
-public interface IChangeNotifier {
+public interface IChangeNotifier extends EventListener {
 	
 	/**
 	 * Gets the notify list.
