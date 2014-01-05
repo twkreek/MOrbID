@@ -95,6 +95,7 @@ public class Vertex extends Point3D {
 	public Vertex(Vec3D vec) {
 		super(vec);
 	}
+
 	
 
 }

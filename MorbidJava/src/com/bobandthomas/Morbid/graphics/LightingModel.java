@@ -9,10 +9,10 @@ import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class LightingModel extends CLoadableItem {
 
-		boolean DoLighting;
+		private boolean DoLighting;
 		private boolean DoScatterAlpha;;
-		boolean DoSpecularity;
-		boolean  DoDiffuse;
+		private boolean DoSpecularity;
+		private boolean  DoDiffuse;
 		boolean  LightFrontBack;
 		private boolean  DoDepthCue;
 		ColorQuad   Background;
@@ -24,10 +24,10 @@ public class LightingModel extends CLoadableItem {
 
 		public LightingModel()
 		{
-			DoLighting = true;
+			setDoLighting(true);
 			setDoScatterAlpha(true);
-			DoSpecularity = true;
-			DoDiffuse = true;
+			setDoSpecularity(true);
+			setDoDiffuse(true);
 			LightFrontBack = false;
 			setDoDepthCue(false);
 			DepthCueMin = 0.1f;
@@ -45,11 +45,15 @@ public class LightingModel extends CLoadableItem {
 			color = cq.BlendRGB(StaticColorQuad.Black.cq(), fraction);
 			return color;
 		}
+		public ColorQuad LightPoint(Material m, LightSourceList lights, Vertex v)
+		{
+			return LightPoint(m, lights, v, v.getNormal());
+		}
 		public ColorQuad LightPoint(Material m, LightSourceList lightList, Point3D pos, Point3D N1)
 		{
 			int i;
 
-			if (!DoLighting)
+			if (!isDoLighting())
 				return DepthCue(pos, m.getColor());
 
 			ColorQuad pColor = StaticColorQuad.Black.cq();
@@ -79,14 +83,14 @@ public class LightingModel extends CLoadableItem {
 						d = 0.0;
 
 				// diffuse contribution
-				if (DoDiffuse)
+				if (isDoDiffuse())
 				{
 				    ColorQuad l = L.color.multiply(m.getColor().multiply(m.kDiffuse)).multiply(d);
 					pColor = pColor.plus(l);
 				}
 
 				// specular contribution
-				if (m.useSpecularity && DoSpecularity)
+				if (m.useSpecularity && isDoSpecularity())
 				{
 					Vector3D V = new Vector3D(0.0f, 0.0f, -1.0f);
 					Vector3D ntemp = N.Scale(2*d).Sub(L.getLocation());
@@ -134,6 +138,30 @@ public class LightingModel extends CLoadableItem {
 
 		public void setDoScatterAlpha(boolean doScatterAlpha) {
 			DoScatterAlpha = doScatterAlpha;
+		}
+
+		public boolean isDoLighting() {
+			return DoLighting;
+		}
+
+		public void setDoLighting(boolean doLighting) {
+			DoLighting = doLighting;
+		}
+
+		public boolean isDoSpecularity() {
+			return DoSpecularity;
+		}
+
+		public void setDoSpecularity(boolean doSpecularity) {
+			DoSpecularity = doSpecularity;
+		}
+
+		public boolean isDoDiffuse() {
+			return DoDiffuse;
+		}
+
+		public void setDoDiffuse(boolean doDiffuse) {
+			DoDiffuse = doDiffuse;
 		}
 
 

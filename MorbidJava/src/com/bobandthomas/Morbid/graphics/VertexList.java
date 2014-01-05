@@ -27,7 +27,7 @@ public class VertexList extends ArrayList<Vertex> {
 	public Point3D getCenter() {
 		return bounds.center();
 	}
-	VertexList()
+	public VertexList()
 	{
 		bounds = new BoundingBox();
 	}

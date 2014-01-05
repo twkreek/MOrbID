@@ -253,5 +253,12 @@ public class BoundingBox {
 		rad.add(position);
 		addPoint(rad);
 	}
+
+	public double getWidth() {
+		return max.x -min.x;
+	}
+	public double getHeight() {
+		return max.y -min.y;
+	}
 	
 }

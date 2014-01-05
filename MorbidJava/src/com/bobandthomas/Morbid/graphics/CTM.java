@@ -1,6 +1,7 @@
 package com.bobandthomas.Morbid.graphics;
 
 import com.bobandthomas.Morbid.utils.Point3D;
+import com.bobandthomas.Morbid.utils.Vector3D;
 
 public class CTM {
 
@@ -271,6 +272,28 @@ public class CTM {
 			    return newPoint;
 			}
 
+			public Vertex XForm(Vertex v) 
+			{
+				if (isIdent()) return v;
+				Vertex newVertex = new Vertex();
+				
+				newVertex.x = v.x * ctm[0][0] + v.y * ctm[0][1] + v.z *ctm[0][2] + ctm[0][3];
+				newVertex.y = v.x * ctm[1][0] + v.y * ctm[1][1] + v.z *ctm[1][2] + ctm[1][3];
+				newVertex.z = v.x * ctm[2][0] + v.y * ctm[2][1] + v.z *ctm[2][2] + ctm[2][3];
+				
+				newVertex.setColor(v.getColor());
+				if (v.hasNormal())
+				{
+					Vector3D n = v.getNormal();
+					newVertex.x = n.x * ctm[0][0] + n.y * ctm[0][1] + n.z *ctm[0][2] + ctm[0][3];
+					newVertex.y = n.x * ctm[1][0] + n.y * ctm[1][1] + n.z *ctm[1][2] + ctm[1][3];
+					newVertex.z = n.x * ctm[2][0] + n.y * ctm[2][1] + n.z *ctm[2][2] + ctm[2][3];
+					n.Normalize();
+					newVertex.setNormal(n);
+					
+				}
+			    return newVertex;
+			}
 
 
 			Point3D Mul(Point3D p)

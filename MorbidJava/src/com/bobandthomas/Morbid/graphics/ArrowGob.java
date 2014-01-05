@@ -21,6 +21,11 @@ public class ArrowGob extends GobVector {
 			super(start, end);
 			style = tstyle;
 		}
+
+
+		public ArrowGob(Vertex vertex, Vertex vertex2) {
+			super(vertex, vertex2);
+		}
 };
 
 //Arrow Gob - start point and end point and color.

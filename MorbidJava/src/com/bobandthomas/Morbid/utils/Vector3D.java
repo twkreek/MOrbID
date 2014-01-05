@@ -6,7 +6,7 @@ import toxi.geom.Vec3D;
 
 public class Vector3D extends Point3D {
 
-	Point3D Mult(Point3D p) {
+	public Point3D Mult(Point3D p) {
 		return new Vector3D(p.x * x, p.y * y, p.z * z);
 	}
 
@@ -101,6 +101,11 @@ public class Vector3D extends Point3D {
 		y = -y;
 		z = -z;
 		return this;
+	}
+	public Vector3D Interpolate(Vector3D endPoint, double fraction)
+	{
+		return new Vector3D((endPoint.x+x)*fraction, (endPoint.y+y)*fraction, (endPoint.z+z)*fraction );
+		
 	}
 
 	public Vector3f getVec3f() {
