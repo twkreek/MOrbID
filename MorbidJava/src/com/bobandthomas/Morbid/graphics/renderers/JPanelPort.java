@@ -1,5 +1,6 @@
 package com.bobandthomas.Morbid.graphics.renderers;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,6 +9,7 @@ import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
@@ -25,20 +27,36 @@ public class JPanelPort extends Port implements ComponentListener {
 	public JPanelPort() {
 		panel = new JPanel()
 		{
-			public void update (Graphics g)
+			public void paint (Graphics g)
 			{
-
-			    // draw image on the screen
+			    // copy buffered image to the screen
 			    g.drawImage (buffer, 0, 0, this);
+			    g.setColor(getBackground());
+			    g.drawRect(10, 10, 50, 50);
+			    
 
 			} 
 		};
+		panel.setPreferredSize(new Dimension(100, 100));
 		panel.addComponentListener(this);	
-		/* start with a generic size */
-		buffer = new BufferedImage(320,240,BufferedImage.TYPE_INT_RGB);  
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED));
+		panel.setVisible(true);
+		screenBounds.setMin(new Point3D(0,0,0));
+		screenBounds.setMax(new Point3D(100,100,100));
 		
 		currentColor = StaticColorQuad.White.cq();
-		backgroundColor = StaticColorQuad.Black.cq();
+		backgroundColor = StaticColorQuad.Magenta.cq();
+		createOffscreenBuffer(100, 100);
+		panel.repaint();
+	}
+	void createOffscreenBuffer(int width, int height)
+	{
+		if (graphics != null)
+			graphics.dispose();
+		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	    graphics = buffer.createGraphics();
+	    Clear();
+ 		
 	}
 	public JPanel getPanel()
 	{
@@ -61,8 +79,8 @@ public class JPanelPort extends Port implements ComponentListener {
 
 	@Override
 	void Release() {
-		// TODO Auto-generated method stub
-
+		graphics.dispose();
+		buffer = null;
 	}
 
 	@Override
@@ -73,18 +91,16 @@ public class JPanelPort extends Port implements ComponentListener {
 
 	@Override
 	public void Clear() {
-	      Graphics2D g = buffer.createGraphics();
 //	        g.setRenderingHints(renderingHints);
-	        g.setColor(backgroundColor.get());
-	        g.fillRect(0, 0, buffer.getWidth(), buffer.getHeight());
-	        g.dispose();
+	       graphics.setColor(backgroundColor.get());
+	       graphics.fillRect(0, 0, panel.getWidth(), panel.getHeight());
 
 	}
 
 	@Override
 	public void SwapBuffers() {
-		// TODO Auto-generated method stub
-
+		this.panel.invalidate();
+		this.panel.repaint();
 	}
 
 	@Override
@@ -121,7 +137,7 @@ public class JPanelPort extends Port implements ComponentListener {
 
 	@Override
 	public void Vector(Point3D p1, Point3D p2) {
-		// TODO Auto-generated method stub
+		graphics.drawLine((int) p1.x, (int) p1.y, (int) p2.x, (int) p2.y);
 
 	}
 
@@ -156,8 +172,8 @@ public class JPanelPort extends Port implements ComponentListener {
 
 	@Override
 	public ColorQuad GetPoint(Point3D p) {
-		// TODO Auto-generated method stub
-		return null;
+		Color c = new Color(buffer.getRGB((int) p.x, (int)p.y));
+		return new ColorQuad(c);
 	}
 
 	@Override
@@ -176,16 +192,24 @@ public class JPanelPort extends Port implements ComponentListener {
 	public void componentResized(ComponentEvent arg0) {
 		Dimension dim;
 		dim = panel.getSize();
+		if (dim.height <= 0 || dim.width <= 0)
+			return;
 		screenBounds.setMin(new Point3D(0, 0, 0));
 		screenBounds.setMax(new Point3D(dim.width, dim.height, 0));
-		buffer = new BufferedImage(dim.width,dim.height,BufferedImage.TYPE_INT_RGB);  
-		graphics = (Graphics2D) buffer.getGraphics();
-		notifyChange(new PortChangeEvent(this));
+		createOffscreenBuffer(dim.width, dim.height);
+		this.fireEvent(new PortChangeEvent(this));
 	}
 
 	@Override
 	public void componentShown(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
+		Dimension dim;
+		dim = panel.getSize();
+		if (dim.height <= 0 || dim.width <= 0)
+			return;
+		screenBounds.setMin(new Point3D(0, 0, 0));
+		screenBounds.setMax(new Point3D(dim.width, dim.height, 0));
+		createOffscreenBuffer(dim.width, dim.height);
+		this.fireEvent(new PortChangeEvent(this));
 		
 	}
 

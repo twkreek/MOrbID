@@ -100,7 +100,7 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 			lm = new LightingModel();
 			worldBox = new BoundingBox();
 			squaredWorldBox = new BoundingBox();
-			Scale = new Point3D();
+			Scale = new Point3D(1, 1, 1);
 			Offset = new Point3D();
 			translate = new Point3D();
 
@@ -113,7 +113,7 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 			Material mat = gob.getMaterial();
 			{
 				if (mat != null)
-					statMat = mat;
+					statMat = new Material(mat);
 				else
 					statMat = new Material();
 				statMat.setColor(gob.getColor());
@@ -137,10 +137,10 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		{
 			port = p;
 			if (p == null && port != null)
-				port.unRegisterListener(this);
+				port.unRegisterListener((PortChangeListener) this);
 			if (port == null) return;
-			port.registerListener(this);
-			Resize();
+			port.registerListener((PortChangeListener) this);
+			Rescale();
 		}
 
 
@@ -180,7 +180,7 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 			}
 		 
 			port.SetScreenBounds(portBox);
-			Offset = portBox.size().Scale(1/2);
+			Offset = portBox.size().Scale(0.5);
 			mapCTM.identity();
 			mapCTM.scale(zoom);
 			mapCTM.transl(translate);
@@ -237,8 +237,9 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 
 		}
 		@Override
-		public void PortChanged(PortChangeEvent change) {
+		public void handleEvent(PortChangeEvent change) {
 			portBox = port.GetScreenBounds();
+			Resize();
 			Rescale();
 		}
 

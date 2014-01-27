@@ -1,9 +1,5 @@
 package com.bobandthomas.Morbid.graphics;
 
-import java.beans.BeanInfo;
-import java.beans.Expression;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.io.IOException;
 
 import com.bobandthomas.Morbid.utils.CLoadableTable;
@@ -130,7 +126,7 @@ public class MaterialList extends CLoadableTable<Material> {
 		return staticSet;
 	}
 	
-	public void test ()
+/*	public void test ()
 	{
 		Object o = new Material();
 	    try {
@@ -149,5 +145,6 @@ public class MaterialList extends CLoadableTable<Material> {
 	} catch (java.beans.IntrospectionException e) {
 	}
 	}
+	*/
 
 }

@@ -30,6 +30,11 @@ public class Point3D extends Point3d {
 		z=vec.z;
 	}
 	public void zero() { x = y = z = 0.0;}
+	
+	public int iX() { return (int) x; }
+	public int iY() { return (int) y; }
+	public int iZ() { return (int) z; }
+	
 
 
 	public Point3D Add(Vector3D p) { return new Point3D(x+p.x, y+p.y, z+p.z); }

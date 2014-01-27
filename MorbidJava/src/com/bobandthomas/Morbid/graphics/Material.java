@@ -7,10 +7,14 @@ import java.util.ArrayList;
 
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
+import com.bobandthomas.Morbid.utils.IChangeNotifier;
+import com.bobandthomas.Morbid.utils.IMorbidListener;
 import com.bobandthomas.Morbid.utils.IPropertyAccessor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptor;
 import com.bobandthomas.Morbid.utils.IPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.IPropertySetter;
+import com.bobandthomas.Morbid.utils.MorbidEvent;
+import com.bobandthomas.Morbid.utils.MorbidNotifier;
 import com.bobandthomas.Morbid.utils.PropertyAccessor;
 import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
@@ -18,6 +22,7 @@ import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 
 public class Material extends CLoadableItem implements IPropertyAccessor
 { 		
+
 		public static SimpleBeanInfo beanInfo = new SimpleBeanInfo()
 		{
 			@Override
@@ -56,26 +61,33 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 		public double getkDiffuse() {
 			return kDiffuse;
 		}
+		public ColorQuad getDiffuseColor() {
+			return new ColorQuad(color).multiply(kDiffuse);
+		}
 		public void setkDiffuse(double kDiffuse) {
 			this.kDiffuse = kDiffuse;
+			markDirty();
 		}
 		public double getkAmbient() {
 			return kAmbient;
 		}
 		public void setkAmbient(double kAmbient) {
 			this.kAmbient = kAmbient;
+			markDirty();
 		}
 		public double getKSpecular() {
 			return kSpecular;
 		}
 		public void setKSpecular(double kSpecularity) {
 			this.kSpecular = kSpecularity;
+			markDirty();
 		}
 		public double getkEmission() {
 			return kEmission;
 		}
 		public void setkEmission(double kEmission) {
 			this.kEmission = kEmission;
+			markDirty();
 		}
 		public double getAlpha() {
 			return alpha;
@@ -83,24 +95,28 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 		public void setAlpha(double alpha) {
 			this.alpha = alpha;
 			setUseFilter(true);
+			markDirty();
 		}
 		public int getSpecularity() {
 			return shininess;
 		}
 		public void setSpecularity(int specularity) {
 			this.shininess = specularity;
+			markDirty();
 		}
 		public boolean isUseSpecularity() {
 			return useSpecularity;
 		}
 		public void setUseSpecularity(boolean useSpecularity) {
 			this.useSpecularity = useSpecularity;
+			markDirty();
 		}
 		public boolean isUseFilter() {
 			return useFilter;
 		}
 		public void setUseFilter(boolean useFilter) {
 			this.useFilter = useFilter;
+			markDirty();
 		}
 		
 	
@@ -172,6 +188,7 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 		}
 		public void setColor(ColorQuad diffuse) {
 			this.color = diffuse;
+			markDirty();
 		}
 
        static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
@@ -338,7 +355,38 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 			
 			
 			// }}
+		
+		public static class MaterialChangeEvent extends MorbidEvent {
+			public MaterialChangeEvent(IChangeNotifier item) {
+				super(item);
+				speciallistener = MaterialChangeListener.class;
+			}
+		}
+
+		public interface MaterialChangeListener extends
+				IMorbidListener<MaterialChangeEvent> {
+		}
+
+		MorbidNotifier<MaterialChangeEvent, MaterialChangeListener> MaterialNotifier = new MorbidNotifier<MaterialChangeEvent, MaterialChangeListener>(
+				this);
+
+		public void fireEvent(MaterialChangeEvent event) {
+			MaterialNotifier.fireEvent(event);
+		}
+
+		public void registerListener(MaterialChangeListener listener) {
+			MaterialNotifier.registerListener(listener);
+		}
+
+		public void unRegisterListener(MaterialChangeListener listener) {
+			MaterialNotifier.unRegisterListener(listener);
+		}
+		@Override
+		public void markDirty() {
 			
-			
+			super.markDirty();
+			fireEvent(new MaterialChangeEvent(this));
+		}
+
 
 };

@@ -51,7 +51,6 @@ public class LightingModel extends CLoadableItem {
 		}
 		public ColorQuad LightPoint(Material m, LightSourceList lightList, Point3D pos, Point3D N1)
 		{
-			int i;
 
 			if (!isDoLighting())
 				return DepthCue(pos, m.getColor());
@@ -62,18 +61,19 @@ public class LightingModel extends CLoadableItem {
 			int nLights = lightList.size();
 			if (nLights == 0)
 			{
-				return pColor;
+				return m.getColor();
 			}
 
-			for (i=0 ; i < nLights; i++)
+			for (LightSource L : lightList)
 			{    
-				LightSource L = lightList.get(i);
 
-				// ambient contribution
+				/** ambient contribution from each light source */
 				ColorQuad ambient = L.color.multiply(L.ambient);
 				pColor = pColor.plus(ambient.multiply(m.kAmbient));
 				
-				double d = L.pos.Dot(N);
+				
+				/** setup dotProduct of light normal with surface normal; */
+				double d = L.getNormal().Dot(N);
 				if (d > 1.0)
 					d = 1.0;
 				if (d < 0.0)
@@ -83,35 +83,32 @@ public class LightingModel extends CLoadableItem {
 						d = 0.0;
 
 				// diffuse contribution
-				if (isDoDiffuse())
+				if (isDoDiffuse() && d>0.0)
 				{
-				    ColorQuad l = L.color.multiply(m.getColor().multiply(m.kDiffuse)).multiply(d);
+				    ColorQuad l = L.color.multiply(m.getDiffuseColor()).multiply(d);
 					pColor = pColor.plus(l);
 				}
 
-				// specular contribution
+				// specular contribution - Phong model
 				if (m.useSpecularity && isDoSpecularity())
 				{
-					Vector3D V = new Vector3D(0.0f, 0.0f, -1.0f);
-					Vector3D ntemp = N.Scale(2*d).Sub(L.getLocation());
-					double cosalpha =  /*( N.Scale(2*d).Sub(L.pos))*/ntemp.Dot(V);
-					//TODO verify new formula for cosalpha
-					if (cosalpha < 0)
-						cosalpha = 0.0f - cosalpha;
+					Vector3D V = new Vector3D(0.0f, 0.0f, 1.0f);
+					Vector3D ntemp = N.Scale(2*d).Sub(L.getNormal());
+					double cosalpha =  Math.abs(ntemp.Dot(V));
 
 					if (cosalpha > 1.0)
 						cosalpha = 1.0;
 					else
 						cosalpha = (float) Math.pow(cosalpha, m.shininess);
+					
 						/* I = Iaka + IpKd L dot N */
 					cosalpha = cosalpha * m.kSpecular;
 					ColorQuad specular = L.color.multiply(cosalpha);
 					pColor = pColor.plus(specular);
 				}
 			}
-			pColor = pColor.multiply(1/ (nLights *1.0f));
+			pColor.clampMax(1.0f);
 			pColor = pColor.plus(m.getColor().multiply(m.kEmission));
-			pColor.Clamp(0.999f );
 
 			return DepthCue(pos, pColor);	
 		}

@@ -14,6 +14,10 @@ public class Vector3D extends Point3D {
 		return new Vector3D(v.x + x, v.y + y, v.z + z);
 	}
 
+	public Vector3D Sub(Vector3D v) {
+		return new Vector3D(x - v.x, y - v.y, z - v.z);
+	}
+
 	public Point3D Add(Point3D p) {
 		return new Point3D(x + p.x, y + p.y, z + p.z);
 	}

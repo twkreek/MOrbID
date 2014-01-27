@@ -12,6 +12,9 @@ import java.util.EventObject;
  */
 public class MorbidEvent extends EventObject {
 	
+	/** used to identify specialized listener requirements */
+	public Class<?> speciallistener = null;
+	
 	/** The source object that originated the event */
 	IChangeNotifier source;
 	

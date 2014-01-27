@@ -20,7 +20,6 @@ import com.bobandthomas.Morbid.graphics.VertexList;
 import com.bobandthomas.Morbid.graphics.renderers.Renderer;
 import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.ColorQuad;
-import com.bobandthomas.Morbid.utils.ColorQuadPalette;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Point3DList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
@@ -41,7 +40,7 @@ public class ZRender extends Renderer {
 		long yHei;
 		int maxSize;
 		int z[];
-		double ZBufferOffset = 0;
+		double ZBufferOffset = -1;
 
 		ZBuffer()
 		{
@@ -51,6 +50,8 @@ public class ZRender extends Renderer {
 
 		void Clear()
 		{					
+			if (z == null)
+				return;
 			for (int i = 0; i < z.length; i++)
 				z[i] = 0;
 		}
@@ -62,16 +63,14 @@ public class ZRender extends Renderer {
 			yHei = y;
 			maxSize = x * y;
 			z = new int[maxSize];
-			if (z!= null)
-			{
-				xWid = yHei = 0;
-			}
 
 			Clear();
 		}
 
 		boolean ZWrite(Point3D p)
 		{
+			if (z==null)
+				return false;
 			if (p.x < 0 || p.y < 0)
 				return false;
 			if (p.x >= xWid || p.y >= yHei)
@@ -100,6 +99,8 @@ public class ZRender extends Renderer {
 
 		double  ZRead(Point3D p)
 		{
+			if (z == null) 
+				return 0;
 			if (p.x < 0 || p.y < 0)
 				return 0;
 			int index = (int) ((yHei * p.x) + p.y);
@@ -133,14 +134,14 @@ public class ZRender extends Renderer {
 		lm.setDoScatterAlpha(true);
 		lm.setDoSpecularity(true);
 		lm.setDoDiffuse(true);
-		m_nShadeType = ZBShadeType.ZB_FLAT;
+		m_nShadeType = ZBShadeType.ZB_PHONG;
+		z = new ZBuffer();
 	}
 
 
 
 	public void DoRender(GobListSet goblist, LightSourceList lights, CTM newviewCTM)
 	{
-		int i;
 		if (port == null)
 			return;
 		currentLights = lights;
@@ -153,10 +154,11 @@ public class ZRender extends Renderer {
 		for (GobList gl : goblist)
 			Dispatch(gl);
 	}
-
+	@Override
 	public void Resize()
 	{   
 		super.Resize();
+		Scale.set(portBox.getWidth(), portBox.getHeight(), 1);
 		z.Resize((int) portBox.getWidth(), (int) portBox.getHeight());
 	}
 
@@ -168,7 +170,7 @@ public class ZRender extends Renderer {
 	void DrawPixel(Point3D p, Point3D normal)
 	{
 		ColorQuad cq = StaticColorQuad.Black.cq();
-		if (currentMaterial != null)
+		if (currentMaterial == null)
 			return;
 
 
@@ -315,7 +317,7 @@ public class ZRender extends Renderer {
 	}
 	public void Label(LabelGob lg){}
 	static boolean first = true;
-	static double[]zl = new double[100];
+	static double[]zl = new double[101];
 	void SphereScanLine(Point3D p, Point3D center, double r)
 	{
 		if (first)

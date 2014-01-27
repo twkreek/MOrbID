@@ -1,28 +1,44 @@
 package com.bobandthomas.Morbid.graphics.renderers;
 
-import java.util.EventListener;
-
 import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.IChangeNotifier;
+import com.bobandthomas.Morbid.utils.IMorbidListener;
+import com.bobandthomas.Morbid.utils.IMorbidNotifier;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
+import com.bobandthomas.Morbid.utils.MorbidNotifier;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Point3DList;
 
-public abstract class Port extends CLoadableItem {
+public abstract class Port extends CLoadableItem implements IMorbidNotifier<Port.PortChangeEvent, Port.PortChangeListener> {
 	public enum PortCapabilities
 	{
 		VECTOR, BITMAP, THREE_D, SERIALIZED, DOUBLEBUFFER, MONOCHROME
 	};
-		class PortChangeEvent extends MorbidEvent {
-
+		static class PortChangeEvent extends MorbidEvent {
+			public enum PortChangeEventType
+			{
+				RESIZED, CLOSED, MOVED, CLEARED;
+			}; 
+			public PortChangeEventType type;
 			public PortChangeEvent(IChangeNotifier item) {
 				super(item);
+				speciallistener = PortChangeListener.class;
 			}
 		}
-		interface PortChangeListener extends EventListener {
-			void PortChanged(PortChangeEvent change);
+		interface PortChangeListener extends IMorbidListener<PortChangeEvent> {
+		}
+		MorbidNotifier<PortChangeEvent, PortChangeListener> portNotifier = new MorbidNotifier<PortChangeEvent, PortChangeListener>(this);
+
+		public void fireEvent(PortChangeEvent event) {
+			portNotifier.fireEvent(event);
+		}
+		public void registerListener(PortChangeListener listener) {
+			portNotifier.registerListener(listener);
+		}
+		public void unRegisterListener(PortChangeListener listener) {
+			portNotifier.unRegisterListener(listener);
 		}
 
 		BoundingBox screenBounds;
