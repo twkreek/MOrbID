@@ -62,6 +62,11 @@ public abstract class MoleculeFileReader {
 			// does not advace the counter;
 			return ss[currentIndex];
 		}
+		
+		public String toString()
+		{
+			return str;
+		}
 
 	}
 

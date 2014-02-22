@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.bobandthomas.Morbid.molecule.Atom;
 import com.bobandthomas.Morbid.molecule.Bond;
+import com.bobandthomas.Morbid.molecule.MoleculeProperty;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.wrapper.Logger;
 
@@ -29,6 +30,20 @@ public class FileReaderSDF extends MoleculeFileReader {
 			molecule.Atoms().get(atomID-1).setCharge(charge);
 		}
 		molecule.CalcBounds();
+	}
+	MoleculeProperty readProperty(String property)
+	{
+		property.replace('_', ' ');
+		String value = "";
+		for (Tokenizer t = getNextLine(); t.size() != 0; t = getNextLine())
+		{
+			value += t.toString() + ", ";
+		}
+		System.out.println(value);
+		MoleculeProperty mp = new MoleculeProperty(property, value, "");
+		molecule.addProperty(mp);
+		return mp;
+
 	}
 
 	@Override
@@ -77,13 +92,13 @@ public class FileReaderSDF extends MoleculeFileReader {
 				{
 					String property = t.GetStringToken();
 					property = property.replace('<', ' ').replace('>', ' ').trim();
+					property = property.replace('_', ' ');
 
-					if (property.equals("PUBCHEM_MMFF94_PARTIAL_CHARGES"))
+					if (property.equals("PUBCHEM MMFF94 PARTIAL CHARGES"))
 						readPartialCharges();
 					else
 					{
-						property.replace('_', ' ');
-						molecule.addProperty(property, "", "");
+						readProperty(property);
 					}
 				}
 				line = br.readLine();
