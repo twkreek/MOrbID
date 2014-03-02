@@ -34,6 +34,8 @@ public class FileReaderSDF extends MoleculeFileReader {
 	MoleculeProperty readProperty(String property)
 	{
 		property.replace('_', ' ');
+		if (property.startsWith("PUBCHEM "))
+			property = property.substring("PUBCHEM ".length());
 		String value = "";
 		for (Tokenizer t = getNextLine(); t.size() != 0; t = getNextLine())
 		{
