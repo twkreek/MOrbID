@@ -16,6 +16,8 @@ public class MPropertyDescriptor extends CLoadableItem implements IPropertySette
 	private Class classType;
 	private boolean editable;
 	private IPropertySetter setter;
+	private int preferredWidth = 0;
+	
 	public MPropertyDescriptor(long ID, String n, @SuppressWarnings("rawtypes") Class c,
 			boolean e) {
 		setID(ID);
@@ -80,5 +82,13 @@ public class MPropertyDescriptor extends CLoadableItem implements IPropertySette
 		return setter.get(obj);
 	}
 
+	@Override
+	public int getPreferredWidth() {
+		return preferredWidth;
+	}
 
+	public void setPreferredWidth( int width)
+	{
+		preferredWidth = width;
+	}
 }

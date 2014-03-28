@@ -45,6 +45,14 @@ public abstract class CLoadableTable<T extends CLoadableItem & IPropertyAccessor
 			return false;
 			return get(0).getDescriptors().isPropertyEditable(columnIndex);
 	}
+	
+	public int getColumnWidth(int columnIndex)
+	{
+		if (size() == 0)
+			return 0;
+		return get(0).getDescriptors().getPropertyPreferredWidth(columnIndex);
+		
+	}
 
 @Override
 	public Object getValueAt(int rowIndex, int columnIndex) {

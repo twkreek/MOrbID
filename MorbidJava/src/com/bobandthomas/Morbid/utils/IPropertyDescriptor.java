@@ -11,5 +11,7 @@ public interface IPropertyDescriptor {
 	public String getName();
 	
 	public int getIndex();
+	
+	public int getPreferredWidth();
 
 }

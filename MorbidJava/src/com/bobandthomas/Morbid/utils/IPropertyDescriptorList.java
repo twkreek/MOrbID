@@ -12,6 +12,8 @@ public interface IPropertyDescriptorList {
 	
 	int getPropertyIndex(String name);
 	
+	int getPropertyPreferredWidth(int index);
+	
 	IPropertyDescriptor getDescriptor(int index);
 	IPropertyDescriptor getDescriptor(String name);
 	

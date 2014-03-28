@@ -25,6 +25,14 @@ public class TablePanel<T extends CLoadableTable<?>> extends JPanel {
 		setupRenderers();
 		add(table.getTableHeader(), BorderLayout.PAGE_START);
 		add(new JScrollPane(table), BorderLayout.CENTER);
+		
+		for (int i = 0; i< model.getColumnCount(); i++)
+		{
+			int width = t.getColumnWidth(i);
+			if (width == 0)
+				break;
+			table.getColumnModel().getColumn(i).setPreferredWidth(width);
+		}
 	}
 
 	private void setupRenderers()

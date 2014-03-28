@@ -83,6 +83,11 @@ public class MoleculeProperty extends CLoadableItem implements IPropertyAccessor
 			addPropertyDescriptor(1, "Value", String.class, true);
 			addPropertyDescriptor(2, "Units", String.class, true);
 			addPropertyDescriptor(3, "Number", Number.class, false);
+			setPropertyPreferredWidth(0, 300);
+			setPropertyPreferredWidth(1, 500);
+			setPropertyPreferredWidth(2, 150);
+			setPropertyPreferredWidth(3, 50);
+				
 			
 		}
 

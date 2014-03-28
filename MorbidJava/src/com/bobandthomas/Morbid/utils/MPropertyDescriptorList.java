@@ -6,8 +6,9 @@ import java.util.HashMap;
 public abstract class MPropertyDescriptorList implements IPropertyDescriptorList
 {
 
-	ArrayList<IPropertyDescriptor> list = new ArrayList<IPropertyDescriptor>();
-	HashMap<String, IPropertyDescriptor> nameIndex = new HashMap<String,IPropertyDescriptor>();
+
+	ArrayList<MPropertyDescriptor> list = new ArrayList<MPropertyDescriptor>();
+	HashMap<String, MPropertyDescriptor> nameIndex = new HashMap<String,MPropertyDescriptor>();
 	public MPropertyDescriptorList()
 	{
 //		this.setUseByName(true);
@@ -35,6 +36,16 @@ public abstract class MPropertyDescriptorList implements IPropertyDescriptorList
 	{
 		return list.get(index).getName();
 	}
+	@Override
+	public int getPropertyPreferredWidth(int index) {
+		return list.get(index).getPreferredWidth();
+	}
+	
+	public void setPropertyPreferredWidth(int index, int width)
+	{
+		list.get(index).setPreferredWidth(width);
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.bobandthomas.Morbid.UI.IPropertyAccess#isEditable(int)
 	 */
@@ -73,5 +84,6 @@ public abstract class MPropertyDescriptorList implements IPropertyDescriptorList
 		return nameIndex.get(name);
 	}
 
+	
 
 }
