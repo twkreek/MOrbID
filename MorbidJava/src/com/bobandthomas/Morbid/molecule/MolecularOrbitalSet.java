@@ -1,72 +1,225 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.molecule;
 
 import java.util.ArrayList;
 
 import com.bobandthomas.Morbid.utils.CLoadableItem;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MolecularOrbitalSet.
+ * 
+ * @author Thomas Kreek
+ */
 public class MolecularOrbitalSet extends CLoadableItem {
 	
+	/** The num filled levels. */
 	public int numFilledLevels;
+	
+	/**
+	 * The Enum PrimaryQuantum.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum PrimaryQuantum
 	{
+		
+		/** The s. */
 		S (0),
+		
+		/** The p. */
 		P (1),
+		
+		/** The d. */
 		D (2), 
+		
+		/** The f. */
 		F (3);
+		
+		/**
+		 * Instantiates a new primary quantum.
+		 * 
+		 * @param index
+		 *            the index
+		 */
 		PrimaryQuantum (int index)
 		{
 			
 		}
 	}
+	
+	/**
+	 * The Enum sOrbital.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum sOrbital
 	{
+		
+		/** The s. */
 		s(0);
+		
+		/**
+		 * Instantiates a new s orbital.
+		 * 
+		 * @param index
+		 *            the index
+		 */
 		sOrbital(int index)
 		{
 			
 		}
 	}
+	
+	/**
+	 * The Enum pOrb.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum pOrb 
 	{
+		
+		/** The px. */
 		px (-1),
+		
+		/** The py. */
 		py (0),
+		
+		/** The pz. */
 		pz (1);
+		
+		/**
+		 * Instantiates a new p orb.
+		 * 
+		 * @param index
+		 *            the index
+		 */
 		pOrb(int index)
 		{
 			
 		}
 	} ;
+	
+	/**
+	 * The Enum dOrb.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum dOrb{
+		
+		/** The dx2y2. */
 		dx2y2 (-2),
+		
+		/** The dz2. */
 		dz2 (-1),
+		
+		/** The dxy. */
 		dxy (0),
+		
+		/** The dyz. */
 		dyz (1),
+		
+		/** The dxz. */
 		dxz (2);
-		 dOrb(int index)
+		 
+ 		/**
+		 * Instantiates a new d orb.
+		 * 
+		 * @param index
+		 *            the index
+		 */
+ 		dOrb(int index)
 		{
 			
 		}
 	} ;
 	
 
+	/**
+	 * The Class AtomicOrbital.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public class AtomicOrbital {
+		
+		/** The l. */
 		public int L;
+		
+		/** The L1. */
 		public PrimaryQuantum L1;
+		
+		/** The n. */
 		public int N;
+		
+		/** The Ml. */
 		public int Ml;
+		
+		/** The atom number. */
 		public int atomNumber;
+		
+		/** The atom. */
 		public Atom atom;
+		
+		/** The contracted. */
 		public double contracted;
+		
+		/** The zeta. */
 		public double zeta;
+		
+		/** The zeta2. */
 		public double[] zeta2 = new double[3];
 	};
 
+	/**
+	 * The Class MolecularOrbital.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public class MolecularOrbital {
+		
+		/** The calcd. */
 		boolean calcd;
+		
+		/** The energy. */
 		double energy;
+		
+		/** The degeneracy set. */
 		int degeneracySet;
+		
+		/** The occupied. */
 		boolean occupied;
+		
+		/** The is homo lumo. */
 		boolean isHomoLumo;
+		
+		/**
+		 * Instantiates a new molecular orbital.
+		 */
 		MolecularOrbital()
 		{
 //		 	dataSet = nullptr;
@@ -77,25 +230,69 @@ public class MolecularOrbitalSet extends CLoadableItem {
 
 	};
 
+	/** The molecule. */
 	Molecule molecule;
+	
+	/** The mo. */
 	MolecularOrbital[] mo;
+	
+	/** The ao. */
 	public AtomicOrbital[] ao;
+	
+	/** The coeff array. */
 	double[] coeffArray;
+	
+	/** The has energies. */
 	boolean hasEnergies;
+	
+	/** The n orbitals. */
 	public int nOrbitals;
+	
+	/** The m_n electrons. */
 	int m_nElectrons;
+	
+	/** The homo. */
 	public int HOMO;
+	
+	/** The lumo. */
 	int LUMO;
+	
+	/** The mo names. */
 	ArrayList<String> moNames = null;
 
+	/**
+	 * Coefficient.
+	 * 
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 * @return the double
+	 */
 	public double coefficient(int i, int j) {
 		return coeffArray[i * nOrbitals + j];
 	}
 
+	/**
+	 * Coefficient.
+	 * 
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 * @param f
+	 *            the f
+	 */
 	public void coefficient(int i, int j, double f) {
 		coeffArray[i * nOrbitals + j] = f;
 	}
 
+	/**
+	 * Instantiates a new molecular orbital set.
+	 * 
+	 * @param orbCount
+	 *            the orb count
+	 */
 	public MolecularOrbitalSet(int orbCount) {
 
 		nOrbitals = orbCount; 
@@ -110,6 +307,14 @@ public class MolecularOrbitalSet extends CLoadableItem {
 		coeffArray = new double[nOrbitals*nOrbitals];
 		m_nElectrons = 0;
 	}
+	
+	/**
+	 * Gets the mo name.
+	 * 
+	 * @param moNumber
+	 *            the mo number
+	 * @return the string
+	 */
 	String GetMOName(int moNumber)
 	{
 		String name = new String("unimplemented");
@@ -132,6 +337,12 @@ public class MolecularOrbitalSet extends CLoadableItem {
 		}
 		return name;
 	}
+	
+	/**
+	 * Gets the MO name list.
+	 * 
+	 * @return the MO name list
+	 */
 	public ArrayList<String> getMONameList()
 	{
 		moNames = new ArrayList<String>();
@@ -142,6 +353,10 @@ public class MolecularOrbitalSet extends CLoadableItem {
 			
 		return moNames;
 	}
+	
+	/**
+	 * Update mo list.
+	 */
 	public void UpdateMOList()
 	{
 		for (int i = 0; i < nOrbitals; i++)
@@ -168,6 +383,13 @@ public class MolecularOrbitalSet extends CLoadableItem {
 			
 		}
 	}
+	
+	/**
+	 * Construct ao list.
+	 * 
+	 * @param mol
+	 *            the mol
+	 */
 	public void ConstructAOList(Molecule mol)
 	{   
 		int i;

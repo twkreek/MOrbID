@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.UI;
 
 import java.awt.BorderLayout;
@@ -13,11 +39,28 @@ import com.bobandthomas.Morbid.graphics.Material;
 import com.bobandthomas.Morbid.utils.CLoadableTable;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TablePanel.
+ * 
+ * @author Thomas Kreek
+ * @param <T>
+ *            the generic type
+ */
 public class TablePanel<T extends CLoadableTable<?>> extends JPanel {
+	
+	/** The model. */
 	TableModel model;
 
+	/** The table. */
 	JTable table;
 
+	/**
+	 * Instantiates a new table panel.
+	 * 
+	 * @param t
+	 *            the t
+	 */
 	public TablePanel(CLoadableTable<?> t) {
 		model = t;
 		setLayout(new BorderLayout());
@@ -35,6 +78,9 @@ public class TablePanel<T extends CLoadableTable<?>> extends JPanel {
 		}
 	}
 
+	/**
+	 * Setup renderers.
+	 */
 	private void setupRenderers()
 	{
 		table.setDefaultRenderer(ColorQuad.class, new ColorQuadTableCell().getRenderer());
@@ -44,6 +90,11 @@ public class TablePanel<T extends CLoadableTable<?>> extends JPanel {
 
 	}
 
+	/**
+	 * Do dialog.
+	 * 
+	 * @return the j dialog
+	 */
 	public JDialog doDialog()
 	{
 		JDialog dialog = new JDialog();

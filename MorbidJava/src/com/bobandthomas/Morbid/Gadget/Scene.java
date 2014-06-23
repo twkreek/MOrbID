@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.Gadget;
 
 import com.bobandthomas.Morbid.graphics.CTM;
@@ -19,83 +45,209 @@ import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Vector3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Scene.
+ * 
+ * @author Thomas Kreek
+ */
 public class Scene extends CLoadableItem implements IChangeNotifier {
 
+	/**
+	 * The Enum LayerPosition.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum LayerPosition {
-		LayerBack(0), LayerModel(1), LayerFront(2);
+		
+		/** The Layer back. */
+		LayerBack(0), 
+ /** The Layer model. */
+ LayerModel(1), 
+ /** The Layer front. */
+ LayerFront(2);
 		// LayerMax (3);
+		/** The layer. */
 		int layer;
 
+		/**
+		 * Instantiates a new layer position.
+		 * 
+		 * @param i
+		 *            the i
+		 */
 		LayerPosition(int i) {
 			layer = i;
 		}
 	};
 
+	/**
+	 * The Class SceneDirtyFlag.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public class SceneDirtyFlag {
+		
+		/** The gadget list. */
 		boolean gadgetList;
+		
+		/** The gob list. */
 		boolean gobList;
+		
+		/** The lighting model. */
 		boolean lightingModel;
+		
+		/** The lights. */
 		boolean lights;
+		
+		/** The materials. */
 		boolean materials;
+		
+		/** The offscreen bm. */
 		boolean offscreenBM;
+		
+		/** The onscreen bm. */
 		boolean onscreenBM;
+		
+		/** The total ctm. */
 		boolean totalCTM;
+		
+		/** The view ctm. */
 		boolean viewCTM;
+		
+		/** The world box. */
 		boolean worldBox;
 
+		/**
+		 * Clear.
+		 */
 		void Clear() {
 			set(false);
 		}
 
+		/**
+		 * Gets the.
+		 * 
+		 * @return true, if successful
+		 */
 		boolean get() {
 			return gadgetList | gobList | lightingModel | lights | offscreenBM
 					| onscreenBM | totalCTM | viewCTM | worldBox;
 		}
 
+		/**
+		 * Checks if is dirty.
+		 * 
+		 * @return true, if successful
+		 */
 		boolean IsDirty() {
 			return gadgetList | gobList | lightingModel | lights | offscreenBM
 					| onscreenBM | totalCTM | viewCTM | worldBox;
 		}
 
+		/**
+		 * Sets the.
+		 * 
+		 * @param value
+		 *            the value
+		 */
 		void set(boolean value) {
 			gadgetList = gobList = lightingModel = lights = offscreenBM = onscreenBM = totalCTM = viewCTM = worldBox = value;
 
 		}
 	}
 
+	/**
+	 * The Enum SceneDirtyTypes.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum SceneDirtyTypes {
 
-		gadgetList, gobList, lightingModel, lights, materials, offscreenBM, onscreenBM, totalCTM, viewCTM, worldBox;
+		/** The gadget list. */
+		gadgetList, /** The gob list. */
+ gobList, /** The lighting model. */
+ lightingModel, /** The lights. */
+ lights, /** The materials. */
+ materials, /** The offscreen bm. */
+ offscreenBM, /** The onscreen bm. */
+ onscreenBM, /** The total ctm. */
+ totalCTM, /** The view ctm. */
+ viewCTM, /** The world box. */
+ worldBox;
 	}
 
+	/** The rendering. */
 	private boolean rendering = false;
+	
+	/** The background color. */
 	ColorQuad backgroundColor;
+	
+	/** The current renderer. */
 	Renderer currentRenderer;
+	
+	/** The dirty. */
 	SceneDirtyFlag dirty;
+	
+	/** The gadget list. */
 	GadgetList gadgetList; // we own, we delete;
+	
+	/** The gl layer set. */
 	GobListLayers glLayerSet = new GobListLayers();
 
+	/** The light sources. */
 	LightSourceList lightSources; // we own, we delete;
 
+	/** The molecule. */
 	Molecule molecule; // borrowed
 	
+	/**
+	 * Gets the zoom.
+	 * 
+	 * @return the zoom
+	 */
 	public double getZoom() { return rm.getZoom();}
+	
+	/**
+	 * Sets the zoom.
+	 * 
+	 * @param z
+	 *            the new zoom
+	 */
 	public void setZoom(double z) { rm.setZoom(z); markDirty();}
 
+	/** The pause render. */
 	boolean pauseRender;
 
 
+	/**
+	 * Checks if is pause render.
+	 * 
+	 * @return true, if is pause render
+	 */
 	public boolean isPauseRender() {
 		return pauseRender;
 	}
 
+	/**
+	 * Sets the pause render.
+	 * 
+	 * @param pauseRender
+	 *            the new pause render
+	 */
 	public void setPauseRender(boolean pauseRender) {
 		this.pauseRender = pauseRender;
 	}
 
+	/** The rm. */
 	RenderManager rm;
+	
+	/** The total ctm. */
 	CTM totalCTM;
 
+	/**
+	 * Instantiates a new scene.
+	 */
 	public Scene() {
 		gadgetList = new GadgetList(this);
 		gadgetList.registerListener(this);
@@ -144,6 +296,14 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 
 	}
 
+	/**
+	 * Adds the gadget.
+	 * 
+	 * @param g
+	 *            the g
+	 * @param l
+	 *            the l
+	 */
 	public void AddGadget(Gadget g, LayerPosition l) {
 		dirty.gadgetList = true;
 		dirty.gobList = true;
@@ -162,10 +322,21 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 		notifyChange(event);
 	}
 
+	/**
+	 * Adds the renderer.
+	 * 
+	 * @param rq
+	 *            the rq
+	 * @param ren
+	 *            the ren
+	 */
 	void AddRenderer(RenderManagerQuality rq, Renderer ren) {
 		rm.AddRenderer(rq, ren);
 	}
 
+	/**
+	 * Creates a default gadgets.
+	 */
 	void CreateDefaultGadgets() {
 		if (gadgetList != null)
 			return;
@@ -177,6 +348,14 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 
 	}
 
+	/**
+	 * Drag.
+	 * 
+	 * @param p1
+	 *            the p1
+	 * @param p2
+	 *            the p2
+	 */
 	void Drag(Point3D p1, Point3D p2) {
 		Vector3D v1 = p1.getVector();
 		Vector3D v2 = p2.getVector();
@@ -200,22 +379,45 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 		rm.dirty.onscreenBM = true;
 	}
 
+	/**
+	 * Gets the gadget list.
+	 * 
+	 * @return the gadget list
+	 */
 	GadgetList GetGadgetList() {
 		return gadgetList;
 	}
 
+	/**
+	 * Gets the light source list.
+	 * 
+	 * @return the light source list
+	 */
 	LightSourceList GetLightSourceList() {
 		return lightSources;
 	}
 
+	/**
+	 * Gets the molecule.
+	 * 
+	 * @return the molecule
+	 */
 	public Molecule GetMolecule() {
 		return molecule;
 	}
 
+	/**
+	 * Gets the view ctm.
+	 * 
+	 * @return the ctm
+	 */
 	CTM GetViewCTM() {
 		return totalCTM;
 	}
 
+	/**
+	 * Render.
+	 */
 	public void Render() {
 		// int i;
 		// PIWaitCursor waitCursor;
@@ -271,10 +473,19 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 		rendering = false;
 	}
 
+	/**
+	 * Resize.
+	 */
 	void Resize() {
 		rm.Resize();
 	}
 
+	/**
+	 * Sets the molecule.
+	 * 
+	 * @param theMol
+	 *            the the mol
+	 */
 	public void SetMolecule(Molecule theMol) {
 		molecule = theMol;
 		SetWorldBox(molecule.GetBounds());
@@ -284,11 +495,23 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 			pgadget.markDirty();
 	}
 
+	/**
+	 * Sets the port.
+	 * 
+	 * @param inport
+	 *            the inport
+	 */
 	public void SetPort(Port inport) {
 		rm.SetPort(inport);
 
 	}
 
+	/**
+	 * Sets the renderer.
+	 * 
+	 * @param renderer
+	 *            the renderer
+	 */
 	public void SetRenderer(Renderer renderer) {
 		rm.AddRenderer(RenderManager.RenderManagerQuality.renderNormal,
 				renderer);
@@ -297,6 +520,14 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 				renderer);
 	}
 
+	/**
+	 * Sets the render mode.
+	 * 
+	 * @param srm
+	 *            the srm
+	 * @param update
+	 *            the update
+	 */
 	void SetRenderMode(RenderManagerMode srm, boolean update) {
 		rm.SetRenderMode(srm, update);
 		if (update) {
@@ -307,12 +538,22 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 		}
 	}
 
+	/**
+	 * Sets the world box.
+	 * 
+	 * @param wb
+	 *            the wb
+	 */
 	void SetWorldBox(BoundingBox wb) {
 		if (rm == null)
 			return;
 		dirty.worldBox = true;
 		rm.SetWorldBox(wb);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.utils.CLoadableItem#handleNotify(com.bobandthomas.Morbid.utils.MorbidEvent)
+	 */
 	@Override
 	public MorbidEvent handleNotify(MorbidEvent source) {
 		if(!rendering)
@@ -321,6 +562,9 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 	}
 
 
+	/**
+	 * Update.
+	 */
 	void Update() {
 	}
 	

@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.graphics.renderers;
 
 import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
@@ -28,14 +54,29 @@ import com.bobandthomas.Morbid.utils.Point3DList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 import com.bobandthomas.Morbid.utils.Vector3D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RendererSimple.
+ * 
+ * @author Thomas Kreek
+ */
 public class RendererSimple extends Renderer {
+		
+		/** The m_b shade lines. */
 		boolean m_bShadeLines;
+		
+		/** The m_n shade steps. */
 		int m_nShadeSteps;
+		
+		/** The m_b split poly. */
 		boolean  m_bSplitPoly;
 //		PropAlias(bool, ShadeLines, m_bShadeLines);
 //		PropAlias(int, ShadeSteps, m_nShadeSteps);
 //		PropAlias(bool, SplitPolygons, m_bSplitPoly);
-		RendererSimple()
+		/**
+ * Instantiates a new renderer simple.
+ */
+RendererSimple()
 		{
 			lm.setDoDepthCue(true);
 			lm.setDoScatterAlpha(false);
@@ -44,14 +85,26 @@ public class RendererSimple extends Renderer {
 			m_bSplitPoly = false;
 		}
 
+		/**
+		 * The Class depth.
+		 * 
+		 * @author Thomas Kreek
+		 */
 		class depth implements Comparator<Gob>
 		{
+			
+			/* (non-Javadoc)
+			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+			 */
 			@Override
 			public int compare(Gob arg0, Gob arg1) {
 				return (int) (arg0.center().z - arg1.center().z);
 			}
 		};
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#DoRender(com.bobandthomas.Morbid.graphics.GobListSet, com.bobandthomas.Morbid.graphics.LightSourceList, com.bobandthomas.Morbid.graphics.CTM)
+		 */
 		public void DoRender(GobListSet  gobListSet, LightSourceList  lights, CTM  inViewCTM)
 		{
 			int i;
@@ -138,6 +191,9 @@ public class RendererSimple extends Renderer {
 		}
 
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Vector(com.bobandthomas.Morbid.graphics.GobVector)
+		 */
 		public void Vector(GobVector  g)
 		{
 			boolean shade = false;
@@ -182,6 +238,9 @@ public class RendererSimple extends Renderer {
 
 		}
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Arrow(com.bobandthomas.Morbid.graphics.ArrowGob)
+		 */
 		public void Arrow(ArrowGob  g)
 		{
 			Vector(g);
@@ -211,6 +270,9 @@ public class RendererSimple extends Renderer {
 		        port.LineTo(wingTip);
 		}
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#String(com.bobandthomas.Morbid.graphics.StringGob)
+		 */
 		public void String(StringGob  g)
 		{
 			port.TextColor(g.getColor());
@@ -218,12 +280,18 @@ public class RendererSimple extends Renderer {
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Label(com.bobandthomas.Morbid.graphics.LabelGob)
+		 */
 		public void Label(LabelGob g)
 		{   
 			port.TextColor(g.getColor());
 		 	port.Text(ctm.XForm(g.getPoint()), g.getName());
 		}
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Circle(com.bobandthomas.Morbid.graphics.CircleGob)
+		 */
 		public void Circle(CircleGob g)
 		{
 			port.FillColor(g.getColor());
@@ -232,6 +300,10 @@ public class RendererSimple extends Renderer {
 			Point3D rad = Scale.Scale(zoom* g.r);
 		 	port.Circle(ctm.XForm(g.getPoint()), rad);
 		}
+		
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#LabeledCircle(com.bobandthomas.Morbid.graphics.LabeledCircleGob)
+		 */
 		public void LabeledCircle(LabeledCircleGob  g)
 		{
 			Circle(g);
@@ -240,6 +312,10 @@ public class RendererSimple extends Renderer {
 			
 
 		}
+		
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Cylinder(com.bobandthomas.Morbid.graphics.CylinderGob)
+		 */
 		public void Cylinder(CylinderGob g)
 		{
 			Point3D newEnd = ctm.XForm(g.getEndPoint());
@@ -268,6 +344,9 @@ public class RendererSimple extends Renderer {
 		    	
 		}
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Sphere(com.bobandthomas.Morbid.graphics.SphereGob)
+		 */
 		public void Sphere(SphereGob g)
 		{   
 			Point3D pos = ctm.XForm(g.getPoint());
@@ -282,6 +361,9 @@ public class RendererSimple extends Renderer {
 
 
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Poly(com.bobandthomas.Morbid.graphics.GobPoly)
+		 */
 		public void Poly(GobPoly g)
 		{
 			int i;
@@ -483,6 +565,9 @@ public class RendererSimple extends Renderer {
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Indexed(com.bobandthomas.Morbid.graphics.GobIndexed)
+		 */
 		void Indexed(GobIndexed g)
 		{
 		}

@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.Gadget;
 
 import com.bobandthomas.Morbid.graphics.GobList;
@@ -13,22 +39,58 @@ import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DotSurfaceGadget.
+ * 
+ * @author Thomas Kreek
+ */
 public class DotSurfaceGadget extends Gadget {
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.Gadget#getGadgetType()
+	 */
 	@Override
 	public String getGadgetType()
 	{
 		return "Dot Surface Gadget";
 	}
 
+	/**
+	 * The Enum DotsColorBy.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum DotsColorBy {
-		Monochrome(0), AtomType(1), DataValue(2);
+		
+		/** The Monochrome. */
+		Monochrome(0), 
+ /** The Atom type. */
+ AtomType(1), 
+ /** The Data value. */
+ DataValue(2);
+		
+		/**
+		 * Instantiates a new dots color by.
+		 * 
+		 * @param i
+		 *            the i
+		 */
 		DotsColorBy(int i)
 		{
 			
 		}
+		
+		/** The values. */
 		private static DotsColorBy[] values = null;
 
+		/**
+		 * From int.
+		 * 
+		 * @param i
+		 *            the i
+		 * @return the dots color by
+		 */
 		public static DotsColorBy fromInt(int i) {
 			if (DotsColorBy.values == null) {
 				DotsColorBy.values = DotsColorBy.values();
@@ -39,54 +101,112 @@ public class DotSurfaceGadget extends Gadget {
 
 
 
+	/** The ancr. */
 	double ancr;
+	
+	/** The solvent. */
 	double solvent;
+	
+	/** The radius scale. */
 	double radiusScale;
+	
+	/** The color by. */
 	DotsColorBy colorBy;
+	
+	/** The color list. */
 	ColorQuadPalette colorList;
+	
+	/** The sp. */
 	SpatialData sp;
 	
+	/**
+	 * Gets the ancr.
+	 * 
+	 * @return the ancr
+	 */
 	public double getAncr() {
 		return ancr;
 	}
 
 
+	/**
+	 * Sets the ancr.
+	 * 
+	 * @param ancr
+	 *            the new ancr
+	 */
 	public void setAncr(double ancr) {
 		this.ancr = ancr;
 	}
 
 
+	/**
+	 * Gets the solvent.
+	 * 
+	 * @return the solvent
+	 */
 	public double getSolvent() {
 		return solvent;
 	}
 
 
+	/**
+	 * Sets the solvent.
+	 * 
+	 * @param solvent
+	 *            the new solvent
+	 */
 	public void setSolvent(double solvent) {
 		this.solvent = solvent;
 	}
 
 
+	/**
+	 * Gets the radius scale.
+	 * 
+	 * @return the radius scale
+	 */
 	public double getRadiusScale() {
 		return radiusScale;
 	}
 
 
+	/**
+	 * Sets the radius scale.
+	 * 
+	 * @param radiusScale
+	 *            the new radius scale
+	 */
 	public void setRadiusScale(double radiusScale) {
 		this.radiusScale = radiusScale;
 		markDirty();
 	}
 
 
+	/**
+	 * Gets the color by.
+	 * 
+	 * @return the color by
+	 */
 	public DotsColorBy getColorBy() {
 		return colorBy;
 	}
 
 
+	/**
+	 * Sets the color by.
+	 * 
+	 * @param colorBy
+	 *            the new color by
+	 */
 	public void setColorBy(DotsColorBy colorBy) {
 		this.colorBy = colorBy;
 	}
 
 
+	/**
+	 * Instantiates a new dot surface gadget.
+	 */
 	public DotSurfaceGadget() {
 		super();
 		ancr = 0.1f;
@@ -97,6 +217,9 @@ public class DotSurfaceGadget extends Gadget {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.Gadget#Draw(com.bobandthomas.Morbid.graphics.GobList)
+	 */
 	@Override
 	void Draw(GobList gl) {
 

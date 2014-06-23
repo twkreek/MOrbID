@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.graphics;
 
 import com.bobandthomas.Morbid.utils.BoundingBox;
@@ -7,21 +33,58 @@ import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 import com.bobandthomas.Morbid.utils.Vector3D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LightingModel.
+ * 
+ * @author Thomas Kreek
+ */
 public class LightingModel extends CLoadableItem {
 
+		/** The Do lighting. */
 		private boolean DoLighting;
+		
+		/** The Do scatter alpha. */
 		private boolean DoScatterAlpha;;
+		
+		/** The Do specularity. */
 		private boolean DoSpecularity;
+		
+		/** The Do diffuse. */
 		private boolean  DoDiffuse;
+		
+		/** The Light front back. */
 		boolean  LightFrontBack;
+		
+		/** The Do depth cue. */
 		private boolean  DoDepthCue;
+		
+		/** The Background. */
 		ColorQuad   Background;
+		
+		/** The Depth cue min. */
 		float  DepthCueMin;
+		
+		/** The Depth cue rate. */
 		float  DepthCueRate;
+		
+		/** The Bounding box. */
 		private BoundingBox   BoundingBox;
 		
+		/**
+		 * Depth cue.
+		 * 
+		 * @param p
+		 *            the p
+		 * @param cq
+		 *            the cq
+		 * @return the color quad
+		 */
 		public ColorQuad DepthCue(Point3D p, ColorQuad cq) { if (isDoDepthCue()) return CalcDepthCue(p, cq); else return cq; }
 
+		/**
+		 * Instantiates a new lighting model.
+		 */
 		public LightingModel()
 		{
 			setDoLighting(true);
@@ -33,6 +96,16 @@ public class LightingModel extends CLoadableItem {
 			DepthCueMin = 0.1f;
 			DepthCueRate  = 1.00f;
 		}
+		
+		/**
+		 * Calc depth cue.
+		 * 
+		 * @param pos
+		 *            the pos
+		 * @param cq
+		 *            the cq
+		 * @return the color quad
+		 */
 		ColorQuad CalcDepthCue(Point3D pos, ColorQuad cq)
 		{
 			ColorQuad color;
@@ -45,10 +118,36 @@ public class LightingModel extends CLoadableItem {
 			color = cq.BlendRGB(StaticColorQuad.Black.cq(), fraction);
 			return color;
 		}
+		
+		/**
+		 * Light point.
+		 * 
+		 * @param m
+		 *            the m
+		 * @param lights
+		 *            the lights
+		 * @param v
+		 *            the v
+		 * @return the color quad
+		 */
 		public ColorQuad LightPoint(Material m, LightSourceList lights, Vertex v)
 		{
 			return LightPoint(m, lights, v, v.getNormal());
 		}
+		
+		/**
+		 * Light point.
+		 * 
+		 * @param m
+		 *            the m
+		 * @param lightList
+		 *            the light list
+		 * @param pos
+		 *            the pos
+		 * @param N1
+		 *            the n1
+		 * @return the color quad
+		 */
 		public ColorQuad LightPoint(Material m, LightSourceList lightList, Point3D pos, Point3D N1)
 		{
 
@@ -113,50 +212,116 @@ public class LightingModel extends CLoadableItem {
 			return DepthCue(pos, pColor);	
 		}
 
+		/**
+		 * Gets the bounding box.
+		 * 
+		 * @return the bounding box
+		 */
 		public BoundingBox getBoundingBox() {
 			return BoundingBox;
 		}
 
+		/**
+		 * Sets the bounding box.
+		 * 
+		 * @param boundingBox
+		 *            the new bounding box
+		 */
 		public void setBoundingBox(BoundingBox boundingBox) {
 			BoundingBox = boundingBox;
 		}
 
+		/**
+		 * Checks if is do depth cue.
+		 * 
+		 * @return true, if is do depth cue
+		 */
 		public boolean isDoDepthCue() {
 			return DoDepthCue;
 		}
 
+		/**
+		 * Sets the do depth cue.
+		 * 
+		 * @param doDepthCue
+		 *            the new do depth cue
+		 */
 		public void setDoDepthCue(boolean doDepthCue) {
 			DoDepthCue = doDepthCue;
 		}
 
+		/**
+		 * Checks if is do scatter alpha.
+		 * 
+		 * @return true, if is do scatter alpha
+		 */
 		public boolean isDoScatterAlpha() {
 			return DoScatterAlpha;
 		}
 
+		/**
+		 * Sets the do scatter alpha.
+		 * 
+		 * @param doScatterAlpha
+		 *            the new do scatter alpha
+		 */
 		public void setDoScatterAlpha(boolean doScatterAlpha) {
 			DoScatterAlpha = doScatterAlpha;
 		}
 
+		/**
+		 * Checks if is do lighting.
+		 * 
+		 * @return true, if is do lighting
+		 */
 		public boolean isDoLighting() {
 			return DoLighting;
 		}
 
+		/**
+		 * Sets the do lighting.
+		 * 
+		 * @param doLighting
+		 *            the new do lighting
+		 */
 		public void setDoLighting(boolean doLighting) {
 			DoLighting = doLighting;
 		}
 
+		/**
+		 * Checks if is do specularity.
+		 * 
+		 * @return true, if is do specularity
+		 */
 		public boolean isDoSpecularity() {
 			return DoSpecularity;
 		}
 
+		/**
+		 * Sets the do specularity.
+		 * 
+		 * @param doSpecularity
+		 *            the new do specularity
+		 */
 		public void setDoSpecularity(boolean doSpecularity) {
 			DoSpecularity = doSpecularity;
 		}
 
+		/**
+		 * Checks if is do diffuse.
+		 * 
+		 * @return true, if is do diffuse
+		 */
 		public boolean isDoDiffuse() {
 			return DoDiffuse;
 		}
 
+		/**
+		 * Sets the do diffuse.
+		 * 
+		 * @param doDiffuse
+		 *            the new do diffuse
+		 */
 		public void setDoDiffuse(boolean doDiffuse) {
 			DoDiffuse = doDiffuse;
 		}

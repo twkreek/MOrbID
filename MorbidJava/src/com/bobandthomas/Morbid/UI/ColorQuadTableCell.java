@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.UI;
 
 import java.awt.Component;
@@ -15,14 +41,37 @@ import javax.swing.table.TableCellEditor;
 
 import com.bobandthomas.Morbid.utils.ColorQuad;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ColorQuadTableCell.
+ * 
+ * @author Thomas Kreek
+ */
 public class ColorQuadTableCell extends MorbidTableCell {
+	
+	/**
+	 * The Class ColorEditor.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public class ColorEditor extends MCellEditor implements
 			TableCellEditor, ActionListener {
+		
+		/** The button. */
 		JButton button;
+		
+		/** The color chooser. */
 		JColorChooser colorChooser;
+		
+		/** The dialog. */
 		JDialog dialog;
+		
+		/** The Constant EDIT. */
 		protected static final String EDIT = "edit";
 
+		/**
+		 * Instantiates a new color editor.
+		 */
 		public ColorEditor() {
 			button = new JButton();
 			button.setActionCommand(EDIT);
@@ -36,6 +85,9 @@ public class ColorQuadTableCell extends MorbidTableCell {
 					null); // no CANCEL button handler
 		}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			if (EDIT.equals(e.getActionCommand())) {
 				// The user has clicked the cell, so
@@ -52,11 +104,17 @@ public class ColorQuadTableCell extends MorbidTableCell {
 		}
 
 		// Implement the one CellEditor method that AbstractCellEditor doesn't.
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.UI.MorbidTableCell.MCellEditor#getCellEditorValue()
+		 */
 		public Object getCellEditorValue() {
 			return currentColor;
 		}
 
 		// Implement the one method defined by TableCellEditor.
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.UI.MorbidTableCell.MCellEditor#getTableCellEditorComponent(javax.swing.JTable, java.lang.Object, boolean, int, int)
+		 */
 		public Component getTableCellEditorComponent(JTable table,
 				Object value, boolean isSelected, int row, int column) {
 			currentColor = (ColorQuad) value;
@@ -64,10 +122,25 @@ public class ColorQuadTableCell extends MorbidTableCell {
 		}
 	}
 
+	/**
+	 * The Class ColorQuadCellRenderer.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	class ColorQuadCellRenderer extends MCellRenderer {
+		
+		/** The label. */
 		JLabel label;
+		
+		/** The unselected border. */
 		Border unselectedBorder = null;
+		
+		/** The selected border. */
 		Border selectedBorder = null;
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.UI.MorbidTableCell.MCellRenderer#getTableCellRendererComponent(javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
+	 */
 	@Override
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
@@ -93,8 +166,12 @@ public class ColorQuadTableCell extends MorbidTableCell {
 		}
 	}
 
+	/** The current color. */
 	ColorQuad currentColor;
 
+	/**
+	 * Instantiates a new color quad table cell.
+	 */
 	public ColorQuadTableCell() {
 		super();
 		editor = new ColorEditor();

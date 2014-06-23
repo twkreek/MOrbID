@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid;
 
 import java.awt.BorderLayout;
@@ -15,22 +41,41 @@ import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 import com.bobandthomas.Morbid.UI.ControlPanelSideBar;
 import com.bobandthomas.Morbid.UI.MorbidMenus;
 
+/**
+ * Morbid is the class that launches Morbid as an applet.  
+ * 
+ * @author Thomas Kreek
+ */
 public class Morbid extends JApplet {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8227285965421826153L;
+	
+	/** The Constant s. */
 	@SuppressWarnings("unused")
 	private static final String s ="2$2K@)8JgJ#?h~<";
+	
+	/** The port. */
 	PortJava3D port;
+	
+	/** The scene. */
 	Scene scene;
+	
+	/** The gadget panel. */
 	ControlPanelSideBar gadgetPanel;
+	
+	/**
+	 * Instantiates a new morbid.
+	 */
 	public Morbid()
 	{
 		super();
 		gadgetPanel = null;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.applet.Applet#init()
+	 */
 	@Override
 	public void init()
 	{
@@ -41,8 +86,24 @@ public class Morbid extends JApplet {
 
 				
 	}
+	
+	/**
+	 * Gets the scene.
+	 * 
+	 * @return the scene
+	 */
 	public Scene getScene() {return scene;}
+	
+	/**
+	 * Gets the gadget panel.
+	 * 
+	 * @return the gadget panel
+	 */
 	public ControlPanelSideBar getGadgetPanel() { return gadgetPanel; }
+	
+	/**
+	 * Open file - currently uses file content selected from showSampleSelection
+	 */
 	public void openFile()
 	{
 		//create some molecule
@@ -54,6 +115,15 @@ public class Morbid extends JApplet {
 
 	}
 	
+	/**
+	 * Creates a scene for the application based on defuault gadgets and the molecule that is loaded.
+	 * In this version, it uses the Java3D port and renderer, by default.
+	 *
+	 * 
+	 * @param m
+	 *            the m
+	 * @return the scene
+	 */
 	public Scene createScene(Molecule m)
 	{
 		scene = new Scene();
@@ -63,6 +133,7 @@ public class Morbid extends JApplet {
 		{
 			this.remove(port.canvas);
 		}
+		//TODO check for java3D support, and fallback to a universal port type and renderer, instead
 		// create canvas and gadget panel
 		port = new PortJava3D(); //3D Canvas is in the port.
 		
@@ -122,7 +193,12 @@ public class Morbid extends JApplet {
 	}*/
 
 
-	private Molecule showSampleSelection()
+	/**
+ * Show sample selection - a set of hard coded samples contained in the resources, just to make simple loading and demo.
+ * 
+ * @return the molecule read in from the selection file.
+ */
+private Molecule showSampleSelection()
 	{
 //		findExamples();
 		Object [] list = {
@@ -161,7 +237,13 @@ public class Morbid extends JApplet {
 		
 		return m;
 	}
+	
+	/** is it started? */
 	boolean started = false;
+	
+	/* (non-Javadoc)
+	 * @see java.applet.Applet#start()
+	 */
 	@Override
 	public void start()
 	{

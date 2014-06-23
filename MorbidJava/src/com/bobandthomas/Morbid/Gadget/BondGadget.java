@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.Gadget;
 
 import com.bobandthomas.Morbid.graphics.CylinderGob;
@@ -14,18 +40,48 @@ import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Vector3D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BondGadget.
+ * 
+ * @author Thomas Kreek
+ */
 public class BondGadget extends Gadget {
 
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.Gadget#getGadgetType()
+	 */
 	@Override
 	public String getGadgetType() {
 		return "Bond Gadget";
 	}
 
+	/**
+	 * The Enum BondColor.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum BondColor {
-		ColorAtomType, ColorBondOrder, ChargeGradient;
-	    private static BondColor[] values = null;
-	    public static BondColor fromInt(int i) {
+		
+		/** The Color atom type. */
+		ColorAtomType, 
+ /** The Color bond order. */
+ ColorBondOrder, 
+ /** The Charge gradient. */
+ ChargeGradient;
+	    
+    	/** The values. */
+    	private static BondColor[] values = null;
+	    
+    	/**
+		 * From int.
+		 * 
+		 * @param i
+		 *            the i
+		 * @return the bond color
+		 */
+    	public static BondColor fromInt(int i) {
 	        if(BondColor.values == null) {
 	        	BondColor.values = BondColor.values();
 	        }
@@ -33,10 +89,31 @@ public class BondGadget extends Gadget {
 	    }
 };
 
+	/**
+	 * The Enum BondRep.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum BondRep {
-		Lines, Cylinder, Frames;
-	    private static BondRep[] values = null;
-	    public static BondRep fromInt(int i) {
+		
+		/** The Lines. */
+		Lines, 
+ /** The Cylinder. */
+ Cylinder, 
+ /** The Frames. */
+ Frames;
+	    
+    	/** The values. */
+    	private static BondRep[] values = null;
+	    
+    	/**
+		 * From int.
+		 * 
+		 * @param i
+		 *            the i
+		 * @return the bond rep
+		 */
+    	public static BondRep fromInt(int i) {
 	        if(BondRep.values == null) {
 	        	BondRep.values = BondRep.values();
 	        }
@@ -44,29 +121,65 @@ public class BondGadget extends Gadget {
 	    }
 };
 
+	/** The bond scale. */
 	double bondScale;
+	
+	/** The color by. */
 	BondColor colorBy;
+	
+	/** The rep. */
 	BondRep rep;
+	
+	/** The label bo. */
 	boolean labelBO;
+	
+	/** The label distance. */
 	boolean labelDistance;
+	
+	/** The show hydrogens. */
 	private boolean showHydrogens = true;
+	
+	/** The show lone pairs. */
 	boolean showLonePairs = true;
 
+	/** The i bond scale. */
 	int iBondScale;
 	
+	/**
+	 * Gets the bond scale.
+	 * 
+	 * @return the bond scale
+	 */
 	public double getBondScale() {
 		return bondScale;
 	}
 
+	/**
+	 * Sets the bond scale.
+	 * 
+	 * @param d
+	 *            the new bond scale
+	 */
 	public void setBondScale(double d) {
 		this.bondScale = d;
 		markDirty();
 	}
 
+	/**
+	 * Gets the color by.
+	 * 
+	 * @return the color by
+	 */
 	public BondColor getColorBy() {
 		return colorBy;
 	}
 
+	/**
+	 * Sets the color by.
+	 * 
+	 * @param colorBy
+	 *            the new color by
+	 */
 	public void setColorBy(BondColor colorBy) {
 		if (this.colorBy != colorBy)
 		{
@@ -75,10 +188,21 @@ public class BondGadget extends Gadget {
 		}
 	}
 
+	/**
+	 * Gets the rep.
+	 * 
+	 * @return the rep
+	 */
 	public BondRep getRep() {
 		return rep;
 	}
 
+	/**
+	 * Sets the rep.
+	 * 
+	 * @param rep
+	 *            the new rep
+	 */
 	public void setRep(BondRep rep) {
 		if (this.rep != rep)
 		{
@@ -87,19 +211,41 @@ public class BondGadget extends Gadget {
 		}
 	}
 
+	/**
+	 * Checks if is label bo.
+	 * 
+	 * @return true, if is label bo
+	 */
 	public boolean isLabelBO() {
 		return labelBO;
 	}
 
+	/**
+	 * Sets the label bo.
+	 * 
+	 * @param labelBO
+	 *            the new label bo
+	 */
 	public void setLabelBO(boolean labelBO) {
 		this.labelBO = labelBO;
 		markDirty();
 	}
 
+	/**
+	 * Checks if is label distance.
+	 * 
+	 * @return true, if is label distance
+	 */
 	public boolean isLabelDistance() {
 		return labelDistance;
 	}
 
+	/**
+	 * Sets the label distance.
+	 * 
+	 * @param labelDistance
+	 *            the new label distance
+	 */
 	public void setLabelDistance(boolean labelDistance) {
 		this.labelDistance = labelDistance;
 		markDirty();
@@ -107,10 +253,21 @@ public class BondGadget extends Gadget {
 
 
 
+	/**
+	 * Checks if is show hydrogens.
+	 * 
+	 * @return true, if is show hydrogens
+	 */
 	boolean isShowHydrogens() {
 		return showHydrogens;
 	}
 
+	/**
+	 * Sets the show hydrogens.
+	 * 
+	 * @param showHydrogens
+	 *            the new show hydrogens
+	 */
 	void setShowHydrogens(boolean showHydrogens) {
 		if (this.showHydrogens != showHydrogens)
 		{
@@ -119,6 +276,9 @@ public class BondGadget extends Gadget {
 		}
 	}
 
+	/**
+	 * Instantiates a new bond gadget.
+	 */
 	public BondGadget() {
 		super();
 		bondScale = 0.05f;
@@ -128,6 +288,9 @@ public class BondGadget extends Gadget {
 		labelDistance = false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.Gadget#sceneChanged(com.bobandthomas.Morbid.Gadget.Scene)
+	 */
 	@Override
 	public void sceneChanged(Scene s) {
 		super.sceneChanged(s);
@@ -148,11 +311,18 @@ public class BondGadget extends Gadget {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.Gadget#setScene(com.bobandthomas.Morbid.Gadget.Scene)
+	 */
 	@Override
 	public void setScene(Scene s) {
 		super.setScene(s);
 		sceneChanged(s);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.utils.CLoadableItem#handleNotify(com.bobandthomas.Morbid.utils.MorbidEvent)
+	 */
 	@Override
 	public MorbidEvent handleNotify(MorbidEvent source) {
 		if (source.isType(AtomGadget.class))
@@ -168,11 +338,27 @@ public class BondGadget extends Gadget {
 		
 		
 	}
+	
+	/**
+	 * Draw bond.
+	 * 
+	 * @param gl
+	 *            the gl
+	 * @param bond
+	 *            the bond
+	 */
 	public void drawBond(GobList gl, Bond bond)
 	{
 		
 	}
 	
+	/**
+	 * Gets the bond colors.
+	 * 
+	 * @param bond
+	 *            the bond
+	 * @return the bond colors
+	 */
 	public ColorQuad[] getBondColors(Bond bond)
 	{
 		ColorQuad[] colors = new ColorQuad[2];
@@ -181,6 +367,9 @@ public class BondGadget extends Gadget {
 		return colors;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.Gadget#Draw(com.bobandthomas.Morbid.graphics.GobList)
+	 */
 	@Override
 	void Draw(GobList gobList) {
 		int i;

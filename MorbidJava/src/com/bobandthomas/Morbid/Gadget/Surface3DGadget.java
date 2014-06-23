@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.Gadget;
 
 import com.bobandthomas.Morbid.graphics.GobList;
@@ -20,13 +46,29 @@ import toxi.geom.mesh.Face;
 import toxi.geom.mesh.Mesh3D;
 import toxi.volume.ArrayIsoSurface;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Surface3DGadget.
+ * 
+ * @author Thomas Kreek
+ */
 public class Surface3DGadget extends GadgetSpatialData {
 
+	/** The color data. */
 	SpatialData colorData;
+	
+	/** is it polar. */
 	boolean polar;
+	
+	/** is it solid. */
 	private boolean solid;
-	private boolean drawingNegative;
+	
+	/** The drawing negative. */
+	//private boolean drawingNegative;
 
+	/**
+	 * Instantiates a new surface3 d gadget.
+	 */
 	public Surface3DGadget() {
 		super();
 		threshold = 0;
@@ -38,10 +80,21 @@ public class Surface3DGadget extends GadgetSpatialData {
 		baseMaterial.setSpecularity(128);
 	}
 
+	/**
+	 * Checks if is polar.
+	 * 
+	 * @return true, if is polar
+	 */
 	public boolean isPolar() {
 		return polar;
 	}
 
+	/**
+	 * Sets the polar.
+	 * 
+	 * @param polar
+	 *            the new polar
+	 */
 	public void setPolar(boolean polar) {
 		this.polar = polar;
 		if (polar)
@@ -51,6 +104,14 @@ public class Surface3DGadget extends GadgetSpatialData {
 		markDirty(new MorbidEvent(this, "polar"));
 	}
 
+	/**
+	 * Make faces.
+	 * 
+	 * @param gobMesh
+	 *            the gob mesh
+	 * @param f
+	 *            the f
+	 */
 	private void makeFaces(GobPoly gobMesh, Face f) {
 		Vertex verts[] = new Vertex[3];
 		verts[0] = new Vertex(f.a);
@@ -74,6 +135,12 @@ public class Surface3DGadget extends GadgetSpatialData {
 
 	}
 
+	/**
+	 * Make contours.
+	 * 
+	 * @param gl
+	 *            the gl
+	 */
 	private void makeContours(GobList gl) {
 
 		Mesh3D mesh = null;
@@ -96,6 +163,9 @@ public class Surface3DGadget extends GadgetSpatialData {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.GadgetSpatialData#Draw(com.bobandthomas.Morbid.graphics.GobList)
+	 */
 	@Override
 	void Draw(GobList gl) {
 		SpatialData sd = getSpatialData();
@@ -123,6 +193,9 @@ public class Surface3DGadget extends GadgetSpatialData {
 		markClean();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.Gadget#setScene(com.bobandthomas.Morbid.Gadget.Scene)
+	 */
 	@Override
 	public void setScene(Scene s) {
 		super.setScene(s);
@@ -134,10 +207,21 @@ public class Surface3DGadget extends GadgetSpatialData {
 		colorData.Update();
 	}
 
+	/**
+	 * Checks if is solid.
+	 * 
+	 * @return true, if is solid
+	 */
 	public boolean isSolid() {
 		return solid;
 	}
 
+	/**
+	 * Sets the solid.
+	 * 
+	 * @param solid
+	 *            the new solid
+	 */
 	public void setSolid(boolean solid) {
 		if (this.solid != solid) {
 			this.solid = solid;
@@ -145,6 +229,9 @@ public class Surface3DGadget extends GadgetSpatialData {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.GadgetSpatialData#setSpatialData(com.bobandthomas.Morbid.molecule.data.SpatialData)
+	 */
 	@Override
 	public void setSpatialData(SpatialData sd) {
 		super.setSpatialData(sd);
@@ -152,6 +239,7 @@ public class Surface3DGadget extends GadgetSpatialData {
 
 	}
 
+	/** The property descriptor. */
 	static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList() {
 
 		@Override
@@ -175,6 +263,8 @@ public class Surface3DGadget extends GadgetSpatialData {
 		}
 
 	};
+	
+	/** The access. */
 	IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor) {
 		@Override
 		public Object getProperty(IPropertyDescriptor ipd) {
@@ -216,30 +306,80 @@ public class Surface3DGadget extends GadgetSpatialData {
 
 	// {{ IAccessorDelegates
 
+	/**
+	 * Gets the property.
+	 * 
+	 * @param name
+	 *            the name
+	 * @return the property
+	 */
 	public Object getProperty(String name) {
 		return access.getProperty(name);
 	}
 
+	/**
+	 * Sets the property.
+	 * 
+	 * @param name
+	 *            the name
+	 * @param value
+	 *            the value
+	 */
 	public void setProperty(String name, Object value) {
 		access.setProperty(name, value);
 	}
 
+	/**
+	 * Gets the property.
+	 * 
+	 * @param index
+	 *            the index
+	 * @return the property
+	 */
 	public Object getProperty(int index) {
 		return access.getProperty(index);
 	}
 
+	/**
+	 * Sets the property.
+	 * 
+	 * @param index
+	 *            the index
+	 * @param value
+	 *            the value
+	 */
 	public void setProperty(int index, Object value) {
 		access.setProperty(index, value);
 	}
 
+	/**
+	 * Gets the property.
+	 * 
+	 * @param desc
+	 *            the desc
+	 * @return the property
+	 */
 	public Object getProperty(IPropertyDescriptor desc) {
 		return access.getProperty(desc);
 	}
 
+	/**
+	 * Sets the property.
+	 * 
+	 * @param desc
+	 *            the desc
+	 * @param value
+	 *            the value
+	 */
 	public void setProperty(IPropertyDescriptor desc, Object value) {
 		access.setProperty(desc, value);
 	}
 
+	/**
+	 * Gets the descriptors.
+	 * 
+	 * @return the descriptors
+	 */
 	public IPropertyDescriptorList getDescriptors() {
 		return access.getDescriptors();
 	}

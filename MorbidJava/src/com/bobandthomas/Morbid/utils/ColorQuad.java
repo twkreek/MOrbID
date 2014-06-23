@@ -1,9 +1,36 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.utils;
 
 import javax.vecmath.Color3f;
 import javax.vecmath.Color4f;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ColorQuad.
  * 
@@ -61,11 +88,18 @@ public class ColorQuad extends Color4f {
 		Set(color.x, color.y, color.z);
 	}
 	
+	/**
+	 * Instantiates a new color quad.
+	 * 
+	 * @param color
+	 *            the color
+	 */
 	public ColorQuad(java.awt.Color color) {
 		Set(color.getRed(), color.getGreen(), color.getBlue());
 	}
+	
 	/**
-	 * Instantiates a new color quad from a string descriptor
+	 * Instantiates a new color quad from a string descriptor.
 	 * 
 	 * @param color
 	 *            the color
@@ -112,7 +146,7 @@ public class ColorQuad extends Color4f {
 	}
 	
 	/**
-	 * Sets the alpha/transparency
+	 * Sets the alpha/transparency.
 	 * 
 	 * @param a
 	 *            the new alpha
@@ -123,8 +157,8 @@ public class ColorQuad extends Color4f {
 	}
 
 	/**
-	 * Blend HSV - linear interpolator between two colors in HSV space
-	 * this produces colors "around" the color wheel
+	 * Blend HSV - linear interpolator between two colors in HSV space this
+	 * produces colors "around" the color wheel.
 	 * 
 	 * @param to
 	 *            the to
@@ -207,7 +241,7 @@ public class ColorQuad extends Color4f {
 	}
 
 	/**
-	 * divides all elements by the fraction c
+	 * divides all elements by the fraction c.
 	 * 
 	 * @param c
 	 *            the c
@@ -245,7 +279,7 @@ public class ColorQuad extends Color4f {
 	}
 	
 	/**
-	 * Gets whether elements are > 1
+	 * Gets whether elements are > 1.
 	 * 
 	 * @return the out of bounds
 	 */
@@ -393,7 +427,7 @@ public class ColorQuad extends Color4f {
 	}
 
 	/**
-	 * Multiply two colors - r*r, g*g, b*b
+	 * Multiply two colors - r*r, g*g, b*b.
 	 * 
 	 * @param fraction
 	 *            the fraction
@@ -405,7 +439,7 @@ public class ColorQuad extends Color4f {
 	}
 
 	/**
-	 * Multiply color by a scaling fraction
+	 * Multiply color by a scaling fraction.
 	 * 
 	 * @param c
 	 *            the c
@@ -417,7 +451,7 @@ public class ColorQuad extends Color4f {
 
 
 	/**
-	 * adds colors element by element - 
+	 * adds colors element by element - .
 	 * 
 	 * @param p
 	 *            the p
@@ -483,7 +517,7 @@ public class ColorQuad extends Color4f {
 
 
 	/**
-	 * Sets the color to the initial values
+	 * Sets the color to the initial values.
 	 * 
 	 * @param r
 	 *            the r
@@ -499,7 +533,7 @@ public class ColorQuad extends Color4f {
 	}
 
 	/**
-	 * Sets the color to these initial int values (0-255)
+	 * Sets the color to these initial int values (0-255).
 	 * 
 	 * @param inR
 	 *            the in r

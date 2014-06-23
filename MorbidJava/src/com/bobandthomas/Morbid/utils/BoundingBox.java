@@ -1,10 +1,38 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.utils;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Thomas Kreek
- * The Class BoxType.
- * maintains the 3 dimensional bounding box of all the points that were added to it.
+ * The Class BoundingBox.
+ * 
+ * @author Thomas Kreek The Class BoxType. maintains the 3 dimensional bounding
+ *         box of all the points that were added to it.
  */
 public class BoundingBox {
 	
@@ -140,9 +168,10 @@ public class BoundingBox {
 	}
 	
 	/**
-	 * Contains
-	 *
-	 * @param pt the point
+	 * Contains.
+	 * 
+	 * @param pt
+	 *            the point
 	 * @return true, if point is inside bounding box
 	 */
 	boolean Contains(Point3D pt)
@@ -197,9 +226,10 @@ public class BoundingBox {
 
 
 	/**
-	 * Adds a new point to the bounds box
-	 *
-	 * @param a the new point
+	 * Adds a new point to the bounds box.
+	 * 
+	 * @param a
+	 *            the new point
 	 */
 	public void addPoint(Point3D a)
 	{
@@ -237,11 +267,13 @@ public class BoundingBox {
 	}
 
 	/**
-	 * adds a Sphere to the bounding box
-	 * bounds are epxanded by the radius of the sphere
-	 *
-	 * @param position the position
-	 * @param r the radius
+	 * adds a Sphere to the bounding box bounds are epxanded by the radius of
+	 * the sphere.
+	 * 
+	 * @param position
+	 *            the position
+	 * @param r
+	 *            the radius
 	 */
 	public void addSphere(Point3D position, double r)
 	{
@@ -254,9 +286,20 @@ public class BoundingBox {
 		addPoint(rad);
 	}
 
+	/**
+	 * Gets the width.
+	 * 
+	 * @return the width
+	 */
 	public double getWidth() {
 		return max.x -min.x;
 	}
+	
+	/**
+	 * Gets the height.
+	 * 
+	 * @return the height
+	 */
 	public double getHeight() {
 		return max.y -min.y;
 	}

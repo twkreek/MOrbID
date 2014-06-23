@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.graphics.renderers;
 
 import com.bobandthomas.Morbid.graphics.ArrowGob;
@@ -21,71 +47,234 @@ import com.bobandthomas.Morbid.graphics.renderers.Port.PortChangeEvent;
 import com.bobandthomas.Morbid.graphics.renderers.Port.PortChangeListener;
 import com.bobandthomas.Morbid.utils.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Renderer.
+ * 
+ * @author Thomas Kreek
+ */
 public abstract class Renderer extends CLoadableItem implements PortChangeListener {
 
 
 
+	/**
+	 * The Enum RenderQuality.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum RenderQuality
 	{
+		
+		/** The R q_ fast. */
 		RQ_Fast,
+		
+		/** The R q_ draft. */
 		RQ_Draft,
+		
+		/** The R q_ view. */
 		RQ_View,
+		
+		/** The R q_ final. */
 		RQ_Final
 	};
 
+		/** The stat mat. */
 		Material statMat;
+		
+		/** The quality. */
 		RenderQuality quality;
+		
+		/** The port. */
 		protected Port port;
+		
+		/** The world box. */
 		BoundingBox worldBox;
+		
+		/** The port box. */
 		BoundingBox portBox;
+		
+		/** The squared world box. */
 		BoundingBox squaredWorldBox;
+		
+		/** The Scale. */
 		Point3D Scale;
+		
+		/** The Offset. */
 		Point3D Offset;
+		
+		/** The translate. */
 		Point3D translate;
 		// Point3D WorldToPort(Point3D);
 		// Point3D PortToWorld(Point3D);
+		/** The map ctm. */
 		protected CTM mapCTM;
+		
+		/** The view ctm. */
 		protected CTM viewCTM;
+		
+		/** The ctm. */
 		protected CTM ctm;
+		
+		/** The current material. */
 		protected Material currentMaterial;
+		
+		/** The current lights. */
 		protected LightSourceList currentLights;
+		
+		/** The bg color. */
 		public ColorQuad bgColor;
+		
+		/** The lm. */
 		protected LightingModel lm;
 
 
+		/** The zoom. */
 		double zoom;// { float get() { return zoom; } void set(float value) { zoom = value; Rescale(); } }
+		
+		/**
+		 * Gets the zoom.
+		 * 
+		 * @return the zoom
+		 */
 		public double getZoom() {
 			return zoom;
 		}
 
 
+		/**
+		 * Sets the zoom.
+		 * 
+		 * @param zoom
+		 *            the new zoom
+		 */
 		public void setZoom(double zoom) {
 			this.zoom = zoom;
 		}
+		
+		/** The Translate. */
 		private Point3D Translate;// { Point3D get(){ return translate; } void set(Point3D value) {translate = value; Rescale(); }}	
 
+	 	/**
+		 * Sets the render quality.
+		 * 
+		 * @param rq
+		 *            the rq
+		 */
 	 	void SetRenderQuality(RenderQuality rq) {quality = rq; }
 
 
+		/**
+		 * Self double buffer.
+		 * 
+		 * @return true, if successful
+		 */
 		boolean SelfDoubleBuffer() { return false; }
+		
+		/**
+		 * Uses pixel map.
+		 * 
+		 * @return true, if successful
+		 */
 		boolean UsesPixelMap() {return false; }
 
 
 
 
+		/**
+		 * Do render.
+		 * 
+		 * @param goblist
+		 *            the goblist
+		 * @param LSList
+		 *            the LS list
+		 * @param totalCTM
+		 *            the total ctm
+		 */
 		public abstract void DoRender(GobListSet goblist, LightSourceList LSList, CTM totalCTM);
 
+		/**
+		 * Vector.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void Vector(GobVector g);
+		
+		/**
+		 * Arrow.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void Arrow(ArrowGob g);
+		
+		/**
+		 * String.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void String(StringGob g);
+		
+		/**
+		 * Label.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void Label(LabelGob g);
+		
+		/**
+		 * Circle.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void Circle(CircleGob g);
+		
+		/**
+		 * Labeled circle.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void LabeledCircle(LabeledCircleGob g);
+		
+		/**
+		 * Poly.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void Poly(GobPoly g);
+		
+		/**
+		 * Indexed.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void Indexed(GobIndexed g);
+		
+		/**
+		 * Cylinder.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void Cylinder(CylinderGob g);
+		
+		/**
+		 * Sphere.
+		 * 
+		 * @param g
+		 *            the g
+		 */
 		abstract void Sphere(SphereGob g);
 
+		/**
+		 * Instantiates a new renderer.
+		 */
 		public Renderer()
 		{
 			quality = RenderQuality.RQ_View;
@@ -108,6 +297,12 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		}
 
 
+		/**
+		 * Use material.
+		 * 
+		 * @param gob
+		 *            the gob
+		 */
 		protected void UseMaterial(Gob gob)
 		{
 			Material mat = gob.getMaterial();
@@ -123,16 +318,32 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		}
 
 
+		/**
+		 * Sets the world box.
+		 * 
+		 * @param wb
+		 *            the wb
+		 */
 		public void SetWorldBox(BoundingBox wb)
 		{
 			worldBox = new BoundingBox( wb);
 		}
 
+		/**
+		 * Resize.
+		 */
 		public void Resize()
 		{
 			if (port!=null)
 				portBox = port.GetScreenBounds();
 		}
+		
+		/**
+		 * Sets the port.
+		 * 
+		 * @param p
+		 *            the p
+		 */
 		public void SetPort(Port p)
 		{
 			port = p;
@@ -144,6 +355,9 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		}
 
 
+		/**
+		 * Rescale.
+		 */
 		public void Rescale()
 		{
 			if (port == null)
@@ -188,6 +402,12 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 			mapCTM.transl(Offset);
 		}
 
+		/**
+		 * Dispatch.
+		 * 
+		 * @param gobList
+		 *            the gob list
+		 */
 		protected void Dispatch(GobList gobList)
 		{
 			if (gobList.IsRotate())
@@ -236,6 +456,10 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 			}
 
 		}
+		
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.utils.IMorbidListener#handleEvent(com.bobandthomas.Morbid.utils.MorbidEvent)
+		 */
 		@Override
 		public void handleEvent(PortChangeEvent change) {
 			portBox = port.GetScreenBounds();
@@ -243,6 +467,15 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 			Rescale();
 		}
 
+		/**
+		 * Light point.
+		 * 
+		 * @param p
+		 *            the p
+		 * @param normal
+		 *            the normal
+		 * @return the color quad
+		 */
 		protected ColorQuad LightPoint(Point3D p, Point3D normal)
 		{
 
@@ -250,11 +483,22 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		}
 
 
+		/**
+		 * Gets the translate.
+		 * 
+		 * @return the translate
+		 */
 		public Point3D getTranslate() {
 			return Translate;
 		}
 
 
+		/**
+		 * Sets the translate.
+		 * 
+		 * @param translate
+		 *            the new translate
+		 */
 		public void setTranslate(Point3D translate) {
 			Translate = translate;
 		}

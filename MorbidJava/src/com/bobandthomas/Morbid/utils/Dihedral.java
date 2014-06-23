@@ -1,12 +1,61 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Dihedral.
+ * 
+ * @author Thomas Kreek
+ */
 public class Dihedral {
 
+	/** The p4. */
 	Point3D p1, p2, p3, p4;
+	
+	/** The v23. */
 	Vector3D v12, v23;
+	
+	/** The v34. */
 	Vector3D v34;
 	
 	
+	/**
+	 * Instantiates a new dihedral.
+	 * 
+	 * @param p1
+	 *            the p1
+	 * @param p2
+	 *            the p2
+	 * @param p3
+	 *            the p3
+	 * @param p4
+	 *            the p4
+	 */
 	public Dihedral(Point3D p1, Point3D p2, Point3D p3, Point3D p4) {
 		this.p1 = p1;
 		this.p2 = p2;
@@ -18,6 +67,11 @@ public class Dihedral {
 		
 	}
 	
+      /**
+		 * Dihedral.
+		 * 
+		 * @return the double
+		 */
       public double dihedral(){
  
         // p1-p2-p3-p4 and we need dihedral around the p2-p3 bond
@@ -34,10 +88,22 @@ public class Dihedral {
         return n1.Dot( v34 ) < 0 ? -da : da;
 
     }
+    
+    /**
+	 * Angle123.
+	 * 
+	 * @return the double
+	 */
     public double angle123()
     {
     	return v12.angle(v23);
     }
+    
+    /**
+	 * Angle234.
+	 * 
+	 * @return the double
+	 */
     public double angle234()
     {
     	return v23.angle(v34);

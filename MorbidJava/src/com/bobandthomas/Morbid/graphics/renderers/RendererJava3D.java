@@ -1,3 +1,30 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
+
 package com.bobandthomas.Morbid.graphics.renderers;
 
 import java.awt.Color;
@@ -68,9 +95,11 @@ import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.geometry.Text2D;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class RendererJava3D.
+ * 
  * @author Thomas Kreek
- *
  */
 public class RendererJava3D extends Renderer {
 	/*
@@ -83,19 +112,46 @@ public class RendererJava3D extends Renderer {
 	 *      currentBG is the branchGroup we will be writing into  
 	 *    
 	 */
+	/** The root branch. */
 	private BranchGroup rootBranch;
+	
+	/** The layer transform group. */
 	private TransformGroup layerTransformGroup; 
+	
+	/** The front transform group. */
 	private TransformGroup frontTransformGroup; // front, unrotated and unscaled.
+	
+	/** The model transform group. */
 	private TransformGroup modelTransformGroup;  // add model layer primitives to this
+	
+	/** The universe. */
 	private SimpleUniverse universe; //owned by the port.
+	
+	/** The lighting added. */
 	private boolean lightingAdded = false;
+	
+	/** The current bg. */
 	private BranchGroup currentBG = null;
+	
+	/** The bg map. */
 	private Hashtable<Gadget, BranchGroup> bgMap = new Hashtable<Gadget, BranchGroup>();
+	
+	/** The gob list map. */
 	private Hashtable<Gadget, GobList> gobListMap = new Hashtable<Gadget, GobList>();
+	
+	/** The lookat. */
 	private Transform3D lookat;
+	
+	/** The bounds. */
 	private BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
 	        100.0);
 	
+	/**
+	 * Make group writable.
+	 * 
+	 * @param g
+	 *            the g
+	 */
 	private void makeGroupWritable(Group g)
 	{
 		g.setCapability(BranchGroup.ALLOW_DETACH);
@@ -106,6 +162,9 @@ public class RendererJava3D extends Renderer {
 		g.setCapability(Node.ALLOW_BOUNDS_WRITE);		
 	}
 
+	/**
+	 * Instantiates a new renderer java3 d.
+	 */
 	public RendererJava3D() {
 		rootBranch = new BranchGroup();
 		rootBranch.setName("rootBranch");
@@ -129,6 +188,12 @@ public class RendererJava3D extends Renderer {
 		rootBranch.addChild(frontTransformGroup);
 	}
 	
+	/**
+	 * Post render.
+	 * 
+	 * @param j2D
+	 *            the j2 d
+	 */
 	public void postRender(J3DGraphics2D j2D) {
 		Rectangle rect = j2D.getDeviceConfiguration().getBounds();
 		for (Gadget gadget : gobListMap.keySet()) {
@@ -160,12 +225,22 @@ public class RendererJava3D extends Renderer {
 		}
 	}
 	
+	/**
+	 * Pre render.
+	 */
 	public void preRender()
 	{
 		
 	}
 
 
+	/**
+	 * Gets the branch group.
+	 * 
+	 * @param gadget
+	 *            the gadget
+	 * @return the branch group
+	 */
 	public BranchGroup getBranchGroup(Gadget gadget) {
 		BranchGroup branchGroup;
 		branchGroup = bgMap.get(gadget);
@@ -179,9 +254,25 @@ public class RendererJava3D extends Renderer {
 		}
 		return branchGroup;
 	}
+	
+	/**
+	 * Sets the current branch group.
+	 * 
+	 * @param gl
+	 *            the new current branch group
+	 */
 	public void setCurrentBranchGroup(GobList gl) {
 		currentBG = getBranchGroup(gl.getGadget());
 	}
+	
+	/**
+	 * Prints the node label.
+	 * 
+	 * @param name
+	 *            the name
+	 * @param depth
+	 *            the depth
+	 */
 	private void printNodeLabel(String name, int depth)
 	{
 		String label="";
@@ -190,6 +281,15 @@ public class RendererJava3D extends Renderer {
 		label +="|_______" + name;
 		Logger.addMessage(this, label);
 	}
+	
+	/**
+	 * Prints the graph tree.
+	 * 
+	 * @param n
+	 *            the n
+	 * @param depth
+	 *            the depth
+	 */
 	@SuppressWarnings({ "unused"})
 	private void printGraphTree(Group n, int depth)
 	{
@@ -212,6 +312,9 @@ public class RendererJava3D extends Renderer {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#SetPort(com.bobandthomas.Morbid.graphics.renderers.Port)
+	 */
 	@Override
 	public void SetPort(Port p) {
 		super.SetPort(p);
@@ -237,6 +340,12 @@ public class RendererJava3D extends Renderer {
 	//	universe.addBranchGraph(rootBranch);
 	}
 	
+	/**
+	 * Sets the up lights.
+	 * 
+	 * @param LSList
+	 *            the new up lights
+	 */
 	private void setupLights(LightSourceList LSList)
 	{
 		if (lightingAdded) return;
@@ -264,6 +373,9 @@ public class RendererJava3D extends Renderer {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#DoRender(com.bobandthomas.Morbid.graphics.GobListSet, com.bobandthomas.Morbid.graphics.LightSourceList, com.bobandthomas.Morbid.graphics.CTM)
+	 */
 	@Override
 	public void DoRender(GobListSet goblists, LightSourceList lsList,
 			CTM totalCTM) {
@@ -295,6 +407,12 @@ public class RendererJava3D extends Renderer {
 
 	}
 
+	/**
+	 * Sets the up mouse.
+	 * 
+	 * @param tGroup
+	 *            the new up mouse
+	 */
 	private void setupMouse(TransformGroup tGroup) {
 		MouseRotate behavior = new MouseRotate();
 		behavior.setTransformGroup(tGroup);
@@ -314,6 +432,15 @@ public class RendererJava3D extends Renderer {
         tGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 	}
 
+	/**
+	 * Gets the appearance.
+	 * 
+	 * @param m
+	 *            the m
+	 * @param cq
+	 *            the cq
+	 * @return the appearance
+	 */
 	private Appearance getAppearance(Material m, ColorQuad cq) {
 		ColorQuad color = cq == null ? m.getColor(): cq;
 		// ColoringAttributes ca = new ColoringAttributes(m.diffuse.Cf(),
@@ -336,6 +463,13 @@ public class RendererJava3D extends Renderer {
 		return app;
 	}
 
+	/**
+	 * Gets the rotation transform.
+	 * 
+	 * @param g
+	 *            the g
+	 * @return the rotation transform
+	 */
 	private Transform3D getRotationTransform(GobVector g) {
 		// creates the transform matrix to rotate the object to vector in g
 
@@ -353,6 +487,9 @@ public class RendererJava3D extends Renderer {
 		return t;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Arrow(com.bobandthomas.Morbid.graphics.ArrowGob)
+	 */
 	@Override
 	void Arrow(ArrowGob g) {
 		// TODO complete rednering Arrows
@@ -362,12 +499,18 @@ public class RendererJava3D extends Renderer {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Circle(com.bobandthomas.Morbid.graphics.CircleGob)
+	 */
 	@Override
 	void Circle(CircleGob g) {
 		// TODO eliminate 2d circles
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Cylinder(com.bobandthomas.Morbid.graphics.CylinderGob)
+	 */
 	@Override
 	void Cylinder(CylinderGob g) {
 
@@ -390,6 +533,9 @@ public class RendererJava3D extends Renderer {
 		currentBG.addChild(tg);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Indexed(com.bobandthomas.Morbid.graphics.GobIndexed)
+	 */
 	@Override
 	void Indexed(GobIndexed g) {
 		// TODO eliminate IndexedGobs
@@ -397,17 +543,25 @@ public class RendererJava3D extends Renderer {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#LabeledCircle(com.bobandthomas.Morbid.graphics.LabeledCircleGob)
+	 */
 	@Override
 	void LabeledCircle(LabeledCircleGob g) {
 		// TODO render or eliminate labeled circle
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Poly(com.bobandthomas.Morbid.graphics.GobPoly)
+	 */
 	@Override
 	void Poly(GobPoly g) {
 		
 		GeometryArray array;
 		int size = g.size();
+		if (size == 0)
+			return;
 		int flags = GeometryArray.COORDINATES;
 		if (g.isHasColors())
 			flags |= GeometryArray.COLOR_3;
@@ -458,6 +612,9 @@ public class RendererJava3D extends Renderer {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Sphere(com.bobandthomas.Morbid.graphics.SphereGob)
+	 */
 	@Override
 	void Sphere(SphereGob g) {
 		
@@ -479,6 +636,9 @@ public class RendererJava3D extends Renderer {
 	}
 
 	//@Override
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#String(com.bobandthomas.Morbid.graphics.StringGob)
+	 */
 	void String(StringGob g) {
 		Font3D font = new Font3D(new java.awt.Font("Garamond", Font.PLAIN, 11), new FontExtrusion());
 		Text3D text = new Text3D(font , g.getName(), new Point3f(0f,0f,0f));
@@ -511,6 +671,12 @@ public class RendererJava3D extends Renderer {
 	}
 
 	//@Override
+	/**
+	 * String2.
+	 * 
+	 * @param g
+	 *            the g
+	 */
 	void String2(StringGob g) {
 		if(g.getName() == null || g.getName().length() <1 )
 			return;
@@ -527,12 +693,19 @@ public class RendererJava3D extends Renderer {
 		
 		currentBG.addChild(tg);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Vector(com.bobandthomas.Morbid.graphics.GobVector)
+	 */
 	@Override
 	void Vector(GobVector g) {
 		// TODO render GobVector 
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Label(com.bobandthomas.Morbid.graphics.LabelGob)
+	 */
 	@Override
 	void Label(LabelGob g) {
 		//TODO render or eliminate Labels

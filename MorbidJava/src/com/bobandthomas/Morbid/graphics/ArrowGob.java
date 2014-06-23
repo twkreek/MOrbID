@@ -1,21 +1,78 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.graphics;
 
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.LineSegment;
 
+
+/**
+ * The Class ArrowGob
+ * gob representing a directional arrow
+ * 
+ * @author Thomas Kreek
+ */
 public class ArrowGob extends GobVector {
 
+	/** The style. */
 	public int style;
+		
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.graphics.GobVector#Type()
+		 */
 		@Override
 		public
 		GobType Type()  {return GobType.Arrow;}
 
 		
+		/**
+		 * Instantiates a new arrow gob.
+		 * 
+		 * @param tstyle
+		 *            the tstyle
+		 * @param vec
+		 *            the vec
+		 */
 		public ArrowGob(int tstyle, LineSegment vec)
 		{
 			super(vec);
 			style = tstyle;
 		}
+		
+		/**
+		 * Instantiates a new arrow gob.
+		 * 
+		 * @param tstyle
+		 *            the tstyle
+		 * @param start
+		 *            the start
+		 * @param end
+		 *            the end
+		 */
 		public ArrowGob(int tstyle, Point3D  start, Point3D  end)
 		{   
 			super(start, end);
@@ -23,6 +80,14 @@ public class ArrowGob extends GobVector {
 		}
 
 
+		/**
+		 * Instantiates a new arrow gob.
+		 * 
+		 * @param vertex
+		 *            the vertex
+		 * @param vertex2
+		 *            the vertex2
+		 */
 		public ArrowGob(Vertex vertex, Vertex vertex2) {
 			super(vertex, vertex2);
 		}

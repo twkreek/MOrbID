@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.utils;
 
 
@@ -8,16 +34,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+// TODO: Auto-generated Javadoc
 /**
- * The Class CLoadableSet.
- * Provides the following funcionalities
- * 1) creates a list of items of type T and supports List<T> functionality
- * 2) provides optional lookup by Item name (from getName()) (off by default)
- * 3) provides optional parenting of child Items by default, so Items can refer to parent and find siblings
+ * The Class CLoadableSet. Provides the following funcionalities 1) creates a
+ * list of items of type T and supports List<T> functionality 2) provides
+ * optional lookup by Item name (from getName()) (off by default) 3) provides
+ * optional parenting of child Items by default, so Items can refer to parent
+ * and find siblings
  * 
+ * @author Thomas Kreek
  * @param <T>
  *            the generic type, must be derived from CLoadableItem
- * @author Thomas Kreek 
  */
 public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implements List <T>, IChangeNotifier
 {
@@ -27,7 +54,8 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 	
 	/** The name map. */
 	HashMap<String, T> nameMap;
-	/** whether we can search elements by name; */
+	
+	/** whether we can search elements by name;. */
 	private boolean useByName = false; 
 	/** this Determines if an element added to this set should have the parent set to "this".
 	 *  This should be set to false if this is only keeping referenes 
@@ -56,17 +84,17 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 	}
 	
 	/**
-	 * sets whether Items can be looked up by name
+	 * sets whether Items can be looked up by name.
 	 * 
 	 * @param useByName
-	 *            
+	 *            the new whether we can search elements by name;
 	 */
 	public void setUseByName(boolean useByName) {
 		this.useByName = useByName;
 	}
 	
 	/**
-	 * Checks if Items are told this Set is their parent
+	 * Checks if Items are told this Set is their parent.
 	 * 
 	 * @return true, if reparenting
 	 */
@@ -75,7 +103,7 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 	}
 
 	/**
-	 * Sets if Items are told this Set is their parent
+	 * Sets if Items are told this Set is their parent.
 	 * 
 	 * @param reParent
 	 *            whether to reparent
@@ -99,13 +127,12 @@ public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implem
 	/**
 	 * Gets the by name set.
 	 * 
+	 * @param arg1
+	 *            the arg1
 	 * @return the by name set
-	 
-	public Set<?> getByNameSet()
-	{
-		return nameMap.entrySet();
-	}
-	*/
+	 * 
+	 *         public Set<?> getByNameSet() { return nameMap.entrySet(); }
+	 */
 	
 	/**
 	 * Adds the to map.

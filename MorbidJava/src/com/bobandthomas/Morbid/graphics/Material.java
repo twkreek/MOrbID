@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.graphics;
 import java.beans.BeanDescriptor;
 import java.beans.IntrospectionException;
@@ -20,9 +46,16 @@ import com.bobandthomas.Morbid.utils.MPropertyDescriptorList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Material.
+ * 
+ * @author Thomas Kreek
+ */
 public class Material extends CLoadableItem implements IPropertyAccessor
 { 		
 
+		/** The bean info. */
 		public static SimpleBeanInfo beanInfo = new SimpleBeanInfo()
 		{
 			@Override
@@ -46,74 +79,199 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 			}
 		};
 		
+		/** The color. */
 		private ColorQuad color; // the base color of the material
 	 
+		/** The k diffuse. */
 		double kDiffuse; //diffuse light coefficient
+		
+		/** The k ambient. */
 		double kAmbient; //ambient light coefficient
+		
+		/** The k specular. */
 		double kSpecular; //specular reflection coefficient (specular light color defaults to white)
+		
+		/** The k emission. */
 		double kEmission;	//emission
+		
+		/** The alpha. */
 		double alpha; //percent transmission for trnasparent objects. (alpha)
+		
+		/** The shininess. */
 		int shininess; // specularity coeffiecient.
+		
+		/** The use specularity. */
 		boolean useSpecularity; 
+		
+		/** The use filter. */
 		boolean useFilter;	
 
 		
+		/**
+		 * Gets the k diffuse.
+		 * 
+		 * @return the k diffuse
+		 */
 		public double getkDiffuse() {
 			return kDiffuse;
 		}
+		
+		/**
+		 * Gets the diffuse color.
+		 * 
+		 * @return the diffuse color
+		 */
 		public ColorQuad getDiffuseColor() {
 			return new ColorQuad(color).multiply(kDiffuse);
 		}
+		
+		/**
+		 * Sets the k diffuse.
+		 * 
+		 * @param kDiffuse
+		 *            the new k diffuse
+		 */
 		public void setkDiffuse(double kDiffuse) {
 			this.kDiffuse = kDiffuse;
 			markDirty();
 		}
+		
+		/**
+		 * Gets the k ambient.
+		 * 
+		 * @return the k ambient
+		 */
 		public double getkAmbient() {
 			return kAmbient;
 		}
+		
+		/**
+		 * Sets the k ambient.
+		 * 
+		 * @param kAmbient
+		 *            the new k ambient
+		 */
 		public void setkAmbient(double kAmbient) {
 			this.kAmbient = kAmbient;
 			markDirty();
 		}
+		
+		/**
+		 * Gets the k specular.
+		 * 
+		 * @return the k specular
+		 */
 		public double getKSpecular() {
 			return kSpecular;
 		}
+		
+		/**
+		 * Sets the k specular.
+		 * 
+		 * @param kSpecularity
+		 *            the new k specular
+		 */
 		public void setKSpecular(double kSpecularity) {
 			this.kSpecular = kSpecularity;
 			markDirty();
 		}
+		
+		/**
+		 * Gets the k emission.
+		 * 
+		 * @return the k emission
+		 */
 		public double getkEmission() {
 			return kEmission;
 		}
+		
+		/**
+		 * Sets the k emission.
+		 * 
+		 * @param kEmission
+		 *            the new k emission
+		 */
 		public void setkEmission(double kEmission) {
 			this.kEmission = kEmission;
 			markDirty();
 		}
+		
+		/**
+		 * Gets the alpha.
+		 * 
+		 * @return the alpha
+		 */
 		public double getAlpha() {
 			return alpha;
 		}
+		
+		/**
+		 * Sets the alpha.
+		 * 
+		 * @param alpha
+		 *            the new alpha
+		 */
 		public void setAlpha(double alpha) {
 			this.alpha = alpha;
 			setUseFilter(true);
 			markDirty();
 		}
+		
+		/**
+		 * Gets the specularity.
+		 * 
+		 * @return the specularity
+		 */
 		public int getSpecularity() {
 			return shininess;
 		}
+		
+		/**
+		 * Sets the specularity.
+		 * 
+		 * @param specularity
+		 *            the new specularity
+		 */
 		public void setSpecularity(int specularity) {
 			this.shininess = specularity;
 			markDirty();
 		}
+		
+		/**
+		 * Checks if is use specularity.
+		 * 
+		 * @return true, if is use specularity
+		 */
 		public boolean isUseSpecularity() {
 			return useSpecularity;
 		}
+		
+		/**
+		 * Sets the use specularity.
+		 * 
+		 * @param useSpecularity
+		 *            the new use specularity
+		 */
 		public void setUseSpecularity(boolean useSpecularity) {
 			this.useSpecularity = useSpecularity;
 			markDirty();
 		}
+		
+		/**
+		 * Checks if is use filter.
+		 * 
+		 * @return true, if is use filter
+		 */
 		public boolean isUseFilter() {
 			return useFilter;
 		}
+		
+		/**
+		 * Sets the use filter.
+		 * 
+		 * @param useFilter
+		 *            the new use filter
+		 */
 		public void setUseFilter(boolean useFilter) {
 			this.useFilter = useFilter;
 			markDirty();
@@ -121,6 +279,9 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 		
 	
 
+		/**
+		 * Initializes the.
+		 */
 		void Init()
 		{
 			kDiffuse = 0.5f;
@@ -133,17 +294,33 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 			useFilter = false;
 			setColor(StaticColorQuad.White.cq());
 		}
+		
+		/**
+		 * Instantiates a new material.
+		 */
 		public Material()
 		{
 			Init();
 		}
 
+		/**
+		 * Instantiates a new material.
+		 * 
+		 * @param cq
+		 *            the cq
+		 */
 		public Material(ColorQuad cq)
 		{
 			Init();
 			setColor(cq);
 		}
 
+		/**
+		 * Instantiates a new material.
+		 * 
+		 * @param mat
+		 *            the mat
+		 */
 		public Material(Material mat)
 		{
 			kAmbient = mat.kAmbient;
@@ -156,6 +333,13 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 			alpha = mat.alpha;
 			useFilter = mat.useFilter;
 		}
+		
+		/**
+		 * Write item.
+		 * 
+		 * @param str
+		 *            the str
+		 */
 		void  WriteItem(String str)
 		{
 			/*
@@ -168,6 +352,13 @@ public class Material extends CLoadableItem implements IPropertyAccessor
  * 
  */
 		}
+		
+		/**
+		 * Read item.
+		 * 
+		 * @param reader
+		 *            the reader
+		 */
 		void readItem(CSVFileReader reader)
 		{
 			//Name,   kd,   r,g,b,      ka,     ks,    ke,    filter,useFilter,specularity,useSpec
@@ -183,14 +374,28 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 			useSpecularity = reader.getInteger("useSpec") == 1;
 			
 		}
+		
+		/**
+		 * Gets the color.
+		 * 
+		 * @return the color
+		 */
 		public ColorQuad getColor() {
 			return color;
 		}
+		
+		/**
+		 * Sets the color.
+		 * 
+		 * @param diffuse
+		 *            the new color
+		 */
 		public void setColor(ColorQuad diffuse) {
 			this.color = diffuse;
 			markDirty();
 		}
 
+       /** The property descriptor. */
        static IPropertyDescriptorList propertyDescriptor = new MPropertyDescriptorList(){
 				
 				@Override
@@ -299,6 +504,7 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 				
 			};
 			
+			/** The access. */
 			IPropertyAccessor access = new PropertyAccessor(this, propertyDescriptor){
 				@Override
 				public Object getProperty(IPropertyDescriptor ipd) {
@@ -319,36 +525,57 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 			
 			// {{ IAccessorDelegates
 			
+			/* (non-Javadoc)
+			 * @see com.bobandthomas.Morbid.utils.IPropertyAccessor#getProperty(java.lang.String)
+			 */
 			public Object getProperty(String name) {
 				return access.getProperty(name);
 			}
 			
 			
+			/* (non-Javadoc)
+			 * @see com.bobandthomas.Morbid.utils.IPropertyAccessor#setProperty(java.lang.String, java.lang.Object)
+			 */
 			public void setProperty(String name, Object value) {
 				access.setProperty(name, value);
 			}
 			
 			
+			/* (non-Javadoc)
+			 * @see com.bobandthomas.Morbid.utils.IPropertyAccessor#getProperty(int)
+			 */
 			public Object getProperty(int index) {
 				return access.getProperty(index);
 			}
 			
 			
+			/* (non-Javadoc)
+			 * @see com.bobandthomas.Morbid.utils.IPropertyAccessor#setProperty(int, java.lang.Object)
+			 */
 			public void setProperty(int index, Object value) {
 				access.setProperty(index, value);
 			}
 			
 			
+			/* (non-Javadoc)
+			 * @see com.bobandthomas.Morbid.utils.IPropertyAccessor#getProperty(com.bobandthomas.Morbid.utils.IPropertyDescriptor)
+			 */
 			public Object getProperty(IPropertyDescriptor desc) {
 				return access.getProperty(desc);
 			}
 			
 			
+			/* (non-Javadoc)
+			 * @see com.bobandthomas.Morbid.utils.IPropertyAccessor#setProperty(com.bobandthomas.Morbid.utils.IPropertyDescriptor, java.lang.Object)
+			 */
 			public void setProperty(IPropertyDescriptor desc, Object value) {
 				access.setProperty(desc, value);
 			}
 			
 			
+			/* (non-Javadoc)
+			 * @see com.bobandthomas.Morbid.utils.IPropertyAccessor#getDescriptors()
+			 */
 			public IPropertyDescriptorList getDescriptors() {
 				return access.getDescriptors();
 			}
@@ -356,31 +583,77 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 			
 			// }}
 		
-		public static class MaterialChangeEvent extends MorbidEvent {
+		/**
+			 * The Class MaterialChangeEvent.
+			 * 
+			 * @author Thomas Kreek
+			 */
+			public static class MaterialChangeEvent extends MorbidEvent {
+			
+			/**
+			 * Instantiates a new material change event.
+			 * 
+			 * @param item
+			 *            the item
+			 */
 			public MaterialChangeEvent(IChangeNotifier item) {
 				super(item);
 				speciallistener = MaterialChangeListener.class;
 			}
 		}
 
+		/**
+		 * The listener interface for receiving materialChange events. The class
+		 * that is interested in processing a materialChange event implements
+		 * this interface, and the object created with that class is registered
+		 * with a component using the component's
+		 * <code>addMaterialChangeListener<code> method. When
+		 * the materialChange event occurs, that object's appropriate
+		 * method is invoked.
+		 * 
+		 * @see MaterialChangeEvent
+		 */
 		public interface MaterialChangeListener extends
 				IMorbidListener<MaterialChangeEvent> {
 		}
 
+		/** The Material notifier. */
 		MorbidNotifier<MaterialChangeEvent, MaterialChangeListener> MaterialNotifier = new MorbidNotifier<MaterialChangeEvent, MaterialChangeListener>(
 				this);
 
+		/**
+		 * Fire event.
+		 * 
+		 * @param event
+		 *            the event
+		 */
 		public void fireEvent(MaterialChangeEvent event) {
 			MaterialNotifier.fireEvent(event);
 		}
 
+		/**
+		 * Register listener.
+		 * 
+		 * @param listener
+		 *            the listener
+		 */
 		public void registerListener(MaterialChangeListener listener) {
 			MaterialNotifier.registerListener(listener);
 		}
 
+		/**
+		 * Un register listener.
+		 * 
+		 * @param listener
+		 *            the listener
+		 */
 		public void unRegisterListener(MaterialChangeListener listener) {
 			MaterialNotifier.unRegisterListener(listener);
 		}
+		
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.utils.CLoadableItem#markDirty()
+		 */
 		@Override
 		public void markDirty() {
 			

@@ -1,8 +1,35 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.utils;
 
 import java.util.ArrayList;
 import java.util.EventObject;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class MorbidEvent.
  * Morbid Event is and event managed by IChangeNotifier's Listener/Notifier pattern
@@ -12,19 +39,30 @@ import java.util.EventObject;
  */
 public class MorbidEvent extends EventObject {
 	
-	/** used to identify specialized listener requirements */
+	/** used to identify specialized listener requirements. */
 	public Class<?> speciallistener = null;
 	
-	/** The source object that originated the event */
+	/** The source object that originated the event. */
 	IChangeNotifier source;
 	
-	/** The object that was changed */
+	/** The object that was changed. */
 	IChangeNotifier target;
 	
+	/**
+	 * Gets the object that was changed.
+	 * 
+	 * @return the object that was changed
+	 */
 	public IChangeNotifier getTarget() {
 		return target;
 	}
 
+	/**
+	 * Sets the object that was changed.
+	 * 
+	 * @param target
+	 *            the new object that was changed
+	 */
 	public void setTarget(IChangeNotifier target) {
 		this.target = target;
 	}
@@ -38,6 +76,7 @@ public class MorbidEvent extends EventObject {
 	/** The new value. [optional]*/
 	Object newValue;
 	
+	/** The handled list. */
 	ArrayList<IChangeNotifier> handledList = new ArrayList<IChangeNotifier>();
 
 	
@@ -53,6 +92,18 @@ public class MorbidEvent extends EventObject {
 		this.source = item;
 	}
 	
+	/**
+	 * Instantiates a new morbid event.
+	 * 
+	 * @param source
+	 *            the source
+	 * @param field
+	 *            the field
+	 * @param oldValue
+	 *            the old value
+	 * @param newValue
+	 *            the new value
+	 */
 	public MorbidEvent(IChangeNotifier source, String field, Object oldValue, Object newValue)
 	{
 		super(source);
@@ -60,6 +111,14 @@ public class MorbidEvent extends EventObject {
 		setChangeField(field, oldValue, newValue);
 	}
 	
+	/**
+	 * Instantiates a new morbid event.
+	 * 
+	 * @param source
+	 *            the source
+	 * @param field
+	 *            the field
+	 */
 	public MorbidEvent(IChangeNotifier source, String field)
 	{
 		super(source);
@@ -178,6 +237,13 @@ public class MorbidEvent extends EventObject {
 		return false;
 
 	}
+	
+	/**
+	 * Handled by.
+	 * 
+	 * @param not
+	 *            the not
+	 */
 	public void handledBy(IChangeNotifier not)
 	{
 		handledList.add(not);
@@ -185,6 +251,9 @@ public class MorbidEvent extends EventObject {
 	
 	/* 
 	 * Human readable form of the event including optional parameters
+	 */
+	/* (non-Javadoc)
+	 * @see java.util.EventObject#toString()
 	 */
 	public String toString()
 	{

@@ -1,3 +1,31 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
+
+
 package com.bobandthomas.Morbid.Gadget;
 
 import com.bobandthomas.Morbid.graphics.GobList;
@@ -8,36 +36,82 @@ import com.bobandthomas.Morbid.utils.MinMax;
 import com.bobandthomas.Morbid.utils.Point3D;
 import com.bobandthomas.Morbid.utils.Vector3D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GadgetFieldLines.
+ * 
+ * @author Thomas Kreek
+ */
 public class GadgetFieldLines extends GadgetSpatialData {
+	
+	/** The increment. */
 	int increment = 5;
+	
+	/** The scale. */
 	double scale = 0.5;
 
+	/**
+	 * Gets the scale.
+	 * 
+	 * @return the scale
+	 */
 	public double getScale() {
 		return scale;
 	}
 
 
+	/**
+	 * Sets the scale.
+	 * 
+	 * @param scale
+	 *            the new scale
+	 */
 	public void setScale(double scale) {
 		this.scale = scale;
 		markDirty();
 	}
 
 
+	/**
+	 * Gets the increment.
+	 * 
+	 * @return the increment
+	 */
 	public int getIncrement() {
 		return increment;
 	}
 
 
+	/**
+	 * Sets the increment.
+	 * 
+	 * @param increment
+	 *            the new increment
+	 */
 	public void setIncrement(int increment) {
 		this.increment = increment;
 		markDirty();
 	}
 
 
+	/**
+	 * Instantiates a new gadget field lines.
+	 */
 	public GadgetFieldLines() {
 	}
 	
 
+	/**
+	 * Gets the vector.
+	 * 
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param z
+	 *            the z
+	 * @return the vector
+	 */
 	public Vertex[] getVector(int x, int y, int z)
 	{
 		Vertex segment[] = new Vertex[2];
@@ -65,6 +139,10 @@ public class GadgetFieldLines extends GadgetSpatialData {
 		segment[1] = new Vertex(vec.Add(getSpatialData().getPoint(x, y, z)), newValue);
 		return segment;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.GadgetSpatialData#Draw(com.bobandthomas.Morbid.graphics.GobList)
+	 */
 	@Override
 	void Draw(GobList gl) {
 		gl.clear();
@@ -90,6 +168,9 @@ public class GadgetFieldLines extends GadgetSpatialData {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.Gadget.Gadget#setScene(com.bobandthomas.Morbid.Gadget.Scene)
+	 */
 	@Override
 	public void setScene(Scene s) {
 		super.setScene(s);

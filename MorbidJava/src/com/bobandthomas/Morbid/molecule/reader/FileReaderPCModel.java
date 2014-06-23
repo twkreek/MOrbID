@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.molecule.reader;
 
 import java.io.IOException;
@@ -11,27 +37,60 @@ import com.bobandthomas.Morbid.wrapper.CSVFileReader;
 import com.bobandthomas.Morbid.wrapper.Logger;
 import com.bobandthomas.Morbid.wrapper.ResourceMgr;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FileReaderPCModel.
+ * 
+ * @author Thomas Kreek
+ */
 public class FileReaderPCModel extends MoleculeFileReader {
 
+	/** The mm2 types. */
 	MM2TypeList mm2Types;
 
+	/**
+	 * Instantiates a new file reader pc model.
+	 */
 	public FileReaderPCModel() {
 		fileTypeName = "PCModel Files";
 		mm2Types = new MM2TypeList();
 	}
 
+	/**
+	 * The Class MM2Type.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public class MM2Type {
 		// TypeMM2 Sym DESCRIPTION AtWt AtNo
+		/** The type. */
 		int type;
+		
+		/** The sym. */
 		String sym;
+		
+		/** The description. */
 		String description;
+		
+		/** The At wt. */
 		double AtWt;
+		
+		/** The atomic number. */
 		int atomicNumber;
 
+		/**
+		 * Instantiates a new m m2 type.
+		 */
 		public MM2Type() {
 
 		}
 
+		/**
+		 * Read item.
+		 * 
+		 * @param r
+		 *            the r
+		 */
 		void readItem(CSVFileReader r) {
 			type = r.getInteger("TypeMM2");
 			sym = r.getString("Sym");
@@ -41,7 +100,16 @@ public class FileReaderPCModel extends MoleculeFileReader {
 		}
 	}
 
+	/**
+	 * The Class MM2TypeList.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	private class MM2TypeList extends HashMap<Integer, MM2Type> {
+		
+		/**
+		 * Instantiates a new m m2 type list.
+		 */
 		MM2TypeList() {
 			super();
 			try {
@@ -70,10 +138,25 @@ public class FileReaderPCModel extends MoleculeFileReader {
 	}
 */
 
-	private class PCMTokenizer {
+	/**
+ * The Class PCMTokenizer.
+ * 
+ * @author Thomas Kreek
+ */
+private class PCMTokenizer {
+		
+		/** The ss. */
 		String [] ss;
+		
+		/** The current index. */
 		int currentIndex;
 
+		/**
+		 * Instantiates a new PCM tokenizer.
+		 * 
+		 * @param arg0
+		 *            the arg0
+		 */
 		public PCMTokenizer(String arg0) {
 			currentIndex = 0;
 			String stemp []  = arg0.split("[ ,:]");
@@ -87,11 +170,21 @@ public class FileReaderPCModel extends MoleculeFileReader {
 			}
 		}
 		
+		/**
+		 * Checks if it has next token.
+		 * 
+		 * @return true, if successful
+		 */
 		boolean hasNextToken()
 		{
 			return currentIndex < ss.length;
 		}
 
+		/**
+		 * Gets the string token.
+		 * 
+		 * @return the string
+		 */
 		String GetStringToken() {
 			if(currentIndex >= ss.length )
 				return null;
@@ -100,16 +193,32 @@ public class FileReaderPCModel extends MoleculeFileReader {
 				currentIndex++;
 			return next;
 		}
+		
+		/**
+		 * Peek next token.
+		 * 
+		 * @return the string
+		 */
 		String peekNextToken()
 		{
 			// does not advace the counter;
 			return ss[currentIndex];
 		}
 
+		/**
+		 * Gets the int token.
+		 * 
+		 * @return the int
+		 */
 		int GetIntToken() {
 			return Integer.parseInt(GetStringToken());
 		}
 
+		/**
+		 * Gets the float token.
+		 * 
+		 * @return the float
+		 */
 		float GetFloatToken() {
 			return Float.parseFloat(GetStringToken());
 		}
@@ -117,12 +226,22 @@ public class FileReaderPCModel extends MoleculeFileReader {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.molecule.reader.MoleculeFileReader#Save()
+	 */
 	@Override
 	public void Save() {
 		// TODO FileSave not implemented
 
 	}
 
+	/**
+	 * Gets the atom type.
+	 * 
+	 * @param token
+	 *            the token
+	 * @return the atom type
+	 */
 	AtomType getAtomType(String token) {
 		AtomType at;
 		if (Character.isDigit(token.charAt(0))) {
@@ -140,6 +259,9 @@ public class FileReaderPCModel extends MoleculeFileReader {
 		return at;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.molecule.reader.MoleculeFileReader#Read()
+	 */
 	@Override
 	public void Read() {
 		String line;
@@ -245,11 +367,17 @@ public class FileReaderPCModel extends MoleculeFileReader {
 		molecule.CalcBounds();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.molecule.reader.MoleculeFileReader#Validate()
+	 */
 	@Override
 	public boolean Validate() {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.molecule.reader.MoleculeFileReader#getFileExtensions()
+	 */
 	@Override
 	public String[] getFileExtensions() {
 		String [] extensions = {"PCM"};

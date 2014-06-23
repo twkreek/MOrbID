@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.UI;
 
 import java.awt.Component;
@@ -32,16 +58,43 @@ import com.bobandthomas.Morbid.utils.BoundingBox;
 import com.bobandthomas.Morbid.utils.ColorQuad;
 import com.bobandthomas.Morbid.utils.Point3D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MaterialTableCell.
+ * 
+ * @author Thomas Kreek
+ */
 public class MaterialTableCell extends MorbidTableCell {
+	
+	/** The current material. */
 	Material currentMaterial;
+	
+	/**
+	 * The Class MaterialPreview.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public class MaterialPreview extends JPanelPort implements MaterialChangeListener
 	{
 		
+		/** The renderer. */
 		ZRender renderer = new ZRender();
+		
+		/** The gl. */
 		GobList gl = new GobList();
+		
+		/** The gls. */
 		GobListSet gls = new GobListSet();
+		
+		/** The light sources. */
 		LightSourceList lightSources = new LightSourceList();
+		
+		/** The sphere. */
 		SphereGob sphere;
+		
+		/**
+		 * Instantiates a new material preview.
+		 */
 		public MaterialPreview()
 		{
 			currentMaterial.registerListener((MaterialChangeListener)this);
@@ -76,6 +129,10 @@ public class MaterialTableCell extends MorbidTableCell {
 
 			
 		}
+		
+		/**
+		 * Redraw.
+		 */
 		public void redraw()
 		{
 			for (Gob g : gl)
@@ -84,6 +141,10 @@ public class MaterialTableCell extends MorbidTableCell {
 			SwapBuffers();
 			
 		}
+		
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.utils.IMorbidListener#handleEvent(com.bobandthomas.Morbid.utils.MorbidEvent)
+		 */
 		@Override
 		public void handleEvent(MaterialChangeEvent event) {
 			redraw();
@@ -92,12 +153,33 @@ public class MaterialTableCell extends MorbidTableCell {
 		
 		
 	}
+	
+	/**
+	 * The Class MaterialEditor.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public class MaterialEditor extends MorbidPanel
 	{
+		
+		/** The preview. */
 		MaterialPreview preview;
+		
+		/** The color button. */
 		JButton colorButton;
+		
+		/** The color chooser. */
 		JColorChooser colorChooser;
+		
+		/** The dialog. */
 		JDialog dialog;
+		
+		/**
+		 * Instantiates a new material editor.
+		 * 
+		 * @param currentMaterial
+		 *            the current material
+		 */
 		MaterialEditor(Material currentMaterial)
 		{
 			super("Material");
@@ -114,6 +196,12 @@ public class MaterialTableCell extends MorbidTableCell {
 			createSlider("Alpha", 0,100, (int) (currentMaterial.getAlpha()*100), true);
 			
 		}	
+		
+		/**
+		 * Gets the dialog.
+		 * 
+		 * @return the dialog
+		 */
 		JDialog getDialog()
 		{
 			JDialog dlg = new JDialog(null, Dialog.ModalityType.APPLICATION_MODAL);
@@ -126,6 +214,9 @@ public class MaterialTableCell extends MorbidTableCell {
 			return dlg;
 		}
 		
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.UI.MorbidPanel#changeValue(java.lang.String, java.lang.Integer)
+		 */
 		@Override
 		public void changeValue(String label, Integer value) {
 			if (label.equals("Color"))
@@ -189,6 +280,10 @@ public class MaterialTableCell extends MorbidTableCell {
 			}
 
 		}
+		
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.UI.MorbidPanel#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			if ("OK".equals(e.getActionCommand()))
 			{
@@ -200,13 +295,29 @@ public class MaterialTableCell extends MorbidTableCell {
 		}
 	}
 
+	/**
+	 * The Class MaterialTableCellEditor.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public class MaterialTableCellEditor extends MCellEditor implements TableCellEditor,
 			ActionListener {
+		
+		/** The button. */
 		JButton button;
+		
+		/** The mat editor. */
 		MaterialEditor matEditor;
+		
+		/** The dialog. */
 		JDialog dialog;
+		
+		/** The Constant EDIT. */
 		protected static final String EDIT = "edit";
 
+		/**
+		 * Instantiates a new material table cell editor.
+		 */
 		public MaterialTableCellEditor() {
 			button = new JButton();
 			button.setActionCommand(EDIT);
@@ -215,6 +326,9 @@ public class MaterialTableCell extends MorbidTableCell {
 
 		}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			if (EDIT.equals(e.getActionCommand())) {
 				// The user has clicked the cell, so
@@ -233,11 +347,17 @@ public class MaterialTableCell extends MorbidTableCell {
 		}
 
 		// Implement the one CellEditor method that AbstractCellEditor doesn't.
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.UI.MorbidTableCell.MCellEditor#getCellEditorValue()
+		 */
 		public Object getCellEditorValue() {
 			return currentMaterial;
 		}
 
 		// Implement the one method defined by TableCellEditor.
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.UI.MorbidTableCell.MCellEditor#getTableCellEditorComponent(javax.swing.JTable, java.lang.Object, boolean, int, int)
+		 */
 		public Component getTableCellEditorComponent(JTable table,
 				Object value, boolean isSelected, int row, int column) {
 			currentMaterial = (Material) value;
@@ -245,11 +365,25 @@ public class MaterialTableCell extends MorbidTableCell {
 		}
 	}
 
+	/**
+	 * The Class MaterialCellRenderer.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	class MaterialCellRenderer extends MCellRenderer {
+		
+		/** The label. */
 		JLabel label;
+		
+		/** The unselected border. */
 		Border unselectedBorder = null;
+		
+		/** The selected border. */
 		Border selectedBorder = null;
 
+		/* (non-Javadoc)
+		 * @see com.bobandthomas.Morbid.UI.MorbidTableCell.MCellRenderer#getTableCellRendererComponent(javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
+		 */
 		@Override
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
@@ -276,6 +410,9 @@ public class MaterialTableCell extends MorbidTableCell {
 	}
 
 
+	/**
+	 * Instantiates a new material table cell.
+	 */
 	public MaterialTableCell() {
 		super();
 		editor = new MaterialTableCellEditor();

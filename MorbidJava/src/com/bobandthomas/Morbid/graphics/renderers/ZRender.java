@@ -1,3 +1,29 @@
+/*
+ * 
+	MOrbID - Molecular Orbital Interactive Display
+
+MOrbID is Copyright (c) 1996-2014 by Thomas W. Kreek
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+ */
 package com.bobandthomas.Morbid.graphics.renderers;
 
 import com.bobandthomas.Morbid.graphics.ArrowGob;
@@ -25,29 +51,67 @@ import com.bobandthomas.Morbid.utils.Point3DList;
 import com.bobandthomas.Morbid.utils.StaticColorQuad;
 import com.bobandthomas.Morbid.utils.Vector3D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ZRender.
+ * 
+ * @author Thomas Kreek
+ */
 public class ZRender extends Renderer {
 
+	/**
+	 * The Enum ZBShadeType.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public enum ZBShadeType
 	{
+		
+		/** The zb flat. */
 		ZB_FLAT,
+		
+		/** The zb gouraud. */
 		ZB_GOURAUD,
+		
+		/** The zb phong. */
 		ZB_PHONG
 	};
 
+	/**
+	 * The Class ZBuffer.
+	 * 
+	 * @author Thomas Kreek
+	 */
 	public  class ZBuffer
 	{
+		
+		/** The x wid. */
 		long xWid;
+		
+		/** The y hei. */
 		long yHei;
+		
+		/** The max size. */
 		int maxSize;
+		
+		/** The z. */
 		int z[];
+		
+		/** The Z buffer offset. */
 		double ZBufferOffset = -1;
 
+		/**
+		 * Instantiates a new z buffer.
+		 */
 		ZBuffer()
 		{
 			z = null;
 			yHei = xWid = 0;
 		}
 
+		/**
+		 * Clear.
+		 */
 		void Clear()
 		{					
 			if (z == null)
@@ -56,6 +120,14 @@ public class ZRender extends Renderer {
 				z[i] = 0;
 		}
 
+		/**
+		 * Resize.
+		 * 
+		 * @param x
+		 *            the x
+		 * @param y
+		 *            the y
+		 */
 		void Resize(int x, int y)
 		{
 
@@ -67,6 +139,13 @@ public class ZRender extends Renderer {
 			Clear();
 		}
 
+		/**
+		 * Z write.
+		 * 
+		 * @param p
+		 *            the p
+		 * @return true, if successful
+		 */
 		boolean ZWrite(Point3D p)
 		{
 			if (z==null)
@@ -97,6 +176,13 @@ public class ZRender extends Renderer {
 				return false;
 		}
 
+		/**
+		 * Z read.
+		 * 
+		 * @param p
+		 *            the p
+		 * @return the double
+		 */
 		double  ZRead(Point3D p)
 		{
 			if (z == null) 
@@ -111,7 +197,10 @@ public class ZRender extends Renderer {
 	};
 
 
+	/** The m_n shade type. */
 	ZBShadeType m_nShadeType;
+	
+	/** The z. */
 	ZBuffer z;
 
 	/*
@@ -125,9 +214,13 @@ public class ZRender extends Renderer {
 	 */
 
 
+	/** The Shade type. */
 	ZBShadeType ShadeType;
 
 
+	/**
+	 * Instantiates a new z render.
+	 */
 	public ZRender()
 	{
 		lm.setDoLighting(true);
@@ -140,6 +233,9 @@ public class ZRender extends Renderer {
 
 
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#DoRender(com.bobandthomas.Morbid.graphics.GobListSet, com.bobandthomas.Morbid.graphics.LightSourceList, com.bobandthomas.Morbid.graphics.CTM)
+	 */
 	public void DoRender(GobListSet goblist, LightSourceList lights, CTM newviewCTM)
 	{
 		if (port == null)
@@ -154,6 +250,10 @@ public class ZRender extends Renderer {
 		for (GobList gl : goblist)
 			Dispatch(gl);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Resize()
+	 */
 	@Override
 	public void Resize()
 	{   
@@ -162,11 +262,22 @@ public class ZRender extends Renderer {
 		z.Resize((int) portBox.getWidth(), (int) portBox.getHeight());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#SetPort(com.bobandthomas.Morbid.graphics.renderers.Port)
+	 */
 	public void SetPort(Port p)
 	{
 		super.SetPort(p);
 	}
 
+	/**
+	 * Draw pixel.
+	 * 
+	 * @param p
+	 *            the p
+	 * @param normal
+	 *            the normal
+	 */
 	void DrawPixel(Point3D p, Point3D normal)
 	{
 		ColorQuad cq = StaticColorQuad.Black.cq();
@@ -187,6 +298,12 @@ public class ZRender extends Renderer {
 		port.DrawPoint(p, cq);
 	}
 
+	/**
+	 * Draw pixel.
+	 * 
+	 * @param p
+	 *            the p
+	 */
 	void DrawPixel(Vertex p)
 	{
 		if (!z.ZWrite(p))
@@ -200,6 +317,14 @@ public class ZRender extends Renderer {
 		port.DrawPoint(p,c);
 	}
 
+	/**
+	 * Draw pixel.
+	 * 
+	 * @param p
+	 *            the p
+	 * @param c
+	 *            the c
+	 */
 	void DrawPixel(Point3D p, ColorQuad c)
 	{
 		if (!z.ZWrite(p))
@@ -214,6 +339,9 @@ public class ZRender extends Renderer {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Vector(com.bobandthomas.Morbid.graphics.GobVector)
+	 */
 	public void Vector(GobVector g)
 	{
 		Point3D start1, end1;
@@ -287,6 +415,10 @@ public class ZRender extends Renderer {
 			} 
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Arrow(com.bobandthomas.Morbid.graphics.ArrowGob)
+	 */
 	public void Arrow(ArrowGob g)
 	{
 		Vector(g);
@@ -311,13 +443,35 @@ public class ZRender extends Renderer {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#String(com.bobandthomas.Morbid.graphics.StringGob)
+	 */
 	public void String(StringGob sg)
 	{
 
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Label(com.bobandthomas.Morbid.graphics.LabelGob)
+	 */
 	public void Label(LabelGob lg){}
+	
+	/** The first. */
 	static boolean first = true;
+	
+	/** The zl. */
 	static double[]zl = new double[101];
+	
+	/**
+	 * Sphere scan line.
+	 * 
+	 * @param p
+	 *            the p
+	 * @param center
+	 *            the center
+	 * @param r
+	 *            the r
+	 */
 	void SphereScanLine(Point3D p, Point3D center, double r)
 	{
 		if (first)
@@ -353,6 +507,17 @@ public class ZRender extends Renderer {
 			DrawPixel(b, n);
 		}
 	}
+	
+	/**
+	 * Sphere points.
+	 * 
+	 * @param p
+	 *            the p
+	 * @param center
+	 *            the center
+	 * @param r
+	 *            the r
+	 */
 	void SpherePoints(Point3D p, Point3D center, double r)
 	{
 		// scanline from x left to x center, then from x center to x right
@@ -363,6 +528,18 @@ public class ZRender extends Renderer {
 		SphereScanLine(pTransposed, center, r);
 	}
 
+	/**
+	 * Filled circle points.
+	 * 
+	 * @param p
+	 *            the p
+	 * @param center
+	 *            the center
+	 * @param r
+	 *            the r
+	 * @param color
+	 *            the color
+	 */
 	void FilledCirclePoints(Point3D p, Point3D center, double r, ColorQuad color)
 	{
 		double z = center.z;
@@ -401,6 +578,9 @@ public class ZRender extends Renderer {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Circle(com.bobandthomas.Morbid.graphics.CircleGob)
+	 */
 	public void Circle(CircleGob g)
 	{
 
@@ -426,11 +606,17 @@ public class ZRender extends Renderer {
 			FilledCirclePoints(new Point3D(x, y, 0), pos, rad.x, g.getColor());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#LabeledCircle(com.bobandthomas.Morbid.graphics.LabeledCircleGob)
+	 */
 	public void LabeledCircle(LabeledCircleGob g)
 	{
 		Circle(g);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Poly(com.bobandthomas.Morbid.graphics.GobPoly)
+	 */
 	public void Poly(GobPoly pvg)
 	{
 		Point3D from = new Point3D();
@@ -540,13 +726,33 @@ public class ZRender extends Renderer {
 		}
 
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Indexed(com.bobandthomas.Morbid.graphics.GobIndexed)
+	 */
 	public void Indexed(GobIndexed g){}
+	
+	/**
+	 * Move scale.
+	 * 
+	 * @param in
+	 *            the in
+	 * @param vector
+	 *            the vector
+	 * @param scale
+	 *            the scale
+	 * @return the vertex
+	 */
 	private Vertex moveScale (Vertex in, Vector3D vector, double scale)
 	{
 		Vertex v = new Vertex(in);
 		v.setPoint(in.Add(vector).Scale(scale));
 		return v;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Cylinder(com.bobandthomas.Morbid.graphics.CylinderGob)
+	 */
 	public void Cylinder(CylinderGob g)
 	{
 		Point3D newEnd = ctm.XForm(g.getEndPoint());
@@ -580,6 +786,9 @@ public class ZRender extends Renderer {
 		return;		 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.bobandthomas.Morbid.graphics.renderers.Renderer#Sphere(com.bobandthomas.Morbid.graphics.SphereGob)
+	 */
 	public void Sphere(SphereGob g)
 	{
 		Point3D pos = ctm.XForm(g.getPoint());
@@ -611,10 +820,32 @@ public class ZRender extends Renderer {
 			SpherePoints(new Point3D(x, y, 0), pos, rad.x);
 	}
 	//#define INDEX(i) (((i) < sides - 1) ? ((i) + 1) : 0)
+	/**
+	 * Index.
+	 * 
+	 * @param i
+	 *            the i
+	 * @param sides
+	 *            the sides
+	 * @return the int
+	 */
 	private int INDEX(int i, int sides)
 	{
 		return (((i) < sides - 1) ? ((i) + 1) : 0);
 	}
+	
+	/**
+	 * Draw polygon.
+	 * 
+	 * @param sides
+	 *            the sides
+	 * @param vertices
+	 *            the vertices
+	 * @param smooth
+	 *            the smooth
+	 * @param useColors
+	 *            the use colors
+	 */
 	void DrawPolygon(int sides, VertexList vertices, boolean smooth, boolean useColors)
 	{
 		int PolygonSizeLimit = 20;
