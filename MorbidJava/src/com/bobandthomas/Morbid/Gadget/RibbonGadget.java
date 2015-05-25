@@ -543,8 +543,9 @@ public class RibbonGadget extends Gadget {
 				Vec3D vec2 = vec.add(vec.sub(lastPoint).scale((float) 0.5));
 				CylinderGob gob = new CylinderGob(new Point3D(vec2),
 						new Point3D(lastPoint), (float) radius);
-				baseMaterial.setColor(ribbon.getSColor(i));
+		//		baseMaterial.setColor(ribbon.getSColor(i));
 				gob.setMaterial(baseMaterial);
+				gob.setColor(ribbon.getSColor(i));
 				gl.add(gob);
 				lastPoint = vec;
 

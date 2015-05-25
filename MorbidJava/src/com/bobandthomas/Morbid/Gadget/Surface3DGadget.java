@@ -57,6 +57,9 @@ public class Surface3DGadget extends GadgetSpatialData {
 	/** The color data. */
 	SpatialData colorData;
 	
+	/** base color of the gadget **/
+	ColorQuad theColor;
+	
 	/** is it polar. */
 	boolean polar;
 	
@@ -178,14 +181,17 @@ public class Surface3DGadget extends GadgetSpatialData {
 		if (transparent)
 			mat.setAlpha(alpha);
 		if (polar && sd.isSigned())
-			mat.setColor(minusColor);
+			theColor = minusColor;
+//			gl.setColor(minusColor);
 		else
-			mat.setColor(new ColorQuad(0.3, 0.3, 0.3));
+			theColor = new ColorQuad(0.3,0.3, 0.3);
+//			mat.setColor(new ColorQuad(0.3, 0.3, 0.3));
 		makeContours(gl);
 		if (polar && sd.isSigned()) {
 			threshold = -threshold;
+			theColor = plusColor;
 			mat = new Material(baseMaterial);
-			mat.setColor(plusColor);
+//			mat.setColor(plusColor);
 			makeContours(gl);
 			threshold = -threshold;
 

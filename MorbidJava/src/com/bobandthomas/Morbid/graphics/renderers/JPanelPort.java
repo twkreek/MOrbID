@@ -148,7 +148,7 @@ public class JPanelPort extends Port implements ComponentListener {
 	 * @see com.bobandthomas.Morbid.graphics.renderers.Port#Release()
 	 */
 	@Override
-	void Release() {
+	void Close() {
 		graphics.dispose();
 		buffer = null;
 	}
@@ -157,7 +157,7 @@ public class JPanelPort extends Port implements ComponentListener {
 	 * @see com.bobandthomas.Morbid.graphics.renderers.Port#Initialize()
 	 */
 	@Override
-	void Initialize() {
+	void Open() {
 		// TODO Auto-generated method stub
 
 	}

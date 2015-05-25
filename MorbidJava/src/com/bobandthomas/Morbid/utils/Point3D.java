@@ -27,6 +27,7 @@ THE SOFTWARE.
 package com.bobandthomas.Morbid.utils;
 
 import javax.vecmath.Point3d;
+
 import toxi.geom.Vec3D;
 
 // TODO: Auto-generated Javadoc
@@ -251,5 +252,8 @@ public class Point3D extends Point3d {
 		return s;
 	}
 
-
+	public String getSpacedString()
+	{
+		return String.format("%5.3f %5.3f %5.3f", x,y,z);
+	}
 }

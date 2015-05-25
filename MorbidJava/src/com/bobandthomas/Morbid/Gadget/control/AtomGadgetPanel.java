@@ -39,7 +39,7 @@ import com.bobandthomas.Morbid.molecule.UI.SubstructureSetChooser;
 
 /**
  * The Class AtomGadgetPanel.
- * Java Swing control panel
+ * Java Swing control panel for an AtomGadget
  * 
  * @author Thomas Kreek
  */

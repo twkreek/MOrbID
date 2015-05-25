@@ -33,6 +33,7 @@ import javax.swing.JOptionPane;
 
 import com.bobandthomas.Morbid.Gadget.Scene;
 import com.bobandthomas.Morbid.graphics.renderers.PortJava3D;
+import com.bobandthomas.Morbid.graphics.renderers.Renderer;
 import com.bobandthomas.Morbid.graphics.renderers.RendererJava3D;
 import com.bobandthomas.Morbid.molecule.Molecule;
 import com.bobandthomas.Morbid.molecule.reader.MoleculeFileReaderManager;
@@ -139,8 +140,11 @@ public class Morbid extends JApplet {
 		
 		add ("Center", port.canvas);
 
-		RendererJava3D renderer;
+		Renderer renderer;
 		renderer = new RendererJava3D();
+//		renderer = new RendererPOV();
+//		renderer = new RendererX3D();
+
 		scene.SetRenderer(renderer);
 		
 		scene.SetMolecule(m);

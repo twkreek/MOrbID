@@ -277,7 +277,20 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 			markDirty();
 		}
 		
+		public ColorQuad getSpecularColor()
+		{
+			return getColor().multiply(kSpecular);
+		}
+		
+		public ColorQuad getEmissionColor()
+		{
+			return getColor().multiply(kEmission);
+		}
 	
+		public ColorQuad getAmbientColor()
+		{
+			return getColor().multiply(kAmbient);
+		}
 
 		/**
 		 * Initializes the.
@@ -323,6 +336,7 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 		 */
 		public Material(Material mat)
 		{
+			setName(mat.getName());
 			kAmbient = mat.kAmbient;
 			kDiffuse = mat.kDiffuse;
 			kEmission = mat.kEmission;

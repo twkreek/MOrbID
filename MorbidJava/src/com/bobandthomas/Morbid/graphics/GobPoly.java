@@ -211,7 +211,7 @@ public class GobPoly extends Gob implements List<Vertex>{
 	{
 		return vertexList.size();
 	}
-	
+		
 	/**
 	 * Gets the vertices.
 	 * 

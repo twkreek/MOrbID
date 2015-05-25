@@ -40,6 +40,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -47,6 +48,10 @@ import javax.swing.KeyStroke;
 
 import com.bobandthomas.Morbid.Morbid;
 import com.bobandthomas.Morbid.Gadget.GadgetFactoryManager;
+import com.bobandthomas.Morbid.graphics.renderers.RendererPOV;
+import com.bobandthomas.Morbid.graphics.renderers.RendererThreeJS;
+import com.bobandthomas.Morbid.graphics.renderers.RendererX3D;
+import com.bobandthomas.Morbid.graphics.renderers.StreamPort;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -59,6 +64,58 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 	/** The applet. */
 	Morbid applet;
 	
+	class RenderX3DAction extends AbstractAction
+	{
+		public RenderX3DAction()
+		{
+			super("RenderX3D");
+			
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			applet.getScene().PushRenderer(new RendererX3D());
+			applet.getScene().GetRenderer().SetPort(new StreamPort(System.out));
+			applet.getScene().Render();
+			applet.getScene().PopRenderer();
+		}
+		
+	}
+	
+	class RenderPOVAction extends AbstractAction
+	{
+		public RenderPOVAction()
+		{
+			super("RenderPOV");
+			
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			applet.getScene().PushRenderer(new RendererPOV());
+			applet.getScene().GetRenderer().SetPort(new StreamPort(System.out));
+			applet.getScene().Render();
+			applet.getScene().PopRenderer();
+		}
+		
+	}
+	class RenderThreeJSAction extends AbstractAction
+	{
+		public RenderThreeJSAction()
+		{
+			super("RenderThreeJS");
+			
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			applet.getScene().PushRenderer(new RendererThreeJS());
+			applet.getScene().GetRenderer().SetPort(new StreamPort(System.out));
+			applet.getScene().Render();
+			applet.getScene().PopRenderer();
+		}
+		
+	}
 	/**
 	 * The Enum MenuItemList.
 	 * 
@@ -77,7 +134,14 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 		SceneAddGadget("Scene","Add Gadget", 201),
 		
 		/** The View screen shot. */
-		ViewScreenShot("View", "ScreenShot", 401)
+		ViewScreenShot("View", "ScreenShot", 401),
+		
+		/** Render to X3D **/
+		ViewRenderX3D("View", "Render X3D", 402),
+		
+		ViewRenderPOV("View", "Render POV", 403),
+		
+		ViewRenderThreeJS("View", "Render ThreeJS", 404)
 		;
 		
 		/** The parent. */
@@ -131,6 +195,12 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 		
 		JMenuItem a = new JMenuItem(ml.name);
 		if (accel != null) a.setAccelerator(accel);
+		if (ml.equals(MenuItemList.ViewRenderX3D))
+			a.setAction(new RenderX3DAction());
+		if (ml.equals(MenuItemList.ViewRenderPOV))
+			a.setAction(new RenderPOVAction());
+		if (ml.equals(MenuItemList.ViewRenderThreeJS))
+			a.setAction(new RenderThreeJSAction());
 		a.setActionCommand(ml.getActionString());
 		a.addActionListener(this);
 		return a;

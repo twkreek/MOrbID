@@ -78,10 +78,10 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		RQ_Final
 	};
 
-		/** The stat mat. */
+		/** The stat mat. temporary place hoder for default material */
 		Material statMat;
 		
-		/** The quality. */
+		/** The render quality. */
 		RenderQuality quality;
 		
 		/** The port. */
@@ -112,7 +112,7 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		/** The view ctm. */
 		protected CTM viewCTM;
 		
-		/** The ctm. */
+		/** The current ctm. */
 		protected CTM ctm;
 		
 		/** The current material. */
@@ -181,7 +181,9 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 
 
 		/**
-		 * Do render.
+		 * Do render.  Primary render loop. Called every time the scene is redrawn.  
+		 * takes goblist set containing all visual elements, the ligh sources
+		 * and the coordinate transformation matrix, if used. CTM is used only if renderer is managing viewing transforms directly.
 		 * 
 		 * @param goblist
 		 *            the goblist
@@ -403,7 +405,8 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		}
 
 		/**
-		 * Dispatch.
+		 * Dispatch - steps through the gobList and calls the rendering function for each type
+		 * of Gob
 		 * 
 		 * @param gobList
 		 *            the gob list
@@ -468,7 +471,9 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 		}
 
 		/**
-		 * Light point.
+		 * Light point. given a point and its normal, return its lighted color
+		 * according to the renderer.
+		 * default is all points are grey
 		 * 
 		 * @param p
 		 *            the p

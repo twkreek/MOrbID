@@ -323,18 +323,6 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 	}
 
 	/**
-	 * Adds the renderer.
-	 * 
-	 * @param rq
-	 *            the rq
-	 * @param ren
-	 *            the ren
-	 */
-	void AddRenderer(RenderManagerQuality rq, Renderer ren) {
-		rm.AddRenderer(rq, ren);
-	}
-
-	/**
 	 * Creates a default gadgets.
 	 */
 	void CreateDefaultGadgets() {
@@ -472,6 +460,10 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 		// rm.SetPort(null);
 		rendering = false;
 	}
+	public Renderer GetRenderer()
+	{
+		return rm.GetRenderer();
+	}
 
 	/**
 	 * Resize.
@@ -507,12 +499,36 @@ public class Scene extends CLoadableItem implements IChangeNotifier {
 	}
 
 	/**
+	 * Adds the renderer.
+	 * 
+	 * @param rq
+	 *            the rq
+	 * @param ren
+	 *            the ren
+	 */
+	void AddRenderer(RenderManagerQuality rq, Renderer ren) {
+		rm.AddRenderer(rq, ren);
+	}
+	Renderer prevRenderer;
+	public void PushRenderer(Renderer r)
+	{
+		prevRenderer = currentRenderer;
+		SetRenderer(r);
+	}
+	public void PopRenderer()
+	{
+		SetRenderer(prevRenderer);
+		prevRenderer=null;
+	}
+
+	/**
 	 * Sets the renderer.
 	 * 
 	 * @param renderer
 	 *            the renderer
 	 */
 	public void SetRenderer(Renderer renderer) {
+		currentRenderer = renderer;
 		rm.AddRenderer(RenderManager.RenderManagerQuality.renderNormal,
 				renderer);
 		rm.AddRenderer(RenderManager.RenderManagerQuality.renderHigh, renderer);

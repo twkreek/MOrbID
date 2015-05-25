@@ -53,17 +53,17 @@ public abstract class Port extends CLoadableItem implements IMorbidNotifier<Port
 	public enum PortCapabilities
 	{
 		
-		/** The vector. */
+		/** vector based port.  */
 		VECTOR, 
- /** The bitmap. */
+ /** bitmap based */
  BITMAP, 
- /** The three d. */
+ /**  client 3D based. i.e. GL This implies view transformation matrix is in the port so we don't pre apply it. */
  THREE_D, 
- /** The serialized. */
+ /** port data is serialized - stream or file based must use open/close */
  SERIALIZED, 
- /** The doublebuffer. */
+ /** doublebuffer support. */
  DOUBLEBUFFER, 
- /** The monochrome. */
+ /** monochrome only */
  MONOCHROME
 	};
 		
@@ -197,20 +197,20 @@ public abstract class Port extends CLoadableItem implements IMorbidNotifier<Port
 		abstract void SetParent(Port p);
 		
 		/**
-		 * Release.
+		 *  Called at the end of a render cycle to release resources or close files
 		 */
-		abstract void Release();
+		abstract void Close();
 
 		/** The Monochrome. */
 		boolean Monochrome;
 
 		/**
-		 * Initialize.
+		 * Initialize the port for an individual render cycle. such as opening files, allocating bitmaps
 		 */
-		abstract void Initialize();
+		abstract void Open();
 		
 		/**
-		 * Clear.
+		 * Clear the port to blank
 		 */
 		public abstract void Clear();
 // doublebuffer routines
@@ -218,7 +218,7 @@ public abstract class Port extends CLoadableItem implements IMorbidNotifier<Port
 public boolean DoubleBuffer;
 //		PortBuffer Buffer;
 		/**
- * Swap buffers.
+ * Swap buffers for ports that support double buffering
  */
 public abstract void SwapBuffers();
 // color setting routines

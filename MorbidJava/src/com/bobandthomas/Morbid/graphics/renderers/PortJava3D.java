@@ -99,7 +99,7 @@ public class PortJava3D extends Port implements ComponentListener{
 	 * @see com.bobandthomas.Morbid.graphics.renderers.Port#Release()
 	 */
 	@Override
-	void Release() {
+	void Close() {
 		
 
 	}
@@ -108,7 +108,7 @@ public class PortJava3D extends Port implements ComponentListener{
 	 * @see com.bobandthomas.Morbid.graphics.renderers.Port#Initialize()
 	 */
 	@Override
-	void Initialize() {
+	void Open() {
 		
 
 	}

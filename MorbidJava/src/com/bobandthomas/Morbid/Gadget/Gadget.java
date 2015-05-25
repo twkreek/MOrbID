@@ -40,7 +40,6 @@ import com.bobandthomas.Morbid.molecule.SubstructureSet;
 import com.bobandthomas.Morbid.utils.*;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Gadget.
  * A gadget is a visual representation of a physical or mathematical object. 
@@ -58,25 +57,43 @@ public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 	 */
 	public enum ColorBy {
 		
-		/** The type. */
-		TYPE(0, "Atom Type"), 
- 
- /** The charge. */
- CHARGE(1, "Charge"), 
- 
- /** The monochrome. */
- MONOCHROME(2, "Monochrome"), 
- 
- /** The substructure. */
- SUBSTRUCTURE(
-				3, "Substructure"), 
- 
- /** The spatialdata. */
- SPATIALDATA(4, "Spatial Data");
+		 /** ColorBy The type. */
+		 TYPE(0, "Atom Type"),
 		
+		 /** ColorBy The charge. */
+		 CHARGE(1, "Charge"), 
+ 
+		 /** ColorBy monochrome. */
+		 MONOCHROME(2, "Monochrome"), 
+		 
+		 /** ColorBy substructure. */
+		 SUBSTRUCTURE(3, "Substructure"),
+		 
+		 /** ColorBy spatialdata value. */
+		 SPATIALDATA(4, "Spatial Data");
+		 
+		 
+		
+		/** The values. */
+		private static ColorBy[] values = null;
+		
+		/**
+		 * From int.
+		 * 
+		 * @param i
+		 *            the i
+		 * @return the color by
+		 */
+		public static ColorBy fromInt(int i) {
+			if (ColorBy.values == null) {
+				ColorBy.values = ColorBy.values();
+			}
+			return ColorBy.values[i];
+		}
+
 		/** The id. */
 		int id;
-		
+
 		/** The name. */
 		String name;
 
@@ -91,23 +108,6 @@ public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 		ColorBy(int i, String n) {
 			id = i;
 			name = n;
-		}
-
-		/** The values. */
-		private static ColorBy[] values = null;
-
-		/**
-		 * From int.
-		 * 
-		 * @param i
-		 *            the i
-		 * @return the color by
-		 */
-		public static ColorBy fromInt(int i) {
-			if (ColorBy.values == null) {
-				ColorBy.values = ColorBy.values();
-			}
-			return ColorBy.values[i];
 		}
 	};
 
@@ -126,11 +126,11 @@ public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 		/** The name. */
 		String name;
 		
-		/** The substructure. */
-		SubstructureSet substructure;
-		
 		/** The reps. */
 		SubstructureRepList reps;
+		
+		/** The substructure. */
+		SubstructureSet substructure;
 
 		/**
 		 * Instantiates a new color option.
@@ -165,220 +165,80 @@ public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 		}
 	}
 
-	/** The color option list. */
-	ArrayList<ColorOption> colorOptionList = null;
-
-	/**
-	 * Gets the color options list for enumeration.
-	 * 
-	 * @param reset
-	 *            the reset
-	 * @return the color options
-	 */
-	public ArrayList<ColorOption> getColorOptions(boolean reset) {
-		if (colorOptionList != null && !reset)
-			return colorOptionList;
-		colorOptionList = new ArrayList<ColorOption>();
-		for (ColorBy cb : ColorBy.values()) {
-			switch (cb) {
-			case SUBSTRUCTURE:
-				for (SubstructureSet s : molecule.getSubstructures()) {
-					ColorOption co = new ColorOption(s);
-					colorOptionList.add(co);
-				}
-				break;
-			default:
-				colorOptionList.add(new ColorOption(cb));
-				break;
-
-			}
-		}
-
-		return colorOptionList;
-	}
-
-	/**
-	 * Sets the current color option.
-	 * 
-	 * @param index
-	 *            the new current color option
-	 */
-	public void setCurrentColorOption(int index) {
-		currentColorOption = colorOptionList.get(index);
-		markDirty(new MorbidEvent(this, "currentColorOption"));
-	}
-
 	/** The current color option. */
 	private ColorOption currentColorOption;
-	
-	/** The rotate. */
-	boolean rotate;
-	
-	/** The visible. */
-	boolean visible;
-	
+
 	/** The alpha. */
 	double alpha;
-	
-	/** The transparent. */
-	boolean transparent;
-	
-	/** The m_b first. */
-	boolean m_bFirst;
-	
-	/** The layer. */
-	LayerPosition layer;
-	
-	/** The mat. */
-	Material mat; // current material during a working session;
 
 	/** The base color. */
 	ColorQuad baseColor;
-	
-	/** The plus color. */
-	ColorQuad plusColor;
-	
-	/** The minus color. */
-	ColorQuad minusColor;
-	
-	/** The colors. */
-	ColorQuad colors[];
-
-	/** The charge range. */
-	MinMax chargeRange;
 
 	/** The base material. */
 	Material baseMaterial;
 	
-	/** The substructure filter list. */
-	SubstructureRepList substructureFilterList = null;
+	/** The charge range. */
+	MinMax chargeRange;
+	
+	/** The color option list. */
+	ArrayList<ColorOption> colorOptionList = null;
+	
+	/** The colors. */
+	ColorQuad colors[];
+	
+	/** The layer. */
+	LayerPosition layer;
+	
+	/** The m_b first. */
+	boolean m_bFirst;
+	
+	/** The mat. */
+	Material mat; // current material during a working session;
+	
+	/** The minus color. */
+	ColorQuad minusColor;
+
+	/** The molecule. */
+	Molecule molecule = null;
+	
+	/** The plus color. */
+	ColorQuad plusColor;
+	
+	/** The rotate. */
+	boolean rotate;
+	
+	/** The scene. */
+	Scene scene = null;
 
 	/** The substructure filter. */
 	boolean substructureFilter;
 
-	/** The scene. */
-	Scene scene = null;
+	/** The substructure filter list. */
+	SubstructureRepList substructureFilterList = null;
 	
-	/** The molecule. */
-	Molecule molecule = null;
+	/** The transparent. */
+	boolean transparent;
+
+	/** The visible. */
+	boolean visible;
 
 	/**
-	 * Gets the gadget type.
-	 * 
-	 * @return the gadget type
+	 * Instantiates a new gadget.
 	 */
-	public abstract String getGadgetType();
-
-	/**
-	 * Gets the layer.
-	 * 
-	 * @return the layer
-	 */
-	public LayerPosition getLayer() {
-		return layer;
+	Gadget() {
+		setName(getGadgetType());
+		// markDirty();
+		visible = true;
+		rotate = true;
+		layer = LayerPosition.LayerModel;
+		SetColor(StaticColorQuad.LiteGray.cq(), StaticColorQuad.Red.cq(),
+				StaticColorQuad.Blue.cq());
+		baseMaterial = new Material(baseColor);
+		alpha = 0.5;
+		transparent = false;
+		this.currentColorOption = new ColorOption(ColorBy.TYPE);
 	}
-
-	/**
-	 * Scene added callback.  Called when the 
-	 * gadget is added to the scene.
-	 * 
-	 * @param s
-	 *            the s
-	 */
-	public void setScene(Scene s) {
-		scene = s;
-		molecule = scene.GetMolecule();
-		molecule.registerListener(this);
-	}
-
-	/**
-	 * Scene changed notification.  Called if another gadget
-	 * is added to the scene.  This is overridden for gadgets that
-	 * depend on the display characteristics of other gadgets
-	 * i.e. bonds will hide hydrogens if the atom gadget hides hydrogens
-	 * 
-	 * @param scene
-	 *            the scene
-	 */
-	public void sceneChanged(Scene scene) {
-		// most Gadgets don't care. do nothing
-	}
-
-	/**
-	 * Checks if is substructure filter (does a substructure list decide visibility).
-	 * 
-	 * @return true, if is substructure filter
-	 */
-	public boolean isSubstructureFilter() {
-		return substructureFilter;
-	}
-
-	/**
-	 * Sets the substructure filter.
-	 * 
-	 * @param substructureFilter
-	 *            the new substructure filter
-	 */
-	public void setSubstructureFilter(boolean substructureFilter) {
-		this.substructureFilter = substructureFilter;
-		markDirty(new MorbidEvent(this, "substructureFilter"));
-	}
-
-	/**
-	 * Gets the substructure filter list.
-	 * 
-	 * @return the substructure filter list
-	 */
-	public SubstructureRepList getSubstructureFilterList() {
-		return substructureFilterList;
-	}
-
-	/**
-	 * Sets the substructure filter list.
-	 * 
-	 * @param substructureFilterList
-	 *            the new substructure filter list
-	 */
-	public void setSubstructureFilterList(
-			SubstructureRepList substructureFilterList) {
-		this.substructureFilterList = substructureFilterList;
-		markDirty();
-	}
-
-	/**
-	 * Checks if is atom visible.
-	 * 
-	 * @param a
-	 *            the a
-	 * @return true, if is atom visible
-	 */
-	public boolean isAtomVisible(Atom a) {
-		if (!isSubstructureFilter())
-			return true;
-		if (substructureFilterList == null)
-			return true;
-		return substructureFilterList.isVisible(a);
-
-	}
-
-	/**
-	 * Sets the layer.
-	 * 
-	 * @param layer
-	 *            the new layer
-	 */
-	public void setLayer(LayerPosition layer) {
-		this.layer = layer;
-	}
-
-	/**
-	 * Draw  abstract method that produces the representation of the gadget.
-	 * 
-	 * @param gl
-	 *            the goblist to write to
-	 */
-	abstract void Draw(GobList gl);
-
+	
 	/**
 	 * Draw gadget.
 	 * Called by the scene - calles overridden method "Draw"
@@ -410,12 +270,234 @@ public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 	}
 
 	/**
+	 * Gets the color options list for enumeration.
+	 * 
+	 * @param reset
+	 *            the reset
+	 * @return the color options
+	 */
+	public ArrayList<ColorOption> getColorOptions(boolean reset) {
+		if (colorOptionList != null && !reset)
+			return colorOptionList;
+		colorOptionList = new ArrayList<ColorOption>();
+		for (ColorBy cb : ColorBy.values()) {
+			switch (cb) {
+			case SUBSTRUCTURE:
+				for (SubstructureSet s : molecule.getSubstructures()) {
+					ColorOption co = new ColorOption(s);
+					colorOptionList.add(co);
+				}
+				break;
+			default:
+				colorOptionList.add(new ColorOption(cb));
+				break;
+
+			}
+		}
+
+		return colorOptionList;
+	}
+
+	/**
+	 * Gets the current color option.
+	 * 
+	 * @return the current color option
+	 */
+	public ColorOption getCurrentColorOption() {
+		return currentColorOption;
+	}
+
+	/**
+	 * Gets the gadget type.
+	 * 
+	 * @return the gadget type
+	 */
+	public abstract String getGadgetType();
+
+	/**
+	 * Gets the layer.
+	 * 
+	 * @return the layer
+	 */
+	public LayerPosition getLayer() {
+		return layer;
+	}
+
+	/**
+	 * Gets the molecule.
+	 * 
+	 * @return the molecule
+	 */
+	public Molecule GetMolecule() {
+		return GetScene().GetMolecule();
+	}
+
+	/**
+	 * Gets the substructure filter list.
+	 * 
+	 * @return the substructure filter list
+	 */
+	public SubstructureRepList getSubstructureFilterList() {
+		return substructureFilterList;
+	}
+
+	/**
+	 * Gets the transparency.
+	 * 
+	 * @return the transparency
+	 */
+	public double getTransparency() {
+		return alpha;
+	}
+
+	/**
+	 * Checks if is atom visible.
+	 * 
+	 * @param a
+	 *            the a
+	 * @return true, if is atom visible
+	 */
+	public boolean isAtomVisible(Atom a) {
+		if (!isSubstructureFilter())
+			return true;
+		if (substructureFilterList == null)
+			return true;
+		return substructureFilterList.isVisible(a);
+
+	}
+
+	/**
+	 * Checks if is substructure filter (does a substructure list decide visibility).
+	 * 
+	 * @return true, if is substructure filter
+	 */
+	public boolean isSubstructureFilter() {
+		return substructureFilter;
+	}
+
+	/**
+	 * Checks if is transparent.
+	 * 
+	 * @return true, if is transparent
+	 */
+	public boolean isTransparent() {
+		return transparent;
+	}
+
+	/**
 	 * Checks if this gadget is visible.
 	 * 
 	 * @return true, if is visible
 	 */
 	public boolean isVisible() {
 		return visible;
+	}
+
+	/**
+	 * Scene changed notification.  Called if another gadget
+	 * is added to the scene.  This is overridden for gadgets that
+	 * depend on the display characteristics of other gadgets
+	 * i.e. bonds will hide hydrogens if the atom gadget hides hydrogens
+	 * 
+	 * @param scene
+	 *            the scene
+	 */
+	public void sceneChanged(Scene scene) {
+		// most Gadgets don't care. do nothing
+	}
+
+	/**
+	 * Sets the current color option.
+	 * 
+	 * @param currentColorOption
+	 *            the new current color option
+	 */
+	public void setCurrentColorOption(ColorOption currentColorOption) {
+		this.currentColorOption = currentColorOption;
+		markDirty(new MorbidEvent(this, "currentColorOption"));
+	}
+
+	/**
+	 * Sets the current color option.
+	 * 
+	 * @param index
+	 *            the new current color option
+	 */
+	public void setCurrentColorOption(int index) {
+		currentColorOption = colorOptionList.get(index);
+		markDirty(new MorbidEvent(this, "currentColorOption"));
+	}
+
+	// int GetLayer() { return position; }
+
+	/**
+	 * Sets the layer.
+	 * 
+	 * @param layer
+	 *            the new layer
+	 */
+	public void setLayer(LayerPosition layer) {
+		this.layer = layer;
+	}
+
+	/**
+	 * Scene added callback.  Called when the 
+	 * gadget is added to the scene.
+	 * 
+	 * @param s
+	 *            the s
+	 */
+	public void setScene(Scene s) {
+		scene = s;
+		molecule = scene.GetMolecule();
+		molecule.registerListener(this);
+	}
+
+	/**
+	 * Sets the substructure filter.
+	 * 
+	 * @param substructureFilter
+	 *            the new substructure filter
+	 */
+	public void setSubstructureFilter(boolean substructureFilter) {
+		this.substructureFilter = substructureFilter;
+		markDirty(new MorbidEvent(this, "substructureFilter"));
+	}
+	
+	/**
+	 * Sets the substructure filter list.
+	 * 
+	 * @param substructureFilterList
+	 *            the new substructure filter list
+	 */
+	public void setSubstructureFilterList(
+			SubstructureRepList substructureFilterList) {
+		this.substructureFilterList = substructureFilterList;
+		markDirty();
+	}
+
+	/**
+	 * Sets the transparency.
+	 * 
+	 * @param transparency
+	 *            the new transparency
+	 */
+	public void setTransparency(double transparency) {
+		this.alpha = transparency;
+		baseMaterial.setAlpha(alpha);
+		markDirty(new MorbidEvent(this, "transparency"));
+	}
+
+	/**
+	 * Sets the transparent.
+	 * 
+	 * @param useTransparency
+	 *            the new transparent
+	 */
+	public void setTransparent(boolean useTransparency) {
+		this.transparent = useTransparency;
+		baseMaterial.setUseFilter(useTransparency);
+		markDirty();
 	}
 
 	/**
@@ -429,43 +511,14 @@ public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 		markDirty(new MorbidEvent(this, "visible"));
 	}
 
-	// int GetLayer() { return position; }
-
 	/**
-	 * Instantiates a new gadget.
-	 */
-	Gadget() {
-		setName(getGadgetType());
-		// markDirty();
-		visible = true;
-		rotate = true;
-		layer = LayerPosition.LayerModel;
-		SetColor(StaticColorQuad.LiteGray.cq(), StaticColorQuad.Red.cq(),
-				StaticColorQuad.Blue.cq());
-		baseMaterial = new Material(baseColor);
-		alpha = 0.5;
-		transparent = false;
-		this.currentColorOption = new ColorOption(ColorBy.TYPE);
-	}
-
-	/**
-	 * Gets the scene.
+	 * Draw  abstract method that produces the representation of the gadget.
 	 * 
-	 * @return the scene
+	 * @param gl
+	 *            the goblist to write to
 	 */
-	Scene GetScene() {
-		return ((GadgetList) parentSet).GetScene();
-	}
+	abstract void Draw(GobList gl);
 
-	/**
-	 * Gets the molecule.
-	 * 
-	 * @return the molecule
-	 */
-	public Molecule GetMolecule() {
-		return GetScene().GetMolecule();
-	}
-	
 	/**
 	 * clears gobList and sets name. returns true if draw should continue.
 	 * 
@@ -489,6 +542,80 @@ public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Gets the atom color. handles coloring by the base class color options.
+	 * 
+	 * @param a
+	 *            the atom
+	 * @return the atom color
+	 */
+	ColorQuad getAtomColor(Atom a) {
+		ColorQuad theColor;
+		switch (currentColorOption.colorBy) {
+		case CHARGE:
+			double fraction = chargeRange.getFraction(a.getCharge());
+			theColor = ColorQuad.multiBlend(colors, fraction);
+			mat = baseMaterial;
+//			mat.setColor(theColor);
+			break;
+		case TYPE: {
+			AtomType at = a.getAtomType();
+			if (at != null) {
+				theColor = at.color;
+				mat = new Material(at.mat);
+			} else {
+				theColor = baseColor;
+				mat = baseMaterial;
+			}
+		}
+			break;
+		case SUBSTRUCTURE: {
+			if (currentColorOption.reps == null) {
+				mat = baseMaterial;
+				theColor = StaticColorQuad.LiteGray.cq();
+			} else {
+				mat = new Material(baseMaterial);
+				theColor = currentColorOption.reps.getColor(a);
+//				mat.setColor(theColor);
+			}
+		}
+			break;
+		default:
+			theColor = baseColor;
+			mat = baseMaterial;
+
+		}
+		if (theColor == null) {
+			theColor = StaticColorQuad.LiteGray.cq();
+			mat = new Material(baseMaterial);
+		}
+		if (transparent)
+			mat.setAlpha(alpha);
+		return theColor;
+	}
+
+	/**
+	 * Gets the fraction color.
+	 * 
+	 * @param range
+	 *            the range
+	 * @param value
+	 *            the value
+	 * @return the fraction color
+	 */
+	ColorQuad getFractionColor(MinMax range, double value) {
+		return ColorQuad.multiBlend(colors, value);
+	}
+
+	/**
+	 * Gets the scene.
+	 * 
+	 * @return the scene
+	 */
+	Scene GetScene() {
+		return ((GadgetList) parentSet).GetScene();
 	}
 
 	/**
@@ -519,133 +646,6 @@ public abstract class Gadget extends CLoadableItem implements IChangeNotifier {
 		colors[0] = minusColor;
 		colors[1] = baseColor;
 		colors[2] = plusColor;
-	}
-
-	/**
-	 * Gets the transparency.
-	 * 
-	 * @return the transparency
-	 */
-	public double getTransparency() {
-		return alpha;
-	}
-
-	/**
-	 * Sets the transparency.
-	 * 
-	 * @param transparency
-	 *            the new transparency
-	 */
-	public void setTransparency(double transparency) {
-		this.alpha = transparency;
-		baseMaterial.setAlpha(alpha);
-		markDirty(new MorbidEvent(this, "transparency"));
-	}
-
-	/**
-	 * Checks if is transparent.
-	 * 
-	 * @return true, if is transparent
-	 */
-	public boolean isTransparent() {
-		return transparent;
-	}
-
-	/**
-	 * Sets the transparent.
-	 * 
-	 * @param useTransparency
-	 *            the new transparent
-	 */
-	public void setTransparent(boolean useTransparency) {
-		this.transparent = useTransparency;
-		baseMaterial.setUseFilter(useTransparency);
-		markDirty();
-	}
-
-	/**
-	 * Gets the fraction color.
-	 * 
-	 * @param range
-	 *            the range
-	 * @param value
-	 *            the value
-	 * @return the fraction color
-	 */
-	ColorQuad getFractionColor(MinMax range, double value) {
-		return ColorQuad.multiBlend(colors, value);
-	}
-
-	/**
-	 * Gets the atom color. handles coloring by the base class color options.
-	 * 
-	 * @param a
-	 *            the atom
-	 * @return the atom color
-	 */
-	ColorQuad getAtomColor(Atom a) {
-		ColorQuad theColor;
-		switch (currentColorOption.colorBy) {
-		case CHARGE:
-			double fraction = chargeRange.getFraction(a.getCharge());
-			theColor = ColorQuad.multiBlend(colors, fraction);
-			mat = new Material(baseMaterial);
-			mat.setColor(theColor);
-			break;
-		case TYPE: {
-			AtomType at = a.getAtomType();
-			if (at != null) {
-				theColor = at.color;
-				mat = new Material(at.mat);
-			} else {
-				theColor = baseColor;
-				mat = baseMaterial;
-			}
-		}
-			break;
-		case SUBSTRUCTURE: {
-			if (currentColorOption.reps == null) {
-				mat = baseMaterial;
-				theColor = StaticColorQuad.LiteGray.cq();
-			} else {
-				mat = new Material(baseMaterial);
-				theColor = currentColorOption.reps.getColor(a);
-				mat.setColor(theColor);
-			}
-		}
-			break;
-		default:
-			theColor = baseColor;
-			mat = baseMaterial;
-
-		}
-		if (theColor == null) {
-			theColor = StaticColorQuad.LiteGray.cq();
-			mat = new Material(baseMaterial);
-		}
-		if (transparent)
-			mat.setAlpha(alpha);
-		return theColor;
-	}
-
-	/**
-	 * Gets the current color option.
-	 * 
-	 * @return the current color option
-	 */
-	public ColorOption getCurrentColorOption() {
-		return currentColorOption;
-	}
-
-	/**
-	 * Sets the current color option.
-	 * 
-	 * @param currentColorOption
-	 *            the new current color option
-	 */
-	public void setCurrentColorOption(ColorOption currentColorOption) {
-		this.currentColorOption = currentColorOption;
-		markDirty(new MorbidEvent(this, "currentColorOption"));
 	}
 	
 

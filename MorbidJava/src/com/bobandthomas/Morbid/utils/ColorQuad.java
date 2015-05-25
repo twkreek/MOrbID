@@ -555,4 +555,9 @@ public class ColorQuad extends Color4f {
 	String ToString() {
 		return "<ColorQuad R=\"" + getR() + "\" G=\"" + getG() + "\" B\"" + getB() + "\"/>";
 	}
+	
+	public String getSpacedString()
+	{
+		return String.format("%5.3f %5.3f %5.3f", this.getX(), this.getY(), this.getZ());
+	}
 }

@@ -40,6 +40,7 @@ import java.io.Serializable;
 public class CLoadableItem implements IChangeNotifier, Serializable
  {
 	
+	static long nextID = 0;
 	/** The parent set. Used when item is added to a reparenting CLoadableSet */
 	public CLoadableSet<?> parentSet;
 	
@@ -57,7 +58,7 @@ public class CLoadableItem implements IChangeNotifier, Serializable
 	 * Instantiates a new CLoadabelItem.
 	 */
 	public CLoadableItem() {
-		ID = 0;
+		ID = nextID++;
 		m_bDirty = true;
 
 		
@@ -105,6 +106,10 @@ public class CLoadableItem implements IChangeNotifier, Serializable
 	 * @return the name
 	 */
 	public String getName() {
+		if (Name == null)
+			return String.format("%d", ID());
+		if (Name.length() ==0)
+			return String.format("%d", ID());
 		return Name;
 	}
 	
@@ -114,7 +119,7 @@ public class CLoadableItem implements IChangeNotifier, Serializable
 	@Override 
 	public String toString()
 	{
-		return Name;
+		return getName();
 	}
 	
 	/**
