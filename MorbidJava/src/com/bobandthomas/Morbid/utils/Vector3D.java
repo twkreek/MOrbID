@@ -28,6 +28,10 @@ package com.bobandthomas.Morbid.utils;
 
 import javax.vecmath.Vector3f;
 
+import com.bobandthomas.Morbid.graphics.GobVector;
+
+import toxi.geom.Quaternion;
+import toxi.geom.ReadonlyVec3D;
 import toxi.geom.Vec3D;
 
 // TODO: Auto-generated Javadoc
@@ -48,6 +52,10 @@ public class Vector3D extends Point3D {
 	public Point3D Mult(Point3D p) {
 		return new Vector3D(p.x * x, p.y * y, p.z * z);
 	}
+	
+	static Vector3D X () {return new Vector3D(1,0,0);}
+	static Vector3D Y () {return new Vector3D(0,1,0);}
+	static Vector3D Z () {return new Vector3D(0,0,1);}
 
 	/* (non-Javadoc)
 	 * @see com.bobandthomas.Morbid.utils.Point3D#Add(com.bobandthomas.Morbid.utils.Vector3D)
@@ -271,5 +279,18 @@ public class Vector3D extends Point3D {
 	public Vector3f getVec3f() {
 		Vector3f v3f = new Vector3f((float) x, (float) y, (float) z);
 		return v3f;
+	}
+	
+	/*
+	 * returns the quaternion that rotates the vector 'start' to align with the current vector.
+	 */
+	Vector4D rotateTo(Vector3D start)
+	{
+			// creates the transform matrix to rotate the object to vector in g
+			Vector3D  v = Normalize();
+			Vec3D unitV = new Vec3D();
+			unitV.set((float) v.x, (float) v.y, (float) v.z);
+			Quaternion q = Quaternion.getAlignmentQuat(unitV, (ReadonlyVec3D) start.Normalize().getVec3f());
+			return new Vector4D(q);
 	}
 }

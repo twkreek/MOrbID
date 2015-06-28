@@ -256,8 +256,8 @@ public class ColorQuad extends Color4f {
 	 * 
 	 * @return blue
 	 */
-	private int getB() {
-		return (int) (z * 255);
+	int getB() {
+		return (int) (z * COLORQUAD_MAX_VALUE);
 	}
 
 	/**
@@ -265,8 +265,8 @@ public class ColorQuad extends Color4f {
 	 * 
 	 * @return green
 	 */
-	private int getG() {
-		return (int) (y * 255);
+	int getG() {
+		return (int) (y * COLORQUAD_MAX_VALUE);
 	}
 
 	/**
@@ -274,8 +274,8 @@ public class ColorQuad extends Color4f {
 	 * 
 	 * @return red
 	 */
-	private int getR() {
-		return (int) (x * 255);
+	int getR() {
+		return (int) (x * COLORQUAD_MAX_VALUE);
 	}
 	
 	/**
