@@ -621,7 +621,7 @@ public class Material extends CLoadableItem implements IPropertyAccessor
 		 * that is interested in processing a materialChange event implements
 		 * this interface, and the object created with that class is registered
 		 * with a component using the component's
-		 * <code>addMaterialChangeListener<code> method. When
+		 * <code>addMaterialChangeListener</code> method. When
 		 * the materialChange event occurs, that object's appropriate
 		 * method is invoked.
 		 * 

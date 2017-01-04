@@ -48,6 +48,7 @@ import javax.swing.KeyStroke;
 
 import com.bobandthomas.Morbid.Morbid;
 import com.bobandthomas.Morbid.Gadget.GadgetFactoryManager;
+import com.bobandthomas.Morbid.graphics.renderers.RendererJSON;
 import com.bobandthomas.Morbid.graphics.renderers.RendererPOV;
 import com.bobandthomas.Morbid.graphics.renderers.RendererThreeJS;
 import com.bobandthomas.Morbid.graphics.renderers.RendererX3D;
@@ -116,6 +117,23 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 		}
 		
 	}
+	class RenderJsonAction extends AbstractAction
+	{
+		public RenderJsonAction()
+		{
+			super("RenderJson");
+			
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			applet.getScene().PushRenderer(new RendererJSON());
+			applet.getScene().GetRenderer().SetPort(new StreamPort(System.out));
+			applet.getScene().Render();
+			applet.getScene().PopRenderer();
+		}
+		
+	}
 	/**
 	 * The Enum MenuItemList.
 	 * 
@@ -141,7 +159,9 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 		
 		ViewRenderPOV("View", "Render POV", 403),
 		
-		ViewRenderThreeJS("View", "Render ThreeJS", 404)
+		ViewRenderThreeJS("View", "Render ThreeJS", 404),
+		
+		ViewRenderJSon("View", "Render JSon", 405)
 		;
 		
 		/** The parent. */
@@ -201,6 +221,8 @@ public class MorbidMenus extends JMenuBar implements ActionListener {
 			a.setAction(new RenderPOVAction());
 		if (ml.equals(MenuItemList.ViewRenderThreeJS))
 			a.setAction(new RenderThreeJSAction());
+		if (ml.equals(MenuItemList.ViewRenderJSon))
+			a.setAction(new RenderJsonAction());
 		a.setActionCommand(ml.getActionString());
 		a.addActionListener(this);
 		return a;

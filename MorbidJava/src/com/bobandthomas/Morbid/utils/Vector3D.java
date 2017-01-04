@@ -28,8 +28,6 @@ package com.bobandthomas.Morbid.utils;
 
 import javax.vecmath.Vector3f;
 
-import com.bobandthomas.Morbid.graphics.GobVector;
-
 import toxi.geom.Quaternion;
 import toxi.geom.ReadonlyVec3D;
 import toxi.geom.Vec3D;

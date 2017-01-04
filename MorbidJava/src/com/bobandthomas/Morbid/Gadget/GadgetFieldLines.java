@@ -28,6 +28,7 @@ THE SOFTWARE.
 
 package com.bobandthomas.Morbid.Gadget;
 
+import com.bobandthomas.Morbid.Scene;
 import com.bobandthomas.Morbid.graphics.GobList;
 import com.bobandthomas.Morbid.graphics.GobPoly;
 import com.bobandthomas.Morbid.graphics.GobPoly.GobPolyType;

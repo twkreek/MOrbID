@@ -31,7 +31,6 @@ import java.awt.BorderLayout;
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 
-import com.bobandthomas.Morbid.Gadget.Scene;
 import com.bobandthomas.Morbid.graphics.renderers.PortJava3D;
 import com.bobandthomas.Morbid.graphics.renderers.Renderer;
 import com.bobandthomas.Morbid.graphics.renderers.RendererJava3D;

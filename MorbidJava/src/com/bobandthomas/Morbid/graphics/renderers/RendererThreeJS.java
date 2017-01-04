@@ -86,6 +86,7 @@ public class RendererThreeJS extends Renderer {
 	{
 		return field + ": " + value;
 	}
+	@SuppressWarnings("unused")
 	private String num(double f)
 	{
 		return String.format("%5.3f", f);
@@ -94,6 +95,7 @@ public class RendererThreeJS extends Renderer {
 	{
 		return String.format("%d", in);
 	}
+	@SuppressWarnings("unused")
 	private String hexNum(int d)
 	{
 		return String.format("0x%08X", d);
@@ -203,6 +205,7 @@ public class RendererThreeJS extends Renderer {
 		
 	}
 
+	@SuppressWarnings("unused")
 	private String getRotationTransform(GobVector g) {
 		// creates the transform matrix to rotate the object to vector in g
 		Vector3D  v = g.getUnitVector();

@@ -49,12 +49,12 @@ public class RenderManager {
 
 		/** The render edit. */
 		renderEdit, /** The render rotate. */
- renderRotate, /** The render view. */
- renderView, /** The render hq. */
- renderHQ, /** The render trace. */
- renderTrace, /** The render vrml. */
- renderVRML, /** The render mode max. */
- renderModeMax
+		renderRotate, /** The render view. */
+		renderView, /** The render hq. */
+		renderHQ, /** The render trace. */
+		renderTrace, /** The render vrml. */
+		renderVRML, /** The render mode max. */
+		renderModeMax
 	};
 
 	/**
@@ -63,19 +63,19 @@ public class RenderManager {
 	 * @author Thomas Kreek
 	 */
 	public enum RenderManagerQuality {
-		
+
 		/** The render draft. */
 		renderDraft, 
- /** The render normal. */
- renderNormal, 
- /** The render high. */
- renderHigh, 
- /** The render ray trace. */
- renderRayTrace, 
- /** The render quality vrml. */
- renderQualityVRML, 
- /** The render quality max. */
- renderQualityMax
+		/** The render normal. */
+		renderNormal, 
+		/** The render high. */
+		renderHigh, 
+		/** The render ray trace. */
+		renderRayTrace, 
+		/** The render quality vrml. */
+		renderQualityVRML, 
+		/** The render quality max. */
+		renderQualityMax
 	};
 
 	/**
@@ -84,25 +84,25 @@ public class RenderManager {
 	 * @author Thomas Kreek
 	 */
 	public class RenderManagerDirtyFlag {
-		
+
 		/** The gob list. */
 		public boolean gobList;
-		
+
 		/** The onscreen bm. */
 		public boolean onscreenBM;
-		
+
 		/** The offscreen bm. */
 		public boolean offscreenBM;
-		
+
 		/** The view ctm. */
 		public boolean viewCTM;
-		
+
 		/** The total ctm. */
 		public boolean totalCTM;
-		
+
 		/** The world box. */
 		public boolean worldBox;
-		
+
 		/** The lighting model. */
 		public boolean lightingModel;
 
@@ -119,19 +119,10 @@ public class RenderManager {
 
 	/** The render mode. */
 	RenderManagerMode renderMode;
-	
+
 	/** The world box. */
 	BoundingBox worldBox;
-	
-	/** The view ctm. */
-	CTM viewCTM;
-	
-	/** The total ctm. */
-	CTM totalCTM;
-	
-	/** The offset. */
-	Point3D offset;
-	
+
 	/** The zoom. */
 	double /* Coord */zoom;
 
@@ -157,29 +148,29 @@ public class RenderManager {
 
 	/** The viewing port. */
 	Port viewingPort;
-	
+
 	/** The current renderer. */
 	Renderer currentRenderer;
 
 	/** The bg color. */
 	ColorQuad bgColor;
-	
+
 	/** The render quality. */
 	java.util.HashMap<RenderManagerMode, RenderManagerQuality> renderQuality = new java.util.HashMap<RenderManagerMode, RenderManagerQuality>();
-	
+
 	/** The render. */
 	java.util.HashMap<RenderManagerQuality, Renderer> render = new java.util.HashMap<RenderManagerQuality, Renderer>(); // we
-																														// own,
-																														// we
-																														// delete;
+	// own,
+	// we
+	// delete;
 
 	/**
-																														 * The
-																														 * dirty
-																														 * .
-																														 */
-																														public RenderManagerDirtyFlag dirty;
-	
+	 * The
+	 * dirty
+	 * .
+	 */
+	public RenderManagerDirtyFlag dirty;
+
 	/** The Background color. */
 	ColorQuad BackgroundColor;
 
@@ -313,7 +304,6 @@ public class RenderManager {
 		ren.SetWorldBox(worldBox);
 		ren.Resize();
 		ren.setZoom(zoom);
-		ren.setTranslate(offset);
 		ren.Rescale();
 		ren.bgColor = bgColor;
 

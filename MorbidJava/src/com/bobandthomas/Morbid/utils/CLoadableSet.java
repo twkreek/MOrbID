@@ -37,15 +37,16 @@ import java.util.ListIterator;
 // TODO: Auto-generated Javadoc
 /**
  * The Class CLoadableSet. Provides the following funcionalities 1) creates a
- * list of items of type T and supports List<T> functionality 2) provides
+ * list of items of type T and supports {@code List<T>} functionality 2) provides
  * optional lookup by Item name (from getName()) (off by default) 3) provides
  * optional parenting of child Items by default, so Items can refer to parent
  * and find siblings
  * 
  * @author Thomas Kreek
- * @param <T>
- *            the generic type, must be derived from CLoadableItem
+
+ *           Object {@code<T>} the generic type, must be derived from CLoadableItem
  */
+
 public class CLoadableSet <T extends CLoadableItem> extends CLoadableItem implements List <T>, IChangeNotifier
 {
 	

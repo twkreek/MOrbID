@@ -239,6 +239,7 @@ public class RendererX3D extends Renderer {
 			trans.appendChild(el);
 		return trans;		
 	}
+	@SuppressWarnings("unused")
 	private Element rotate(Element el, GobVector v)
 	{
 		Element rot = doc.createElement("Transform");

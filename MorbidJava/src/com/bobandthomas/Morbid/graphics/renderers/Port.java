@@ -112,7 +112,7 @@ public abstract class Port extends CLoadableItem implements IMorbidNotifier<Port
 		 * that is interested in processing a portChange event implements this
 		 * interface, and the object created with that class is registered with
 		 * a component using the component's
-		 * <code>addPortChangeListener<code> method. When
+		 * <code>addPortChangeListener</code> method. When
 		 * the portChange event occurs, that object's appropriate
 		 * method is invoked.
 		 * 

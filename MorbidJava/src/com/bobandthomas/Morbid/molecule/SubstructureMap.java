@@ -37,9 +37,9 @@ import com.bobandthomas.Morbid.wrapper.Logger;
  * 
  *         SubstructureMap contains a set of AtomListSets that each contain a
  *         set of AtomLists. for any one molecule, there will be only one
- *         substructure map. Each substructure map contains a map of <name,
- *         atomlistset> pairs = these define the type of substructure grouping
- *         Each AtomListSet contains a mapping of <name, atomlist> pairs = these
+ *         substructure map. Each substructure map contains a map of {@code <name:
+ *         atomlistset>} pairs = these define the type of substructure grouping
+ *         Each AtomListSet contains a mapping of {@code <name, atomlist>} pairs = these
  *         define the unique membership classes within the above grouping Each
  *         AtomList contains unique assignements of atoms to this membership
  *         class. While atom assignment should be unique, it is not enforced.

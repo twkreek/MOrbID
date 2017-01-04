@@ -26,7 +26,7 @@ THE SOFTWARE.
  */
 package com.bobandthomas.Morbid.graphics.renderers;
 
-import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
+import com.bobandthomas.Morbid.Scene.LayerPosition;
 import com.bobandthomas.Morbid.graphics.ArrowGob;
 
 import java.util.Comparator;
@@ -107,7 +107,6 @@ RendererSimple()
 		 */
 		public void DoRender(GobListSet  gobListSet, LightSourceList  lights, CTM  inViewCTM)
 		{
-			int i;
 			if (port == null)
 				return ;
 			CTM  ident = new CTM();

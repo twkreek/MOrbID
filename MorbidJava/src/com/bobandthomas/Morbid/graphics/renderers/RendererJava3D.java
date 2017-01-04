@@ -61,7 +61,7 @@ import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3f;
 
 import com.bobandthomas.Morbid.Gadget.Gadget;
-import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
+import com.bobandthomas.Morbid.Scene.LayerPosition;
 import com.bobandthomas.Morbid.graphics.ArrowGob;
 import com.bobandthomas.Morbid.graphics.CTM;
 import com.bobandthomas.Morbid.graphics.CircleGob;

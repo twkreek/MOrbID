@@ -279,11 +279,11 @@ public class ColorQuad extends Color4f {
 	}
 	
 	/**
-	 * Gets whether elements are > 1.
+	 * check that a color is in bounds.
 	 * 
-	 * @return the out of bounds
+	 * @return true if any element is greater than 1.0
 	 */
-	boolean getOutOfBounds() {
+	boolean isOutOfBounds() {
 		return x > 1.0f || y > 1.0f || z > 1.0f;
 	}
 
@@ -560,4 +560,8 @@ public class ColorQuad extends Color4f {
 	{
 		return String.format("%5.3f %5.3f %5.3f", this.getX(), this.getY(), this.getZ());
 	}
+	
+	public double R() { return x; }
+	public double G() { return y; }
+	public double B() { return z; }
 }

@@ -31,13 +31,13 @@ package com.bobandthomas.Morbid.utils;
  * The listener interface for receiving IMorbid events. The class that is
  * interested in processing a IMorbid event implements this interface, and the
  * object created with that class is registered with a component using the
- * component's <code>addIMorbidListener<code> method. When
+ * component's <code>addIMorbidListener</code> method. When
  * the IMorbid event occurs, that object's appropriate
  * method is invoked.
  * 
  * @param <T>
  *            the generic type
- * @see IMorbidEvent
+ * @see MorbidEvent
  */
 public interface IMorbidListener<T extends MorbidEvent> {
 	

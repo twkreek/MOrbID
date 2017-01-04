@@ -56,10 +56,13 @@ public class SubstructureRepList extends CLoadableTable<SubstructureRep>
 		super();
 		substructureSet = inList;
 		repMap = new HashMap<Substructure, SubstructureRep>();
+		System.out.println(inList.description);
+		
 		for (Substructure s: substructureSet)
 		{
 			SubstructureRep rep = new SubstructureRep(s,true, new ColorQuad(s.getListColor()));
 			repMap.put(s, rep);
+			System.out.println(s.getName()+":"+rep.color);
 			add(rep);
 			if (s.getName().equals("other"))
 				rep.setVisible(false);
@@ -121,7 +124,11 @@ public class SubstructureRepList extends CLoadableTable<SubstructureRep>
 	 */
 	public ColorQuad getColor(Atom a)
 	{
-		return new ColorQuad(repMap.get(substructureSet.getSubstructure(a)).color);
+		Substructure s = substructureSet.getSubstructure(a);
+		SubstructureRep r = repMap.get(s);
+		ColorQuad c = r.color;
+		
+		return new ColorQuad(c /*repMap.get(substructureSet.getSubstructure(a)).color*/);
 		
 	}
 	

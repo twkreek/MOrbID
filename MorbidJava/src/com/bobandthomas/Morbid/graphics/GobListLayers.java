@@ -27,7 +27,8 @@ THE SOFTWARE.
 package com.bobandthomas.Morbid.graphics;
 
 import java.util.ArrayList;
-import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
+
+import com.bobandthomas.Morbid.Scene.LayerPosition;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -28,7 +28,8 @@ package com.bobandthomas.Morbid.Gadget;
 
 import java.util.ArrayList;
 
-import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
+import com.bobandthomas.Morbid.Scene;
+import com.bobandthomas.Morbid.Scene.LayerPosition;
 import com.bobandthomas.Morbid.graphics.GobList;
 import com.bobandthomas.Morbid.graphics.Material;
 import com.bobandthomas.Morbid.graphics.SphereGob;

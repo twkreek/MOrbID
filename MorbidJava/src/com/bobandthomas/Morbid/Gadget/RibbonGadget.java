@@ -32,6 +32,7 @@ import java.util.List;
 import toxi.geom.Spline3D;
 import toxi.geom.Vec3D;
 
+import com.bobandthomas.Morbid.Scene;
 import com.bobandthomas.Morbid.graphics.CylinderGob;
 import com.bobandthomas.Morbid.graphics.GobList;
 import com.bobandthomas.Morbid.graphics.GobPoly;

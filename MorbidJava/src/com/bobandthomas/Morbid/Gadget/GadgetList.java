@@ -26,7 +26,8 @@ THE SOFTWARE.
  */
 package com.bobandthomas.Morbid.Gadget;
 
-import com.bobandthomas.Morbid.Gadget.Scene.LayerPosition;
+import com.bobandthomas.Morbid.Scene;
+import com.bobandthomas.Morbid.Scene.LayerPosition;
 import com.bobandthomas.Morbid.graphics.GobListSet;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
 
@@ -54,7 +55,7 @@ public class GadgetList extends CLoadableSet<Gadget>{
 	 * @param sc
 	 *            the sc
 	 */
-	GadgetList(Scene sc)
+	public GadgetList(Scene sc)
 	{
 		scene = sc;
 	}
@@ -76,7 +77,7 @@ public class GadgetList extends CLoadableSet<Gadget>{
 	 * @param lp
 	 *            the lp
 	 */
-	void Draw(GobListSet gobListSet, LayerPosition lp)
+	public void Draw(GobListSet gobListSet, LayerPosition lp)
 	{
 		for (Gadget pGadget: this)
 		{

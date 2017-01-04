@@ -29,14 +29,14 @@ package com.bobandthomas.Morbid.graphics;
 
 import java.util.Collection;
 
+import com.bobandthomas.Morbid.Scene;
 import com.bobandthomas.Morbid.Gadget.Gadget;
-import com.bobandthomas.Morbid.Gadget.Scene;
 import com.bobandthomas.Morbid.utils.CLoadableSet;
 import com.bobandthomas.Morbid.utils.Point3D;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class GobList.
+ * The Class GobList contains all the graphical objects from a single gadget.
  * 
  * @author Thomas Kreek
  */

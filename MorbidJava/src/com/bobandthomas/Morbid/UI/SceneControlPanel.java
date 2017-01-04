@@ -26,8 +26,8 @@ THE SOFTWARE.
  */
 package com.bobandthomas.Morbid.UI;
 
+import com.bobandthomas.Morbid.Scene;
 import com.bobandthomas.Morbid.Gadget.GadgetFactoryManager;
-import com.bobandthomas.Morbid.Gadget.Scene;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -60,11 +60,10 @@ import com.bobandthomas.Morbid.utils.IChangeNotifier;
 import com.bobandthomas.Morbid.utils.MorbidEvent;
 import com.bobandthomas.Morbid.wrapper.Logger;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MorbidPanel.
  *        base level panel for control panels.  Contains convenience functions to create
- *        basic controls consisten with overall Morbid L&F.  This panel is used in dialogs
+ *        basic controls consisten with overall Morbid look and feel.  This panel is used in dialogs
  *        as well as the side panel.  
  *        All controls use this class as a listener. 
  *        Derived classes override ChangeValue to handle events from controls they created

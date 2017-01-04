@@ -33,7 +33,8 @@ import com.bobandthomas.Morbid.utils.CLoadableSet;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class GobListSet.
+ * The Class GobListSet contains GobLists, each representing the graphical output of a single gadget.
+ * Ech gadget creates a separate GobList.  There is one GobListSet per scene per layer
  * 
  * @author Thomas Kreek
  */

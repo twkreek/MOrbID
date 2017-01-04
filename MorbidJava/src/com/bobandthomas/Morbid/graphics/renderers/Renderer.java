@@ -460,6 +460,51 @@ public abstract class Renderer extends CLoadableItem implements PortChangeListen
 
 		}
 		
+		/**
+		 * Dispatch (Gob) - calls the redner routine for a single type of gob.
+		 * 
+		 * @param gob
+		 *            the gob to be rendered
+		 */
+		protected void Dispatch(Gob gob)
+		{
+				UseMaterial(gob);
+				switch (gob.Type())
+				{
+				case	String:
+					String((StringGob) gob);
+					break;
+				case	Label:
+					Label((LabelGob) gob);
+					break;
+				case	Arrow:
+					Arrow((ArrowGob) gob);
+					break;
+				case	Circle:
+					Circle((CircleGob) gob);
+					break;
+				case	CircleLabeled:
+					LabeledCircle((LabeledCircleGob) gob);
+					break;
+				case	Cylinder:
+					Cylinder((CylinderGob) gob);
+					break;
+				case	Sphere:
+					Sphere((SphereGob) gob);
+					break;
+				case	Vector:
+					Vector((GobVector) gob);
+					break;
+				case	Indexed:
+					Indexed((GobIndexed) gob);
+					break;
+				case	Poly:
+					Poly((GobPoly) gob);
+				default:
+					break;
+
+				}
+		}
 		/* (non-Javadoc)
 		 * @see com.bobandthomas.Morbid.utils.IMorbidListener#handleEvent(com.bobandthomas.Morbid.utils.MorbidEvent)
 		 */

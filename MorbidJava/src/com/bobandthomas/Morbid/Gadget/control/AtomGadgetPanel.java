@@ -65,7 +65,7 @@ public class AtomGadgetPanel extends GadgetPanel {
 		super((Gadget) a, "Atom Gadget");
 		ag = a;
 		createLabel("Show");
-		createCheckbox("Labels", ag.isLabels());
+		createCheckbox("Labels", ag.isShowLabels());
 		
 		createCheckbox("Metals", ag.isShowMetals());
 		
@@ -85,7 +85,7 @@ public class AtomGadgetPanel extends GadgetPanel {
 		super.changeValue(label,value);
 		if (label.equals("Labels"))
 		{
-			ag.setLabels(value == 1);
+			ag.setShowLabels(value == 1);
 			return;
 		}
 		
